@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>EDGE3 — Roadmap</title>
+<meta name="description" content="Where EDGE3 stands today and what's coming next. Phase 1 complete. Phase 2 in flight.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brand-dark:    #0A0F1C;
+    --brand-dark-2:  #0E1320;
+    --brand-dark-3:  #161D2D;
+    --brand-white:   #FFFFFF;
+    --brand-green:   #1AB874;
+    --brand-blue:    #3B82F6;
+    --brand-text:    #E8EDF5;
+    --brand-muted:   #8896AB;
+    --brand-line:    #1F2738;
+    --yellow:        #E8B339;
+    --red:           #D33F49;
+    --gradient-1:    linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-dark-2) 100%);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--brand-dark); color: var(--brand-text); font: 15px/1.6 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: var(--brand-blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .brandbar { background: var(--brand-dark); border-bottom: 1px solid var(--brand-line); padding: 16px 0; }
+  .brandbar .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .edge3-logo { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.03em; line-height: 1; font-size: 22px; }
+  .edge3-logo .e { color: var(--brand-white); }
+  .edge3-logo .three { color: var(--brand-green); }
+  .brandbar .crumb { font-size: 13px; color: var(--brand-muted); }
+  .brandbar .crumb a { color: var(--brand-text); }
+  .brandbar .crumb .sep { margin: 0 8px; opacity: 0.5; }
+
+  header.hero { background: var(--gradient-1); padding: 56px 0 48px; border-bottom: 1px solid var(--brand-line); position: relative; overflow: hidden; }
+  header.hero::before { content: ''; position: absolute; top: -50%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(26,184,116,0.08), transparent 60%); pointer-events: none; }
+  header.hero .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; position: relative; }
+  .eyebrow { display: inline-block; background: rgba(59,130,246,0.18); border: 1px solid rgba(59,130,246,0.35); padding: 5px 12px; border-radius: 18px; font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: #C7D9FF; margin-bottom: 18px; }
+  header.hero h1 { margin: 0 0 14px; font-size: 38px; line-height: 1.1; font-weight: 800; letter-spacing: -0.02em; color: var(--brand-white); max-width: 820px; }
+  header.hero p.lede { margin: 0 0 18px; font-size: 17px; line-height: 1.55; color: #C7D3E6; max-width: 760px; }
+  .hero-stamp { display: inline-flex; gap: 18px; flex-wrap: wrap; font-size: 12.5px; color: var(--brand-muted); }
+  .hero-stamp span strong { color: var(--brand-text); }
+
+  main { max-width: 1180px; margin: 0 auto; padding: 56px 24px 32px; }
+  section { margin-bottom: 56px; }
+  section h2 { font-size: 26px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 8px; color: var(--brand-white); }
+  section p.section-lede { color: var(--brand-muted); font-size: 15px; margin: 0 0 22px; max-width: 780px; }
+
+  /* Kanban */
+  .kanban { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 900px) { .kanban { grid-template-columns: 1fr; } }
+  .col { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 12px; padding: 18px 20px; }
+  .col .col-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--brand-line); }
+  .col .col-head .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .col .col-head .label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 700; }
+  .col.live .col-head .dot { background: var(--brand-green); }
+  .col.live .col-head .label { color: var(--brand-green); }
+  .col.flight .col-head .dot { background: var(--yellow); }
+  .col.flight .col-head .label { color: var(--yellow); }
+  .col.soon .col-head .dot { background: var(--brand-blue); }
+  .col.soon .col-head .label { color: var(--brand-blue); }
+  .col ul { list-style: none; margin: 0; padding: 0; }
+  .col ul li { padding: 12px 0; border-bottom: 1px solid var(--brand-line); font-size: 13.5px; line-height: 1.5; color: var(--brand-text); }
+  .col ul li:last-child { border-bottom: 0; }
+  .col ul li strong { color: var(--brand-white); display: block; font-size: 14px; margin-bottom: 4px; }
+  .col ul li .meta { color: var(--brand-muted); font-size: 12px; }
+  .col ul li .effort { display: inline-block; background: var(--brand-dark-3); border: 1px solid var(--brand-line); border-radius: 4px; padding: 1px 7px; font-size: 11px; color: var(--brand-muted); font-weight: 600; margin-left: 6px; vertical-align: middle; }
+  .col ul li code { background: var(--brand-dark-3); border: 1px solid var(--brand-line); border-radius: 4px; padding: 1px 6px; font-size: 11.5px; color: var(--brand-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; }
+
+  /* Model status table */
+  .table { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 12px; overflow: hidden; }
+  .table .row { display: grid; grid-template-columns: 1.6fr 0.8fr 0.8fr 1.6fr 0.7fr; gap: 0; padding: 12px 18px; border-bottom: 1px solid var(--brand-line); font-size: 13.5px; align-items: center; }
+  .table .row:last-child { border-bottom: 0; }
+  .table .row.head { background: var(--brand-dark-3); font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--brand-muted); font-weight: 700; }
+  .table .row .cell strong { color: var(--brand-white); }
+  .pill { display: inline-block; padding: 2px 9px; border-radius: 11px; font-size: 11px; font-weight: 700; }
+  .pill.live { background: rgba(26,184,116,0.18); color: var(--brand-green); border: 1px solid rgba(26,184,116,0.35); }
+  .pill.flight { background: rgba(232,179,57,0.18); color: var(--yellow); border: 1px solid rgba(232,179,57,0.35); }
+  @media (max-width: 760px) { .table .row { grid-template-columns: 1fr; gap: 4px; } .table .row.head { display: none; } }
+
+  /* Use case strip */
+  .use-cases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  @media (max-width: 760px) { .use-cases { grid-template-columns: 1fr; } }
+  .uc { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 10px; padding: 16px 18px; }
+  .uc .uc-tag { font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--brand-green); font-weight: 700; margin-bottom: 6px; }
+  .uc .uc-title { font-size: 14.5px; font-weight: 700; color: var(--brand-white); margin-bottom: 4px; }
+  .uc .uc-meta { font-size: 12.5px; color: var(--brand-muted); margin-bottom: 8px; }
+  .uc a { font-size: 12.5px; color: var(--brand-blue); }
+
+  /* Caveats list */
+  .caveats { background: rgba(232,179,57,0.06); border: 1px solid rgba(232,179,57,0.30); border-radius: 12px; padding: 18px 22px; }
+  .caveats .cav-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--yellow); font-weight: 700; margin-bottom: 10px; }
+  .caveats ul { margin: 0; padding-left: 20px; }
+  .caveats ul li { font-size: 13px; line-height: 1.55; color: var(--brand-text); margin-bottom: 6px; }
+  .caveats ul li:last-child { margin-bottom: 0; }
+
+  /* Companion */
+  .doc-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  @media (max-width: 900px) { .doc-cards { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 540px) { .doc-cards { grid-template-columns: 1fr; } }
+  .doc-card { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 10px; padding: 16px 18px; text-decoration: none; color: var(--brand-text); transition: border-color 0.15s, transform 0.15s; display: block; }
+  .doc-card:hover { border-color: var(--brand-blue); transform: translateY(-1px); text-decoration: none; }
+  .doc-card .dctype { font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--brand-blue); font-weight: 700; margin-bottom: 6px; }
+  .doc-card .dctitle { font-size: 14.5px; font-weight: 700; color: var(--brand-white); margin-bottom: 4px; }
+  .doc-card .dcsub { font-size: 12.5px; color: var(--brand-muted); line-height: 1.45; }
+
+  footer { border-top: 1px solid var(--brand-line); padding: 28px 24px 36px; margin-top: 24px; }
+  footer .wrap { max-width: 1180px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; font-size: 12.5px; color: var(--brand-muted); }
+  footer .wrap a { color: var(--brand-text); }
+</style>
+</head>
+<body>
+
+<div class="brandbar">
+  <div class="wrap">
+    <a href="./" style="text-decoration: none;"><span class="edge3-logo"><span class="e">EDGE</span><span class="three">3</span></span></a>
+    <div class="crumb"><a href="./">EDGE3</a><span class="sep">/</span>Roadmap</div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">EDGE3 Roadmap</span>
+    <h1>Phase 1 shipped. Phase 2 in flight.</h1>
+    <p class="lede">FB Transfer + BB Transfer + Performance Trajectories + Combined R/Y/G are live. Coach Suite microsites and the FB v9 retrain are next. Verified updated continuously.</p>
+    <div class="hero-stamp">
+      <span><strong>Last updated:</strong> 2026-04-26</span>
+      <span><strong>Owner:</strong> Kenyon Rasheed</span>
+      <span><strong>Status:</strong> Phase 1 complete</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section>
+    <h2>The board</h2>
+    <p class="section-lede">Three columns. Live today. In flight. Coming soon. Nothing else.</p>
+    <div class="kanban">
+      <div class="col live">
+        <div class="col-head"><span class="dot"></span><span class="label">Live today</span></div>
+        <ul>
+          <li><strong>FB Roster Retention Risk v8</strong><span class="meta">AUC 0.718. 2026 portal cycle predictions.</span></li>
+          <li><strong>BB Roster Retention Risk v3</strong><span class="meta">AUC 0.778. 2026 portal cycle predictions.</span></li>
+          <li><strong>FB Performance Trajectory v1</strong><span class="meta">2024 forward-holdout AUC 0.770/0.781. 7,486 forward 2025 predictions.</span></li>
+          <li><strong>BB Performance Trajectory v1</strong><span class="meta">AUC 0.733/0.739. 2026-27 forward predictions.</span></li>
+          <li><strong>Combined R/Y/G R/Y/G</strong><span class="meta">FB 2025 + BB 2026-27. The decision-grade signal.</span></li>
+          <li><strong>Use-case artifacts shipped</strong><span class="meta">Wisconsin scorecard, UNM transfer compare, Continuous Intelligence Loop demos.</span></li>
+        </ul>
+      </div>
+      <div class="col flight">
+        <div class="col-head"><span class="dot"></span><span class="label">In flight</span></div>
+        <ul>
+          <li><strong>FB Performance Trajectory &mdash; native 2025 features</strong><span class="meta">Build <code>transfer_risk_features_v7_2025.csv</code> from already-pulled PFF snaps. Replace 2024 proxy.</span><span class="effort">~3-5h</span></li>
+          <li><strong>FB Roster Retention Risk v9</strong><span class="meta">Retrain through 2025 portal cycle. Forward predictions for 2026-27.</span><span class="effort">~0.5 session</span></li>
+          <li><strong>FB Performance Trajectory v2 &mdash; feature parity with BB v3</strong><span class="meta">Add hometown ACS economics, portal history, geographic context. Validate AUC vs. v1.</span><span class="effort">~1 session</span></li>
+          <li><strong>CSUN BB scorecard</strong><span class="meta">Killin / Newman portal-fit review &mdash; conversation in flight.</span></li>
+          <li><strong>Demo site upgrade</strong><span class="meta">Refresh interactive table with 2025 FB predictions. Reframe landing around use cases.</span><span class="effort">~1 session</span></li>
+        </ul>
+      </div>
+      <div class="col soon">
+        <div class="col-head"><span class="dot"></span><span class="label">Coming soon</span></div>
+        <ul>
+          <li><strong>Coach Suite &mdash; authenticated microsites</strong><span class="meta">Per-school <code>demo.edge3.net/[program]/</code> with real roster + signal flow. Coach / athlete / parent / AD logins.</span><span class="effort">~2-3 wk MVP</span></li>
+          <li><strong>BB Performance Trajectory &mdash; CBBD recruiting team rollup + survey schema</strong><span class="meta">Team-level recruiting class quality features + survey instrument definition.</span><span class="effort">~1.5 sessions</span></li>
+          <li><strong>API spec for institutional buyers</strong><span class="meta">Survey ingestion, predictions read, audit log endpoints.</span></li>
+          <li><strong>Security + compliance</strong><span class="meta">SOC2, FERPA stance, data-processing-agreement template, NIL legal review.</span></li>
+          <li><strong>Wallet brand spec + athlete-facing surfaces</strong><span class="meta">Separate palette for athlete/parent UX. Build before any athlete-side surface ships.</span></li>
+          <li><strong>Athletic-department system integrations</strong><span class="meta">Teamworks, Front Rush, Slate, Synergy &mdash; documented integration paths.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Models — current state</h2>
+    <p class="section-lede">Every AUC out-of-sample, time-aware, no leakage.</p>
+    <div class="table">
+      <div class="row head">
+        <div class="cell">Model</div>
+        <div class="cell">Version</div>
+        <div class="cell">AUC</div>
+        <div class="cell">Predicts</div>
+        <div class="cell">Status</div>
+      </div>
+      <div class="row">
+        <div class="cell"><strong>FB Roster Retention Risk</strong></div>
+        <div class="cell">v8</div>
+        <div class="cell">0.718</div>
+        <div class="cell">2026 portal cycle</div>
+        <div class="cell"><span class="pill live">Live</span></div>
+      </div>
+      <div class="row">
+        <div class="cell"><strong>BB Roster Retention Risk</strong></div>
+        <div class="cell">v3</div>
+        <div class="cell">0.778</div>
+        <div class="cell">2026 portal cycle</div>
+        <div class="cell"><span class="pill live">Live</span></div>
+      </div>
+      <div class="row">
+        <div class="cell"><strong>FB Performance Trajectory</strong></div>
+        <div class="cell">v1 &middot; refreshed 2026-04-26</div>
+        <div class="cell">0.770 / 0.781<br><span style="color:var(--brand-muted);font-size:11px;">2024 forward holdout</span></div>
+        <div class="cell">2024 (refreshed) + <strong>2025 (NEW)</strong></div>
+        <div class="cell"><span class="pill live">Live</span></div>
+      </div>
+      <div class="row">
+        <div class="cell"><strong>BB Performance Trajectory</strong></div>
+        <div class="cell">v1</div>
+        <div class="cell">0.733 / 0.739</div>
+        <div class="cell">2026-27 forward-looking</div>
+        <div class="cell"><span class="pill live">Live</span></div>
+      </div>
+      <div class="row">
+        <div class="cell"><strong>FB Combined R/Y/G</strong></div>
+        <div class="cell">v1 &middot; refreshed 2026-04-26</div>
+        <div class="cell">&mdash;</div>
+        <div class="cell">2024 + <strong>2025 (NEW)</strong></div>
+        <div class="cell"><span class="pill live">Live</span></div>
+      </div>
+      <div class="row">
+        <div class="cell"><strong>BB Combined R/Y/G</strong></div>
+        <div class="cell">v1</div>
+        <div class="cell">&mdash;</div>
+        <div class="cell">2026-27</div>
+        <div class="cell"><span class="pill live">Live</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Use cases shipped</h2>
+    <p class="section-lede">Real coach + real team + real stated needs &mdash; run end-to-end through EDGE3.</p>
+    <div class="use-cases">
+      <div class="uc">
+        <div class="uc-tag">Wisconsin FB &middot; 2024 roster</div>
+        <div class="uc-title">Program Program Positional Fit Scorecard for Coach Fickell</div>
+        <div class="uc-meta">39 players against program + staff-era baselines. Verified 2026 staff. Shipped 2026-04-22.</div>
+        <a href="./football/demo/fickell/">View &rarr;</a>
+      </div>
+      <div class="uc">
+        <div class="uc-tag">UNM BB &middot; Coach Olen</div>
+        <div class="uc-title">Transfer Fit Review &mdash; 3 portal candidates</div>
+        <div class="uc-meta">Anya / Butka / Petraitis vs. stated thresholds, SR-verified rates, 2026-27 churn, slot-fit grades. Shipped 2026-04-22.</div>
+        <a href="./basketball/demo/olen/">View &rarr;</a>
+      </div>
+      <div class="uc">
+        <div class="uc-tag">Continuous Intelligence Loop</div>
+        <div class="uc-title">Live re-scoring demo &mdash; FB + BB</div>
+        <div class="uc-meta">Mettauer (FB) and Chol (BB) trajectory shifts demoed live. Survey + parent + snaps + social listening updating R/Y/G in real time.</div>
+        <a href="./football/demo/loop/">FB &rarr;</a> &middot; <a href="./basketball/demo/bb_loop/">BB &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Caveats</h2>
+    <div class="caveats">
+      <div class="cav-label">Things to know about the numbers above</div>
+      <ul>
+        <li>All AUCs reported are out-of-sample, time-aware (no leakage).</li>
+        <li>Players without a prior-year grade are flagged <code>No Baseline</code> rather than imputed.</li>
+        <li>Forward-looking 2025 FB predictions use 2024 v7 features as proxy context until 2025 v7 features are built (priority #1 in flight).</li>
+        <li>2024 PFF defense + 2025 PFF blocking were partial in earlier consolidated files. Full-season splices applied 2026-04-26.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Companion docs</h2>
+    <p class="section-lede">Where this roadmap connects.</p>
+    <div class="doc-cards">
+      <a class="doc-card" href="./INTELLIGENCE_LOOP.html">
+        <div class="dctype">Methodology</div>
+        <div class="dctitle">Continuous Intelligence Loop</div>
+        <div class="dcsub">The four input streams &mdash; survey, parent, snaps, social.</div>
+      </a>
+      <a class="doc-card" href="./SOCIAL_LISTENING.html">
+        <div class="dctype">Methodology</div>
+        <div class="dctitle">Social Listening Layer</div>
+        <div class="dcsub">The always-on stream that catches drift between cycles.</div>
+      </a>
+      <a class="doc-card" href="../surveys/scoring_methodology.md">
+        <div class="dctype">Methodology</div>
+        <div class="dctitle">Survey Scoring</div>
+        <div class="dcsub">Response &rarr; dimension &rarr; model feature column.</div>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><span class="edge3-logo" style="font-size:16px;"><span class="e">EDGE</span><span class="three">3</span></span> &middot; Roadmap</div>
+    <div><a href="./">Home</a> &middot; <a href="./basketball/">Basketball</a> &middot; <a href="./football/">Football</a> &middot; <a href="https://github.com/glove2044/edge3-model">github.com/glove2044/edge3-model</a></div>
+  </div>
+</footer>
+
+</body>
+</html>

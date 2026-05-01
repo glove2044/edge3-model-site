@@ -1,0 +1,763 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EDGE3 Basketball · Recruiting Decision Intelligence for D1 Staffs</title>
+<meta name="description" content="EDGE3 Basketball: Roster Retention Risk + Performance Trajectory + Combined R/Y/G signal for the D1 staff room. Built for analysts, position coaches, and head coaches.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* EDGE3 brand tokens (canonical — see docs/BRAND.md) */
+    --brand-dark: #0A0F1C;
+    --brand-dark-2: #0E1320;
+    --brand-dark-3: #161D2D;
+    --brand-white: #FFFFFF;
+    --brand-green: #1AB874;
+    --brand-green-soft: #14965F;
+    --brand-blue: #3B82F6;
+    --brand-blue-soft: #DBEAFE;
+    --brand-text: #E8EDF5;
+    --brand-muted: #8896AB;
+    --brand-line: #1F2738;
+
+    /* Legacy aliases mapped to brand */
+    --navy: var(--brand-dark);
+    --navy-dark: var(--brand-dark-2);
+    --navy-deep: var(--brand-dark);
+    --accent: var(--brand-blue); --accent-soft: var(--brand-blue-soft);
+    --muted: #5A6373; --rule: #E4EAF2;
+    --bg: #F7F9FC; --card: #FFFFFF;
+    --green: var(--brand-green); --amber: #E8B339; --red: #D33F49;
+    --sport-tag: var(--brand-blue);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+         background: var(--bg); color: #1C232E; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  .edge3-logo { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.03em; line-height: 1; display: inline-block; }
+  .edge3-edge { color: var(--brand-white); }
+  .edge3-three { color: var(--brand-green); }
+  header { background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-dark-2) 100%); color: var(--brand-text); padding: 48px 24px 44px; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  header .wrap { padding: 0 24px; }
+  header .logo-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+  header .logo-mark { font-size: 26px; }
+  .sport-tag { display: inline-block; background: var(--sport-tag); border: 1px solid rgba(255,255,255,0.22); padding: 6px 14px; border-radius: 20px; font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; margin-bottom: 14px; font-weight: 700; }
+  h1 { margin: 0 0 12px; font-size: clamp(28px, 5vw, 38px); letter-spacing: -0.02em; font-weight: 800; color: var(--brand-white); }
+  header p.tag { margin: 0 0 8px; font-size: clamp(15px, 2.4vw, 19px); opacity: 0.95; line-height: 1.4; }
+  header p.sub { margin: 0; font-size: 15px; opacity: 0.78; max-width: 760px; }
+  .hero-metrics { margin-top: 28px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; max-width: 760px; }
+  @media (max-width: 700px) { .hero-metrics { grid-template-columns: repeat(2, 1fr); } }
+  .metric { background: rgba(59, 130, 246, 0.12); border: 1px solid rgba(59, 130, 246, 0.32); border-radius: 10px; padding: 14px 10px; text-align: center; transition: background 0.2s; }
+  .metric:hover { background: rgba(59, 130, 246, 0.18); }
+  .metric .lbl { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.92; color: #C7D9FF; font-weight: 600; }
+  .metric .val { font-size: 26px; font-weight: 800; margin: 4px 0; color: var(--brand-white); letter-spacing: -0.01em; }
+  .metric .sub { font-size: 11px; opacity: 0.85; color: #C7D9FF; }
+  .breadcrumb { color: var(--muted); font-size: 13px; margin: 18px auto 0; padding-left: 24px; max-width: 1100px; }
+  .breadcrumb a { color: var(--muted); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--navy); }
+
+  main { padding: 32px 0 60px; }
+  .section-heading { color: var(--navy); margin: 38px 0 8px; font-size: 22px; }
+  .section-heading-sub { color: var(--muted); font-size: 14px; margin: 0 0 22px; max-width: 820px; }
+
+  /* Workflow condensation flow */
+  .flow-stages { display: grid; grid-template-columns: 1fr 32px 1fr 32px 1fr; gap: 0; align-items: stretch; margin: 8px 0 18px; }
+  @media (max-width: 760px) { .flow-stages { grid-template-columns: 1fr; gap: 14px; } .flow-arrow-cell { display: none; } }
+  .flow-stage { background: #fff; border: 1px solid var(--rule); border-radius: 12px; padding: 18px 18px 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.03); display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .flow-stage .flow-icon { height: 64px; display: flex; align-items: center; margin-bottom: 14px; }
+  .flow-stage .flow-role { font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--brand-blue); font-weight: 700; margin-bottom: 6px; }
+  .flow-stage .flow-shape { font-size: 16px; font-weight: 800; color: var(--navy); margin-bottom: 4px; letter-spacing: -0.01em; }
+  .flow-stage .flow-task { font-size: 12.5px; color: var(--muted); }
+  .flow-arrow-cell { display: flex; align-items: center; justify-content: center; color: var(--brand-green); font-size: 24px; font-weight: 800; }
+  .persona-demo { background: #fff; border: 1px solid var(--rule); border-radius: 14px; padding: 28px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+  .persona-tabs { display: flex; gap: 0; border-bottom: 2px solid var(--rule); margin-bottom: 22px; flex-wrap: wrap; }
+  .persona-tab { background: transparent; border: none; padding: 14px 22px; font-size: 14px; font-weight: 600; color: var(--muted); cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s; font-family: inherit; }
+  .persona-tab.active { color: var(--navy); border-bottom-color: var(--navy); }
+  .persona-tab:hover:not(.active) { color: var(--navy-dark); }
+  .persona-tab .step { display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: var(--rule); color: var(--muted); border-radius: 50%; font-size: 12px; margin-right: 8px; vertical-align: middle; }
+  .persona-tab.active .step { background: var(--navy); color: #fff; }
+
+  .persona-pane { display: none; }
+  .persona-pane.active { display: block; animation: fadeIn 0.3s; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+  .pane-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; flex-wrap: wrap; }
+  .pane-header h3 { margin: 0; font-size: 18px; color: var(--navy); }
+  .pane-header .role-tag { background: var(--accent-soft); color: var(--navy); padding: 3px 10px; border-radius: 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.7px; font-weight: 700; }
+  .pane-desc { color: var(--muted); font-size: 13.5px; line-height: 1.5; margin: 0 0 18px; }
+
+  .analyst-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .analyst-table th { text-align: left; padding: 10px 8px; background: var(--accent-soft); color: var(--navy); font-size: 10px; text-transform: uppercase; letter-spacing: 0.6px; border-bottom: 1px solid var(--rule); position: sticky; top: 0; }
+  .analyst-table td { padding: 9px 8px; border-bottom: 1px solid var(--rule); }
+  .analyst-table tr:hover { background: #FAFCFE; }
+  .analyst-table .pname { font-weight: 600; color: var(--navy); }
+  .analyst-table .pmeta { color: var(--muted); font-size: 11px; }
+  .analyst-controls { display: flex; gap: 14px; margin-bottom: 14px; flex-wrap: wrap; align-items: center; padding: 10px 14px; background: #F4F7FB; border-radius: 8px; font-size: 12px; }
+  .analyst-controls .ctrl-label { color: var(--muted); }
+  .analyst-controls .ctrl-pill { background: #fff; border: 1px solid var(--rule); padding: 4px 11px; border-radius: 14px; font-size: 11.5px; color: var(--navy); font-weight: 600; }
+  @media (max-width: 760px) {
+    /* Standard responsive-table pattern: scroll horizontally on narrow screens.
+       Do NOT add display:table/table-layout:fixed on rows — that cancels the scroll. */
+    .analyst-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+    .analyst-table th, .analyst-table td { white-space: nowrap; }
+    .analyst-controls { padding: 8px 10px; gap: 8px; }
+    .analyst-controls .ctrl-pill { padding: 3px 8px; font-size: 10.5px; }
+  }
+  .pill { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; color: #fff; }
+  .pill.green { background: var(--green); } .pill.amber { background: var(--amber); } .pill.red { background: var(--red); }
+  .pill.neutral { background: var(--muted); }
+  .num { font-variant-numeric: tabular-nums; font-weight: 600; }
+
+  .pc-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .pc-card { background: #fff; border: 1px solid var(--rule); border-radius: 10px; padding: 16px; }
+  .pc-card .pc-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .pc-card .pc-name { font-weight: 700; font-size: 15px; color: var(--navy); }
+  .pc-card .pc-meta { color: var(--muted); font-size: 12px; }
+  .pc-card .pc-flags { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 14px; margin: 10px 0; font-size: 12.5px; }
+  .pc-card .pc-flag { display: flex; justify-content: space-between; }
+  .pc-card .pc-flag .k { color: var(--muted); }
+  .pc-card .pc-note { font-size: 12.5px; color: #2A3340; padding-top: 10px; border-top: 1px solid var(--rule); margin-top: 6px; line-height: 1.5; }
+  .pc-card .pc-rec { margin-top: 12px; padding: 8px 12px; background: var(--accent-soft); border-radius: 6px; font-size: 12.5px; color: var(--navy); font-weight: 600; }
+
+  .hc-finalists { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .hc-card { background: #fff; border: 2px solid var(--navy); border-radius: 12px; padding: 18px; position: relative; }
+  .hc-card.proceed { border-color: var(--green); }
+  .hc-card.watch { border-color: var(--amber); }
+  .hc-card .hc-rank { position: absolute; top: -10px; left: 16px; background: var(--navy); color: #fff; padding: 3px 11px; border-radius: 10px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.7px; font-weight: 700; }
+  .hc-card.proceed .hc-rank { background: var(--green); }
+  .hc-card.watch .hc-rank { background: var(--amber); }
+  .hc-card h4 { margin: 6px 0 4px; font-size: 17px; color: var(--navy); }
+  .hc-card .summary { font-size: 13px; color: #2A3340; line-height: 1.55; margin: 8px 0 12px; }
+  .hc-card .conf-row { display: flex; gap: 10px; margin: 12px 0; padding: 10px; background: #F8FAFD; border-radius: 8px; flex-wrap: wrap; }
+  .hc-card .conf { flex: 1; min-width: 90px; }
+  .hc-card .conf .label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 4px; }
+  .hc-card .conf .val { font-size: 16px; font-weight: 700; color: var(--navy); }
+  .hc-card .conf .by { font-size: 10.5px; color: var(--muted); margin-top: 2px; }
+  .hc-card .verdict { padding: 10px 14px; background: var(--green); color: #fff; border-radius: 8px; font-weight: 700; text-align: center; font-size: 13px; letter-spacing: 0.4px; }
+  .hc-card.watch .verdict { background: var(--amber); }
+  .hc-card.pass .verdict { background: var(--red); }
+
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .card { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 22px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+  .card.featured { border: 2px solid var(--navy); position: relative; }
+  .card.featured::before { content: 'Use case'; position: absolute; top: -12px; left: 18px; background: var(--navy); color: #fff; padding: 3px 10px; border-radius: 11px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; font-weight: 700; }
+  .card .meta { font-size: 12px; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+  .card h2 { margin: 0 0 8px; color: var(--navy); font-size: 19px; }
+  .card p { margin: 0 0 16px; color: #333; font-size: 14px; }
+  .btn { display: inline-block; background: var(--brand-green); color: #fff; text-decoration: none; padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 14px; transition: background 0.15s; }
+  .btn:hover { background: var(--brand-green-soft); }
+  .btn.ghost { background: transparent; border: 1px solid var(--brand-dark); color: var(--brand-dark); }
+  .btn.ghost:hover { background: var(--brand-dark); color: #fff; }
+
+  .report-builder { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%); color: #fff; border-radius: 14px; padding: 28px; margin-top: 26px; }
+  .report-builder h2 { color: #fff; margin: 0 0 8px; font-size: 22px; }
+  .report-builder p.lede { color: #C7D3E6; font-size: 14px; margin: 0 0 16px; max-width: 720px; }
+  .report-builder .examples { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 14px; }
+  .report-builder .ex-link { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.22); padding: 11px 16px; border-radius: 8px; color: #fff; text-decoration: none; font-size: 13.5px; font-weight: 600; }
+  .report-builder .ex-link:hover { background: rgba(255,255,255,0.18); }
+
+  footer { text-align: center; padding: 28px 16px; color: var(--muted); font-size: 12.5px; border-top: 1px solid var(--rule); margin-top: 40px; }
+  footer a { color: var(--navy); text-decoration: none; }
+
+  /* TOOLTIPS — coach-readable definitions for technical terms */
+  .info { position: relative; cursor: pointer; border-bottom: 1px dotted var(--brand-blue); }
+  .info::after { content: 'i'; display: inline-block; width: 16px; height: 16px; line-height: 16px; text-align: center; background: var(--brand-blue); color: #fff !important; border-radius: 50%; font-size: 10px; font-weight: 700; font-style: italic; margin-left: 5px; vertical-align: middle; opacity: 1; font-family: Georgia, serif; box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.20); transition: transform 0.15s, box-shadow 0.15s; }
+  .info:hover::after { transform: scale(1.1); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.35); }
+  .info:hover::after { opacity: 1; }
+  .info .tip { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); width: 280px; background: var(--navy-deep); color: #fff; padding: 12px 14px; border-radius: 8px; font-size: 12.5px; line-height: 1.5; opacity: 0; pointer-events: none; transition: opacity 0.15s; box-shadow: 0 6px 20px rgba(0,0,0,0.25); z-index: 100; text-transform: none; letter-spacing: normal; font-weight: 400; border-bottom: 0; cursor: default; text-align: left; }
+  .info .tip::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-top-color: var(--navy-deep); }
+  .info .tip strong { color: #FFD089; }
+  .info:hover .tip { opacity: 1; pointer-events: auto; }
+  @media (max-width: 600px) {
+    .info .tip { width: calc(100vw - 48px); max-width: 320px; left: 0; transform: translateX(0); }
+    .info .tip::after { left: 24px; transform: none; }
+  }
+  header .info::after { background: rgba(255,255,255,0.85); color: var(--navy-deep) !important; }
+  @media (hover: none) { .info:focus .tip, .info:active .tip { opacity: 1; pointer-events: auto; } }
+
+  /* Meeting questions panel */
+  .questions-panel { background: linear-gradient(135deg, #F4F7FB 0%, #EAF0F7 100%); border: 1px solid var(--rule); border-radius: 14px; padding: 26px 28px; margin-top: 26px; }
+  .questions-panel h2 { color: var(--navy); margin: 0 0 6px; font-size: 22px; }
+  .questions-panel .lede { color: var(--muted); font-size: 14px; margin: 0 0 18px; max-width: 720px; }
+  .q-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .q-card { background: #fff; border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px; }
+  .q-card .q-question { color: var(--navy); font-weight: 700; font-size: 14px; margin-bottom: 6px; font-style: italic; }
+  .q-card .q-answer { color: #2A3340; font-size: 13px; line-height: 1.5; }
+  .q-card .q-answer strong { color: var(--navy); }
+
+  /* Validation case study panel — Chol */
+  .case-study { background: linear-gradient(135deg, var(--brand-dark-3) 0%, var(--brand-dark-2) 100%); color: var(--brand-text); border: 1px solid var(--brand-line); border-radius: 14px; padding: 28px 30px; margin-bottom: 28px; }
+  .case-study .cs-eyebrow { display: inline-block; background: var(--brand-green); color: var(--brand-white); font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; padding: 4px 12px; border-radius: 14px; margin-bottom: 16px; }
+  .case-study h2 { color: var(--brand-white); margin: 0 0 8px; font-size: 24px; letter-spacing: -0.01em; }
+  .case-study p.lede { color: #C7D3E6; font-size: 14.5px; margin: 0 0 20px; max-width: 760px; line-height: 1.55; }
+  .cs-compare { display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px; align-items: stretch; margin: 20px 0; }
+  .cs-side { background: rgba(255,255,255,0.04); border: 1px solid var(--brand-line); border-radius: 10px; padding: 18px 20px; }
+  .cs-side .cs-when { font-size: 11px; color: var(--brand-blue); text-transform: uppercase; letter-spacing: 1.2px; font-weight: 700; margin-bottom: 6px; }
+  .cs-side .cs-source { font-size: 12px; color: var(--brand-muted); margin-bottom: 10px; }
+  .cs-side h3 { color: var(--brand-white); font-size: 15px; font-weight: 700; margin: 0 0 8px; }
+  .cs-metric { display: flex; justify-content: space-between; align-items: baseline; padding: 6px 0; font-size: 13.5px; }
+  .cs-metric span { color: var(--brand-muted); }
+  .cs-metric strong { color: var(--brand-white); font-variant-numeric: tabular-nums; font-weight: 700; }
+  .cs-friction { padding: 10px 12px; background: rgba(232, 179, 57, 0.10); border: 1px solid rgba(232, 179, 57, 0.25); border-radius: 8px; margin-top: 10px; font-size: 12.5px; color: #FFE0A0; line-height: 1.5; }
+  .cs-friction strong { color: var(--brand-white); }
+  .cs-arrow { display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--brand-green); font-weight: 700; }
+  .cs-conclusion { background: rgba(22, 184, 116, 0.08); border: 1px solid rgba(22, 184, 116, 0.30); border-radius: 10px; padding: 14px 18px; margin-top: 18px; }
+  .cs-conclusion .cs-c-label { font-size: 11px; color: var(--brand-green); text-transform: uppercase; letter-spacing: 1.2px; font-weight: 700; margin-bottom: 6px; }
+  .cs-conclusion .cs-c-text { color: var(--brand-text); font-size: 13.5px; line-height: 1.55; }
+  .cs-conclusion .cs-c-text strong { color: var(--brand-white); }
+
+  @media (max-width: 760px) {
+    .cs-compare { grid-template-columns: 1fr; }
+    .cs-arrow { transform: rotate(90deg); }
+  }
+
+  /* Front-office validation panel */
+  .nfl-panel { background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy-dark) 100%); color: #fff; border-radius: 14px; padding: 28px 30px; margin-top: 26px; }
+  .nfl-panel .nfl-eyebrow { color: #C7D3E6; font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; margin-bottom: 6px; }
+  .nfl-panel h2 { color: #fff; margin: 0 0 8px; font-size: 22px; }
+  .nfl-panel p.lede { color: #C7D3E6; font-size: 14px; margin: 0 0 18px; max-width: 760px; line-height: 1.55; }
+  .quote-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .quote-tile { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 14px 16px; }
+  .quote-tile .q-text { font-size: 13.5px; color: #fff; font-style: italic; line-height: 1.5; margin-bottom: 8px; }
+  .quote-tile .q-by { font-size: 11.5px; color: #C7D3E6; margin-bottom: 10px; }
+  .quote-tile .q-by strong { color: #fff; }
+  .quote-tile .q-edge { font-size: 12px; color: #FFD089; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.12); }
+  .quote-tile .q-edge strong { color: #fff; font-weight: 600; }
+  .nfl-panel .footnote { color: #8FA0BC; font-size: 12px; margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.1); line-height: 1.5; }
+  /* Front-office homework flow */
+  .hw-flow { display: flex; align-items: stretch; gap: 6px; flex-wrap: wrap; margin: 14px 0 18px; }
+  /* Greenberg / Olen-request + AI Recruiting Agents two-column panel */
+  .greenberg-row { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 8px; }
+  @media (max-width: 760px) { .greenberg-row { grid-template-columns: 1fr; gap: 16px; } }
+  /* "How we test the models" two-column inner grid */
+  .test-models-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  @media (max-width: 760px) { .test-models-grid { grid-template-columns: 1fr; gap: 16px; } }
+  .hw-step { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 10px 12px; flex: 1 1 130px; min-width: 130px; display: flex; flex-direction: column; gap: 4px; }
+  .hw-step.tape { background: rgba(26,184,116,0.15); border-color: rgba(26,184,116,0.40); }
+  .hw-step .hw-num { font-size: 10.5px; font-weight: 700; color: var(--brand-blue); letter-spacing: 1.4px; }
+  .hw-step.tape .hw-num { color: var(--brand-green); }
+  .hw-step .hw-text { font-size: 13px; font-weight: 600; color: #fff; line-height: 1.35; }
+  .hw-arrow { display: flex; align-items: center; color: var(--brand-green); font-size: 16px; font-weight: 800; }
+  @media (max-width: 760px) { .hw-arrow { display: none; } .hw-step { flex: 1 1 calc(50% - 6px); } }
+  .hw-callout { background: linear-gradient(135deg, rgba(26,184,116,0.10), rgba(59,130,246,0.06)); border: 1px solid rgba(26,184,116,0.30); border-radius: 10px; padding: 16px 18px; }
+  .hw-callout-label { font-size: 10.5px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--brand-green); font-weight: 700; margin-bottom: 6px; }
+  .hw-callout-text { font-size: 13.5px; line-height: 1.55; color: #C7D3E6; }
+
+  @media (max-width: 980px) { .pc-cards, .hc-finalists, .cards, .q-grid, .quote-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 700px) {
+    .hero-metrics { grid-template-columns: repeat(2, 1fr); }
+    h1 { font-size: 30px; }
+    .persona-tab { padding: 12px 14px; font-size: 13px; }
+    .analyst-table { font-size: 11px; }
+    .analyst-table th, .analyst-table td { padding: 7px 6px; }
+    .info .tip { width: 220px; }
+    header { padding: 32px 0 28px; }
+    main { padding: 24px 0 48px; }
+    .persona-demo { padding: 20px 16px; }
+    .questions-panel { padding: 20px 18px; }
+    .nfl-panel { padding: 22px 20px; }
+    .case-study { padding: 22px 20px; }
+    .report-builder { padding: 22px 20px; }
+  }
+  @media (max-width: 480px) {
+    .flow-stages { grid-template-columns: 1fr; gap: 12px; }
+    .flow-arrow-cell { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="logo-row">
+      <a href="../" class="logo-mark" style="text-decoration: none;"><span class="edge3-logo"><span class="edge3-edge">EDGE</span><span class="edge3-three">3</span></span></a>
+      <span class="sport-tag">Basketball · NCAA D1</span>
+    </div>
+    <h1>Scout at NBA depth. In minutes, not days, weeks, or months.</h1>
+    <p class="tag">D1, mid-major, JUCO, HS, and your own roster, viewed through every position lens.</p>
+    <p class="sub" style="margin-top: 4px; color: var(--brand-green); opacity: 0.95;">Everything your staff needs at their fingertips.</p>
+    <p class="sub">Open your staff meetings with answers, not questions.</p>
+  </div>
+</header>
+
+<div class="breadcrumb"><a href="../">EDGE3</a> &rsaquo; Basketball</div>
+
+<main>
+  <div class="wrap">
+
+    <h2 class="section-heading">The board condenses up the chain.</h2>
+    <p class="section-heading-sub">31 prospects &rarr; 6 shortlisted &rarr; 2 finalists. One model. Three lenses. Click a tab below to see what each role sees.</p>
+
+    <div class="flow-stages">
+      <div class="flow-stage">
+        <div class="flow-icon" aria-hidden="true">
+          <svg width="160" height="56" viewBox="0 0 160 56">
+            <g fill="#3B82F6">
+              <!-- 16 cols x 5 rows of small dots = wide table -->
+              <g transform="translate(8,8)">
+                <g><circle cx="0" cy="0" r="2"/><circle cx="10" cy="0" r="2"/><circle cx="20" cy="0" r="2"/><circle cx="30" cy="0" r="2"/><circle cx="40" cy="0" r="2"/><circle cx="50" cy="0" r="2"/><circle cx="60" cy="0" r="2"/><circle cx="70" cy="0" r="2"/><circle cx="80" cy="0" r="2"/><circle cx="90" cy="0" r="2"/><circle cx="100" cy="0" r="2"/><circle cx="110" cy="0" r="2"/><circle cx="120" cy="0" r="2"/><circle cx="130" cy="0" r="2"/><circle cx="140" cy="0" r="2"/></g>
+                <g transform="translate(0,10)"><circle cx="0" cy="0" r="2"/><circle cx="10" cy="0" r="2"/><circle cx="20" cy="0" r="2"/><circle cx="30" cy="0" r="2"/><circle cx="40" cy="0" r="2"/><circle cx="50" cy="0" r="2"/><circle cx="60" cy="0" r="2"/><circle cx="70" cy="0" r="2"/><circle cx="80" cy="0" r="2"/><circle cx="90" cy="0" r="2"/><circle cx="100" cy="0" r="2"/><circle cx="110" cy="0" r="2"/><circle cx="120" cy="0" r="2"/><circle cx="130" cy="0" r="2"/><circle cx="140" cy="0" r="2"/></g>
+                <g transform="translate(0,20)"><circle cx="0" cy="0" r="2"/><circle cx="10" cy="0" r="2"/><circle cx="20" cy="0" r="2"/><circle cx="30" cy="0" r="2"/><circle cx="40" cy="0" r="2"/><circle cx="50" cy="0" r="2"/><circle cx="60" cy="0" r="2"/><circle cx="70" cy="0" r="2"/><circle cx="80" cy="0" r="2"/><circle cx="90" cy="0" r="2"/><circle cx="100" cy="0" r="2"/><circle cx="110" cy="0" r="2"/><circle cx="120" cy="0" r="2"/><circle cx="130" cy="0" r="2"/><circle cx="140" cy="0" r="2"/></g>
+                <g transform="translate(0,30)"><circle cx="0" cy="0" r="2"/><circle cx="10" cy="0" r="2"/><circle cx="20" cy="0" r="2"/><circle cx="30" cy="0" r="2"/><circle cx="40" cy="0" r="2"/><circle cx="50" cy="0" r="2"/><circle cx="60" cy="0" r="2"/><circle cx="70" cy="0" r="2"/><circle cx="80" cy="0" r="2"/><circle cx="90" cy="0" r="2"/><circle cx="100" cy="0" r="2"/><circle cx="110" cy="0" r="2"/><circle cx="120" cy="0" r="2"/><circle cx="130" cy="0" r="2"/><circle cx="140" cy="0" r="2"/></g>
+                <g transform="translate(0,40)"><circle cx="0" cy="0" r="2"/><circle cx="10" cy="0" r="2"/><circle cx="20" cy="0" r="2"/><circle cx="30" cy="0" r="2"/><circle cx="40" cy="0" r="2"/><circle cx="50" cy="0" r="2"/><circle cx="60" cy="0" r="2"/><circle cx="70" cy="0" r="2"/><circle cx="80" cy="0" r="2"/><circle cx="90" cy="0" r="2"/><circle cx="100" cy="0" r="2"/><circle cx="110" cy="0" r="2"/><circle cx="120" cy="0" r="2"/><circle cx="130" cy="0" r="2"/><circle cx="140" cy="0" r="2"/></g>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div class="flow-role">Analyst</div>
+        <div class="flow-shape">31 prospects &middot; 18 metrics</div>
+        <div class="flow-task">Builds the board</div>
+      </div>
+      <div class="flow-arrow-cell" aria-hidden="true">&rarr;</div>
+      <div class="flow-stage">
+        <div class="flow-icon" aria-hidden="true">
+          <svg width="140" height="56" viewBox="0 0 140 56">
+            <g fill="#3B82F6" fill-opacity="0.9">
+              <!-- 6 horizontal cards -->
+              <rect x="10" y="2" width="120" height="6" rx="2"/>
+              <rect x="10" y="11" width="120" height="6" rx="2"/>
+              <rect x="10" y="20" width="120" height="6" rx="2"/>
+              <rect x="10" y="29" width="120" height="6" rx="2"/>
+              <rect x="10" y="38" width="120" height="6" rx="2"/>
+              <rect x="10" y="47" width="120" height="6" rx="2"/>
+            </g>
+          </svg>
+        </div>
+        <div class="flow-role">Position Coach</div>
+        <div class="flow-shape">6 cards &middot; scheme + behavior</div>
+        <div class="flow-task">Narrows to film-worthy</div>
+      </div>
+      <div class="flow-arrow-cell" aria-hidden="true">&rarr;</div>
+      <div class="flow-stage">
+        <div class="flow-icon" aria-hidden="true">
+          <svg width="120" height="56" viewBox="0 0 120 56">
+            <circle cx="40" cy="28" r="20" fill="#1AB874"/>
+            <circle cx="80" cy="28" r="20" fill="#E8B339"/>
+          </svg>
+        </div>
+        <div class="flow-role">Head Coach</div>
+        <div class="flow-shape">2 finalists &middot; R/Y/G grade</div>
+        <div class="flow-task">Final call</div>
+      </div>
+    </div>
+    <p style="font-size: 11.5px; color: var(--muted); margin: 14px 0 22px; text-align: center;">Player names + model scores in the tabs below are real (BB Combined R/Y/G v1, 2026-27 forward predictions). Scheme flags + position-coach narratives are illustrative pending live Coach Suite onboarding.</p>
+
+    <div class="persona-demo">
+      <div class="persona-tabs">
+        <button class="persona-tab active" data-pane="analyst"><span class="step">1</span>Analyst View</button>
+        <button class="persona-tab" data-pane="position-coach"><span class="step">2</span>Position Coach View</button>
+        <button class="persona-tab" data-pane="head-coach"><span class="step">3</span>Head Coach View</button>
+      </div>
+
+      <!-- ANALYST PANE -->
+      <div class="persona-pane active" data-pane="analyst">
+        <div class="pane-header">
+          <h3>Portal PG board: building the shortlist</h3>
+          <span class="role-tag">Analyst view</span>
+        </div>
+        <p class="pane-desc">Build the board. Share with the position coach.</p>
+
+        <div class="analyst-controls">
+          <span class="ctrl-label">Filters:</span>
+          <span class="ctrl-pill">Position: PG</span>
+          <span class="ctrl-pill">Eligibility: 2+ years</span>
+          <span class="ctrl-pill">Min BPM: 5.0</span>
+          <span class="ctrl-pill">Scheme fit: ball-screen heavy</span>
+          <span class="ctrl-pill">Risk: All</span>
+          <span style="color: var(--muted); font-size: 11.5px; margin-left: auto;">Showing 6 of 31 candidates</span>
+        </div>
+
+        <table class="analyst-table">
+          <thead>
+            <tr>
+              <th>Player</th>
+              <th>Class</th>
+              <th>BPM</th>
+              <th>Usage</th>
+              <th>Roster Retention Risk <span class="info"><span class="tip"><strong>Roster Retention Risk (RRR)</strong>: the model&rsquo;s read on how likely the player is to leave your program, on a 0&ndash;100 scale. Higher = more likely to enter the portal. Updated continuously as new signals come in.</span></span></th>
+              <th>Trajectory <span class="info"><span class="tip"><strong>Performance Trajectory</strong>: whether next-season production is heading <strong>Up</strong>, <strong>Stable</strong>, or <strong>Down</strong>. Built from the player&rsquo;s prior-year rates, scheme context, and behavioral signals.</span></span></th>
+              <th>Scheme Fit <span class="info"><span class="tip"><strong>Scheme Fit</strong>: how cleanly the player&rsquo;s game maps to your system. Green = clean match. Yellow = borderline / requires adjustment. Red = mismatch.</span></span></th>
+              <th>Behavioral</th>
+              <th>Social Signal</th>
+              <th>Combined</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="pname">Gavin Paull</div><div class="pmeta">Tennessee · So</div></td>
+              <td>So</td>
+              <td class="num">n/a</td>
+              <td class="num">n/a</td>
+              <td><span class="pill green">0.04</span></td>
+              <td><span class="pill green">+0.86</span> Rising</td>
+              <td><span class="pill green">0.10</span> Match</td>
+              <td><span class="pill green">Coachable</span></td>
+              <td><span class="pill green">Clean</span></td>
+              <td class="num">0.06</td>
+              <td><span class="pill neutral">+ board</span></td>
+            </tr>
+            <tr>
+              <td><div class="pname">Quan Lax</div><div class="pmeta">Austin Peay · Sr</div></td>
+              <td>Sr</td>
+              <td class="num">n/a</td>
+              <td class="num">n/a</td>
+              <td><span class="pill green">0.06</span></td>
+              <td><span class="pill green">+0.85</span> Rising</td>
+              <td><span class="pill green">0.05</span> Match</td>
+              <td><span class="pill green">Coachable</span></td>
+              <td><span class="pill green">Clean</span></td>
+              <td class="num">0.06</td>
+              <td><span class="pill neutral">+ board</span></td>
+            </tr>
+            <tr>
+              <td><div class="pname">George Perkins</div><div class="pmeta">Rice · Jr</div></td>
+              <td>Jr</td>
+              <td class="num">n/a</td>
+              <td class="num">n/a</td>
+              <td><span class="pill green">0.11</span></td>
+              <td><span class="pill green">+0.85</span> Rising</td>
+              <td><span class="pill green">0.20</span> Match</td>
+              <td><span class="pill green">Coachable</span></td>
+              <td><span class="pill green">Clean</span></td>
+              <td class="num">0.09</td>
+              <td><span class="pill neutral">+ board</span></td>
+            </tr>
+            <tr>
+              <td><div class="pname">Sencire Harris</div><div class="pmeta">Cincinnati · Jr</div></td>
+              <td>Jr</td>
+              <td class="num">n/a</td>
+              <td class="num">n/a</td>
+              <td><span class="pill red">0.80</span></td>
+              <td><span class="pill green">+0.34</span> Rising</td>
+              <td><span class="pill amber">50</span> Borderline</td>
+              <td><span class="pill amber">Mixed</span></td>
+              <td><span class="pill amber">Watching</span></td>
+              <td class="num">0.59</td>
+              <td><span class="pill neutral">+ board</span></td>
+            </tr>
+            <tr>
+              <td><div class="pname">Trevon Payton</div><div class="pmeta">Arkansas Pine Bluff · Jr</div></td>
+              <td>Jr</td>
+              <td class="num">n/a</td>
+              <td class="num">n/a</td>
+              <td><span class="pill red">0.67</span></td>
+              <td><span class="pill amber">0.00</span> Stable</td>
+              <td><span class="pill amber">50</span> Borderline</td>
+              <td><span class="pill red">Authority flag</span></td>
+              <td><span class="pill red">Frustration</span></td>
+              <td class="num">0.59</td>
+              <td><span class="pill neutral">pass</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-size: 12px; color: var(--muted); margin-top: 12px;">Analyst flags 3 to position coach for film + behavioral review. Payton filtered off. Risk + behavioral both pointing the wrong way.</p>
+      </div>
+
+      <!-- POSITION COACH PANE -->
+      <div class="persona-pane" data-pane="position-coach">
+        <div class="pane-header">
+          <h3>Lead-guard shortlist: fit + behavioral read</h3>
+          <span class="role-tag">Position Coach view</span>
+        </div>
+        <p class="pane-desc">Three flagged. Scheme fit, behavioral read, can-the-player-run-our-offense.</p>
+
+        <div class="pc-cards">
+          <div class="pc-card">
+            <div class="pc-head">
+              <div>
+                <div class="pc-name">Gavin Paull</div>
+                <div class="pc-meta">Tennessee · So · Combo G</div>
+              </div>
+              <span class="pill green">Strong fit</span>
+            </div>
+            <div class="pc-flags">
+              <div class="pc-flag"><span class="k">Transfer risk (v3)</span><span class="pill green">0.04</span></div>
+              <div class="pc-flag"><span class="k">Trajectory score</span><span class="pill green">+86 / Up</span></div>
+              <div class="pc-flag"><span class="k">Combined R/Y/G</span><span class="pill green">Green / 0.06</span></div>
+              <div class="pc-flag"><span class="k">Position</span><span class="pill green">Combo G</span></div>
+              <div class="pc-flag"><span class="k">Scheme transition</span><span class="pill green">Match (illustrative)</span></div>
+              <div class="pc-flag"><span class="k">Survey signal</span><span class="pill neutral">pending intake</span></div>
+            </div>
+            <div class="pc-note"><em>Illustrative position-coach narrative:</em> Lowest combined risk score on the board (0.06) + Up trajectory. Three years of eligibility. Profile reads as a Year-2 breakout candidate. Behavioral + scheme-specific reads populate from intake survey + scheme-transition signal once onboarded.</div>
+            <div class="pc-rec">→ Recommend to HC for spring visit</div>
+          </div>
+
+          <div class="pc-card">
+            <div class="pc-head">
+              <div>
+                <div class="pc-name">Quan Lax</div>
+                <div class="pc-meta">Austin Peay · Sr · Combo G</div>
+              </div>
+              <span class="pill green">Strong fit</span>
+            </div>
+            <div class="pc-flags">
+              <div class="pc-flag"><span class="k">Transfer risk (v3)</span><span class="pill green">0.06</span></div>
+              <div class="pc-flag"><span class="k">Trajectory score</span><span class="pill green">+85 / Up</span></div>
+              <div class="pc-flag"><span class="k">Combined R/Y/G</span><span class="pill green">Green / 0.06</span></div>
+              <div class="pc-flag"><span class="k">Position</span><span class="pill green">Combo G</span></div>
+              <div class="pc-flag"><span class="k">Scheme transition</span><span class="pill green">Match (illustrative)</span></div>
+              <div class="pc-flag"><span class="k">Survey signal</span><span class="pill neutral">pending intake</span></div>
+            </div>
+            <div class="pc-note"><em>Illustrative position-coach narrative:</em> Sr eligibility (one year window) but Up trajectory at strong production. Mid-major-to-D1 jump is the variable; survey + film read tell us if game speed translates. Use this profile when staff needs a 1-year impact piece, not a 3-year build.</div>
+            <div class="pc-rec">→ Recommend to HC for spring visit</div>
+          </div>
+
+          <div class="pc-card" style="grid-column: span 2;">
+            <div class="pc-head">
+              <div>
+                <div class="pc-name">Sencire Harris</div>
+                <div class="pc-meta">Cincinnati · Jr · Combo G</div>
+              </div>
+              <span class="pill amber">Watch</span>
+            </div>
+            <div class="pc-flags">
+              <div class="pc-flag"><span class="k">Transfer risk (v3)</span><span class="pill red">0.80</span></div>
+              <div class="pc-flag"><span class="k">Trajectory score</span><span class="pill green">+34 / Up</span></div>
+              <div class="pc-flag"><span class="k">Combined R/Y/G</span><span class="pill amber">Mid / 0.59</span></div>
+              <div class="pc-flag"><span class="k">Position</span><span class="pill green">Combo G</span></div>
+              <div class="pc-flag"><span class="k">Scheme transition</span><span class="pill amber">Borderline (illustrative)</span></div>
+              <div class="pc-flag"><span class="k">Survey signal</span><span class="pill neutral">pending intake</span></div>
+            </div>
+            <div class="pc-note"><em>Illustrative position-coach narrative:</em> Interesting case. Up trajectory (+0.34) paired with high transfer risk (0.80). The model says he's developing well but the program-fit context is unstable. Read this as: <strong>talent is real, environment is the variable</strong>. Survey + social listening would tell us where the friction is. Hold for HC discussion.</div>
+            <div class="pc-rec">→ Hold. Flag for HC if we don't land Paull/Lax</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HEAD COACH PANE -->
+      <div class="persona-pane" data-pane="head-coach">
+        <div class="pane-header">
+          <h3>Lead-guard finalists: your decision</h3>
+          <span class="role-tag">Head Coach view</span>
+        </div>
+        <p class="pane-desc">Two finalists. Your call.</p>
+
+        <div class="hc-finalists">
+          <div class="hc-card proceed">
+            <span class="hc-rank">Rank 1</span>
+            <h4>Gavin Paull, Tennessee &middot; So</h4>
+            <div class="summary">Combo G, Sophomore. Trajectory model reads Up (+86), Roster Retention Risk v3 reads 0.04 (Green), Combined 0.06. Lowest combined-risk score on the board with the steepest up trajectory. Three years of eligibility. <strong>Best floor + best development window.</strong> <em>Illustrative behavioral + social signal commentary populate from survey + social listening once onboarded.</em></div>
+            <div class="conf-row">
+              <div class="conf"><div class="label">Analyst confidence</div><div class="val">9/10</div><div class="by">data fit</div></div>
+              <div class="conf"><div class="label">Position Coach confidence</div><div class="val">9/10</div><div class="by">illustrative</div></div>
+              <div class="conf"><div class="label">Social signal weight</div><div class="val">n/a</div><div class="by">pending intake</div></div>
+            </div>
+            <div class="verdict">PROCEED: schedule official visit</div>
+          </div>
+
+          <div class="hc-card watch">
+            <span class="hc-rank">Rank 2</span>
+            <h4>Quan Lax, Austin Peay &middot; Sr</h4>
+            <div class="summary">Combo G, Senior. Identical Up trajectory (+0.85) with low Roster Retention Risk (0.06). One year of eligibility makes this a one-shot impact pick. Not a development build. <strong>Right profile if we need a 1-year ceiling raiser at the position.</strong> <em>Illustrative survey + film read populate from intake.</em></div>
+            <div class="conf-row">
+              <div class="conf"><div class="label">Analyst confidence</div><div class="val">8/10</div><div class="by">data + projection</div></div>
+              <div class="conf"><div class="label">Position Coach confidence</div><div class="val">8/10</div><div class="by">illustrative</div></div>
+              <div class="conf"><div class="label">Social signal weight</div><div class="val">n/a</div><div class="by">pending intake</div></div>
+            </div>
+            <div class="verdict" style="background: var(--amber);">WATCH: strong fit IF eligibility window matches roster need</div>
+          </div>
+        </div>
+
+        <p style="font-size: 13px; color: var(--muted); margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--rule);">Each confidence score is the model's read. The head coach can override and re-weight. EDGE3 is decision support, not decision replacement.</p>
+      </div>
+    </div>
+
+
+    <!-- How we test the models — moved directly under the interactive board -->
+    <h2 class="section-heading">How we test the models</h2>
+    <p class="section-heading-sub">EDGE3 trains its AI recruiting agents the way coaches train their players and teams: against past seasons that already played out. Every accuracy number below is tested on past seasons the model never trained on.</p>
+
+    <div style="background: #fff; border: 1px solid var(--rule); border-radius: 14px; padding: 28px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
+      <div class="test-models-grid">
+        <div style="border-left: 3px solid var(--brand-blue); padding: 4px 0 4px 18px;">
+          <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--brand-blue); font-weight: 700; margin-bottom: 6px;">Roster Retention Risk &middot; RRR v3</div>
+          <div style="font-size: 32px; font-weight: 800; color: var(--navy); letter-spacing: -0.01em;">78% accuracy</div>
+          <div style="font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5;">Tested on past portal cycles. Players who actually transferred vs. players who stayed. The model significantly out-predicts chance on data it never saw during training.</div>
+        </div>
+        <div style="border-left: 3px solid var(--brand-blue); padding: 4px 0 4px 18px;">
+          <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--brand-blue); font-weight: 700; margin-bottom: 6px;">Performance Trajectory &middot; v1</div>
+          <div style="font-size: 32px; font-weight: 800; color: var(--navy); letter-spacing: -0.01em;">73% / 74% accuracy</div>
+          <div style="font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5;">Tested on whose production actually rose, held, or declined the next season. Improving direction 0.733, declining direction 0.739. Real outcomes that already played out.</div>
+        </div>
+      </div>
+      <div style="margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 13px; line-height: 1.55;">
+        <strong style="color: var(--navy);">How accuracy reads:</strong> 50% would be a coin flip. 100% would be perfect. Anything 70%+ means the model is meaningfully better than guessing. We test by hiding past seasons the model never trained on, the same way you scout last year&rsquo;s tape before this year&rsquo;s game. <strong style="color: var(--navy);">Players without a prior-year baseline are flagged "No Baseline" rather than imputed.</strong>
+      </div>
+    </div>
+
+    <!-- Refined Positioning — replaces the two-questions panel -->
+    <div class="questions-panel">
+      <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--brand-green); font-weight: 700; margin-bottom: 6px;">Refined Positioning</div>
+      <h2>How staffs actually talk about recruits, now operationalized.</h2>
+      <p class="lede">One side of the table: <em>"He&rsquo;s a can&rsquo;t miss."</em> The other: <em>"He can&rsquo;t play for us."</em> Where does he fit in our room? Who else are we bringing in? Who does he remind you of? The two questions every staff meeting opens with, answered continuously. EDGE3 has the read before the room sits down, and updates between meetings, not just at intake.</p>
+      <div class="q-grid">
+        <div class="q-card">
+          <div style="font-size: 10.5px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--brand-blue); font-weight: 700; margin-bottom: 6px;">Player Comparison &middot; Staff Language &rarr; System Output</div>
+          <div class="q-question">"Who does this kid remind you of? How does he stack up in our room?"</div>
+          <div class="q-answer">EDGE3&rsquo;s comparison engine surfaces the answer instantly.
+            <ul style="margin: 8px 0 8px 0; padding-left: 18px;">
+              <li>Pulls similar archetypes from your historical roster, national player library, and your current board</li>
+              <li>Side-by-side rate comparison across performance, scheme fit, and behavioral profile</li>
+              <li>Live positional ranking against every player you&rsquo;re evaluating</li>
+            </ul>
+            <strong>The comp and ranking appear the moment the analyst flags the player.</strong>
+          </div>
+        </div>
+        <div class="q-card">
+          <div style="font-size: 10.5px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--brand-blue); font-weight: 700; margin-bottom: 6px;">Retention + Trajectory &middot; Where the market is broken</div>
+          <div class="q-question">"If we take him, how long is he here?" "What&rsquo;s the likelihood we keep him?"</div>
+          <div class="q-answer">EDGE3 answers that before it becomes a problem.
+            <ul style="margin: 8px 0 8px 0; padding-left: 18px;">
+              <li>Continuous R / Y / G signal powered by surveys, family input, weekly stats, and social signals</li>
+              <li>Trajectory tier: Up / Stable / Down</li>
+              <li>Retention probability updates as the season evolves</li>
+            </ul>
+            <strong>Drift is flagged weeks before April 1, not after.</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Validation case study — Chol pre/post commitment (moved AFTER the two-questions panel) -->
+    <section class="case-study">
+      <div class="cs-eyebrow">Validation case study</div>
+      <h2>What we said in 2024 vs. what the production model says now</h2>
+      <p class="lede">In 2024, before Chol committed to UNM, EDGE3 flagged the same friction context the production model still reads today, two years and two model versions later. Drivers don&rsquo;t move because they were never random.</p>
+
+      <div class="cs-compare">
+        <div class="cs-side">
+          <div class="cs-when">2024 &middot; Before commitment</div>
+          <div class="cs-source">EDGE3 Fit &amp; Usage Risk Model &middot; Pre-commitment report</div>
+          <h3>Antonio Chol: projected risk read</h3>
+          <div class="cs-metric"><span>Fit Score</span><strong>62.3 / 100</strong></div>
+          <div class="cs-metric"><span>Risk Index</span><strong>37.7 / 100</strong></div>
+          <div class="cs-metric"><span>Risk tier</span><strong>Moderate to High</strong></div>
+          <div class="cs-friction">
+            <strong>Risk drivers identified:</strong> Distance from home (Buffalo NY to Albuquerque ~1,800 mi &middot; NCAA BB transfer avg is 643 to 746 mi). Prior portal history (former Rutgers). Repeat transfer pattern (Rutgers &rarr; JUCO &rarr; UNM). Socioeconomic stressors.
+          </div>
+        </div>
+        <div class="cs-arrow">&rarr;</div>
+        <div class="cs-side">
+          <div class="cs-when">2026 &middot; Production model</div>
+          <div class="cs-source">BB Combined R/Y/G v1 &middot; Refreshed monthly</div>
+          <h3>Antonio Chol: current signal</h3>
+          <div class="cs-metric"><span>Roster Retention Risk <span class="info"><span class="tip"><strong>Roster Retention Risk (RRR)</strong>: how likely the player is to leave, on a 0&ndash;100 scale. 59% means elevated risk relative to peers.</span></span></span><strong>59% (Elevated)</strong></div>
+          <div class="cs-metric"><span>Trajectory <span class="info"><span class="tip"><strong>Performance Trajectory</strong>: direction next-season production is heading. <strong>+20 / Up</strong> means meaningful improvement expected.</span></span></span><strong>+20 / Up</strong></div>
+          <div class="cs-metric"><span>Combined R/Y/G</span><strong>50% &middot; Yellow</strong></div>
+          <div class="cs-friction">
+            <strong>Model&rsquo;s verbatim coach_insight:</strong> &ldquo;Friction context: prior portal entry, repeat transfer, playing far from home.&rdquo; Same drivers. Different decade. Independent validation.
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-conclusion">
+        <div class="cs-c-label">What this proves</div>
+        <div class="cs-c-text">EDGE3&rsquo;s risk-driver attribution is <strong>stable across model versions</strong> and validated on real outcomes that already happened. The model didn&rsquo;t just predict at intake. It persists, updates, and surfaces the same actionable signal years later. That&rsquo;s the loop in action. <a href="./demo/bb_loop/" style="color: var(--brand-green); font-weight: 600; text-decoration: none;">Watch the loop in motion &rarr;</a></div>
+      </div>
+    </section>
+
+    <!-- Olen request highlight + AI Recruiting Agents — replaces the NBA front-office framework -->
+    <div class="nfl-panel">
+      <div class="nfl-eyebrow">Coach Olen&rsquo;s request</div>
+      <div class="greenberg-row">
+        <div style="padding: 22px 24px; background: rgba(255,255,255,0.06); border-left: 3px solid var(--brand-green); border-radius: 0 10px 10px 0;">
+          <div style="font-size: 10.5px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--brand-green); font-weight: 700; margin-bottom: 8px;">The ask</div>
+          <div style="font-size: 14.5px; line-height: 1.55; color: #fff; margin-bottom: 14px;">Compare three transfer prospects against UNM&rsquo;s thresholds. Find the slot fits for the 2025-26 frontcourt.</div>
+          <div style="font-size: 10.5px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--brand-green); font-weight: 700; margin-bottom: 8px;">What EDGE3 delivered</div>
+          <div style="font-size: 14px; line-height: 1.55; color: #C7D3E6;">Sports Reference verified rates. FIBA performance + injury records. Prior transfer + opportunity context. Three slot-fit grades against the 2025-26 baseline: <strong style="color: #fff;">Anya A-, Butka B+, Petraitis C+</strong>.</div>
+        </div>
+        <div class="hw-callout" style="margin: 0;">
+          <div class="hw-callout-label">EDGE3 Personalized AI Recruiting Agents</div>
+          <div class="hw-callout-text">Configured to surface what&rsquo;s known, and what&rsquo;s typically hard to access. Sports Reference advanced rates, FIBA + international records, conference media guides, and public archives, consolidated into one read. Today: data and decisions, delivered in one read.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Model coverage panel — 3 metric cards moved here from hero -->
+    <h2 class="section-heading">Model coverage</h2>
+    <p class="section-heading-sub">D1 coverage and refresh cadence at a glance.</p>
+    <div class="hero-metrics" style="grid-template-columns: repeat(3, 1fr); margin-top: 8px; max-width: none;">
+      <div class="metric">
+        <div class="lbl">D1 players scored</div>
+        <div class="val">4,979</div>
+        <div class="sub">2026&ndash;27 forward</div>
+      </div>
+      <div class="metric">
+        <div class="lbl">Programs covered</div>
+        <div class="val">365</div>
+        <div class="sub">all D1</div>
+      </div>
+      <div class="metric">
+        <div class="lbl">Refresh cadence</div>
+        <div class="val">Monthly</div>
+        <div class="sub">model + data</div>
+      </div>
+    </div>
+
+    <h2 class="section-heading" style="margin-top: 36px;">One use case. One live engine.</h2>
+    <p class="section-heading-sub">See a real EDGE3 deliverable. Then play with the live engine yourself.</p>
+
+    <div class="cards">
+      <div class="card featured">
+        <div class="meta">Use case &middot; UNM &middot; 3 portal candidates</div>
+        <h2>Transfer Portal Player Comparison Report</h2>
+        <p>Three portal candidates graded against the program&rsquo;s stated thresholds (DReb%, OReb%, Stl%, Blk%, height), with verified advanced rates, 2026-27 roster churn, and a slot-fit grade per candidate.</p>
+        <a class="btn" href="./demo/olen/">View the Olen comparison &rarr;</a>
+      </div>
+      <div class="card featured">
+        <div class="meta">Live demo &middot; play with the engine</div>
+        <h2>Try the engine yourself</h2>
+        <p>Search every D1 player. Compare any two side-by-side. Drag survey + social signals on a real Stretch 4 (Antonio Chol, UNM) and watch the R/Y/G signal recompute live. The same engine your staff would use, opened up for you to play with.</p>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <a class="btn" href="./demo/bb_search/">Search + Compare players &rarr;</a>
+          <a class="btn ghost" href="./demo/bb_loop/">Watch the trajectory shift &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-heading">Go deeper</h2>
+    <div class="cards" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="card">
+        <h2>Intelligence Loop</h2>
+        <p>Survey + parent + weekly stats + social listening. The four streams that update your roster signal continuously.</p>
+        <a class="btn ghost" href="../INTELLIGENCE_LOOP.html">Read the doc</a>
+      </div>
+      <div class="card">
+        <h2>Social Listening</h2>
+        <p>What it watches (and doesn&rsquo;t), how it feeds the model, what shows up on your dashboard.</p>
+        <a class="btn ghost" href="../SOCIAL_LISTENING.html">Read the doc</a>
+      </div>
+      <div class="card">
+        <h2>Models</h2>
+        <p>BB Roster Retention Risk v3 (78% accuracy), Performance Trajectory v1 (improving 0.733 / declining 0.739), Combined R/Y/G. Tested on past seasons the model never trained on. Coaching system fingerprints across 365 programs.</p>
+        <a class="btn ghost" href="../../models/basketball-transfer-risk/README.md">Open model docs</a>
+      </div>
+    </div>
+
+    <p style="color: var(--muted); font-size: 13px; margin-top: 28px; text-align: center;">
+      Looking for the football version? <a href="../football/" style="color: var(--navy);">EDGE3 Football</a> &rarr;
+    </p>
+  </div>
+</main>
+
+<footer>
+  <p>EDGE3 Basketball &middot; <a href="../">EDGE3 home</a> &middot; <a href="https://github.com/glove2044/edge3-model">github.com/glove2044/edge3-model</a></p>
+</footer>
+
+<script>
+document.querySelectorAll('.persona-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = btn.dataset.pane;
+    document.querySelectorAll('.persona-tab').forEach(b => b.classList.toggle('active', b.dataset.pane === target));
+    document.querySelectorAll('.persona-pane').forEach(p => p.classList.toggle('active', p.dataset.pane === target));
+  });
+});
+</script>
+
+</body>
+</html>

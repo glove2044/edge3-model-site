@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDGE3 Decision Intelligence Engine — Powered by QwikU & AWS</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --e3-green: #00C853;
+  --e3-green-dark: #00A344;
+  --e3-green-light: #E8F9EE;
+  --e3-blue: #1565C0;
+  --e3-blue-dark: #0D47A1;
+  --e3-blue-light: #E3F2FD;
+  --e3-navy: #0A1628;
+  --e3-slate: #1B2A4A;
+  --qwik-gold: #F9A825;
+  --aws-orange: #FF9900;
+  --aws-dark: #232F3E;
+  --surface: #F7F9FC;
+  --card: #FFFFFF;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
+  --border: #E2E8F0;
+  --border-light: #F1F5F9;
+  --risk-red: #EF4444;
+  --risk-red-bg: #FEF2F2;
+  --risk-red-border: #FECACA;
+  --risk-yellow: #F59E0B;
+  --risk-yellow-bg: #FFFBEB;
+  --risk-yellow-border: #FDE68A;
+  --risk-green: #22C55E;
+  --risk-green-bg: #F0FDF4;
+  --risk-green-border: #BBF7D0;
+  --purple: #7C4DFF;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.03);
+  --shadow-lg: 0 12px 48px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--surface);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ═══ NAV ═══ */
+.topnav {
+  position: sticky; top: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px; height: 54px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.topnav-brands { display: flex; align-items: center; gap: 12px; }
+.nav-logo {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800; font-size: 16px; letter-spacing: -0.5px;
+}
+.nav-logo.e3 { color: var(--e3-green); }
+.nav-logo.e3 span { color: var(--e3-blue); }
+.nav-sep { color: var(--border); font-weight: 300; font-size: 18px; }
+.nav-logo.qwik { color: var(--qwik-gold); font-size: 14px; }
+.nav-logo.aws { color: var(--aws-orange); font-size: 14px; letter-spacing: 0.5px; }
+.topnav-meta {
+  display: flex; align-items: center; gap: 14px;
+  font-size: 11px; color: var(--text-muted);
+}
+.live-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--e3-green); animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+/* ═══ PAGE DIVIDERS ═══ */
+.page-break {
+  height: 4px;
+  background: linear-gradient(90deg, var(--e3-green) 0%, var(--e3-blue) 50%, var(--aws-orange) 100%);
+  opacity: 0.3;
+}
+
+/* ═══ HERO — SLIDE 1 ═══ */
+.hero {
+  position: relative;
+  padding: 64px 48px 56px;
+  background: linear-gradient(160deg, var(--e3-navy) 0%, var(--e3-slate) 35%, var(--e3-blue-dark) 70%, #0A3D7A 100%);
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 700px 500px at 15% 40%, rgba(0,200,83,0.1) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 400px at 85% 30%, rgba(21,101,192,0.12) 0%, transparent 70%);
+}
+.hero-grid {
+  position: absolute; inset: 0; opacity: 0.025;
+  background-image:
+    linear-gradient(rgba(255,255,255,1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+.hero-inner { position: relative; z-index: 2; max-width: 1240px; margin: 0 auto; }
+.hero-badges { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+.h-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 5px 14px; border-radius: 100px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase;
+}
+.h-badge .bdot { width: 6px; height: 6px; border-radius: 50%; }
+.hb-e3 { background: rgba(0,200,83,0.12); color: var(--e3-green); border: 1px solid rgba(0,200,83,0.2); }
+.hb-e3 .bdot { background: var(--e3-green); }
+.hb-qwik { background: rgba(249,168,37,0.12); color: var(--qwik-gold); border: 1px solid rgba(249,168,37,0.2); }
+.hb-qwik .bdot { background: var(--qwik-gold); }
+.hb-aws { background: rgba(255,153,0,0.12); color: var(--aws-orange); border: 1px solid rgba(255,153,0,0.2); }
+.hb-aws .bdot { background: var(--aws-orange); }
+.hero h1 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 48px; font-weight: 800;
+  color: #fff; line-height: 1.08;
+  letter-spacing: -1.5px; max-width: 820px;
+}
+.hero h1 .green { color: var(--e3-green); }
+.hero h1 .blue { color: #64B5F6; }
+.hero-sub {
+  font-family: 'Outfit', sans-serif;
+  font-size: 19px; font-weight: 400;
+  color: rgba(255,255,255,0.5); max-width: 720px;
+  margin-top: 14px; line-height: 1.55;
+}
+
+/* Hero Feature Cards */
+.hero-features {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  margin-top: 36px;
+}
+.hf-card {
+  padding: 20px; border-radius: 14px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.hf-card.highlight {
+  background: rgba(0,200,83,0.06);
+  border-color: rgba(0,200,83,0.2);
+}
+.hf-icon { font-size: 22px; margin-bottom: 8px; }
+.hf-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px; font-weight: 700; color: #fff;
+  margin-bottom: 4px;
+}
+.hf-desc { font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.5; }
+.hf-stat {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 600; margin-top: 8px;
+}
+.hf-stat.green { color: var(--e3-green); }
+.hf-stat.gold { color: var(--qwik-gold); }
+
+/* Hero stat bar */
+.hero-stats {
+  display: flex; gap: 44px; margin-top: 32px; flex-wrap: wrap;
+}
+.h-stat-val {
+  font-family: 'Outfit', sans-serif;
+  font-size: 32px; font-weight: 700; color: #fff; letter-spacing: -1px;
+}
+.h-stat-val.green { color: var(--e3-green); }
+.h-stat-val.gold { color: var(--qwik-gold); }
+.h-stat-val.orange { color: var(--aws-orange); }
+.h-stat-label { font-size: 12px; color: rgba(255,255,255,0.35); font-weight: 500; }
+
+/* ═══ SECTIONS ═══ */
+.section { max-width: 1240px; margin: 0 auto; padding: 56px 48px; }
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--e3-blue); margin-bottom: 8px;
+}
+.section-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 32px; font-weight: 700;
+  letter-spacing: -0.8px; margin-bottom: 10px;
+}
+.section-desc {
+  font-size: 15px; color: var(--text-secondary);
+  max-width: 740px; line-height: 1.7; margin-bottom: 32px;
+}
+
+/* ═══ SLIDE 2: 90-DAY DEPLOYMENT ═══ */
+.deploy-section {
+  background: linear-gradient(135deg, var(--e3-navy) 0%, #0F2847 50%, var(--e3-blue-dark) 100%);
+  border-radius: 20px; padding: 48px 44px;
+  position: relative; overflow: hidden;
+}
+.deploy-section::before {
+  content: '';
+  position: absolute; top: -40%; right: -15%; width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(0,200,83,0.08) 0%, transparent 70%);
+}
+.deploy-inner { position: relative; z-index: 2; }
+.deploy-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--e3-green); margin-bottom: 8px;
+}
+.deploy-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 32px; font-weight: 800; color: #fff;
+  letter-spacing: -1px; line-height: 1.12;
+}
+.deploy-desc {
+  font-size: 15px; color: rgba(255,255,255,0.45);
+  line-height: 1.65; margin-top: 10px; max-width: 680px; margin-bottom: 32px;
+}
+
+/* Phase cards */
+.phase-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+}
+.phase-card {
+  padding: 24px 20px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.02);
+}
+.phase-card:first-child { border-radius: 14px 0 0 14px; }
+.phase-card:last-child { border-radius: 0 14px 14px 0; }
+.phase-card + .phase-card { border-left: none; }
+.phase-card.active {
+  background: rgba(0,200,83,0.05);
+  border-color: rgba(0,200,83,0.2);
+}
+.phase-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; font-weight: 600; letter-spacing: 1.2px;
+  text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 6px;
+}
+.phase-card.active .phase-num { color: var(--e3-green); }
+.phase-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 6px;
+}
+.phase-desc { font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.5; }
+.phase-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--e3-green); margin-top: 8px; font-weight: 500;
+}
+
+/* Managed service callout */
+.ms-callout {
+  margin-top: 24px; padding: 18px 24px; border-radius: 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex; align-items: center; gap: 16px;
+}
+.ms-callout-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: rgba(0,200,83,0.12);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.ms-callout-text { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.5; }
+.ms-callout-text strong { color: #fff; }
+
+/* ═══ SLIDE 3: PARTNERSHIP + SCHOOLS ═══ */
+.partnership-card {
+  background: var(--card); border-radius: 18px;
+  border: 2px solid var(--e3-green);
+  box-shadow: 0 0 24px rgba(0,200,83,0.1);
+  overflow: hidden;
+}
+.partnership-header {
+  background: linear-gradient(135deg, var(--risk-green-bg), #E8F9EE);
+  padding: 20px 28px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--risk-green-border);
+  flex-wrap: wrap; gap: 12px;
+}
+.ph-left { display: flex; align-items: center; gap: 12px; }
+.ph-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: var(--e3-green); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 700;
+}
+.ph-title {
+  font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 700;
+}
+.ph-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+  padding: 5px 14px; border-radius: 100px;
+  background: var(--e3-green); color: #fff;
+}
+.partnership-body { padding: 28px; }
+.partnership-desc {
+  font-size: 14px; color: var(--text-secondary); line-height: 1.7;
+  max-width: 800px; margin-bottom: 28px;
+}
+.partnership-desc strong { color: var(--text-primary); }
+
+/* School grid */
+.school-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+}
+.school-card {
+  padding: 18px 14px; border-radius: 12px;
+  background: var(--surface); border: 1px solid var(--border);
+  text-align: center; transition: all 0.2s;
+}
+.school-card:hover { border-color: var(--e3-blue); box-shadow: var(--shadow-md); }
+.school-logo {
+  font-family: 'Outfit', sans-serif;
+  font-size: 28px; font-weight: 900;
+  letter-spacing: -1px; margin-bottom: 4px;
+}
+.school-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px; font-weight: 700;
+}
+.school-conf { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.school-status {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
+  margin-top: 8px; padding: 3px 10px; border-radius: 100px; display: inline-block;
+}
+.ss-confirmed { background: var(--risk-green-bg); color: #166534; border: 1px solid var(--risk-green-border); }
+.ss-validated { background: var(--e3-blue-light); color: var(--e3-blue-dark); border: 1px solid #BBDEFB; }
+.ss-target { background: var(--risk-yellow-bg); color: #854D0E; border: 1px solid var(--risk-yellow-border); }
+
+/* ═══ SLIDE 4: ARCHITECTURE ═══ */
+.arch-stack { display: flex; flex-direction: column; gap: 0; }
+.arch-layer {
+  padding: 26px 30px; border: 1px solid var(--border); position: relative;
+}
+.arch-layer:first-child { border-radius: 16px 16px 0 0; }
+.arch-layer:last-child { border-radius: 0 0 16px 16px; }
+.arch-layer + .arch-layer { border-top: none; }
+.arch-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 4px; display: inline-block;
+  margin-bottom: 8px; color: #fff;
+}
+.layer-e3 { background: linear-gradient(135deg, #F0FFF4, #E8F9EE); }
+.layer-e3 .arch-tag { background: var(--e3-green); }
+.layer-survey { background: linear-gradient(135deg, #EDE7F6, #E8EAF6); }
+.layer-survey .arch-tag { background: var(--purple); }
+.layer-qwik { background: linear-gradient(135deg, #FFFBEB, #FFF8E1); }
+.layer-qwik .arch-tag { background: var(--qwik-gold); }
+.layer-aws { background: linear-gradient(135deg, #FFF3E0, #FFE8CC); }
+.layer-aws .arch-tag { background: var(--aws-orange); }
+.arch-layer h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 18px; font-weight: 700; margin-bottom: 5px; letter-spacing: -0.3px;
+}
+.arch-layer p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; max-width: 820px; }
+.arch-feats { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.arch-feat {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; padding: 3px 10px; border-radius: 5px;
+  background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.05);
+  color: var(--text-secondary); font-weight: 500;
+}
+.connector {
+  display: flex; align-items: center; justify-content: center;
+  height: 0; position: relative; z-index: 5;
+}
+.connector-badge {
+  position: absolute; background: var(--e3-navy); color: #fff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; font-weight: 600;
+  padding: 4px 14px; border-radius: 100px;
+  letter-spacing: 0.8px; white-space: nowrap;
+  box-shadow: var(--shadow-md);
+}
+
+/* ═══ CORE ENGINE ═══ */
+.engine-section {
+  background: linear-gradient(135deg, var(--e3-navy) 0%, #16213E 50%, var(--e3-blue-dark) 100%);
+  border-radius: 22px; padding: 48px 44px;
+  position: relative; overflow: hidden;
+}
+.engine-section::before {
+  content: '';
+  position: absolute; top: -30%; right: -10%; width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(0,200,83,0.08) 0%, transparent 70%);
+}
+.engine-inner { position: relative; z-index: 2; }
+.engine-section .section-label { color: var(--e3-green); }
+.engine-section .section-title { color: #fff; font-size: 34px; }
+.engine-section .section-desc { color: rgba(255,255,255,0.45); }
+.engine-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px;
+}
+.eg-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px; padding: 24px; position: relative;
+}
+.eg-card.highlight { border-color: rgba(0,200,83,0.3); background: rgba(0,200,83,0.04); }
+.eg-num {
+  font-family: 'Outfit', sans-serif;
+  font-size: 44px; font-weight: 900; color: rgba(255,255,255,0.04);
+  position: absolute; top: 10px; right: 18px;
+}
+.eg-icon { font-size: 24px; margin-bottom: 8px; }
+.eg-card h4 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px; font-weight: 700; color: #fff;
+  margin-bottom: 5px; letter-spacing: -0.2px;
+}
+.eg-card p { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.6; }
+.eg-tag {
+  display: inline-block; margin-top: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; font-weight: 600; letter-spacing: 0.8px;
+  padding: 3px 10px; border-radius: 4px; text-transform: uppercase;
+}
+.eg-tag-green { background: rgba(0,200,83,0.15); color: var(--e3-green); }
+.eg-tag-blue { background: rgba(100,181,246,0.15); color: #64B5F6; }
+.eg-tag-orange { background: rgba(255,153,0,0.15); color: var(--aws-orange); }
+.eg-tag-purple { background: rgba(124,77,255,0.15); color: #B388FF; }
+
+/* ═══ COACH VIEW — PROSPECT WALLET ═══ */
+.wallet-section {
+  background: var(--card); border-radius: 18px;
+  border: 1px solid var(--border); box-shadow: var(--shadow-lg);
+  overflow: hidden; margin-bottom: 32px;
+}
+.wallet-header {
+  background: linear-gradient(135deg, var(--e3-navy), #0F2847);
+  padding: 22px 28px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+}
+.wh-left { display: flex; align-items: center; gap: 14px; }
+.wh-avatar {
+  width: 50px; height: 50px; border-radius: 12px;
+  background: linear-gradient(135deg, var(--e3-green), var(--e3-blue));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 18px; color: #fff;
+}
+.wh-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.5px;
+}
+.wh-meta { font-size: 12px; color: rgba(255,255,255,0.45); }
+
+/* RYG Signal Lights — prominent */
+.signal-strip { display: flex; gap: 10px; flex-wrap: wrap; }
+.signal-box {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 16px; border-radius: 10px;
+}
+.signal-box-red { background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.25); }
+.signal-box-yellow { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.25); }
+.signal-box-green { background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.25); }
+.signal-light {
+  width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 800; color: #fff;
+}
+.light-red { background: var(--risk-red); box-shadow: 0 0 10px rgba(239,68,68,0.5); }
+.light-yellow { background: var(--risk-yellow); box-shadow: 0 0 10px rgba(245,158,11,0.5); }
+.light-green { background: var(--risk-green); box-shadow: 0 0 10px rgba(34,197,94,0.5); }
+.signal-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; font-weight: 600; letter-spacing: 0.8px;
+  text-transform: uppercase; color: rgba(255,255,255,0.4);
+}
+.signal-value {
+  font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 700; color: #fff;
+}
+.signal-conf {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.35);
+}
+
+/* Wallet body — dual column */
+.wallet-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.wallet-col { padding: 24px 28px; }
+.wallet-col + .wallet-col { border-left: 1px solid var(--border); }
+.wcol-label { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+.wcol-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 4px;
+}
+.wcol-tag-risk { background: #FEE2E2; color: #991B1B; }
+.wcol-tag-perf { background: #E8F9EE; color: var(--e3-green-dark); }
+.wcol-source { font-size: 12px; color: var(--text-muted); }
+
+.w-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 9px 0; border-bottom: 1px solid var(--border-light); font-size: 13px;
+}
+.w-row:last-child { border-bottom: none; }
+.w-label { color: var(--text-secondary); }
+.w-val { font-weight: 600; }
+.w-tag {
+  font-size: 11px; font-weight: 600; padding: 3px 10px;
+  border-radius: 100px; letter-spacing: 0.3px;
+}
+.wt-green { background: var(--risk-green-bg); color: #166534; }
+.wt-yellow { background: var(--risk-yellow-bg); color: #854D0E; }
+.wt-red { background: var(--risk-red-bg); color: #991B1B; }
+.wt-blue { background: #DBEAFE; color: #1E40AF; }
+
+/* RYG dots inline */
+.ryg-inline { display: flex; align-items: center; gap: 5px; }
+.ryg-dot { width: 13px; height: 13px; border-radius: 50%; border: 2px solid; }
+.ryg-dot-r { border-color: var(--risk-red); background: var(--risk-red-bg); }
+.ryg-dot-r.active { background: var(--risk-red); box-shadow: 0 0 8px rgba(239,68,68,0.5); }
+.ryg-dot-y { border-color: var(--risk-yellow); background: var(--risk-yellow-bg); }
+.ryg-dot-y.active { background: var(--risk-yellow); box-shadow: 0 0 8px rgba(245,158,11,0.5); }
+.ryg-dot-g { border-color: var(--risk-green); background: var(--risk-green-bg); }
+.ryg-dot-g.active { background: var(--risk-green); box-shadow: 0 0 8px rgba(34,197,94,0.5); }
+.ryg-lbl {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
+}
+.ryg-lbl-r { color: var(--risk-red); }
+.ryg-lbl-y { color: var(--risk-yellow); }
+.ryg-lbl-g { color: var(--risk-green); }
+
+/* ═══ RNR/RYG DEEP DIVE ═══ */
+.dual-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+.axis-card {
+  background: var(--card); border-radius: 14px;
+  border: 1px solid var(--border); box-shadow: var(--shadow-sm); overflow: hidden;
+}
+.axis-hdr { padding: 16px 20px; display: flex; align-items: center; gap: 10px; }
+.rnr-hdr { background: linear-gradient(135deg, #EFF6FF, #DBEAFE); }
+.ryg-hdr { background: linear-gradient(135deg, #F0FFF4, #DCFCE7); }
+.axis-icon {
+  width: 34px; height: 34px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center; font-size: 16px;
+}
+.axis-title { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 15px; }
+.axis-sub { font-size: 11px; color: var(--text-muted); }
+.axis-body { padding: 16px 20px; }
+.signal-row {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+}
+.signal-row-icon {
+  width: 24px; height: 24px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; flex-shrink: 0;
+}
+.signal-row-label { font-size: 12px; color: var(--text-secondary); flex: 1; }
+.signal-row-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 600; width: 80px; text-align: right;
+}
+
+/* bar mini */
+.bar-mini { flex: 1; height: 8px; background: #F1F5F9; border-radius: 100px; overflow: hidden; margin: 0 8px; }
+.bar-fill { height: 100%; border-radius: 100px; }
+.bar-g { background: linear-gradient(90deg, var(--risk-green), #86EFAC); }
+.bar-y { background: linear-gradient(90deg, var(--risk-yellow), #FDE68A); }
+.bar-r { background: linear-gradient(90deg, var(--risk-red), #FCA5A5); }
+
+/* ═══ AWS VALUE PROP ═══ */
+.aws-value {
+  background: linear-gradient(135deg, var(--aws-dark), #1A2C42, var(--e3-blue-dark));
+  border-radius: 20px; padding: 48px 44px;
+  position: relative; overflow: hidden;
+}
+.aws-value::before {
+  content: '';
+  position: absolute; top: -30%; left: -10%; width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(255,153,0,0.08) 0%, transparent 70%);
+}
+.aws-value-inner { position: relative; z-index: 2; }
+.aws-value .section-label { color: var(--aws-orange); }
+.aws-value .section-title { color: #fff; }
+.aws-value .section-desc { color: rgba(255,255,255,0.45); }
+.aws-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.aws-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px; padding: 24px;
+}
+.aws-card.highlight {
+  border-color: rgba(255,153,0,0.3); background: rgba(255,153,0,0.04);
+}
+.aws-card h4 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px;
+}
+.aws-card p { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.6; }
+.aws-icon { font-size: 24px; margin-bottom: 10px; display: block; }
+.aws-tag {
+  display: inline-block; margin-top: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; font-weight: 600; letter-spacing: 0.8px;
+  padding: 3px 10px; border-radius: 4px; text-transform: uppercase;
+}
+.aws-tag-orange { background: rgba(255,153,0,0.15); color: var(--aws-orange); }
+.aws-tag-green { background: rgba(0,200,83,0.15); color: var(--e3-green); }
+.aws-tag-blue { background: rgba(100,181,246,0.15); color: #64B5F6; }
+
+/* GTM athletes row */
+.gtm-row {
+  display: flex; gap: 14px; margin-top: 24px; flex-wrap: wrap;
+}
+.gtm-card {
+  flex: 1; min-width: 200px;
+  padding: 16px; border-radius: 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.gtm-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px; font-weight: 700; color: #fff;
+}
+.gtm-role { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+.gtm-desc { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 6px; line-height: 1.4; }
+
+/* ═══ NIL MONITOR ═══ */
+.nil-section {
+  background: var(--card); border-radius: 16px;
+  border: 1px solid var(--border); padding: 24px 28px;
+  margin-top: 32px; box-shadow: var(--shadow-sm);
+}
+.nil-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 16px; flex-wrap: wrap;
+}
+.nil-badge {
+  background: var(--e3-green); color: #fff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; font-weight: 600;
+  padding: 3px 10px; border-radius: 4px; letter-spacing: 0.8px;
+}
+.nil-title { font-family: 'Outfit', sans-serif; font-size: 17px; font-weight: 700; }
+.nil-feed { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.nil-item {
+  padding: 14px; background: var(--surface);
+  border-radius: 10px; border: 1px solid var(--border-light);
+}
+.nil-item-type {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; font-weight: 600; letter-spacing: 1px;
+  text-transform: uppercase; margin-bottom: 4px;
+}
+.nil-item h5 { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+.nil-item p { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+
+/* ═══ CTA ═══ */
+.cta-section {
+  margin-top: 16px; padding: 48px 44px; text-align: center;
+  background: linear-gradient(135deg, var(--e3-navy), var(--e3-slate), var(--e3-blue-dark));
+  border-radius: 22px; position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(circle 300px at 30% 50%, rgba(0,200,83,0.08), transparent),
+    radial-gradient(circle 300px at 70% 50%, rgba(255,153,0,0.06), transparent);
+}
+.cta-section h2 {
+  position: relative; font-family: 'Outfit', sans-serif;
+  font-size: 28px; font-weight: 800; color: #fff; letter-spacing: -0.5px;
+}
+.cta-section p {
+  position: relative; font-size: 14px; color: rgba(255,255,255,0.45);
+  max-width: 560px; margin: 10px auto 0; line-height: 1.6;
+}
+.cta-buttons {
+  position: relative; display: flex; gap: 12px;
+  justify-content: center; margin-top: 24px;
+}
+.cta-btn {
+  padding: 12px 28px; border-radius: 10px;
+  font-size: 14px; font-weight: 600; border: none;
+  cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+}
+.cta-btn.primary { background: var(--e3-green); color: var(--e3-navy); }
+.cta-btn.primary:hover { background: #00E676; transform: translateY(-1px); }
+.cta-btn.secondary {
+  background: rgba(255,255,255,0.08); color: #fff;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+/* ═══ FOOTER ═══ */
+.footer {
+  text-align: center; padding: 36px 48px;
+  font-size: 11px; color: var(--text-muted);
+}
+.footer-logos {
+  display: flex; justify-content: center; align-items: center;
+  gap: 20px; margin-bottom: 10px; flex-wrap: wrap;
+}
+.footer-logo {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800; font-size: 16px; letter-spacing: -0.5px;
+}
+.footer-x { font-size: 13px; color: var(--text-muted); }
+.expiration-key {
+  position: fixed; bottom: 14px; right: 14px; z-index: 200;
+  padding: 7px 14px; border-radius: 8px;
+  background: var(--card); border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--text-muted);
+  display: flex; align-items: center; gap: 8px;
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 960px) {
+  .hero { padding: 48px 24px 40px; }
+  .hero h1 { font-size: 32px; }
+  .section { padding: 40px 24px; }
+  .hero-features, .wallet-body, .dual-grid, .engine-grid, .school-grid { grid-template-columns: 1fr; }
+  .wallet-col + .wallet-col { border-left: none; border-top: 1px solid var(--border); }
+  .phase-grid { grid-template-columns: 1fr 1fr; }
+  .aws-grid, .nil-feed { grid-template-columns: 1fr; }
+  .signal-strip { flex-direction: column; }
+  .gtm-row { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- NAV -->
+<!-- ═══════════════════════════════════════════════════ -->
+<nav class="topnav">
+  <div class="topnav-brands">
+    <div class="nav-logo e3">EDGE<span>3</span></div>
+    <span class="nav-sep">×</span>
+    <div class="nav-logo qwik">QwikU</div>
+    <span class="nav-sep">×</span>
+    <div class="nav-logo aws">AWS</div>
+  </div>
+  <div class="topnav-meta">
+    <span>EDGE3 Decision Intelligence — AWS GenAI Innovation Center</span>
+    <span class="live-dot"></span>
+    <span>LIVE</span>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SLIDE 1: HERO -->
+<!-- ═══════════════════════════════════════════════════ -->
+<header class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-badges">
+      <span class="h-badge hb-e3"><span class="bdot"></span>EDGE3 Intelligence Engine</span>
+      <span class="h-badge hb-qwik"><span class="bdot"></span>QwikU Distribution</span>
+      <span class="h-badge hb-aws"><span class="bdot"></span>AWS GenAI Innovation Center</span>
+    </div>
+
+    <h1>
+      <span class="green">EDGE3</span> Decision Intelligence Engine<br>
+      Powered by <span class="blue">QwikU</span> & AWS
+    </h1>
+    <p class="hero-sub">
+      Dual-axis risk and performance classification, agentic Athlete Recruiting Wallets, and real-time social listening — deployed inside the recruiting platform 40+ college programs already use every day. Five pilot schools confirmed. Ready for the 90-day sprint.
+    </p>
+
+    <!-- Three feature pillars -->
+    <div class="hero-features">
+      <div class="hf-card highlight">
+        <div class="hf-icon">🧠</div>
+        <div class="hf-title">Dual-Axis Risk & Fit Models</div>
+        <div class="hf-desc">RNR (Transfer Risk) and RYG (Performance Outcome) classification across five positional categories — trained on 26,575 classified athlete records. Domain-configured AI built by coaches and former players.</div>
+        <div class="hf-stat green">73.9%–91.6% Accuracy · WI Pilot: 81% Precision / 85% Recall</div>
+      </div>
+      <div class="hf-card">
+        <div class="hf-icon">💼</div>
+        <div class="hf-title">Agentic Athlete Recruiting Wallets</div>
+        <div class="hf-desc">Auto-generated, living decision documents for both coaches and athletes. Updated in real time as new data arrives — snap-level stats, social signals, film mentions, survey responses. The scout that never sleeps.</div>
+        <div class="hf-stat green">Dual-sided: Coach Intelligence + Athlete Positioning</div>
+      </div>
+      <div class="hf-card">
+        <div class="hf-icon">📡</div>
+        <div class="hf-title">QwikU: 40+ Programs Ready to Upsell</div>
+        <div class="hf-desc">QwikU is the daily operating system for college football recruiting — evaluation tapes, virtual boards, roster management. EDGE3 intelligence layers on top. One integration reaches 40+ schools instantly.</div>
+        <div class="hf-stat gold">40+ Active Programs · 5 Pilot Schools Confirmed</div>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div>
+        <div class="h-stat-val green">26,575</div>
+        <div class="h-stat-label">Athletes Classified</div>
+      </div>
+      <div>
+        <div class="h-stat-val gold">40+</div>
+        <div class="h-stat-label">QwikU Programs</div>
+      </div>
+      <div>
+        <div class="h-stat-val">5</div>
+        <div class="h-stat-label">Positional Models</div>
+      </div>
+      <div>
+        <div class="h-stat-val orange">90 Days</div>
+        <div class="h-stat-label">Deployment Sprint</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="page-break"></div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SLIDE 2: 90-DAY DEPLOYMENT -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="deploy-section">
+    <div class="deploy-inner">
+      <div class="deploy-label">90-Day Joint Deployment</div>
+      <div class="deploy-title">EDGE3 × AWS GenAI Innovation Center</div>
+      <div class="deploy-desc">
+        EDGE3 brings validated classification models, a signed distribution partner (QwikU, 40+ schools), and five confirmed pilot schools. AWS provides the infrastructure to take this from validated pilot to scaled deployment in 90 days. Every component maps directly to AWS services.
+      </div>
+
+      <div class="phase-grid">
+        <div class="phase-card active">
+          <div class="phase-num">Phase 1 — Weeks 1–2</div>
+          <div class="phase-title">Architecture Sprint</div>
+          <div class="phase-desc">AWS solution architects design deployment: SageMaker endpoints for RNR/RYG models, Kinesis for real-time data ingestion, Bedrock agents for wallet generation, API Gateway connecting EDGE3 ↔ QwikU.</div>
+          <div class="phase-date">Joint Architecture Review</div>
+        </div>
+        <div class="phase-card">
+          <div class="phase-num">Phase 2 — Weeks 3–6</div>
+          <div class="phase-title">Model Deployment</div>
+          <div class="phase-desc">Classification models deployed to SageMaker endpoints. Survey engine connected. Social listening and snap-level data feeds wired through Kinesis. API Gateway live for QwikU integration testing.</div>
+          <div class="phase-date">Models Live on SageMaker</div>
+        </div>
+        <div class="phase-card">
+          <div class="phase-num">Phase 3 — Weeks 7–10</div>
+          <div class="phase-title">Pilot School Launch</div>
+          <div class="phase-desc">Five schools onboarded through white-glove process. Smart Surveys live inside QwikU. Wallets generating autonomously via Bedrock agents. Coach boards showing real-time risk/fit signals.</div>
+          <div class="phase-date">5 Pilot Schools Live</div>
+        </div>
+        <div class="phase-card">
+          <div class="phase-num">Phase 4 — Weeks 11–12+</div>
+          <div class="phase-title">Scale to 40+</div>
+          <div class="phase-desc">Pilot validation → full QwikU rollout. Every new school adds inference volume, data ingestion, and agent executions. Co-sell motion across the college athletics vertical.</div>
+          <div class="phase-date">Full QwikU Rollout</div>
+        </div>
+      </div>
+
+      <div class="ms-callout">
+        <div class="ms-callout-icon">🤝</div>
+        <div class="ms-callout-text">
+          <strong>Next League — EDGE3 Managed Service Partner</strong> · White-glove onboarding and support for pilot schools. Technical integrations, school-specific customizations, and ongoing optimization. EDGE3's operational arm for deployment and client success.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SLIDE 3: PARTNERSHIP + SCHOOLS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Partnership in Place</div>
+  <div class="section-title">EDGE3 / QwikU Integration — Confirmed</div>
+  <div class="section-desc">
+    EDGE3's intelligence layer integrates directly with QwikU to give recruiting departments and athletes a single wallet view with trajectory-based decision intelligence and real-time NIL monitoring. Five QwikU pilot schools confirmed, plus Power 4 and HBCU validation partners. Football focused — expanding from there.
+  </div>
+
+  <div class="partnership-card">
+    <div class="partnership-header">
+      <div class="ph-left">
+        <div class="ph-icon">✓</div>
+        <div class="ph-title">EDGE3 × QwikU — Smart Survey Integration</div>
+      </div>
+      <div class="ph-badge">Agreement Signed · Fall 2025 Launch</div>
+    </div>
+    <div class="partnership-body">
+      <div class="partnership-desc">
+        QwikU's recruiting platform becomes the delivery channel for EDGE3's Decision Intelligence. Coaches see <strong>transfer risk, performance trajectory, competitive index, and roster comparisons</strong> directly on their QwikU boards. Athletes receive portable wallets with positioning tools, NIL monitoring, and development tracking. <strong>Personalized Smart Surveys</strong> — featuring coach NIL on the front end to build trust with recruits — collect structured data that feeds EDGE3's classification models. Every data point makes every future classification more accurate.
+      </div>
+
+      <h4 style="font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;margin-bottom:16px;">
+        Pilot & Validation Schools — Football
+      </h4>
+      <div class="school-grid">
+        <div class="school-card">
+          <div class="school-logo" style="color:#CC0000">W</div>
+          <div class="school-name">Wisconsin</div>
+          <div class="school-conf">Big Ten</div>
+          <div class="school-status ss-validated">EDGE3 Validated</div>
+        </div>
+        <div class="school-card">
+          <div class="school-logo" style="color:#0021A5">SMU</div>
+          <div class="school-name">SMU</div>
+          <div class="school-conf">ACC</div>
+          <div class="school-status ss-confirmed">Confirmed</div>
+        </div>
+        <div class="school-card">
+          <div class="school-logo" style="color:#660000">MS</div>
+          <div class="school-name">Mississippi State</div>
+          <div class="school-conf">SEC</div>
+          <div class="school-status ss-confirmed">Confirmed</div>
+        </div>
+        <div class="school-card">
+          <div class="school-logo" style="color:#E21833">MD</div>
+          <div class="school-name">Maryland</div>
+          <div class="school-conf">Big Ten</div>
+          <div class="school-status ss-confirmed">Confirmed</div>
+        </div>
+        <div class="school-card">
+          <div class="school-logo" style="color:#990000">IU</div>
+          <div class="school-name">Indiana</div>
+          <div class="school-conf">Big Ten</div>
+          <div class="school-status ss-confirmed">Confirmed</div>
+        </div>
+        <div class="school-card">
+          <div class="school-logo" style="color:#006747">TU</div>
+          <div class="school-name">Tulane</div>
+          <div class="school-conf">AAC</div>
+          <div class="school-status ss-confirmed">Confirmed</div>
+        </div>
+        <div class="school-card">
+          <div class="school-logo" style="color:#990000">USC</div>
+          <div class="school-name">USC</div>
+          <div class="school-conf">Big Ten · Power 4</div>
+          <div class="school-status ss-target">Validation Partner</div>
+        </div>
+        <div class="school-card">
+          <div class="school-logo" style="color:#003DA5">HU</div>
+          <div class="school-name">Howard University</div>
+          <div class="school-conf">MEAC · HBCU</div>
+          <div class="school-status ss-target">Validation Partner</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SLIDE 4: INTEGRATION ARCHITECTURE -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Integration Architecture</div>
+  <div class="section-title">EDGE3 Makes QwikU Smarter, Faster, and Better</div>
+  <div class="section-desc">
+    EDGE3 enhances every QwikU feature with trajectory-based decision intelligence. Auto-generated wallets, social listening data, front-end Smart Survey responses, and domain-configured AI built by coaches and former players. QwikU stays the daily operating system — EDGE3 makes every feature intelligent.
+  </div>
+
+  <div class="arch-stack">
+    <div class="arch-layer layer-e3">
+      <span class="arch-tag">EDGE3 — Decision Intelligence Layer</span>
+      <h3>Dual-Axis Classification + Agentic Wallets + Continuous Learning</h3>
+      <p>Risk and performance models across Defense, Blocking, Receiving, Rushing, and Passing. Every prospect in QwikU gets an auto-generated Athlete Recruiting Wallet — updated continuously by social listening, snap-level positioning data, new film mentions and articles, and survey responses. Domain-configured AI built by coaches and former players who generated the data.</p>
+      <div class="arch-feats">
+        <span class="arch-feat">RNR Transfer Risk</span>
+        <span class="arch-feat">RYG Performance</span>
+        <span class="arch-feat">Competitive Index</span>
+        <span class="arch-feat">Growth Index</span>
+        <span class="arch-feat">Academic Modality</span>
+        <span class="arch-feat">Offer Integrity</span>
+        <span class="arch-feat">NIL Monitor</span>
+        <span class="arch-feat">Roster Comparison</span>
+        <span class="arch-feat">Wallet Generator</span>
+        <span class="arch-feat">Social Listening</span>
+      </div>
+    </div>
+
+    <div class="connector"><span class="connector-badge">⚡ SMART SURVEYS</span></div>
+
+    <div class="arch-layer layer-survey">
+      <span class="arch-tag">EDGE3 Smart Surveys — Front-End Data Collection</span>
+      <h3>Personalized Dynamic Surveys with Coach NIL on the Front End</h3>
+      <p>School-customized intake featuring the name, image, and likeness of the coaching staff on the front end — making recruits comfortable and building trust before they answer a single question. Position-specific logic, real-time adaptive branching, and auto-tagging for transfer risk, NIL stress, and engagement signals. Data syncs directly with roster and portal modules inside QwikU. Next League provides white-glove onboarding, technical integrations, and school-specific customizations.</p>
+      <div class="arch-feats">
+        <span class="arch-feat">Coach NIL Front-End</span>
+        <span class="arch-feat">Position Logic</span>
+        <span class="arch-feat">Adaptive Branching</span>
+        <span class="arch-feat">Auto-Tagging</span>
+        <span class="arch-feat">Risk Flagging</span>
+        <span class="arch-feat">White-Glove Onboarding</span>
+      </div>
+    </div>
+
+    <div class="connector"><span class="connector-badge">⚡ API GATEWAY</span></div>
+
+    <div class="arch-layer layer-qwik">
+      <span class="arch-tag">QwikU — Platform & Distribution Layer</span>
+      <h3>40+ Programs · Recruiting Database · Evaluation Pipeline</h3>
+      <p>Evaluation tapes, virtual boards, roster management, prospect profiles — the daily operating system for college football recruiting coordinators. Survey delivery happens inside the platform schools already trust. EDGE3 intelligence overlays directly onto existing QwikU boards and prospect cards. No new systems for coaches to learn.</p>
+      <div class="arch-feats">
+        <span class="arch-feat">Eval Pipeline</span>
+        <span class="arch-feat">Watch Lists</span>
+        <span class="arch-feat">Cut-Up Tapes</span>
+        <span class="arch-feat">Virtual Boards</span>
+        <span class="arch-feat">Roster Mgmt</span>
+        <span class="arch-feat">Portal Tools</span>
+        <span class="arch-feat">Mobile App</span>
+      </div>
+    </div>
+
+    <div class="connector"><span class="connector-badge">⚡ DATA PIPELINE</span></div>
+
+    <div class="arch-layer layer-aws">
+      <span class="arch-tag">AWS — Infrastructure Layer</span>
+      <h3>SageMaker · Kinesis · Bedrock Agents · API Gateway</h3>
+      <p>SageMaker endpoints serving classification models. Kinesis streaming for real-time data ingestion from QwikU, social listening, and snap-level data feeds. Bedrock agents generating and updating wallets autonomously. Lambda functions processing survey submissions. S3 data lake housing the training corpus. All deployed within the 90-day joint engagement.</p>
+      <div class="arch-feats">
+        <span class="arch-feat">SageMaker Endpoints</span>
+        <span class="arch-feat">Kinesis Pipelines</span>
+        <span class="arch-feat">API Gateway</span>
+        <span class="arch-feat">Bedrock Agents</span>
+        <span class="arch-feat">Lambda Functions</span>
+        <span class="arch-feat">S3 Data Lake</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CORE ENGINE -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" style="padding-top:0">
+  <div class="engine-section">
+    <div class="engine-inner">
+      <div class="section-label">The Intelligence Engine</div>
+      <div class="section-title">Collect → Classify → Generate → Update<br>All Agentic. All on AWS.</div>
+      <div class="section-desc">Personalized Smart Surveys collect structured data. Social listening and snap-level data feeds update continuously. EDGE3 models classify on dual axes. Bedrock agents generate and refresh wallets — for coaches and athletes — as new data arrives from any source.</div>
+
+      <div class="engine-grid">
+        <div class="eg-card highlight">
+          <span class="eg-num">01</span>
+          <div class="eg-icon">📋</div>
+          <h4>Personalized Smart Surveys</h4>
+          <p>Dynamic surveys featuring the coaching staff's name, image, and likeness on the front end — recruits see the faces of the program before answering questions. Position-specific logic, adaptive branching, auto-tagging for transfer risk and NIL stress. Each school customizes their intake: cultural fit criteria, behavioral assessments, academic preferences, NIL interests. The survey isn't just data collection — it's the first touchpoint that makes the recruit feel valued.</p>
+          <span class="eg-tag eg-tag-green">Key Differentiator — No One Has This</span>
+        </div>
+        <div class="eg-card highlight">
+          <span class="eg-num">02</span>
+          <div class="eg-icon">📡</div>
+          <h4>Continuous Data Feeds</h4>
+          <p>The engine is updated by more than survey responses. Snap-level positioning data updates as platforms refresh. Social listening agents monitor public profiles 24/7 — engagement, sentiment, behavioral flags. New highlights, articles, or press mentions are captured and scored automatically. Every new data point makes every existing classification more accurate.</p>
+          <span class="eg-tag eg-tag-purple">SSA · PFF · Social · News · Film Mentions</span>
+        </div>
+        <div class="eg-card">
+          <span class="eg-num">03</span>
+          <div class="eg-icon">🧠</div>
+          <h4>EDGE3 Dual-Axis Classification</h4>
+          <p>All data flows into validated models. RNR predicts transfer risk. RYG predicts performance outcome. Five positional categories — Defense (91.6%), Blocking (82.8%), Receiving (81.1%), Rushing (78.1%), Passing (73.9%). Domain-configured AI where every task and sub-task was defined by Hall of Fame athletes and elite coaches. This is what separates EDGE3 from generic mathematical models.</p>
+          <span class="eg-tag eg-tag-green">26,575 Records · 5 Models · Validated</span>
+        </div>
+        <div class="eg-card">
+          <span class="eg-num">04</span>
+          <div class="eg-icon">💼</div>
+          <h4>Agentic Wallet Generation — Both Sides</h4>
+          <p>Bedrock agents take classified outputs and generate complete Athlete Recruiting Wallets. Coach side: risk/fit intelligence on their QwikU board with roster comparisons. Athlete side: portable wallet with narrative tools, NIL monitoring, and development tracking. New survey data, snap-level updates, articles, or social signals → agents update both versions automatically.</p>
+          <span class="eg-tag eg-tag-orange">AWS Bedrock · Autonomous Generation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- COACH WALLET VIEW -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Coach Decision View</div>
+  <div class="section-title">What Coaches See — Red, Yellow, Green at a Glance</div>
+  <div class="section-desc">
+    Every prospect on a QwikU board shows EDGE3 intelligence instantly. Transfer Risk axis. Performance axis. Within each: Growth Index, Social Risk, Competitive Index, and Roster Comparison — who does this athlete compare to among current or past players at his position. Coaches make $20K roster decisions in 2 seconds instead of 2 weeks.
+  </div>
+
+  <!-- GREEN Prospect -->
+  <div class="wallet-section">
+    <div class="wallet-header">
+      <div class="wh-left">
+        <div class="wh-avatar">JD</div>
+        <div>
+          <div class="wh-name">Jordan Davis</div>
+          <div class="wh-meta">2026 · DE · 6'4" 245 lbs · ★★★★ · Natl #187 · Pos #14</div>
+        </div>
+      </div>
+      <div class="signal-strip">
+        <div class="signal-box signal-box-green">
+          <div class="signal-light light-green">✓</div>
+          <div>
+            <div class="signal-label">Transfer Risk</div>
+            <div class="signal-value">GREEN</div>
+            <div class="signal-conf">RNR 0.82 · Low Risk</div>
+          </div>
+        </div>
+        <div class="signal-box signal-box-green">
+          <div class="signal-light light-green">●</div>
+          <div>
+            <div class="signal-label">Performance</div>
+            <div class="signal-value">GREEN</div>
+            <div class="signal-conf">RYG 0.89 · Produces</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wallet-body">
+      <!-- Transfer Risk Column -->
+      <div class="wallet-col">
+        <div class="wcol-label">
+          <span class="wcol-tag wcol-tag-risk">Transfer Risk Axis</span>
+          <span class="wcol-source">RNR Classification</span>
+        </div>
+        <div class="w-row">
+          <span class="w-label">Overall Transfer Risk</span>
+          <div class="ryg-inline">
+            <div class="ryg-dot ryg-dot-r"></div>
+            <div class="ryg-dot ryg-dot-y"></div>
+            <div class="ryg-dot ryg-dot-g active"></div>
+            <span class="ryg-lbl ryg-lbl-g">GREEN · 0.82</span>
+          </div>
+        </div>
+        <div class="w-row">
+          <span class="w-label">Socioeconomic Risk</span>
+          <span class="w-tag wt-green">Low</span>
+        </div>
+        <div class="w-row">
+          <span class="w-label">Snap Trend (Last 4 Games)</span>
+          <span class="w-val" style="color:var(--risk-green)">↑ Increasing · 42 → 51 snaps/gm</span>
+        </div>
+        <div class="w-row">
+          <span class="w-label">Social Listening</span>
+          <span class="w-tag wt-green">Clean · No portal signals</span>
+        </div>
+        <div class="w-row">
+          <span class="w-label">Distance from Home</span>
+          <span class="w-val">127 mi — Low risk factor</span>
+        </div>
+        <div class="w-row">
+          <span class="w-label">Survey Data</span>
+          <span class="w-tag wt-blue">Pending — OV Mar 15</span>
+        </div>
+      </div>
+      <!-- Performance Column -->
+      <div class="wallet-col">
+        <div class="wcol-label">
+          <span class="wcol-tag wcol-tag-perf">Performance Axis</span>
+          <span class="wcol-source">RYG Classification</span>
+        </div>
+        <div class="w-row">
+          <span class="w-label">Overall Performance</span>
+          <div class="ryg-inline">
+            <div class="ryg-dot ryg-dot-r"></div>
+            <div class="ryg-dot ryg-dot-y"></div>
+            <div class="ryg-dot ryg-dot-g active"></div>
+            <span class="ryg-lbl ryg-lbl-g">GREEN · 0.89</span>
+          </div>
+        </div>
+        <div class="w-row">
+          <span class="w-label">Growth Index</span>
+          <span class="w-val" style="color:var(--risk-green)">+22% from baseline</span>
+        </div>
+        <div class="w-row">
+          <span class="w-label">Competitive Index</span>
+          <span class="w-val">CI: 8.4 / 10</span>
+        </div>
+        <div class="w-row">
+          <span class="w-label">Roster Comparison</span>
+          <span class="w-tag wt-green">Similar to K. Williams '23 (All-Conf)</span>
+        </div>
+        <div class="w-row">
+          <span class="w-label">Offer Integrity</span>
+          <span class="w-tag wt-green">Verified — No Anomaly</span>
+        </div>
+        <div class="w-row">
+          <span class="w-label">Academic Fit</span>
+          <span class="w-tag wt-blue">OFI: 72 — Hybrid Ready</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RED/YELLOW Prospect -->
+  <div class="wallet-section">
+    <div class="wallet-header">
+      <div class="wh-left">
+        <div class="wh-avatar" style="background:linear-gradient(135deg,var(--risk-red),var(--risk-yellow))">MT</div>
+        <div>
+          <div class="wh-name">Marcus Thompson</div>
+          <div class="wh-meta">2026 · WR · 6'1" 188 lbs · ★★★ · Natl #412 · Pos #38</div>
+        </div>
+      </div>
+      <div class="signal-strip">
+        <div class="signal-box signal-box-red">
+          <div class="signal-light light-red">!</div>
+          <div>
+            <div class="signal-label">Transfer Risk</div>
+            <div class="signal-value">RED</div>
+            <div class="signal-conf">RNR 0.91 · High Risk</div>
+          </div>
+        </div>
+        <div class="signal-box signal-box-yellow">
+          <div class="signal-light light-yellow">~</div>
+          <div>
+            <div class="signal-label">Performance</div>
+            <div class="signal-value">YELLOW</div>
+            <div class="signal-conf">RYG 0.74 · Developmental</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wallet-body">
+      <div class="wallet-col">
+        <div class="wcol-label">
+          <span class="wcol-tag wcol-tag-risk">Transfer Risk Axis</span>
+          <span class="wcol-source">RNR Classification</span>
+        </div>
+        <div class="w-row">
+          <span class="w-label">Overall Transfer Risk</span>
+          <div class="ryg-inline">
+            <div class="ryg-dot ryg-dot-r active"></div>
+            <div class="ryg-dot ryg-dot-y"></div>
+            <div class="ryg-dot ryg-dot-g"></div>
+            <span class="ryg-lbl ryg-lbl-r">RED · 0.91</span>
+          </div>
+        </div>
+        <div class="w-row">
+          <span class="w-label">Socioeconomic Risk</span>
+          <span class="w-tag wt-yellow">Elevated</span>
+        </div>
+        <div class="w-row">
+          <span class="w-label">Snap Trend (Last 4 Games)</span>
+          <span class="w-val" style="color:var(--risk-red)">↓ Declining · 38 → 22 snaps/gm</span>
+        </div>
+        <div class="w-row">
+          <span class="w-label">Social Listening</span>
+          <span class="w-tag wt-red">⚠ Portal content engagement</span>
+        </div>
+        <div class="w-row">
+          <span class="w-label">Distance from Home</span>
+          <span class="w-val" style="color:var(--risk-yellow)">680 mi — Elevated risk</span>
+        </div>
+        <div class="w-row">
+          <span class="w-label">Survey Data</span>
+          <span class="w-tag wt-yellow">Incomplete — Low engagement</span>
+        </div>
+      </div>
+      <div class="wallet-col">
+        <div class="wcol-label">
+          <span class="wcol-tag wcol-tag-perf">Performance Axis</span>
+          <span class="wcol-source">RYG Classification</span>
+        </div>
+        <div class="w-row">
+          <span class="w-label">Overall Performance</span>
+          <div class="ryg-inline">
+            <div class="ryg-dot ryg-dot-r"></div>
+            <div class="ryg-dot ryg-dot-y active"></div>
+            <div class="ryg-dot ryg-dot-g"></div>
+            <span class="ryg-lbl ryg-lbl-y">YELLOW · 0.74</span>
+          </div>
+        </div>
+        <div class="w-row">
+          <span class="w-label">Growth Index</span>
+          <span class="w-val" style="color:var(--risk-yellow)">−8% from baseline</span>
+        </div>
+        <div class="w-row">
+          <span class="w-label">Competitive Index</span>
+          <span class="w-val" style="color:var(--risk-yellow)">CI: 5.2 / 10</span>
+        </div>
+        <div class="w-row">
+          <span class="w-label">Roster Comparison</span>
+          <span class="w-tag wt-yellow">Below J. Moore '24 (transferred Y2)</span>
+        </div>
+        <div class="w-row">
+          <span class="w-label">Offer Integrity</span>
+          <span class="w-tag wt-red">⚠ Anomaly — 31 offers / 3★</span>
+        </div>
+        <div class="w-row">
+          <span class="w-label">Social Risk</span>
+          <span class="w-tag wt-yellow">⚠ 2 behavioral flags</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RNR / RYG Deep Dive -->
+  <div class="dual-grid">
+    <div class="axis-card">
+      <div class="axis-hdr rnr-hdr">
+        <div class="axis-icon" style="background:#DBEAFE">🛡️</div>
+        <div>
+          <div class="axis-title">RNR — Transfer Risk Signals</div>
+          <div class="axis-sub">"Will this recruit enter the portal?"</div>
+        </div>
+      </div>
+      <div class="axis-body">
+        <div class="signal-row">
+          <div class="signal-row-icon" style="background:#FEE2E2;color:#991B1B;font-size:10px;font-weight:700">SE</div>
+          <span class="signal-row-label">Socioeconomic Risk Factors</span>
+          <div class="bar-mini"><div class="bar-fill bar-y" style="width:35%"></div></div>
+          <span class="signal-row-val">Weighted</span>
+        </div>
+        <div class="signal-row">
+          <div class="signal-row-icon" style="background:#DBEAFE;color:#1E40AF;font-size:10px;font-weight:700">SN</div>
+          <span class="signal-row-label">Snap-Level Positioning Data</span>
+          <div class="bar-mini"><div class="bar-fill bar-g" style="width:85%"></div></div>
+          <span class="signal-row-val">~750K Plays</span>
+        </div>
+        <div class="signal-row">
+          <div class="signal-row-icon" style="background:#EDE7F6;color:#7C4DFF;font-size:10px;font-weight:700">SL</div>
+          <span class="signal-row-label">Social Listening Signals</span>
+          <div class="bar-mini"><div class="bar-fill bar-g" style="width:73%"></div></div>
+          <span class="signal-row-val">24/7 Feed</span>
+        </div>
+        <div class="signal-row">
+          <div class="signal-row-icon" style="background:#FFF3E0;color:#E65100;font-size:10px;font-weight:700">DH</div>
+          <span class="signal-row-label">Distance from Home</span>
+          <div class="bar-mini"><div class="bar-fill bar-y" style="width:45%"></div></div>
+          <span class="signal-row-val">Correlated</span>
+        </div>
+        <div class="signal-row">
+          <div class="signal-row-icon" style="background:#E8F9EE;color:#166534;font-size:10px;font-weight:700">SV</div>
+          <span class="signal-row-label">Survey Response Data</span>
+          <div class="bar-mini"><div class="bar-fill bar-g" style="width:60%"></div></div>
+          <span class="signal-row-val">Coming Q3</span>
+        </div>
+        <p style="font-size:11px;color:var(--text-muted);margin-top:10px;">Wisconsin pilot: 81% precision, 85% recall. Trained on athletes who actually transferred.</p>
+      </div>
+    </div>
+
+    <div class="axis-card">
+      <div class="axis-hdr ryg-hdr">
+        <div class="axis-icon" style="background:#DCFCE7">📈</div>
+        <div>
+          <div class="axis-title">RYG — Performance Trajectory</div>
+          <div class="axis-sub">Red = underperforms · Yellow = develops · Green = produces</div>
+        </div>
+      </div>
+      <div class="axis-body">
+        <div class="signal-row">
+          <div class="signal-row-icon" style="background:#E8F9EE;color:#166534;font-size:10px;font-weight:700">GI</div>
+          <span class="signal-row-label">Growth Index (vs. Baseline)</span>
+          <div class="bar-mini"><div class="bar-fill bar-g" style="width:80%"></div></div>
+          <span class="signal-row-val">PDI Track</span>
+        </div>
+        <div class="signal-row">
+          <div class="signal-row-icon" style="background:#DBEAFE;color:#1E40AF;font-size:10px;font-weight:700">CI</div>
+          <span class="signal-row-label">Competitive Index (OQS Adjusted)</span>
+          <div class="bar-mini"><div class="bar-fill bar-g" style="width:84%"></div></div>
+          <span class="signal-row-val">Contextual</span>
+        </div>
+        <div class="signal-row">
+          <div class="signal-row-icon" style="background:#FFF8E1;color:#F57F17;font-size:10px;font-weight:700">RC</div>
+          <span class="signal-row-label">Roster Comparison (Current/Past)</span>
+          <div class="bar-mini"><div class="bar-fill bar-g" style="width:70%"></div></div>
+          <span class="signal-row-val">Position</span>
+        </div>
+        <div class="signal-row">
+          <div class="signal-row-icon" style="background:#EDE7F6;color:#7C4DFF;font-size:10px;font-weight:700">AM</div>
+          <span class="signal-row-label">Academic Modality Fit</span>
+          <div class="bar-mini"><div class="bar-fill bar-g" style="width:72%"></div></div>
+          <span class="signal-row-val">OFI + TFG</span>
+        </div>
+        <div class="signal-row">
+          <div class="signal-row-icon" style="background:#FEE2E2;color:#991B1B;font-size:10px;font-weight:700">OI</div>
+          <span class="signal-row-label">Offer Integrity Check</span>
+          <div class="bar-mini"><div class="bar-fill bar-g" style="width:88%"></div></div>
+          <span class="signal-row-val">Anomaly Det.</span>
+        </div>
+        <p style="font-size:11px;color:var(--text-muted);margin-top:10px;">Accuracy 73.9%–91.6% by position. Running against historical baselines per school, conference, and position.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- AWS VALUE PROPOSITION -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="aws-value">
+    <div class="aws-value-inner">
+      <div class="section-label">AWS Value Proposition</div>
+      <div class="section-title" style="color:#fff">Why This Matters for AWS</div>
+      <div class="section-desc">
+        EDGE3 represents a validated, vertical AI use case in a whitespace market. College athletics Decision Intelligence is a category no cloud provider owns — and the revenue-sharing era is forcing every program to make better roster decisions. AWS infrastructure powers every layer, from model serving to autonomous agent execution.
+      </div>
+
+      <div class="aws-grid">
+        <div class="aws-card highlight">
+          <div class="aws-icon">🏟️</div>
+          <h4>Vertical Market Leadership</h4>
+          <p>College athletics is a $20B+ industry undergoing structural transformation with NIL and revenue sharing. EDGE3 + QwikU position AWS as the infrastructure behind the Decision Intelligence layer every program will need. First mover advantage in a category being created right now.</p>
+          <span class="aws-tag aws-tag-orange">Whitespace Vertical</span>
+        </div>
+        <div class="aws-card">
+          <div class="aws-icon">📈</div>
+          <h4>Compounding Cloud Consumption</h4>
+          <p>Every school generates inference calls (SageMaker), data ingestion (Kinesis), wallet generation (Bedrock), survey processing (Lambda), and storage (S3). 40+ schools today. Every sport, every school QwikU signs = incremental AWS consumption that compounds quarterly.</p>
+          <span class="aws-tag aws-tag-orange">Expanding Workload</span>
+        </div>
+        <div class="aws-card">
+          <div class="aws-icon">🎯</div>
+          <h4>Showcase AI Deployment</h4>
+          <p>Validated models deployed on SageMaker. Autonomous agents on Bedrock. Real-time streaming via Kinesis. This isn't a proof-of-concept — it's a production system with signed customers, trained models (91.6% accuracy), and confirmed pilot schools. Ready for the reference library.</p>
+          <span class="aws-tag aws-tag-green">Production-Ready</span>
+        </div>
+      </div>
+
+      <!-- GTM: High-Profile Athletes + IBM -->
+      <div style="margin-top:32px">
+        <h4 style="font-family:'Outfit',sans-serif;font-size:17px;font-weight:700;color:#fff;margin-bottom:14px;">
+          Go-To-Market Highlights — Athlete Advisors & Enterprise Partnership
+        </h4>
+        <div class="gtm-row">
+          <div class="gtm-card">
+            <div class="gtm-name">Will Anderson Jr.</div>
+            <div class="gtm-role">NFL · Houston Texans · EDGE3 Advisor/Investor</div>
+            <div class="gtm-desc">Former #3 overall pick. Active NFL player validating the platform that could have changed his recruiting experience. GTM asset for athlete-facing product.</div>
+          </div>
+          <div class="gtm-card">
+            <div class="gtm-name">Warren Sapp</div>
+            <div class="gtm-role">Pro Football Hall of Fame · EDGE3 Advisor/Investor</div>
+            <div class="gtm-desc">Hall of Fame defensive lineman. Domain expertise configured into EDGE3's defensive classification models. Co-architect of the intelligence, not just a name.</div>
+          </div>
+          <div class="gtm-card">
+            <div class="gtm-name">Gary Payton</div>
+            <div class="gtm-role">Basketball Hall of Fame · EDGE3 Advisor/Investor</div>
+            <div class="gtm-desc">Cross-sport credibility and multi-sport expansion pathway. EDGE3's basketball assessment vertical is already revenue generating.</div>
+          </div>
+          <div class="gtm-card">
+            <div class="gtm-name">Horace Grant</div>
+            <div class="gtm-role">4x NBA Champion · EDGE3 Advisor/Investor</div>
+            <div class="gtm-desc">Championship-level athlete perspective embedded into platform design and athlete experience.</div>
+          </div>
+        </div>
+        <div class="gtm-row" style="margin-top:14px">
+          <div class="gtm-card" style="border-color:rgba(255,153,0,0.2);background:rgba(255,153,0,0.04)">
+            <div class="gtm-name" style="color:var(--aws-orange)">IBM watsonx Partnership</div>
+            <div class="gtm-role">Enterprise AI Partnership — Early Stage</div>
+            <div class="gtm-desc">EDGE3's initial enterprise AI partnership with IBM watsonx validated the AI approach and enterprise positioning. The AWS engagement builds on this foundation with deeper model deployment, agentic capabilities, and the real-time infrastructure IBM's platform wasn't optimized to deliver.</div>
+          </div>
+          <div class="gtm-card" style="border-color:rgba(0,200,83,0.2);background:rgba(0,200,83,0.04)">
+            <div class="gtm-name" style="color:var(--e3-green)">Coach Evaluators</div>
+            <div class="gtm-role">Jonathan Hayes · Anthony Lynn · Active NFL Coaches</div>
+            <div class="gtm-desc">Active NFL coaches who defined every task and sub-task in EDGE3's classification models. This is domain-configured AI — not generic mathematical models running on sports data. The coaches who generate the data built the intelligence layer.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- NIL MONITOR -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" style="padding-top:0">
+  <div class="nil-section">
+    <div class="nil-header">
+      <span class="nil-badge">EDGE3 LIVE FEED</span>
+      <span class="nil-title">NIL Monitor — Real-Time Regulatory Intelligence</span>
+      <span style="font-size:12px;color:var(--text-muted);margin-left:auto;">nilmonitor.com · An EDGE3 Product</span>
+    </div>
+    <div class="nil-feed">
+      <div class="nil-item">
+        <div class="nil-item-type" style="color:var(--risk-red)">Federal Legislation</div>
+        <h5>College Sports Commission Enforcement Update</h5>
+        <p>New compliance guidelines for NIL collective structures — programs must file updated disclosures by Q2 2026.</p>
+      </div>
+      <div class="nil-item">
+        <div class="nil-item-type" style="color:var(--e3-blue)">Active Litigation</div>
+        <h5>House v. NCAA Settlement Tracker</h5>
+        <p>Revenue-sharing implementation timeline updated. Back-pay distribution framework under federal court review.</p>
+      </div>
+      <div class="nil-item">
+        <div class="nil-item-type" style="color:var(--e3-green-dark)">State Legislation</div>
+        <h5>3 New State NIL Bills in Committee</h5>
+        <p>Texas, Florida, Georgia introduce updated NIL legislation impacting collective registration requirements.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CTA -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" style="padding-top:0">
+  <div class="cta-section">
+    <h2>Models validated. Partnership signed. Pilot schools ready.<br>90 days to live.</h2>
+    <p>
+      EDGE3 Decision Intelligence Engine — powered by QwikU and AWS.
+      Built by practitioners. Configured by coaches. Deployed on the infrastructure that scales.
+    </p>
+    <div class="cta-buttons">
+      <button class="cta-btn primary">Schedule Architecture Sprint</button>
+      <button class="cta-btn secondary">Download Technical Brief</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-logos">
+    <span class="footer-logo" style="color:var(--e3-green)">EDGE<span style="color:var(--e3-blue)">3</span></span>
+    <span class="footer-x">×</span>
+    <span class="footer-logo" style="color:var(--qwik-gold)">QwikU</span>
+    <span class="footer-x">×</span>
+    <span class="footer-logo" style="color:var(--aws-orange)">AWS</span>
+  </div>
+  <p>EDGE3 BY NEXT LEAGUE — Vision Sports Portal LLC / EDGE3 Athlete Intelligence</p>
+  <p style="margin-top:4px;">Confidential — AWS GenAI Innovation Center · Prepared March 2026</p>
+</footer>
+
+<div class="expiration-key">
+  <span>🔒</span>
+  <span>CONFIDENTIAL · Expires: 2026-09-01 · KEY-E3AWS-0303</span>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>EDGE3 — Player Search · Basketball</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brand-dark: #0A0F1C; --brand-dark-2: #0E1320; --brand-dark-3: #161D2D;
+    --brand-white: #FFFFFF; --brand-green: #1AB874; --brand-green-soft: #14965F;
+    --brand-blue: #3B82F6; --brand-blue-soft: #DBEAFE;
+    --brand-text: #E8EDF5; --brand-muted: #8896AB; --brand-line: #1F2738;
+    --green: var(--brand-green); --yellow: #E8B339; --red: #D33F49;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--brand-dark); color: var(--brand-text); font: 14px/1.55 'Inter', -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: var(--brand-blue); text-decoration: none; }
+  .edge3-logo { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.03em; line-height: 1; display: inline-block; font-size: 24px; }
+  .edge3-edge { color: var(--brand-white); } .edge3-three { color: var(--brand-green); }
+
+  header { background: linear-gradient(135deg, var(--brand-dark), var(--brand-dark-2)); padding: 32px 24px 24px; border-bottom: 1px solid var(--brand-line); }
+  header .wrap { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+  header .top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  header .sport-tag { display: inline-block; background: rgba(59, 130, 246, 0.20); border: 1px solid rgba(59, 130, 246, 0.35); padding: 4px 10px; border-radius: 18px; font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 700; color: #C7D9FF; }
+  header h1 { margin: 6px 0 6px; font-size: 26px; font-weight: 800; letter-spacing: -0.015em; color: var(--brand-white); }
+  header p.sub { margin: 0; font-size: 13.5px; color: #A3B1C7; max-width: 760px; line-height: 1.5; }
+
+  .container { max-width: 1280px; margin: 0 auto; padding: 24px; }
+
+  /* Search panel */
+  .search-panel { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 12px; padding: 18px 22px; margin-bottom: 18px; }
+  .search-panel h2 { margin: 0 0 12px; font-size: 16px; font-weight: 700; color: var(--brand-white); }
+  .filter-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr; gap: 10px; align-items: end; }
+  .filter-grid > div { display: flex; flex-direction: column; }
+  .filter-grid label { font-size: 10.5px; color: var(--brand-muted); text-transform: uppercase; letter-spacing: 0.7px; margin-bottom: 4px; font-weight: 600; }
+  .filter-grid input, .filter-grid select { background: var(--brand-dark-3); color: var(--brand-text); border: 1px solid var(--brand-line); border-radius: 6px; padding: 7px 10px; font-size: 13px; font-family: 'Inter', sans-serif; }
+  .filter-grid input:focus, .filter-grid select:focus { outline: none; border-color: var(--brand-blue); }
+  .filter-row-2 { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+  .filter-row-2 button { background: transparent; border: 1px solid var(--brand-line); color: var(--brand-muted); border-radius: 6px; padding: 6px 12px; font-size: 12px; cursor: pointer; font-family: 'Inter', sans-serif; }
+  .filter-row-2 button:hover { border-color: var(--brand-blue); color: var(--brand-text); }
+  .filter-row-2 button.preset { color: var(--brand-blue); border-color: var(--brand-blue); }
+  .filter-row-2 button.reset { color: var(--brand-muted); }
+  .filter-row-2 button.preset:hover { background: var(--brand-blue); color: var(--brand-white); }
+
+  .cohort-tabs { display: flex; gap: 0; border-bottom: 2px solid var(--brand-line); margin-bottom: 12px; }
+  .cohort-tab { background: transparent; border: none; padding: 10px 16px; font-size: 13px; font-weight: 600; color: var(--brand-muted); cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; font-family: 'Inter', sans-serif; }
+  .cohort-tab.active { color: var(--brand-white); border-bottom-color: var(--brand-blue); }
+  .cohort-tab.disabled { color: rgba(140, 152, 175, 0.4); cursor: default; }
+  .cohort-tab .badge { display: inline-block; font-size: 9px; background: rgba(232, 179, 57, 0.20); color: var(--yellow); padding: 2px 6px; border-radius: 8px; margin-left: 6px; text-transform: uppercase; letter-spacing: 0.4px; }
+
+  /* Results */
+  .results-meta { color: var(--brand-muted); font-size: 12.5px; margin: 14px 0 8px; }
+  .results-table-wrap { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 12px; overflow: hidden; }
+  table.results { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  table.results th { text-align: left; padding: 10px 8px; background: var(--brand-dark-3); color: var(--brand-blue); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.6px; border-bottom: 1px solid var(--brand-line); cursor: pointer; user-select: none; }
+  table.results th:hover { color: var(--brand-white); }
+  table.results th.active { color: var(--brand-white); }
+  table.results td { padding: 9px 8px; border-bottom: 1px solid var(--brand-line); }
+  table.results tr:hover { background: rgba(59, 130, 246, 0.05); }
+  table.results .pname { font-weight: 600; color: var(--brand-white); }
+  table.results .pmeta { color: var(--brand-muted); font-size: 11px; }
+  table.results .num { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .pill { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; color: #fff; }
+  .pill.green { background: var(--brand-green); }
+  .pill.yellow { background: var(--yellow); color: #2A1E03; }
+  .pill.red { background: var(--red); }
+  .add-btn { background: transparent; border: 1px solid var(--brand-line); color: var(--brand-muted); border-radius: 5px; padding: 4px 10px; font-size: 11px; cursor: pointer; font-family: 'Inter', sans-serif; }
+  .add-btn:hover { border-color: var(--brand-green); color: var(--brand-green); }
+  .add-btn.added { background: var(--brand-green); border-color: var(--brand-green); color: var(--brand-white); }
+
+  /* Compare panel */
+  .compare-panel { background: linear-gradient(135deg, var(--brand-dark-2), var(--brand-dark-3)); border: 1px solid var(--brand-blue); border-radius: 12px; padding: 22px; margin-top: 22px; }
+  .compare-panel h2 { margin: 0 0 8px; font-size: 18px; font-weight: 700; color: var(--brand-white); }
+  .compare-panel p.lede { color: var(--brand-muted); font-size: 13px; margin: 0 0 16px; }
+  .compare-empty { color: var(--brand-muted); font-style: italic; padding: 30px 20px; text-align: center; background: var(--brand-dark); border-radius: 8px; border: 1px dashed var(--brand-line); }
+  .compare-grid { display: grid; grid-template-columns: 200px repeat(3, 1fr); gap: 0; }
+  .cmp-row { display: contents; }
+  .cmp-row > div { padding: 10px 14px; border-bottom: 1px solid var(--brand-line); }
+  .cmp-row.header > div { background: var(--brand-dark-3); font-size: 11px; text-transform: uppercase; letter-spacing: 0.7px; color: var(--brand-muted); font-weight: 700; }
+  .cmp-row .cmp-label { background: var(--brand-dark-3); color: var(--brand-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; font-weight: 600; }
+  .cmp-row .cmp-val { font-size: 13.5px; font-weight: 600; color: var(--brand-text); font-variant-numeric: tabular-nums; }
+  .cmp-row .cmp-val .pill { font-size: 10px; padding: 1px 6px; }
+  .cmp-row .cmp-empty { color: rgba(140,152,175,0.3); font-style: italic; font-size: 12px; }
+  .cmp-name { font-weight: 700 !important; color: var(--brand-white) !important; font-size: 14px !important; }
+  .cmp-name .pmeta { display: block; font-weight: 400; color: var(--brand-muted); font-size: 11px; margin-top: 2px; text-transform: none; letter-spacing: 0; }
+  .cmp-name .remove-btn { float: right; background: transparent; border: 1px solid var(--brand-muted); color: var(--brand-muted); border-radius: 4px; width: 18px; height: 18px; line-height: 14px; padding: 0; font-size: 11px; cursor: pointer; font-family: 'Inter', sans-serif; }
+  .cmp-name .remove-btn:hover { border-color: var(--red); color: var(--red); }
+
+  /* Methodology footer */
+  .method-block { margin-top: 28px; padding: 22px 24px; background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 12px; }
+  .method-block h3 { margin: 0 0 8px; color: var(--brand-white); font-size: 16px; font-weight: 700; }
+  .method-block p { color: var(--brand-muted); font-size: 13px; line-height: 1.55; margin: 0 0 10px; }
+  .method-block p strong { color: var(--brand-text); }
+
+  footer { padding: 22px 24px; color: var(--brand-muted); font-size: 12px; text-align: center; border-top: 1px solid var(--brand-line); margin-top: 30px; }
+
+  @media (max-width: 980px) {
+    .filter-grid { grid-template-columns: 1fr 1fr 1fr; }
+    .compare-grid { grid-template-columns: 1fr; }
+    .cmp-row > div { display: block; }
+    .cmp-row.header { display: none; }
+  }
+  @media (max-width: 760px) {
+    .filter-grid { grid-template-columns: 1fr 1fr; }
+    .results-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table.results { min-width: 720px; font-size: 11.5px; }
+    table.results th, table.results td { white-space: nowrap; padding: 7px 6px; }
+  }
+  @media (max-width: 480px) {
+    .filter-grid { grid-template-columns: 1fr; }
+  }
+</style>
+  <link rel="stylesheet" href="../../../_gate.css">
+  <script src="../../../_gate.js" defer></script>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="top-row">
+      <a href="../../" style="text-decoration: none;"><span class="edge3-logo"><span class="edge3-edge">EDGE</span><span class="edge3-three">3</span></span></a>
+      <span class="sport-tag">Basketball · Player Search</span>
+    </div>
+    <h1>Search any player. Compare any two.</h1>
+    <p class="sub">This is what runs in the staff room. Type a name, set position thresholds (Olen-style), filter by cohort. Add up to three players to compare side-by-side. Every number is real model output from BB Combined R/Y/G v1.</p>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- Cohort tabs -->
+  <div class="cohort-tabs">
+    <button class="cohort-tab active" data-cohort="D1">D1 · live</button>
+    <button class="cohort-tab disabled">HS recruits <span class="badge">Q2 2026</span></button>
+    <button class="cohort-tab disabled">D2 / NAIA <span class="badge">Q3 2026</span></button>
+    <button class="cohort-tab disabled">International <span class="badge">Q3 2026</span></button>
+  </div>
+
+  <!-- Search + filter panel -->
+  <div class="search-panel">
+    <h2>Filter the board</h2>
+    <div class="filter-grid">
+      <div>
+        <label>Player name</label>
+        <input type="text" id="f-name" placeholder="e.g., Antonio Chol">
+      </div>
+      <div>
+        <label>Position</label>
+        <select id="f-pos">
+          <option value="">Any</option>
+          <option value="Pure PG">Pure PG</option>
+          <option value="Scoring PG">Scoring PG</option>
+          <option value="Combo G">Combo G</option>
+          <option value="Wing G">Wing G</option>
+          <option value="Wing F">Wing F</option>
+          <option value="Stretch 4">Stretch 4</option>
+          <option value="PF/C">PF/C</option>
+          <option value="C">C</option>
+        </select>
+      </div>
+      <div>
+        <label>Min height</label>
+        <input type="number" id="f-ht" placeholder="any" min="0" max="90">
+      </div>
+      <div>
+        <label>Min DRB %</label>
+        <input type="number" id="f-drb" placeholder="any" min="0" step="0.1">
+      </div>
+      <div>
+        <label>Min OReb %</label>
+        <input type="number" id="f-orb" placeholder="any" min="0" step="0.1">
+      </div>
+      <div>
+        <label>Min Stl %</label>
+        <input type="number" id="f-stl" placeholder="any" min="0" step="0.1">
+      </div>
+      <div>
+        <label>Min Blk %</label>
+        <input type="number" id="f-blk" placeholder="any" min="0" step="0.1">
+      </div>
+    </div>
+    <div class="filter-row-2">
+      <button class="preset" onclick="applyOlenPreset()">Apply Coach Olen's preset (DReb &gt; 15, OReb &gt; 6, Stl &gt; 2, Blk &gt; 3, Ht ≥ 80)</button>
+      <button class="reset" onclick="resetFilters()">Reset filters</button>
+      <span style="margin-left: auto; color: var(--brand-muted); font-size: 12px; align-self: center;" id="result-count">— players</span>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div class="results-meta">
+    Click any column header to sort. Click <em>+ compare</em> on up to 3 players. Then scroll down to see them stacked side-by-side with R/Y/G + trajectory + friction context per player.
+  </div>
+  <div class="results-table-wrap">
+    <table class="results">
+      <thead>
+        <tr>
+          <th data-sort="name">Player</th>
+          <th data-sort="ht">Ht</th>
+          <th data-sort="orb">OReb%</th>
+          <th data-sort="drb">DReb%</th>
+          <th data-sort="stl">Stl%</th>
+          <th data-sort="blk">Blk%</th>
+          <th data-sort="usg">USG%</th>
+          <th data-sort="risk">Risk</th>
+          <th data-sort="traj">Trajectory</th>
+          <th data-sort="combined">Combined</th>
+          <th data-sort="sig">R/Y/G</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="results-body"></tbody>
+    </table>
+  </div>
+
+  <!-- Compare panel -->
+  <div class="compare-panel">
+    <h2>Side-by-side compare</h2>
+    <p class="lede">Up to 3 players. The math underneath is the same model — different inputs land at different signals.</p>
+    <div id="compare-content"></div>
+  </div>
+
+  <!-- Methodology footer -->
+  <div class="method-block">
+    <h3>How EDGE3 reads players the model has never seen</h3>
+    <p><strong>Returning college players</strong> have prior-year college stats. The trajectory model uses those + the player's scheme context + behavioral signals to predict next-season improvement or decline. That's the model behind the table above. Validated on past cycles where the next-season outcome already played out.</p>
+    <p><strong>HS recruits with no college stats yet</strong> use a different read: HS recruiting class quality (247 composite + national rank), HS scheme experience (asked in the survey), position archetype matching against historical comparables, and program-fit modeling. The output is a development band, not a single trajectory score. Same architecture — different inputs.</p>
+    <p><strong>D2, NAIA, international players</strong> are on the Q3 2026 roadmap — pipelines for those data sources are being built. Today the search is D1-live; coverage expands as data lands.</p>
+  </div>
+
+</div>
+
+<footer>
+  Live D1 data: 471 stratified players (Red/Yellow/Green × all positions) from BB Combined R/Y/G v1, BartTorvik 2026 inputs.
+  · <a href="../../">Back to EDGE3 Basketball</a>
+  · <a href="../bb_loop/">Continuous Intelligence Loop</a>
+</footer>
+
+<script>
+let PLAYERS = [];
+let filtered = [];
+let compareList = [];
+let sortKey = 'sig';
+let sortDir = 'asc';
+
+// Tier priority — Green first, Yellow second, Red third
+function tierOrder(sig) {
+  return {Green: 0, Yellow: 1, Red: 2}[sig] ?? 99;
+}
+
+// Load player data
+fetch('./players.json').then(r => r.json()).then(data => {
+  PLAYERS = data;
+  applyFilters();
+});
+
+function applyFilters() {
+  const name = (document.getElementById('f-name').value || '').toLowerCase().trim();
+  const pos = document.getElementById('f-pos').value;
+  const ht = parseFloat(document.getElementById('f-ht').value) || 0;
+  const drb = parseFloat(document.getElementById('f-drb').value) || 0;
+  const orb = parseFloat(document.getElementById('f-orb').value) || 0;
+  const stl = parseFloat(document.getElementById('f-stl').value) || 0;
+  const blk = parseFloat(document.getElementById('f-blk').value) || 0;
+
+  filtered = PLAYERS.filter(p => {
+    if (name && !p.name.toLowerCase().includes(name) && !p.team.toLowerCase().includes(name)) return false;
+    if (pos && p.pos !== pos) return false;
+    if (ht && (!p.ht || p.ht < ht)) return false;
+    if (drb && (!p.drb || p.drb < drb)) return false;
+    if (orb && (!p.orb || p.orb < orb)) return false;
+    if (stl && (!p.stl || p.stl < stl)) return false;
+    if (blk && (!p.blk || p.blk < blk)) return false;
+    return true;
+  });
+  sortAndRender();
+}
+
+function sortAndRender() {
+  filtered.sort((a,b) => {
+    if (sortKey === 'sig') {
+      // Tier-priority sort: Green → Yellow → Red, with combined ascending within each tier
+      const ta = tierOrder(a.sig), tb = tierOrder(b.sig);
+      if (ta !== tb) return sortDir === 'asc' ? ta - tb : tb - ta;
+      // Within tier, lowest combined first (cleanest greens, least-bad reds)
+      const ac = a.combined ?? 99, bc = b.combined ?? 99;
+      return ac - bc;
+    }
+    let av = a[sortKey], bv = b[sortKey];
+    if (av === null || av === undefined) av = -Infinity;
+    if (bv === null || bv === undefined) bv = -Infinity;
+    if (typeof av === 'string') return sortDir === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
+    return sortDir === 'asc' ? av - bv : bv - av;
+  });
+  renderResults();
+}
+
+function renderResults() {
+  const tbody = document.getElementById('results-body');
+  tbody.innerHTML = filtered.slice(0, 200).map(p => {
+    const inCmp = compareList.find(c => c.name === p.name && c.team === p.team);
+    return `
+      <tr>
+        <td><div class="pname">${p.name}</div><div class="pmeta">${p.team} · ${p.pos} · ${p.class}</div></td>
+        <td class="num">${fmtHt(p.ht)}</td>
+        <td class="num">${fmt(p.orb)}</td>
+        <td class="num">${fmt(p.drb)}</td>
+        <td class="num">${fmt(p.stl)}</td>
+        <td class="num">${fmt(p.blk)}</td>
+        <td class="num">${fmt(p.usg)}</td>
+        <td class="num">${p.risk.toFixed(2)}</td>
+        <td class="num">${(p.traj > 0 ? '+' : '') + p.traj.toFixed(2)} ${p.tier}</td>
+        <td class="num">${p.combined.toFixed(3)}</td>
+        <td><span class="pill ${p.sig.toLowerCase()}">${p.sig}</span></td>
+        <td><button class="add-btn ${inCmp ? 'added' : ''}" onclick="toggleCompare('${escapeAttr(p.name)}', '${escapeAttr(p.team)}')">${inCmp ? '✓ in compare' : '+ compare'}</button></td>
+      </tr>`;
+  }).join('');
+
+  document.getElementById('result-count').textContent = `${filtered.length} player${filtered.length === 1 ? '' : 's'} (showing ${Math.min(200, filtered.length)})`;
+}
+
+function fmt(n) { return n === null || n === undefined ? '—' : n.toFixed(1); }
+function fmtHt(inches) {
+  if (!inches) return '—';
+  const ft = Math.floor(inches/12);
+  const inch = inches - ft*12;
+  return `${ft}'${inch}"`;
+}
+function escapeAttr(s) { return s.replace(/'/g, "\\'"); }
+
+function toggleCompare(name, team) {
+  name = name.replace(/\\'/g, "'");
+  team = team.replace(/\\'/g, "'");
+  const idx = compareList.findIndex(c => c.name === name && c.team === team);
+  if (idx >= 0) {
+    compareList.splice(idx, 1);
+  } else if (compareList.length < 3) {
+    const player = PLAYERS.find(p => p.name === name && p.team === team);
+    if (player) compareList.push(player);
+  }
+  renderResults();
+  renderCompare();
+}
+
+function renderCompare() {
+  const container = document.getElementById('compare-content');
+  if (compareList.length === 0) {
+    container.innerHTML = '<div class="compare-empty">Click <em>+ compare</em> on up to 3 players above to see them side-by-side.</div>';
+    return;
+  }
+  const cols = compareList.length;
+  const empty = '<div class="cmp-empty">—</div>';
+  while (compareList.length < 3) compareList.push(null);  // pad for layout
+
+  function row(label, getter, fmt) {
+    const cells = compareList.map(p => p ? `<div class="cmp-val">${fmt ? fmt(getter(p)) : getter(p)}</div>` : `<div class="cmp-val">${empty}</div>`).join('');
+    return `<div class="cmp-row"><div class="cmp-label">${label}</div>${cells}</div>`;
+  }
+
+  let html = `<div class="compare-grid">`;
+  // Header row
+  html += `<div class="cmp-row"><div class="cmp-label">&nbsp;</div>${
+    compareList.map((p,i) => p ? `<div class="cmp-name">${p.name}<button class="remove-btn" onclick="removeFromCompare(${i})">✕</button><span class="pmeta">${p.team} · ${p.pos} · ${p.class}</span></div>` : `<div class="cmp-name" style="color: rgba(140,152,175,0.3); font-style: italic;">slot empty</div>`).join('')
+  }</div>`;
+
+  html += row('Height', p => p.ht, fmtHt);
+  html += row('Min %', p => p.minpct, v => v == null ? '—' : v.toFixed(1));
+  html += row('USG %', p => p.usg, v => v == null ? '—' : v.toFixed(1));
+  html += row('OReb %', p => p.orb, fmt);
+  html += row('DReb %', p => p.drb, fmt);
+  html += row('Stl %', p => p.stl, fmt);
+  html += row('Blk %', p => p.blk, fmt);
+  html += row('AST %', p => p.astpct, fmt);
+  html += row('TO %', p => p.topct, fmt);
+  html += row('eFG %', p => p.efg, fmt);
+  html += row('Transfer Risk', p => p.risk, v => v == null ? '—' : v.toFixed(3));
+  html += row('Trajectory', p => p.traj == null ? '—' : `${p.traj > 0 ? '+' : ''}${p.traj.toFixed(3)} ${p.tier}`, x => x);
+  html += row('Combined', p => p.combined, v => v == null ? '—' : v.toFixed(3));
+  html += `<div class="cmp-row"><div class="cmp-label">R/Y/G Signal</div>${compareList.map(p => p ? `<div class="cmp-val"><span class="pill ${p.sig.toLowerCase()}">${p.sig}</span></div>` : `<div class="cmp-val">${empty}</div>`).join('')}</div>`;
+  html += `</div>`;
+  container.innerHTML = html;
+
+  compareList = compareList.filter(x => x);  // trim padding
+}
+
+function removeFromCompare(idx) {
+  compareList = compareList.filter(x => x);
+  compareList.splice(idx, 1);
+  renderResults();
+  renderCompare();
+}
+
+function applyOlenPreset() {
+  document.getElementById('f-drb').value = 15;
+  document.getElementById('f-orb').value = 6;
+  document.getElementById('f-stl').value = 2;
+  document.getElementById('f-blk').value = 3;
+  document.getElementById('f-ht').value = 80;
+  applyFilters();
+}
+
+function resetFilters() {
+  document.getElementById('f-name').value = '';
+  document.getElementById('f-pos').value = '';
+  document.getElementById('f-ht').value = '';
+  document.getElementById('f-drb').value = '';
+  document.getElementById('f-orb').value = '';
+  document.getElementById('f-stl').value = '';
+  document.getElementById('f-blk').value = '';
+  applyFilters();
+}
+
+// Wire up filter inputs
+document.querySelectorAll('#f-name, #f-pos, #f-ht, #f-drb, #f-orb, #f-stl, #f-blk').forEach(el => {
+  el.addEventListener('input', applyFilters);
+  el.addEventListener('change', applyFilters);
+});
+
+// Sortable headers
+document.querySelectorAll('table.results th[data-sort]').forEach(th => {
+  th.addEventListener('click', () => {
+    const key = th.dataset.sort;
+    if (sortKey === key) sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+    else { sortKey = key; sortDir = 'desc'; }
+    document.querySelectorAll('table.results th').forEach(t => t.classList.remove('active'));
+    th.classList.add('active');
+    sortAndRender();
+  });
+});
+
+// Initial render of empty compare
+renderCompare();
+</script>
+
+</body>
+</html>

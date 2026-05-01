@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>EDGE3 — Social Listening Layer</title>
+<meta name="description" content="Continuous, decision-grade signal from public social activity. Built for coaches, not data analysts. Public posts only — no DMs, no facial recognition.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brand-dark:    #0A0F1C;
+    --brand-dark-2:  #0E1320;
+    --brand-dark-3:  #161D2D;
+    --brand-white:   #FFFFFF;
+    --brand-green:   #1AB874;
+    --brand-green-d: #14965F;
+    --brand-blue:    #3B82F6;
+    --brand-blue-s:  #DBEAFE;
+    --brand-text:    #E8EDF5;
+    --brand-muted:   #8896AB;
+    --brand-line:    #1F2738;
+    --yellow:        #E8B339;
+    --red:           #D33F49;
+    --gradient-1:    linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-dark-2) 100%);
+    --gradient-2:    linear-gradient(135deg, rgba(26,184,116,0.10), rgba(59,130,246,0.06));
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--brand-dark); color: var(--brand-text);
+    font: 15px/1.6 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--brand-blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .brandbar { background: var(--brand-dark); border-bottom: 1px solid var(--brand-line); padding: 16px 0; }
+  .brandbar .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .edge3-logo { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.03em; line-height: 1; font-size: 22px; }
+  .edge3-logo .e { color: var(--brand-white); }
+  .edge3-logo .three { color: var(--brand-green); }
+  .brandbar .crumb { font-size: 13px; color: var(--brand-muted); }
+  .brandbar .crumb a { color: var(--brand-text); }
+  .brandbar .crumb .sep { margin: 0 8px; opacity: 0.5; }
+
+  header.hero { background: var(--gradient-1); padding: 56px 0 48px; border-bottom: 1px solid var(--brand-line); position: relative; overflow: hidden; }
+  header.hero::before { content: ''; position: absolute; top: -50%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(26,184,116,0.08), transparent 60%); pointer-events: none; }
+  header.hero .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; }
+  .eyebrow { display: inline-block; background: rgba(59,130,246,0.18); border: 1px solid rgba(59,130,246,0.35); padding: 5px 12px; border-radius: 18px; font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: #C7D9FF; margin-bottom: 18px; }
+  header.hero h1 { margin: 0 0 14px; font-size: 38px; line-height: 1.1; font-weight: 800; letter-spacing: -0.02em; color: var(--brand-white); max-width: 820px; }
+  header.hero h1 .accent { color: var(--brand-green); }
+  header.hero p.lede { margin: 0; font-size: 17px; line-height: 1.55; color: #C7D3E6; max-width: 760px; }
+
+  main { max-width: 1100px; margin: 0 auto; padding: 56px 24px 32px; }
+  section { margin-bottom: 56px; }
+  section h2 { font-size: 26px; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 8px; color: var(--brand-white); }
+  section p.section-lede { color: var(--brand-muted); font-size: 15px; margin: 0 0 22px; max-width: 780px; }
+
+  /* Signal cards - 4 up */
+  .signals { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  @media (max-width: 700px) { .signals { grid-template-columns: 1fr; } }
+  .signal { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 12px; padding: 22px 22px 20px; position: relative; }
+  .signal::before { content: ''; position: absolute; top: 0; left: 22px; right: 22px; height: 3px; background: var(--brand-blue); border-radius: 0 0 3px 3px; }
+  .signal.s2::before { background: var(--brand-green); }
+  .signal.s3::before { background: var(--yellow); }
+  .signal.s4::before { background: var(--red); }
+  .signal .num { font-size: 11px; font-weight: 700; color: var(--brand-muted); letter-spacing: 1.4px; text-transform: uppercase; margin-bottom: 4px; }
+  .signal h3 { margin: 0 0 8px; font-size: 17px; font-weight: 700; color: var(--brand-white); letter-spacing: -0.01em; }
+  .signal p.sig-what { font-size: 13.5px; color: var(--brand-muted); margin: 0 0 12px; }
+  .signal ul { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--brand-line); padding-top: 12px; }
+  .signal ul li { font-size: 13px; line-height: 1.5; color: var(--brand-text); padding: 6px 0; padding-left: 18px; position: relative; }
+  .signal ul li::before { content: '\2022'; position: absolute; left: 4px; top: 6px; color: var(--brand-blue); font-weight: 800; font-size: 14px; }
+  .signal.s2 ul li::before { color: var(--brand-green); }
+  .signal.s3 ul li::before { color: var(--yellow); }
+  .signal.s4 ul li::before { color: var(--red); }
+  .signal .threshold { display: inline-block; margin-top: 12px; font-size: 11.5px; color: var(--brand-muted); font-style: italic; padding-top: 10px; border-top: 1px dashed var(--brand-line); width: 100%; }
+
+  /* Don't-do callout */
+  .dont-do { background: rgba(211, 63, 73, 0.06); border: 1px solid rgba(211, 63, 73, 0.30); border-radius: 12px; padding: 22px 26px; }
+  .dont-do .dd-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--red); font-weight: 700; margin-bottom: 12px; }
+  .dont-do .dd-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 24px; margin: 0; padding: 0; list-style: none; }
+  @media (max-width: 700px) { .dont-do .dd-list { grid-template-columns: 1fr; } }
+  .dont-do .dd-list li { font-size: 13.5px; color: var(--brand-text); padding-left: 22px; position: relative; }
+  .dont-do .dd-list li::before { content: '\2715'; position: absolute; left: 0; top: 0; color: var(--red); font-weight: 700; }
+
+  /* Coach output mock */
+  .coach-mock { background: var(--gradient-2); border: 1px solid rgba(26,184,116,0.30); border-radius: 12px; padding: 24px 26px; }
+  .coach-mock .cm-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--brand-green); font-weight: 700; margin-bottom: 14px; }
+  .coach-mock .cm-block { margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid var(--brand-line); }
+  .coach-mock .cm-block:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: 0; }
+  .coach-mock .cm-block .cm-title { font-size: 12px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--brand-blue); font-weight: 700; margin-bottom: 6px; }
+  .coach-mock .cm-block .cm-text { font-size: 14.5px; line-height: 1.55; color: var(--brand-text); }
+  .coach-mock .cm-block .cm-text strong { color: var(--brand-white); }
+  .coach-mock .cm-block.action .cm-title { color: var(--brand-green); }
+  .coach-mock .cm-foot { font-size: 12px; color: var(--brand-muted); padding-top: 14px; border-top: 1px solid var(--brand-line); margin-top: 4px; font-style: italic; }
+
+  /* Cadence row */
+  .cadence-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  @media (max-width: 760px) { .cadence-row { grid-template-columns: 1fr; } }
+  .cadence-cell { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 10px; padding: 16px 18px; }
+  .cadence-cell .cd-label { color: var(--brand-blue); font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 4px; font-weight: 700; }
+  .cadence-cell .cd-cadence { font-size: 15px; font-weight: 700; color: var(--brand-white); margin-bottom: 6px; }
+  .cadence-cell .cd-text { color: var(--brand-text); font-size: 13px; line-height: 1.5; }
+
+  /* Feature mapping table */
+  .feature-table { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 12px; overflow: hidden; }
+  .feature-table .ft-row { display: grid; grid-template-columns: 1.6fr 1.4fr 1fr; gap: 0; padding: 12px 18px; border-bottom: 1px solid var(--brand-line); font-size: 13.5px; }
+  .feature-table .ft-row:last-child { border-bottom: 0; }
+  .feature-table .ft-row.head { background: var(--brand-dark-3); font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--brand-muted); font-weight: 700; }
+  .feature-table .ft-cell code { background: var(--brand-dark-3); border: 1px solid var(--brand-line); border-radius: 4px; padding: 1px 7px; font-size: 11.5px; color: var(--brand-text); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+  /* Companion docs */
+  .doc-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  @media (max-width: 900px) { .doc-cards { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 540px) { .doc-cards { grid-template-columns: 1fr; } }
+  .doc-card { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 10px; padding: 16px 18px; text-decoration: none; color: var(--brand-text); transition: border-color 0.15s, transform 0.15s; display: block; }
+  .doc-card:hover { border-color: var(--brand-blue); transform: translateY(-1px); text-decoration: none; }
+  .doc-card .dctype { font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--brand-blue); font-weight: 700; margin-bottom: 6px; }
+  .doc-card .dctitle { font-size: 14.5px; font-weight: 700; color: var(--brand-white); margin-bottom: 4px; }
+  .doc-card .dcsub { font-size: 12.5px; color: var(--brand-muted); line-height: 1.45; }
+  .doc-card .dcarrow { color: var(--brand-blue); margin-left: 4px; }
+
+  footer { border-top: 1px solid var(--brand-line); padding: 28px 24px 36px; margin-top: 24px; }
+  footer .wrap { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; font-size: 12.5px; color: var(--brand-muted); }
+  footer .wrap a { color: var(--brand-text); }
+
+  .promise { background: var(--brand-dark-2); border-left: 3px solid var(--brand-green); border-radius: 4px; padding: 18px 22px; }
+  .promise .pq { font-size: 16px; line-height: 1.55; color: var(--brand-text); font-style: italic; margin: 0; }
+  .promise .pq strong { color: var(--brand-white); font-style: normal; }
+</style>
+</head>
+<body>
+
+<div class="brandbar">
+  <div class="wrap">
+    <a href="./" style="text-decoration: none;"><span class="edge3-logo"><span class="e">EDGE</span><span class="three">3</span></span></a>
+    <div class="crumb"><a href="./">EDGE3</a><span class="sep">/</span><a href="./INTELLIGENCE_LOOP.html">Intelligence Loop</a><span class="sep">/</span>Social Listening</div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">EDGE3 Methodology</span>
+    <h1>The <span class="accent">always-on</span> input. Drift caught between survey cycles.</h1>
+    <p class="lede">Survey, parent, weekly snaps — those are scheduled inputs. Social listening runs continuously in the background, monitoring only what the athlete chose to make public, on accounts they self-reported. It's the layer that catches drift before a coach knows there's a problem.</p>
+  </div>
+</header>
+
+<main>
+
+  <section>
+    <h2>What it captures</h2>
+    <p class="section-lede">Four signal types. Each named in plain language. The model handles the math. Coaches see the read.</p>
+    <div class="signals">
+      <div class="signal s1">
+        <div class="num">Signal 01</div>
+        <h3>Follower-graph drift</h3>
+        <p class="sig-what">Who is following the athlete &mdash; and who the athlete is following back.</p>
+        <ul>
+          <li>A coach at another school starts following one of your players. <strong>Recruiting probe &mdash; immediate flag.</strong></li>
+          <li>The player follows a rival program. Soft signal of curiosity.</li>
+          <li>The player unfollows your program or HC. <strong>Hard signal &mdash; immediate alert.</strong></li>
+          <li>A teammate unfollows the player. Locker-room friction signal.</li>
+        </ul>
+        <span class="threshold">Most predictive signal in the layer. Rival recruiting interest shows up here weeks before any commitment language.</span>
+      </div>
+      <div class="signal s2">
+        <div class="num">Signal 02</div>
+        <h3>Engagement pattern</h3>
+        <p class="sig-what">What the athlete is engaging with publicly &mdash; likes, replies, shares.</p>
+        <ul>
+          <li>The player likes posts from someone who consistently criticizes your program.</li>
+          <li>The player replies positively to a transfer-portal account.</li>
+          <li>The player engages with a different school's NIL collective.</li>
+        </ul>
+        <span class="threshold">Pattern over event. Only alerts when a 14-day pattern crosses threshold.</span>
+      </div>
+      <div class="signal s3">
+        <div class="num">Signal 03</div>
+        <h3>Search-trend velocity</h3>
+        <p class="sig-what">Public search interest in the player's name. Not from the player &mdash; from the recruiting market around the player.</p>
+        <ul>
+          <li>Spike in Google searches for the player's name &mdash; other staffs doing their homework.</li>
+          <li>Cross-correlated with media coverage, rival-staff follows, recruiting cycles to filter noise.</li>
+        </ul>
+        <span class="threshold">Tells coaches when the recruiting market is heating up around their player &mdash; usually before the player knows.</span>
+      </div>
+      <div class="signal s4">
+        <div class="num">Signal 04</div>
+        <h3>Frustration markers</h3>
+        <p class="sig-what">The cryptic-post layer. Plain-language patterns that indicate disengagement.</p>
+        <ul>
+          <li>Cryptic posts about playing time, role, or staff decisions.</li>
+          <li>Direct or implied transfer-portal language.</li>
+          <li>Subtweet patterns toward teammates or staff.</li>
+          <li>Tone shift from team-positive to team-neutral over 14 days.</li>
+        </ul>
+        <span class="threshold">Only flags when 3+ markers land within 30 days. Single posts don't trigger alerts.</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>What it does NOT do</h2>
+    <p class="section-lede">The compliance posture, in plain language. Listed first because every AD asks.</p>
+    <div class="dont-do">
+      <div class="dd-label">Not part of EDGE3 social listening</div>
+      <ul class="dd-list">
+        <li>No DMs or private messages &mdash; public posts only</li>
+        <li>No posting on the athlete's behalf &mdash; read-only</li>
+        <li>No facial recognition. No image classification. No audio.</li>
+        <li>No browsing history &mdash; only what's posted publicly</li>
+        <li>No data shared outside the athlete's coaching staff</li>
+        <li>No NIL brand-deal velocity tracking &mdash; we don't measure it</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>How it shows up for the coach</h2>
+    <p class="section-lede">No social platform login. No raw scores. Plain-English insights in the EDGE3 dashboard.</p>
+    <div class="coach-mock">
+      <div class="cm-label">Coach dashboard &middot; example</div>
+      <div class="cm-block">
+        <div class="cm-title">What changed &middot; last 7 days</div>
+        <div class="cm-text">A coach at TCU started following the player. The player liked three posts from a fan account that's been calling out the offensive scheme. Cryptic post on Sunday about <em>"playing time."</em></div>
+      </div>
+      <div class="cm-block">
+        <div class="cm-title">What it means</div>
+        <div class="cm-text">Recruiting interest from outside is heating up while the player is showing public frustration with the offense. <strong>Combined risk score moved from 0.42 to 0.61 &mdash; Yellow.</strong></div>
+      </div>
+      <div class="cm-block action">
+        <div class="cm-title">What to do</div>
+        <div class="cm-text">15-minute check-in this week. Anchor on the route-tree conversation from the October survey response &mdash; the player told you system fit was the reason for choosing the program. Reaffirm the development plan.</div>
+      </div>
+      <div class="cm-foot">No AI metrics. No threshold scores. No technical jargon. Just <em>what changed &rarr; what it means &rarr; what to do</em>.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Cadence</h2>
+    <p class="section-lede">Three layers running in parallel. The model re-scores the moment any signal threshold is crossed.</p>
+    <div class="cadence-row">
+      <div class="cadence-cell">
+        <div class="cd-label">Continuous</div>
+        <div class="cd-cadence">Public-post + follower sweep</div>
+        <div class="cd-text">Every 6 hours. New posts, engagement events, follower-graph deltas pulled from self-reported accounts.</div>
+      </div>
+      <div class="cadence-cell">
+        <div class="cd-label">Daily</div>
+        <div class="cd-cadence">Pattern scoring + threshold check</div>
+        <div class="cd-text">Search-trend velocity pulled. Four signal types computed against rolling baseline. Model re-scores if any threshold crosses.</div>
+      </div>
+      <div class="cadence-cell">
+        <div class="cd-label">On detection</div>
+        <div class="cd-cadence">Coach push notification</div>
+        <div class="cd-text">Coach notified within hours of a hard signal &mdash; rival coach follow, unfollow event, agent contact.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>How it feeds the models</h2>
+    <p class="section-lede">Each signal maps to a feature column already wired into the model architecture. Coaches don't see this &mdash; it's the math under the hood.</p>
+    <div class="feature-table">
+      <div class="ft-row head">
+        <div class="ft-cell">Signal</div>
+        <div class="ft-cell">Feature column</div>
+        <div class="ft-cell">Models affected</div>
+      </div>
+      <div class="ft-row">
+        <div class="ft-cell">Rival coach follows player</div>
+        <div class="ft-cell"><code>social_external_pressure</code> <span style="color: var(--brand-muted);">(heavy weight)</span></div>
+        <div class="ft-cell">Roster Retention Risk</div>
+      </div>
+      <div class="ft-row">
+        <div class="ft-cell">Player unfollows program / HC</div>
+        <div class="ft-cell"><code>social_sentiment</code> + <code>social_external_pressure</code></div>
+        <div class="ft-cell">Roster Retention Risk + Trajectory</div>
+      </div>
+      <div class="ft-row">
+        <div class="ft-cell">Engaging with critic accounts</div>
+        <div class="ft-cell"><code>social_sentiment</code> (negative)</div>
+        <div class="ft-cell">Performance Trajectory</div>
+      </div>
+      <div class="ft-row">
+        <div class="ft-cell">Search-trend spike on player</div>
+        <div class="ft-cell"><code>social_external_pressure</code></div>
+        <div class="ft-cell">Roster Retention Risk</div>
+      </div>
+      <div class="ft-row">
+        <div class="ft-cell">Frustration markers (3+/30d)</div>
+        <div class="ft-cell"><code>social_frustration_flag</code></div>
+        <div class="ft-cell">Roster Retention Risk &middot; immediate Yellow trigger</div>
+      </div>
+      <div class="ft-row">
+        <div class="ft-cell">New agent in influence chain</div>
+        <div class="ft-cell"><code>social_external_pressure</code></div>
+        <div class="ft-cell">Roster Retention Risk</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>What we promise the coach</h2>
+    <div class="promise">
+      <p class="pq">EDGE3 doesn&rsquo;t show coaches more data. It shows coaches <strong>what changed, what it means, and what to do</strong> &mdash; and only when there&rsquo;s something worth knowing. Social listening is the layer that makes that possible without the staff opening a single social media app.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Companion docs</h2>
+    <p class="section-lede">Where this layer connects to the rest of EDGE3.</p>
+    <div class="doc-cards">
+      <a class="doc-card" href="./INTELLIGENCE_LOOP.html">
+        <div class="dctype">Methodology</div>
+        <div class="dctitle">Continuous Intelligence Loop</div>
+        <div class="dcsub">The four input streams together &mdash; survey, parent, snaps, social. <span class="dcarrow">&rarr;</span></div>
+      </a>
+      <a class="doc-card" href="../surveys/scoring_methodology.md">
+        <div class="dctype">Methodology</div>
+        <div class="dctitle">Survey Scoring</div>
+        <div class="dcsub">Response &rarr; dimension &rarr; model feature column. <span class="dcarrow">&rarr;</span></div>
+      </a>
+      <a class="doc-card" href="./NEXT_STEPS_ROADMAP.html">
+        <div class="dctype">Roadmap</div>
+        <div class="dctitle">Next Steps</div>
+        <div class="dcsub">Phase 2 priorities for the social-listening layer. <span class="dcarrow">&rarr;</span></div>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><span class="edge3-logo" style="font-size:16px;"><span class="e">EDGE</span><span class="three">3</span></span> &middot; Social Listening Layer</div>
+    <div><a href="./">Home</a> &middot; <a href="./basketball/">Basketball</a> &middot; <a href="./football/">Football</a> &middot; <a href="https://github.com/glove2044/edge3-model">github.com/glove2044/edge3-model</a></div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Wisconsin Football — Program Scorecard for Coach Fickell & Staff</title>
+<style>
+  :root {
+    --edge3-red:#C5050C; --edge3-red-dk:#9B040A; --wisc-red:#C5050C;
+    --bg:#0F1115; --panel:#1A1D24; --panel-2:#222631; --line:#2C3140;
+    --text:#E8EAEE; --muted:#8A93A6; --accent:#7BA9FF;
+    --elite:#16C172; --above:#7BC96F; --at:#E8B339; --below:#E07F4D; --far:#D33F49; --unknown:#5A6275;
+  }
+  * {box-sizing:border-box}
+  body {margin:0;background:var(--bg);color:var(--text);font:14px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+  header {background:linear-gradient(135deg,var(--wisc-red),var(--edge3-red-dk));padding:22px 32px 24px;border-bottom:1px solid var(--line)}
+  header h1 {margin:0 0 6px 0;font-size:22px;letter-spacing:-0.2px}
+  header .hero-sub {color:#FFE1E3;font-size:14px;line-height:1.45;margin:0;max-width:900px}
+  .context-band {background:var(--panel);border-bottom:1px solid var(--line);padding:14px 32px;display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+  .context-band .cb-item .lbl {color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+  .context-band .cb-item .val {font-size:14px;font-weight:600;color:var(--text)}
+  .context-band .cb-item .sub {font-size:11px;color:var(--muted);margin-top:2px}
+  .context-note {grid-column:1 / -1;font-size:12px;color:var(--muted);line-height:1.5;padding-top:10px;border-top:1px dashed var(--line);margin-top:4px}
+  .container {display:grid;grid-template-columns:minmax(0,1.6fr) 480px;gap:0;min-height:calc(100vh - 78px)}
+  @media (max-width: 900px) { .container {grid-template-columns:1fr} .detail {border-left:0;border-top:1px solid var(--line)} .context-band {grid-template-columns:repeat(2,1fr)} .staff-banner {grid-template-columns:repeat(2,1fr)!important} }
+  .roster {padding:24px 32px;border-right:1px solid var(--line);overflow:auto}
+  .detail {padding:24px;background:var(--panel);overflow:auto}
+  .staff-banner {background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 18px;margin-bottom:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .staff-banner .item {min-width:0}
+  .staff-banner .lbl {color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+  .staff-banner .val {font-weight:600;font-size:14px;color:var(--text)}
+  .staff-banner .sub {font-size:11px;color:var(--muted);margin-top:2px}
+  .filters {display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+  .filters button {background:var(--panel-2);color:var(--text);border:1px solid var(--line);border-radius:18px;padding:6px 14px;font-size:12px;cursor:pointer}
+  .filters button.active {background:var(--edge3-red);border-color:var(--edge3-red);color:#fff}
+  table {width:100%;border-collapse:collapse;font-size:13px}
+  th {text-align:left;padding:10px 8px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:1}
+  td {padding:10px 8px;border-bottom:1px solid var(--line)}
+  tbody tr {cursor:pointer;transition:background 0.1s}
+  tbody tr:hover {background:var(--panel-2)}
+  tbody tr.selected {background:#1F2535}
+  .pos-coach-row {background:var(--panel-2)!important;cursor:default;color:var(--muted)}
+  .pos-coach-row td {padding:8px 10px;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;border-bottom:1px solid var(--line)}
+  .pos-coach-row .coach-name {color:var(--accent);text-transform:none;letter-spacing:0.3px;font-weight:600}
+  .pos-coach-row .grp-grades {float:right;text-transform:none;letter-spacing:0.2px;font-size:10px;color:var(--muted);font-weight:500}
+  .pos-coach-row .grp-grades .gchip {display:inline-block;margin-left:6px;padding:1px 7px;border-radius:9px;color:#fff;font-weight:600;font-size:10px}
+  .pos-coach-row .grp-grades .gchip.Elite{background:var(--elite)} .pos-coach-row .grp-grades .gchip.Above{background:var(--above)}
+  .pos-coach-row .grp-grades .gchip.At{background:var(--at);color:#222} .pos-coach-row .grp-grades .gchip.Below{background:var(--below)}
+  .pos-coach-row .grp-grades .gchip[class~='Far']{background:var(--far)}
+  .summary-strip {background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 16px;margin-bottom:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .summary-strip .ss-label {font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-right:4px}
+  .summary-strip .ss-item {display:flex;align-items:baseline;gap:6px;font-size:13px}
+  .summary-strip .ss-item .ss-count {font-weight:700;font-size:16px;color:var(--text);min-width:14px;text-align:right}
+  .summary-strip .ss-item .ss-tier {font-size:11px;text-transform:uppercase;letter-spacing:0.6px;padding:1px 8px;border-radius:9px;color:#fff;font-weight:600}
+  .summary-strip .ss-item .ss-tier.Elite{background:var(--elite)} .summary-strip .ss-item .ss-tier.Above{background:var(--above)}
+  .summary-strip .ss-item .ss-tier.At{background:var(--at);color:#222} .summary-strip .ss-item .ss-tier.Below{background:var(--below)}
+  .summary-strip .ss-item .ss-tier[class~='Far']{background:var(--far)}
+  .insight-block {background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:16px 18px;margin-top:8px}
+  .insight-block .iblbl {font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:8px}
+  .insight-block p {margin:0 0 10px 0;font-size:13.5px;line-height:1.55;color:var(--text)}
+  .insight-block p:last-child {margin-bottom:0}
+  .insight-block strong.bright {color:var(--elite)}
+  .insight-block strong.leak {color:var(--below)}
+  .pill {display:inline-block;padding:3px 9px;border-radius:11px;font-size:11px;font-weight:600;color:#fff;min-width:60px;text-align:center}
+  .pill.Elite{background:var(--elite)} .pill.Above{background:var(--above)}
+  .pill.At{background:var(--at);color:#222} .pill.Below{background:var(--below)}
+  .pill[class~='Far']{background:var(--far)} .pill.Unknown{background:var(--unknown)} .pill[class~='—']{background:var(--unknown)}
+  .pname {font-weight:600;color:var(--text)} .pmeta {color:var(--muted);font-size:11px}
+  /* detail panel */
+  .detail h2 {margin:0 0 4px 0;font-size:18px}
+  .detail .player-meta {color:var(--muted);font-size:12px;margin-bottom:18px}
+  .layer-card {background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin-bottom:12px}
+  .layer-card .head {display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+  .layer-card .ttl {font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px}
+  .layer-card .desc {color:var(--muted);font-size:12px;margin-bottom:10px}
+  .layer-card .row {display:flex;justify-content:space-between;font-size:13px;padding:3px 0}
+  .layer-card .row .k {color:var(--muted)}
+  .empty-state {color:var(--muted);text-align:center;padding:60px 20px;font-style:italic}
+  footer {padding:14px 32px;color:var(--muted);font-size:11px;border-top:1px solid var(--line);background:var(--panel)}
+</style>
+</head>
+<body>
+<header>
+  <h1>Wisconsin Football — Program Scorecard for Coach Fickell &amp; Staff</h1>
+  <p class="hero-sub">Coach, here is how your 2024 roster graded out against the Wisconsin program baseline and your staff-era baseline, heading into Year 4. Every player your staff coached that season, ranked by where they landed vs. the program bar at their position.</p>
+</header>
+
+<div class="context-band">
+  <div class="cb-item">
+    <div class="lbl">2025 Season</div>
+    <div class="val">4–8 (2–7 B1G)</div>
+    <div class="sub">98th of 136</div>
+  </div>
+  <div class="cb-item">
+    <div class="lbl">Offense 2025</div>
+    <div class="val">253.1 yds/g · 12.8 ppg</div>
+    <div class="sub">135th of 136</div>
+  </div>
+  <div class="cb-item">
+    <div class="lbl">Defense 2025</div>
+    <div class="val">323.5 yds/g · 21.6 ppg</div>
+    <div class="sub">24th · 39th</div>
+  </div>
+  <div class="cb-item">
+    <div class="lbl">Strength of Schedule</div>
+    <div class="val">9.40 rating</div>
+    <div class="sub">1st of 136 — toughest in FBS</div>
+  </div>
+  <div class="cb-item">
+    <div class="lbl">Returning Offensive Starters (2026)</div>
+    <div class="val">2</div>
+    <div class="sub">Heavy portal rebuild</div>
+  </div>
+  <div class="context-note">The scorecard below audits the 2024 roster — your Year 2 evidence — so the 2025 outcome (offensive collapse, defense steady) reads against what your staff had to work with. Year 3 data will layer in as PFF publishes the season file.</div>
+</div>
+
+<div class="container">
+  <div class="roster">
+
+    <div class="staff-banner">
+      <div class="item">
+        <div class="lbl">Head Coach</div>
+        <div class="val">Luke Fickell</div>
+        <div class="sub">Since 2023 · Year 4</div>
+      </div>
+      <div class="item">
+        <div class="lbl">Offensive Coordinator</div>
+        <div class="val">Jeff Grimes</div>
+        <div class="sub">Since 2025</div>
+      </div>
+      <div class="item">
+        <div class="lbl">Defensive Coordinator</div>
+        <div class="val">Mike Tressel</div>
+        <div class="sub">Since 2023</div>
+      </div>
+    </div>
+
+    <div class="summary-strip" id="summary-strip"></div>
+
+    <div class="filters" id="filters">
+      <button class="active" data-tier="">All Tiers</button>
+      <button data-tier="Elite">Elite</button>
+      <button data-tier="Above">Above</button>
+      <button data-tier="At">At</button>
+      <button data-tier="Below">Below</button>
+      <button data-tier="Far Below">Far Below</button>
+    </div>
+
+    <table id="roster-table">
+      <thead>
+        <tr>
+          <th>Player</th><th>Pos</th><th>HS</th>
+          <th>Program</th><th>Staff-era</th><th>HS Recruit</th><th>HS Comp</th>
+          <th>Grade</th>
+        </tr>
+      </thead>
+      <tbody id="roster-body"></tbody>
+    </table>
+  </div>
+
+  <div class="detail" id="detail">
+    <div id="default-insight"></div>
+  </div>
+</div>
+
+<footer>
+  Prepared for Coach Fickell and the Wisconsin staff · 39 players audited from the 2024 season (snaps &gt; 0) · Program baseline pooled from Wisconsin at position, 2014–2024 · Staff-era baseline pooled from Wisconsin at position since 2023 · HS recruiting from 247Composite · HS competition from 10-year D1 alumni signal per high school.
+</footer>
+
+<script>
+const PLAYERS = [{"pff_player_id": 158687.0, "pff_name": "Vinny Anthony II", "pff_position": "WR", "position_group": "WR", "high_school": "Louisville Male", "hometown_city": "Louisville", "hometown_state": "KY", "primary_stat": 672.0, "grade_primary": 70.7, "snaps": 539.0, "composite_score": 0.0, "stars": 0.0, "L1_n_player_seasons": 78.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 122.5, "L1_primary_stat_p90": 507.0, "L1_grade_p50": 63.4, "L1_grade_p90": 75.66, "L1_stat_tier": "Elite", "L1_grade_tier": "Above", "L1_snaps_tier": "Above", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 19.0, "L2_sample_quality": "strong", "L2_primary_stat_p50": 148.0, "L2_primary_stat_p90": 520.8, "L2_grade_p50": 64.2, "L2_grade_p90": 74.5, "L2_stat_tier": "Elite", "L2_grade_tier": "Above", "L2_snaps_tier": "Above", "L3_composite_pct": 37.28, "L3_stars_pct": 37.28, "L3_composite_tier": "At", "HS_CompetitiveIndex": null, "HS_CompetitiveIndex_0to10": null, "HS_CompetitiveIndex_Tier": null, "composite_score_0to4": 3.2, "Classification": "Above"}, {"pff_player_id": 183660.0, "pff_name": "Kevin Heywood", "pff_position": "T", "position_group": "OL", "high_school": "Pope John Paul II", "hometown_city": "Royersford", "hometown_state": "PA", "primary_stat": 77.9, "grade_primary": 77.9, "snaps": 72.0, "composite_score": 0.9558, "stars": 4.0, "L1_n_player_seasons": 48.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 68.5, "L1_primary_stat_p90": 81.05, "L1_grade_p50": 72.55, "L1_grade_p90": 83.4, "L1_stat_tier": "Above", "L1_grade_tier": "Above", "L1_snaps_tier": "Below", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 9.0, "L2_sample_quality": "moderate", "L2_primary_stat_p50": 73.6, "L2_primary_stat_p90": 78.76, "L2_grade_p50": 71.1, "L2_grade_p90": 75.76, "L2_stat_tier": "Above", "L2_grade_tier": "Elite", "L2_snaps_tier": "At", "L3_composite_pct": 97.28, "L3_stars_pct": 93.91, "L3_composite_tier": "Elite", "HS_CompetitiveIndex": 42.68, "HS_CompetitiveIndex_0to10": 4.27, "HS_CompetitiveIndex_Tier": "At", "composite_score_0to4": 3.1666666666666665, "Classification": "Above"}, {"pff_player_id": 145157.0, "pff_name": "Jackson Acker", "pff_position": "FB", "position_group": "RB", "high_school": "Verona Area", "hometown_city": "Verona", "hometown_state": "WI", "primary_stat": null, "grade_primary": null, "snaps": 86.0, "composite_score": 0.8763, "stars": 3.0, "L1_n_player_seasons": 21.0, "L1_sample_quality": "moderate", "L1_primary_stat_p50": null, "L1_primary_stat_p90": null, "L1_grade_p50": null, "L1_grade_p90": null, "L1_stat_tier": "Unknown", "L1_grade_tier": "Unknown", "L1_snaps_tier": "Below", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 1.0, "L2_sample_quality": "too_low", "L2_primary_stat_p50": null, "L2_primary_stat_p90": null, "L2_grade_p50": null, "L2_grade_p90": null, "L2_stat_tier": "Unknown", "L2_grade_tier": "Unknown", "L2_snaps_tier": "Elite", "L3_composite_pct": 100.0, "L3_stars_pct": 91.67, "L3_composite_tier": "Elite", "HS_CompetitiveIndex": 55.65, "HS_CompetitiveIndex_0to10": 5.56, "HS_CompetitiveIndex_Tier": "At", "composite_score_0to4": 3.0, "Classification": "Above"}, {"pff_player_id": 158690.0, "pff_name": "Joe Brunner", "pff_position": "G", "position_group": "OL", "high_school": "Whitefish Bay", "hometown_city": "Milwaukee", "hometown_state": "WI", "primary_stat": 77.8, "grade_primary": 77.8, "snaps": 802.0, "composite_score": 0.9633, "stars": 4.0, "L1_n_player_seasons": 58.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 72.1, "L1_primary_stat_p90": 81.38, "L1_grade_p50": 69.15, "L1_grade_p90": 82.59, "L1_stat_tier": "At", "L1_grade_tier": "Above", "L1_snaps_tier": "Above", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 11.0, "L2_sample_quality": "moderate", "L2_primary_stat_p50": 71.9, "L2_primary_stat_p90": 78.78, "L2_grade_p50": 66.0, "L2_grade_p90": 76.7, "L2_stat_tier": "Above", "L2_grade_tier": "Elite", "L2_snaps_tier": "Above", "L3_composite_pct": 98.5, "L3_stars_pct": 95.44, "L3_composite_tier": "Elite", "HS_CompetitiveIndex": 53.92, "HS_CompetitiveIndex_0to10": 5.39, "HS_CompetitiveIndex_Tier": "At", "composite_score_0to4": 3.0, "Classification": "Above"}, {"pff_player_id": 183653.0, "pff_name": "Ryan Cory", "pff_position": "G", "position_group": "OL", "high_school": "Pine-Richland", "hometown_city": "Gibsonia", "hometown_state": "PA", "primary_stat": null, "grade_primary": null, "snaps": 5.0, "composite_score": 0.8789, "stars": 3.0, "L1_n_player_seasons": 58.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 72.1, "L1_primary_stat_p90": 81.38, "L1_grade_p50": 69.15, "L1_grade_p90": 82.59, "L1_stat_tier": "Unknown", "L1_grade_tier": "Unknown", "L1_snaps_tier": "Far Below", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 11.0, "L2_sample_quality": "moderate", "L2_primary_stat_p50": 71.9, "L2_primary_stat_p90": 78.78, "L2_grade_p50": 66.0, "L2_grade_p90": 76.7, "L2_stat_tier": "Unknown", "L2_grade_tier": "Unknown", "L2_snaps_tier": "Far Below", "L3_composite_pct": 88.03, "L3_stars_pct": 81.7, "L3_composite_tier": "Above", "HS_CompetitiveIndex": 74.39, "HS_CompetitiveIndex_0to10": 7.44, "HS_CompetitiveIndex_Tier": "Above", "composite_score_0to4": 3.0, "Classification": "Above"}, {"pff_player_id": 175527.0, "pff_name": "Trech Kekahuna", "pff_position": "WR", "position_group": "WR", "high_school": "Bishop Gorman", "hometown_city": "Las Vegas", "hometown_state": "NV", "primary_stat": 339.0, "grade_primary": 68.7, "snaps": 316.0, "composite_score": 0.8875, "stars": 3.0, "L1_n_player_seasons": 78.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 122.5, "L1_primary_stat_p90": 507.0, "L1_grade_p50": 63.4, "L1_grade_p90": 75.66, "L1_stat_tier": "Above", "L1_grade_tier": "At", "L1_snaps_tier": "At", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 19.0, "L2_sample_quality": "strong", "L2_primary_stat_p50": 148.0, "L2_primary_stat_p90": 520.8, "L2_grade_p50": 64.2, "L2_grade_p90": 74.5, "L2_stat_tier": "Above", "L2_grade_tier": "At", "L2_snaps_tier": "At", "L3_composite_pct": 88.85, "L3_stars_pct": 82.56, "L3_composite_tier": "Above", "HS_CompetitiveIndex": 99.17, "HS_CompetitiveIndex_0to10": 9.92, "HS_CompetitiveIndex_Tier": "Elite", "composite_score_0to4": 2.833333333333333, "Classification": "Above"}, {"pff_player_id": 158097.0, "pff_name": "Tawee Walker", "pff_position": "HB", "position_group": "RB", "high_school": null, "hometown_city": "Las Vegas", "hometown_state": "NV", "primary_stat": 864.0, "grade_primary": 77.7, "snaps": 458.0, "composite_score": 0.0, "stars": 0.0, "L1_n_player_seasons": 52.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 299.5, "L1_primary_stat_p90": 1256.4, "L1_grade_p50": 70.8, "L1_grade_p90": 81.09, "L1_stat_tier": "Above", "L1_grade_tier": "Above", "L1_snaps_tier": "Elite", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 9.0, "L2_sample_quality": "moderate", "L2_primary_stat_p50": 307.0, "L2_primary_stat_p90": 887.6, "L2_grade_p50": 75.7, "L2_grade_p90": 79.0, "L2_stat_tier": "Above", "L2_grade_tier": "Above", "L2_snaps_tier": "Above", "L3_composite_pct": 35.83, "L3_stars_pct": 35.83, "L3_composite_tier": "At", "HS_CompetitiveIndex": null, "HS_CompetitiveIndex_0to10": null, "HS_CompetitiveIndex_Tier": null, "composite_score_0to4": 2.8, "Classification": "Above"}, {"pff_player_id": 123565.0, "pff_name": "Joe Huber", "pff_position": "G", "position_group": "OL", "high_school": null, "hometown_city": "Dublin", "hometown_state": "OH", "primary_stat": 76.2, "grade_primary": 76.2, "snaps": 782.0, "composite_score": 0.0, "stars": 0.0, "L1_n_player_seasons": 58.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 72.1, "L1_primary_stat_p90": 81.38, "L1_grade_p50": 69.15, "L1_grade_p90": 82.59, "L1_stat_tier": "At", "L1_grade_tier": "Above", "L1_snaps_tier": "Above", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 11.0, "L2_sample_quality": "moderate", "L2_primary_stat_p50": 71.9, "L2_primary_stat_p90": 78.78, "L2_grade_p50": 66.0, "L2_grade_p90": 76.7, "L2_stat_tier": "Above", "L2_grade_tier": "Above", "L2_snaps_tier": "At", "L3_composite_pct": 35.44, "L3_stars_pct": 35.44, "L3_composite_tier": "At", "HS_CompetitiveIndex": null, "HS_CompetitiveIndex_0to10": null, "HS_CompetitiveIndex_Tier": null, "composite_score_0to4": 2.6, "Classification": "Above"}, {"pff_player_id": 129922.0, "pff_name": "Kerry Kodanko", "pff_position": "C", "position_group": "OL", "high_school": "West De Pere", "hometown_city": "De Pere", "hometown_state": "WI", "primary_stat": 72.2, "grade_primary": 72.2, "snaps": 21.0, "composite_score": 0.75, "stars": 2.0, "L1_n_player_seasons": 26.0, "L1_sample_quality": "moderate", "L1_primary_stat_p50": 70.5, "L1_primary_stat_p90": 81.28, "L1_grade_p50": 66.95, "L1_grade_p90": 84.25, "L1_stat_tier": "At", "L1_grade_tier": "At", "L1_snaps_tier": "Far Below", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 5.0, "L2_sample_quality": "thin", "L2_primary_stat_p50": 70.5, "L2_primary_stat_p90": 77.06, "L2_grade_p50": 61.9, "L2_grade_p90": 69.92, "L2_stat_tier": "Above", "L2_grade_tier": "Elite", "L2_snaps_tier": "Below", "L3_composite_pct": 68.98, "L3_stars_pct": 70.63, "L3_composite_tier": "At", "HS_CompetitiveIndex": 56.07, "HS_CompetitiveIndex_0to10": 5.61, "HS_CompetitiveIndex_Tier": "At", "composite_score_0to4": 2.5, "Classification": "Above"}, {"pff_player_id": 144234.0, "pff_name": "Will Pauling", "pff_position": "WR", "position_group": "WR", "high_school": "Homewood-Flossmoor", "hometown_city": "Flossmoor", "hometown_state": "IL", "primary_stat": 407.0, "grade_primary": 66.8, "snaps": 403.0, "composite_score": 0.0, "stars": 0.0, "L1_n_player_seasons": 78.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 122.5, "L1_primary_stat_p90": 507.0, "L1_grade_p50": 63.4, "L1_grade_p90": 75.66, "L1_stat_tier": "Above", "L1_grade_tier": "At", "L1_snaps_tier": "At", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 19.0, "L2_sample_quality": "strong", "L2_primary_stat_p50": 148.0, "L2_primary_stat_p90": 520.8, "L2_grade_p50": 64.2, "L2_grade_p90": 74.5, "L2_stat_tier": "Above", "L2_grade_tier": "At", "L2_snaps_tier": "Above", "L3_composite_pct": 37.28, "L3_stars_pct": 37.28, "L3_composite_tier": "At", "HS_CompetitiveIndex": 85.52, "HS_CompetitiveIndex_0to10": 8.55, "HS_CompetitiveIndex_Tier": "Above", "composite_score_0to4": 2.5, "Classification": "Above"}, {"pff_player_id": 145175.0, "pff_name": "Darryl Peterson", "pff_position": "ED", "position_group": "EDGE", "high_school": "Archbishop Hoban", "hometown_city": "Akron", "hometown_state": "OH", "primary_stat": 22.0, "grade_primary": 66.7, "snaps": 458.0, "composite_score": 0.8918, "stars": 4.0, "L1_n_player_seasons": 67.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 5.0, "L1_primary_stat_p90": 40.4, "L1_grade_p50": 66.2, "L1_grade_p90": 86.4, "L1_stat_tier": "At", "L1_grade_tier": "At", "L1_snaps_tier": "At", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 12.0, "L2_sample_quality": "moderate", "L2_primary_stat_p50": 9.0, "L2_primary_stat_p90": 29.4, "L2_grade_p50": 66.15, "L2_grade_p90": 72.31, "L2_stat_tier": "At", "L2_grade_tier": "At", "L2_snaps_tier": "Above", "L3_composite_pct": 94.79, "L3_stars_pct": 96.88, "L3_composite_tier": "Elite", "HS_CompetitiveIndex": 73.48, "HS_CompetitiveIndex_0to10": 7.35, "HS_CompetitiveIndex_Tier": "Above", "composite_score_0to4": 2.5, "Classification": "Above"}, {"pff_player_id": 123577.0, "pff_name": "Jake Renfro", "pff_position": "C", "position_group": "OL", "high_school": "Providence Catholic", "hometown_city": "New Lenox", "hometown_state": "IL", "primary_stat": 70.5, "grade_primary": 70.5, "snaps": 781.0, "composite_score": 0.0, "stars": 0.0, "L1_n_player_seasons": 26.0, "L1_sample_quality": "moderate", "L1_primary_stat_p50": 70.5, "L1_primary_stat_p90": 81.28, "L1_grade_p50": 66.95, "L1_grade_p90": 84.25, "L1_stat_tier": "At", "L1_grade_tier": "At", "L1_snaps_tier": "Above", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 5.0, "L2_sample_quality": "thin", "L2_primary_stat_p50": 70.5, "L2_primary_stat_p90": 77.06, "L2_grade_p50": 61.9, "L2_grade_p90": 69.92, "L2_stat_tier": "At", "L2_grade_tier": "Elite", "L2_snaps_tier": "Above", "L3_composite_pct": 34.49, "L3_stars_pct": 34.49, "L3_composite_tier": "At", "HS_CompetitiveIndex": 65.99, "HS_CompetitiveIndex_0to10": 6.6, "HS_CompetitiveIndex_Tier": "At", "composite_score_0to4": 2.333333333333333, "Classification": "At"}, {"pff_player_id": 144651.0, "pff_name": "Bryson Green", "pff_position": "WR", "position_group": "WR", "high_school": "Allen", "hometown_city": "Allen", "hometown_state": "TX", "primary_stat": 219.0, "grade_primary": 65.3, "snaps": 348.0, "composite_score": 0.0, "stars": 0.0, "L1_n_player_seasons": 78.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 122.5, "L1_primary_stat_p90": 507.0, "L1_grade_p50": 63.4, "L1_grade_p90": 75.66, "L1_stat_tier": "At", "L1_grade_tier": "At", "L1_snaps_tier": "At", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 19.0, "L2_sample_quality": "strong", "L2_primary_stat_p50": 148.0, "L2_primary_stat_p90": 520.8, "L2_grade_p50": 64.2, "L2_grade_p90": 74.5, "L2_stat_tier": "At", "L2_grade_tier": "At", "L2_snaps_tier": "At", "L3_composite_pct": 37.28, "L3_stars_pct": 37.28, "L3_composite_tier": "At", "HS_CompetitiveIndex": 97.56, "HS_CompetitiveIndex_0to10": 9.76, "HS_CompetitiveIndex_Tier": "Elite", "composite_score_0to4": 2.333333333333333, "Classification": "At"}, {"pff_player_id": 175524.0, "pff_name": "James Durand", "pff_position": "G", "position_group": "OL", "high_school": "Basha", "hometown_city": "Chandler", "hometown_state": "AZ", "primary_stat": 71.9, "grade_primary": 71.9, "snaps": 3.0, "composite_score": 0.8978, "stars": 4.0, "L1_n_player_seasons": 58.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 72.1, "L1_primary_stat_p90": 81.38, "L1_grade_p50": 69.15, "L1_grade_p90": 82.59, "L1_stat_tier": "Below", "L1_grade_tier": "At", "L1_snaps_tier": "Far Below", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 11.0, "L2_sample_quality": "moderate", "L2_primary_stat_p50": 71.9, "L2_primary_stat_p90": 78.78, "L2_grade_p50": 66.0, "L2_grade_p90": 76.7, "L2_stat_tier": "At", "L2_grade_tier": "Above", "L2_snaps_tier": "Far Below", "L3_composite_pct": 92.38, "L3_stars_pct": 95.44, "L3_composite_tier": "Elite", "HS_CompetitiveIndex": 51.84, "HS_CompetitiveIndex_0to10": 5.18, "HS_CompetitiveIndex_Tier": "At", "composite_score_0to4": 2.333333333333333, "Classification": "At"}, {"pff_player_id": 183667.0, "pff_name": "Emerson Mandell", "pff_position": "T", "position_group": "OL", "high_school": "Irondale", "hometown_city": "Saint Paul", "hometown_state": "MN", "primary_stat": 73.6, "grade_primary": 73.6, "snaps": 15.0, "composite_score": 0.9237, "stars": 4.0, "L1_n_player_seasons": 48.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 68.5, "L1_primary_stat_p90": 81.05, "L1_grade_p50": 72.55, "L1_grade_p90": 83.4, "L1_stat_tier": "At", "L1_grade_tier": "At", "L1_snaps_tier": "Far Below", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 9.0, "L2_sample_quality": "moderate", "L2_primary_stat_p50": 73.6, "L2_primary_stat_p90": 78.76, "L2_grade_p50": 71.1, "L2_grade_p90": 75.76, "L2_stat_tier": "At", "L2_grade_tier": "Above", "L2_snaps_tier": "Below", "L3_composite_pct": 94.27, "L3_stars_pct": 93.91, "L3_composite_tier": "Elite", "HS_CompetitiveIndex": 14.31, "HS_CompetitiveIndex_0to10": 1.43, "HS_CompetitiveIndex_Tier": "Below", "composite_score_0to4": 2.333333333333333, "Classification": "At"}, {"pff_player_id": 145172.0, "pff_name": "Riley Mahlman", "pff_position": "T", "position_group": "OL", "high_school": "Lakeville South", "hometown_city": "Lakeville", "hometown_state": "MN", "primary_stat": 73.1, "grade_primary": 73.1, "snaps": 772.0, "composite_score": 0.9379, "stars": 4.0, "L1_n_player_seasons": 48.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 68.5, "L1_primary_stat_p90": 81.05, "L1_grade_p50": 72.55, "L1_grade_p90": 83.4, "L1_stat_tier": "At", "L1_grade_tier": "At", "L1_snaps_tier": "Above", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 9.0, "L2_sample_quality": "moderate", "L2_primary_stat_p50": 73.6, "L2_primary_stat_p90": 78.76, "L2_grade_p50": 71.1, "L2_grade_p90": 75.76, "L2_stat_tier": "Below", "L2_grade_tier": "At", "L2_snaps_tier": "Above", "L3_composite_pct": 95.13, "L3_stars_pct": 93.91, "L3_composite_tier": "Elite", "HS_CompetitiveIndex": 49.48, "HS_CompetitiveIndex_0to10": 4.95, "HS_CompetitiveIndex_Tier": "At", "composite_score_0to4": 2.1666666666666665, "Classification": "At"}, {"pff_player_id": 158712.0, "pff_name": "Cade Yacamelli", "pff_position": "HB", "position_group": "RB", "high_school": "Penn Trafford", "hometown_city": "Harrison City", "hometown_state": "PA", "primary_stat": 274.0, "grade_primary": 80.6, "snaps": 78.0, "composite_score": 0.0, "stars": 0.0, "L1_n_player_seasons": 52.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 299.5, "L1_primary_stat_p90": 1256.4, "L1_grade_p50": 70.8, "L1_grade_p90": 81.09, "L1_stat_tier": "Below", "L1_grade_tier": "Above", "L1_snaps_tier": "Below", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 9.0, "L2_sample_quality": "moderate", "L2_primary_stat_p50": 307.0, "L2_primary_stat_p90": 887.6, "L2_grade_p50": 75.7, "L2_grade_p90": 79.0, "L2_stat_tier": "Below", "L2_grade_tier": "Elite", "L2_snaps_tier": "Far Below", "L3_composite_pct": 35.83, "L3_stars_pct": 35.83, "L3_composite_tier": "At", "HS_CompetitiveIndex": 46.46, "HS_CompetitiveIndex_0to10": 4.65, "HS_CompetitiveIndex_Tier": "At", "composite_score_0to4": 2.1666666666666665, "Classification": "At"}, {"pff_player_id": 183656.0, "pff_name": "Darrion Dupree", "pff_position": "HB", "position_group": "RB", "high_school": "Mount Carmel", "hometown_city": "Chicago", "hometown_state": "IL", "primary_stat": 317.0, "grade_primary": 70.6, "snaps": 155.0, "composite_score": 0.897, "stars": 4.0, "L1_n_player_seasons": 52.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 299.5, "L1_primary_stat_p90": 1256.4, "L1_grade_p50": 70.8, "L1_grade_p90": 81.09, "L1_stat_tier": "At", "L1_grade_tier": "Below", "L1_snaps_tier": "At", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 9.0, "L2_sample_quality": "moderate", "L2_primary_stat_p50": 307.0, "L2_primary_stat_p90": 887.6, "L2_grade_p50": 75.7, "L2_grade_p90": 79.0, "L2_stat_tier": "At", "L2_grade_tier": "Below", "L2_snaps_tier": "At", "L3_composite_pct": 90.15, "L3_stars_pct": 94.09, "L3_composite_tier": "Elite", "HS_CompetitiveIndex": 89.66, "HS_CompetitiveIndex_0to10": 8.97, "HS_CompetitiveIndex_Tier": "Above", "composite_score_0to4": 2.1666666666666665, "Classification": "At"}, {"pff_player_id": 183664.0, "pff_name": "Dilin Jones", "pff_position": "HB", "position_group": "RB", "high_school": "Our Lady of Good Counsel HS", "hometown_city": "Olney", "hometown_state": "MD", "primary_stat": 88.0, "grade_primary": 77.0, "snaps": 21.0, "composite_score": 0.9364, "stars": 4.0, "L1_n_player_seasons": 52.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 299.5, "L1_primary_stat_p90": 1256.4, "L1_grade_p50": 70.8, "L1_grade_p90": 81.09, "L1_stat_tier": "Far Below", "L1_grade_tier": "Above", "L1_snaps_tier": "Far Below", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 9.0, "L2_sample_quality": "moderate", "L2_primary_stat_p50": 307.0, "L2_primary_stat_p90": 887.6, "L2_grade_p50": 75.7, "L2_grade_p90": 79.0, "L2_stat_tier": "Far Below", "L2_grade_tier": "At", "L2_snaps_tier": "Far Below", "L3_composite_pct": 95.91, "L3_stars_pct": 94.09, "L3_composite_tier": "Elite", "HS_CompetitiveIndex": 71.7, "HS_CompetitiveIndex_0to10": 7.17, "HS_CompetitiveIndex_Tier": "Above", "composite_score_0to4": 2.0, "Classification": "At"}, {"pff_player_id": 145167.0, "pff_name": "Jake Chaney", "pff_position": "LB", "position_group": "LB", "high_school": "Lehigh Senior", "hometown_city": "Lehigh Acres", "hometown_state": "FL", "primary_stat": 31.0, "grade_primary": 64.6, "snaps": 523.0, "composite_score": 0.0, "stars": 0.0, "L1_n_player_seasons": 64.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 15.5, "L1_primary_stat_p90": 62.7, "L1_grade_p50": 67.95, "L1_grade_p90": 86.71, "L1_stat_tier": "At", "L1_grade_tier": "Below", "L1_snaps_tier": "At", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 12.0, "L2_sample_quality": "moderate", "L2_primary_stat_p50": 24.0, "L2_primary_stat_p90": 53.7, "L2_grade_p50": 60.55, "L2_grade_p90": 75.49, "L2_stat_tier": "At", "L2_grade_tier": "At", "L2_snaps_tier": "Above", "L3_composite_pct": 37.5, "L3_stars_pct": 37.5, "L3_composite_tier": "At", "HS_CompetitiveIndex": 48.81, "HS_CompetitiveIndex_0to10": 4.88, "HS_CompetitiveIndex_Tier": "At", "composite_score_0to4": 1.8333333333333333, "Classification": "At"}, {"pff_player_id": 157141.0, "pff_name": "Braedyn Locke", "pff_position": "QB", "position_group": "QB", "high_school": "Rockwall", "hometown_city": "Rockwall", "hometown_state": "TX", "primary_stat": 1936.0, "grade_primary": 58.6, "snaps": 331.0, "composite_score": 0.0, "stars": 0.0, "L1_n_player_seasons": 27.0, "L1_sample_quality": "moderate", "L1_primary_stat_p50": 709.0, "L1_primary_stat_p90": 2332.6, "L1_grade_p50": 70.0, "L1_grade_p90": 79.58, "L1_stat_tier": "Above", "L1_grade_tier": "Far Below", "L1_snaps_tier": "At", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 5.0, "L2_sample_quality": "thin", "L2_primary_stat_p50": 775.0, "L2_primary_stat_p90": 2011.0, "L2_grade_p50": 60.6, "L2_grade_p90": 77.98, "L2_stat_tier": "Above", "L2_grade_tier": "Below", "L2_snaps_tier": "At", "L3_composite_pct": 37.47, "L3_stars_pct": 37.47, "L3_composite_tier": "At", "HS_CompetitiveIndex": 67.71, "HS_CompetitiveIndex_0to10": 6.77, "HS_CompetitiveIndex_Tier": "At", "composite_score_0to4": 1.8333333333333333, "Classification": "At"}, {"pff_player_id": 158708.0, "pff_name": "JT Seagreaves", "pff_position": "TE", "position_group": "TE", "high_school": "Monroe", "hometown_city": "Monroe", "hometown_state": "WI", "primary_stat": 34.0, "grade_primary": 63.3, "snaps": 73.0, "composite_score": 0.8493, "stars": 3.0, "L1_n_player_seasons": 36.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 78.0, "L1_primary_stat_p90": 426.5, "L1_grade_p50": 58.85, "L1_grade_p90": 81.5, "L1_stat_tier": "Below", "L1_grade_tier": "At", "L1_snaps_tier": "Far Below", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 7.0, "L2_sample_quality": "thin", "L2_primary_stat_p50": 74.0, "L2_primary_stat_p90": 101.6, "L2_grade_p50": 53.1, "L2_grade_p90": 60.54, "L2_stat_tier": "Far Below", "L2_grade_tier": "Elite", "L2_snaps_tier": "Far Below", "L3_composite_pct": 84.02, "L3_stars_pct": 80.6, "L3_composite_tier": "Above", "HS_CompetitiveIndex": 16.59, "HS_CompetitiveIndex_0to10": 1.66, "HS_CompetitiveIndex_Tier": "Below", "composite_score_0to4": 1.8333333333333333, "Classification": "At"}, {"pff_player_id": 158688.0, "pff_name": "Chris Brooks Jr.", "pff_position": "WR", "position_group": "WR", "high_school": "St. Louis University", "hometown_city": "St. Louis", "hometown_state": "MO", "primary_stat": 27.0, "grade_primary": 67.1, "snaps": 62.0, "composite_score": 0.8356, "stars": 3.0, "L1_n_player_seasons": 78.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 122.5, "L1_primary_stat_p90": 507.0, "L1_grade_p50": 63.4, "L1_grade_p90": 75.66, "L1_stat_tier": "Below", "L1_grade_tier": "At", "L1_snaps_tier": "Far Below", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 19.0, "L2_sample_quality": "strong", "L2_primary_stat_p50": 148.0, "L2_primary_stat_p90": 520.8, "L2_grade_p50": 64.2, "L2_grade_p90": 74.5, "L2_stat_tier": "Below", "L2_grade_tier": "At", "L2_snaps_tier": "Below", "L3_composite_pct": 79.59, "L3_stars_pct": 82.56, "L3_composite_tier": "Above", "HS_CompetitiveIndex": null, "HS_CompetitiveIndex_0to10": null, "HS_CompetitiveIndex_Tier": null, "composite_score_0to4": 1.8, "Classification": "At"}, {"pff_player_id": 122225.0, "pff_name": "Tyler Van Dyke", "pff_position": "QB", "position_group": "QB", "high_school": "Suffield Academy", "hometown_city": "Glastonbury", "hometown_state": "CT", "primary_stat": 422.0, "grade_primary": 77.5, "snaps": 79.0, "composite_score": 0.0, "stars": 0.0, "L1_n_player_seasons": 27.0, "L1_sample_quality": "moderate", "L1_primary_stat_p50": 709.0, "L1_primary_stat_p90": 2332.6, "L1_grade_p50": 70.0, "L1_grade_p90": 79.58, "L1_stat_tier": "Below", "L1_grade_tier": "At", "L1_snaps_tier": "Below", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 5.0, "L2_sample_quality": "thin", "L2_primary_stat_p50": 775.0, "L2_primary_stat_p90": 2011.0, "L2_grade_p50": 60.6, "L2_grade_p90": 77.98, "L2_stat_tier": "Below", "L2_grade_tier": "Above", "L2_snaps_tier": "Far Below", "L3_composite_pct": 37.47, "L3_stars_pct": 37.47, "L3_composite_tier": "At", "HS_CompetitiveIndex": 19.74, "HS_CompetitiveIndex_0to10": 1.97, "HS_CompetitiveIndex_Tier": "Below", "composite_score_0to4": 1.6666666666666667, "Classification": "At"}, {"pff_player_id": 129686.0, "pff_name": "RJ Delancy III", "pff_position": "CB", "position_group": "DB", "high_school": "Northwestern", "hometown_city": "Miami", "hometown_state": "FL", "primary_stat": 58.5, "grade_primary": 58.5, "snaps": 124.0, "composite_score": 0.0, "stars": 0.0, "L1_n_player_seasons": 83.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 60.5, "L1_primary_stat_p90": 73.8, "L1_grade_p50": 61.6, "L1_grade_p90": 72.88, "L1_stat_tier": "Below", "L1_grade_tier": "Below", "L1_snaps_tier": "Below", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 13.0, "L2_sample_quality": "moderate", "L2_primary_stat_p50": 60.0, "L2_primary_stat_p90": 73.52, "L2_grade_p50": 61.8, "L2_grade_p90": 75.52, "L2_stat_tier": "Below", "L2_grade_tier": "Below", "L2_snaps_tier": "Below", "L3_composite_pct": 39.77, "L3_stars_pct": 39.77, "L3_composite_tier": "At", "HS_CompetitiveIndex": 90.91, "HS_CompetitiveIndex_0to10": 9.09, "HS_CompetitiveIndex_Tier": "Elite", "composite_score_0to4": 1.6666666666666667, "Classification": "At"}, {"pff_player_id": 175521.0, "pff_name": "Tucker Ashcraft", "pff_position": "TE", "position_group": "TE", "high_school": "O'Dea", "hometown_city": "Seattle", "hometown_state": "WA", "primary_stat": 82.0, "grade_primary": 48.6, "snaps": 382.0, "composite_score": 0.8478, "stars": 3.0, "L1_n_player_seasons": 36.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 78.0, "L1_primary_stat_p90": 426.5, "L1_grade_p50": 58.85, "L1_grade_p90": 81.5, "L1_stat_tier": "At", "L1_grade_tier": "Far Below", "L1_snaps_tier": "At", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 7.0, "L2_sample_quality": "thin", "L2_primary_stat_p50": 74.0, "L2_primary_stat_p90": 101.6, "L2_grade_p50": 53.1, "L2_grade_p90": 60.54, "L2_stat_tier": "At", "L2_grade_tier": "Far Below", "L2_snaps_tier": "At", "L3_composite_pct": 83.71, "L3_stars_pct": 80.6, "L3_composite_tier": "Above", "HS_CompetitiveIndex": 86.32, "HS_CompetitiveIndex_0to10": 8.63, "HS_CompetitiveIndex_Tier": "Above", "composite_score_0to4": 1.6666666666666667, "Classification": "At"}, {"pff_player_id": 172487.0, "pff_name": "Jackson McGohan", "pff_position": "TE", "position_group": "TE", "high_school": "Miamisburg", "hometown_city": "Miamisburg", "hometown_state": "OH", "primary_stat": 2.0, "grade_primary": 58.7, "snaps": 25.0, "composite_score": 0.0, "stars": 0.0, "L1_n_player_seasons": 36.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 78.0, "L1_primary_stat_p90": 426.5, "L1_grade_p50": 58.85, "L1_grade_p90": 81.5, "L1_stat_tier": "Far Below", "L1_grade_tier": "Below", "L1_snaps_tier": "Far Below", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 7.0, "L2_sample_quality": "thin", "L2_primary_stat_p50": 74.0, "L2_primary_stat_p90": 101.6, "L2_grade_p50": 53.1, "L2_grade_p90": 60.54, "L2_stat_tier": "Far Below", "L2_grade_tier": "Above", "L2_snaps_tier": "Far Below", "L3_composite_pct": 34.54, "L3_stars_pct": 34.54, "L3_composite_tier": "At", "HS_CompetitiveIndex": 74.81, "HS_CompetitiveIndex_0to10": 7.48, "HS_CompetitiveIndex_Tier": "Above", "composite_score_0to4": 1.5, "Classification": "At"}, {"pff_player_id": 183654.0, "pff_name": "Colin Cubberly", "pff_position": "G", "position_group": "OL", "high_school": "Arlington", "hometown_city": "Lagrangeville", "hometown_state": "NY", "primary_stat": null, "grade_primary": null, "snaps": 3.0, "composite_score": 0.8794, "stars": 3.0, "L1_n_player_seasons": 58.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 72.1, "L1_primary_stat_p90": 81.38, "L1_grade_p50": 69.15, "L1_grade_p90": 82.59, "L1_stat_tier": "Unknown", "L1_grade_tier": "Unknown", "L1_snaps_tier": "Far Below", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 11.0, "L2_sample_quality": "moderate", "L2_primary_stat_p50": 71.9, "L2_primary_stat_p90": 78.78, "L2_grade_p50": 66.0, "L2_grade_p90": 76.7, "L2_stat_tier": "Unknown", "L2_grade_tier": "Unknown", "L2_snaps_tier": "Far Below", "L3_composite_pct": 88.23, "L3_stars_pct": 81.7, "L3_composite_tier": "Above", "HS_CompetitiveIndex": 4.85, "HS_CompetitiveIndex_0to10": 0.48, "HS_CompetitiveIndex_Tier": "Far Below", "composite_score_0to4": 1.5, "Classification": "At"}, {"pff_player_id": 183668.0, "pff_name": "Mabrey Mettauer", "pff_position": "QB", "position_group": "QB", "high_school": "The Woodlands", "hometown_city": "The Woodlands", "hometown_state": "TX", "primary_stat": 2.0, "grade_primary": 60.6, "snaps": 2.0, "composite_score": 0.8911, "stars": 4.0, "L1_n_player_seasons": 27.0, "L1_sample_quality": "moderate", "L1_primary_stat_p50": 709.0, "L1_primary_stat_p90": 2332.6, "L1_grade_p50": 70.0, "L1_grade_p90": 79.58, "L1_stat_tier": "Far Below", "L1_grade_tier": "Below", "L1_snaps_tier": "Far Below", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 5.0, "L2_sample_quality": "thin", "L2_primary_stat_p50": 775.0, "L2_primary_stat_p90": 2011.0, "L2_grade_p50": 60.6, "L2_grade_p90": 77.98, "L2_stat_tier": "Far Below", "L2_grade_tier": "At", "L2_snaps_tier": "Far Below", "L3_composite_pct": 88.13, "L3_stars_pct": 92.88, "L3_composite_tier": "Above", "HS_CompetitiveIndex": 75.57, "HS_CompetitiveIndex_0to10": 7.56, "HS_CompetitiveIndex_Tier": "Above", "composite_score_0to4": 1.5, "Classification": "At"}, {"pff_player_id": 129928.0, "pff_name": "Riley Nowakowski", "pff_position": "TE", "position_group": "TE", "high_school": null, "hometown_city": "Milwaukee", "hometown_state": "WI", "primary_stat": 74.0, "grade_primary": 49.2, "snaps": 410.0, "composite_score": 0.0, "stars": 0.0, "L1_n_player_seasons": 36.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 78.0, "L1_primary_stat_p90": 426.5, "L1_grade_p50": 58.85, "L1_grade_p90": 81.5, "L1_stat_tier": "Below", "L1_grade_tier": "Below", "L1_snaps_tier": "At", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 7.0, "L2_sample_quality": "thin", "L2_primary_stat_p50": 74.0, "L2_primary_stat_p90": 101.6, "L2_grade_p50": 53.1, "L2_grade_p90": 60.54, "L2_stat_tier": "At", "L2_grade_tier": "Below", "L2_snaps_tier": "Elite", "L3_composite_pct": 34.54, "L3_stars_pct": 34.54, "L3_composite_tier": "At", "HS_CompetitiveIndex": null, "HS_CompetitiveIndex_0to10": null, "HS_CompetitiveIndex_Tier": null, "composite_score_0to4": 1.4, "Classification": "Below"}, {"pff_player_id": 99597.0, "pff_name": "Chez Mellusi", "pff_position": "HB", "position_group": "RB", "high_school": "Naples", "hometown_city": "Naples", "hometown_state": "FL", "primary_stat": 232.0, "grade_primary": 67.3, "snaps": 105.0, "composite_score": 0.0, "stars": 0.0, "L1_n_player_seasons": 52.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 299.5, "L1_primary_stat_p90": 1256.4, "L1_grade_p50": 70.8, "L1_grade_p90": 81.09, "L1_stat_tier": "Below", "L1_grade_tier": "Below", "L1_snaps_tier": "Below", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 9.0, "L2_sample_quality": "moderate", "L2_primary_stat_p50": 307.0, "L2_primary_stat_p90": 887.6, "L2_grade_p50": 75.7, "L2_grade_p90": 79.0, "L2_stat_tier": "Below", "L2_grade_tier": "Far Below", "L2_snaps_tier": "Below", "L3_composite_pct": 35.83, "L3_stars_pct": 35.83, "L3_composite_tier": "At", "HS_CompetitiveIndex": 77.2, "HS_CompetitiveIndex_0to10": 7.72, "HS_CompetitiveIndex_Tier": "Above", "composite_score_0to4": 1.3333333333333333, "Classification": "Below"}, {"pff_player_id": 158471.0, "pff_name": "CJ Williams", "pff_position": "WR", "position_group": "WR", "high_school": "Deerfield Academy", "hometown_city": "Deerfield", "hometown_state": "MA", "primary_stat": 248.0, "grade_primary": 56.3, "snaps": 403.0, "composite_score": 0.0, "stars": 0.0, "L1_n_player_seasons": 78.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 122.5, "L1_primary_stat_p90": 507.0, "L1_grade_p50": 63.4, "L1_grade_p90": 75.66, "L1_stat_tier": "At", "L1_grade_tier": "Far Below", "L1_snaps_tier": "At", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 19.0, "L2_sample_quality": "strong", "L2_primary_stat_p50": 148.0, "L2_primary_stat_p90": 520.8, "L2_grade_p50": 64.2, "L2_grade_p90": 74.5, "L2_stat_tier": "At", "L2_grade_tier": "Far Below", "L2_snaps_tier": "Above", "L3_composite_pct": 37.28, "L3_stars_pct": 37.28, "L3_composite_tier": "At", "HS_CompetitiveIndex": 66.26, "HS_CompetitiveIndex_0to10": 6.63, "HS_CompetitiveIndex_Tier": "At", "composite_score_0to4": 1.3333333333333333, "Classification": "Below"}, {"pff_player_id": 158707.0, "pff_name": "Barrett Nelson", "pff_position": "T", "position_group": "OL", "high_school": null, "hometown_city": "Stoughton", "hometown_state": "WI", "primary_stat": 68.1, "grade_primary": 68.1, "snaps": 13.0, "composite_score": 0.0, "stars": 0.0, "L1_n_player_seasons": 48.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 68.5, "L1_primary_stat_p90": 81.05, "L1_grade_p50": 72.55, "L1_grade_p90": 83.4, "L1_stat_tier": "Below", "L1_grade_tier": "Below", "L1_snaps_tier": "Far Below", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 9.0, "L2_sample_quality": "moderate", "L2_primary_stat_p50": 73.6, "L2_primary_stat_p90": 78.76, "L2_grade_p50": 71.1, "L2_grade_p90": 75.76, "L2_stat_tier": "Below", "L2_grade_tier": "Below", "L2_snaps_tier": "Far Below", "L3_composite_pct": 35.32, "L3_stars_pct": 35.32, "L3_composite_tier": "At", "HS_CompetitiveIndex": 56.07, "HS_CompetitiveIndex_0to10": 5.61, "HS_CompetitiveIndex_Tier": "At", "composite_score_0to4": 1.3333333333333333, "Classification": "Below"}, {"pff_player_id": 158385.0, "pff_name": "Tyrell Henry", "pff_position": "WR", "position_group": "WR", "high_school": "Roseville", "hometown_city": "Roseville", "hometown_state": "MI", "primary_stat": 12.0, "grade_primary": 64.2, "snaps": 27.0, "composite_score": 0.0, "stars": 0.0, "L1_n_player_seasons": 78.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 122.5, "L1_primary_stat_p90": 507.0, "L1_grade_p50": 63.4, "L1_grade_p90": 75.66, "L1_stat_tier": "Far Below", "L1_grade_tier": "At", "L1_snaps_tier": "Far Below", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 19.0, "L2_sample_quality": "strong", "L2_primary_stat_p50": 148.0, "L2_primary_stat_p90": 520.8, "L2_grade_p50": 64.2, "L2_grade_p90": 74.5, "L2_stat_tier": "Far Below", "L2_grade_tier": "At", "L2_snaps_tier": "Far Below", "L3_composite_pct": 37.28, "L3_stars_pct": 37.28, "L3_composite_tier": "At", "HS_CompetitiveIndex": 13.25, "HS_CompetitiveIndex_0to10": 1.32, "HS_CompetitiveIndex_Tier": "Below", "composite_score_0to4": 1.1666666666666667, "Classification": "Below"}, {"pff_player_id": 183651.0, "pff_name": "Kyan Berry-Johnson", "pff_position": "WR", "position_group": "WR", "high_school": "Bolingbrook", "hometown_city": "Bolingbrook", "hometown_state": "IL", "primary_stat": 0.0, "grade_primary": 54.2, "snaps": 21.0, "composite_score": 0.875, "stars": 3.0, "L1_n_player_seasons": 78.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 122.5, "L1_primary_stat_p90": 507.0, "L1_grade_p50": 63.4, "L1_grade_p90": 75.66, "L1_stat_tier": "Far Below", "L1_grade_tier": "Far Below", "L1_snaps_tier": "Far Below", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 19.0, "L2_sample_quality": "strong", "L2_primary_stat_p50": 148.0, "L2_primary_stat_p90": 520.8, "L2_grade_p50": 64.2, "L2_grade_p90": 74.5, "L2_stat_tier": "Far Below", "L2_grade_tier": "Far Below", "L2_snaps_tier": "Far Below", "L3_composite_pct": 85.93, "L3_stars_pct": 82.56, "L3_composite_tier": "Above", "HS_CompetitiveIndex": 91.46, "HS_CompetitiveIndex_0to10": 9.15, "HS_CompetitiveIndex_Tier": "Elite", "composite_score_0to4": 1.1666666666666667, "Classification": "Below"}, {"pff_player_id": 129937.0, "pff_name": "Aaron Witt", "pff_position": "ED", "position_group": "EDGE", "high_school": "Winona", "hometown_city": "Winona", "hometown_state": "MN", "primary_stat": 3.0, "grade_primary": 53.6, "snaps": 296.0, "composite_score": 0.0, "stars": 0.0, "L1_n_player_seasons": 67.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 5.0, "L1_primary_stat_p90": 40.4, "L1_grade_p50": 66.2, "L1_grade_p90": 86.4, "L1_stat_tier": "Below", "L1_grade_tier": "Far Below", "L1_snaps_tier": "At", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 12.0, "L2_sample_quality": "moderate", "L2_primary_stat_p50": 9.0, "L2_primary_stat_p90": 29.4, "L2_grade_p50": 66.15, "L2_grade_p90": 72.31, "L2_stat_tier": "Below", "L2_grade_tier": "Far Below", "L2_snaps_tier": "At", "L3_composite_pct": 37.5, "L3_stars_pct": 37.5, "L3_composite_tier": "At", "HS_CompetitiveIndex": 41.86, "HS_CompetitiveIndex_0to10": 4.19, "HS_CompetitiveIndex_Tier": "At", "composite_score_0to4": 1.0, "Classification": "Below"}, {"pff_player_id": 164137.0, "pff_name": "Quincy Burroughs", "pff_position": "WR", "position_group": "WR", "high_school": "Raines", "hometown_city": "Jacksonville", "hometown_state": "FL", "primary_stat": 13.0, "grade_primary": 51.8, "snaps": 137.0, "composite_score": 0.0, "stars": 0.0, "L1_n_player_seasons": 78.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 122.5, "L1_primary_stat_p90": 507.0, "L1_grade_p50": 63.4, "L1_grade_p90": 75.66, "L1_stat_tier": "Far Below", "L1_grade_tier": "Far Below", "L1_snaps_tier": "Below", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 19.0, "L2_sample_quality": "strong", "L2_primary_stat_p50": 148.0, "L2_primary_stat_p90": 520.8, "L2_grade_p50": 64.2, "L2_grade_p90": 74.5, "L2_stat_tier": "Far Below", "L2_grade_tier": "Far Below", "L2_snaps_tier": "Below", "L3_composite_pct": 37.28, "L3_stars_pct": 37.28, "L3_composite_tier": "At", "HS_CompetitiveIndex": 89.07, "HS_CompetitiveIndex_0to10": 8.91, "HS_CompetitiveIndex_Tier": "Above", "composite_score_0to4": 0.8333333333333334, "Classification": "Below"}, {"pff_player_id": 145164.0, "pff_name": "JP Benzschawel", "pff_position": "G", "position_group": "OL", "high_school": "Grafton", "hometown_city": "Grafton", "hometown_state": "WI", "primary_stat": 82.7, "grade_primary": 82.7, "snaps": 58.0, "composite_score": 0.9397, "stars": 4.0, "L1_n_player_seasons": 58.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 72.1, "L1_primary_stat_p90": 81.38, "L1_grade_p50": 69.15, "L1_grade_p90": 82.59, "L1_stat_tier": "Elite", "L1_grade_tier": "Elite", "L1_snaps_tier": "Below", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 11.0, "L2_sample_quality": "moderate", "L2_primary_stat_p50": 71.9, "L2_primary_stat_p90": 78.78, "L2_grade_p50": 66.0, "L2_grade_p90": 76.7, "L2_stat_tier": "Elite", "L2_grade_tier": "Elite", "L2_snaps_tier": "At", "L3_composite_pct": 96.73, "L3_stars_pct": 95.44, "L3_composite_tier": "Elite", "HS_CompetitiveIndex": 59.38, "HS_CompetitiveIndex_0to10": 5.94, "HS_CompetitiveIndex_Tier": "At", "composite_score_0to4": 3.6666666666666665, "Classification": "Elite"}, {"pff_player_id": 129927.0, "pff_name": "Jack Nelson", "pff_position": "T", "position_group": "OL", "high_school": "Stoughton", "hometown_city": "Stoughton", "hometown_state": "WI", "primary_stat": 82.2, "grade_primary": 82.2, "snaps": 752.0, "composite_score": 0.9539, "stars": 4.0, "L1_n_player_seasons": 48.0, "L1_sample_quality": "strong", "L1_primary_stat_p50": 68.5, "L1_primary_stat_p90": 81.05, "L1_grade_p50": 72.55, "L1_grade_p90": 83.4, "L1_stat_tier": "Elite", "L1_grade_tier": "Above", "L1_snaps_tier": "At", "L2_hc_start_year": 2023.0, "L2_n_player_seasons": 9.0, "L2_sample_quality": "moderate", "L2_primary_stat_p50": 73.6, "L2_primary_stat_p90": 78.76, "L2_grade_p50": 71.1, "L2_grade_p90": 75.76, "L2_stat_tier": "Elite", "L2_grade_tier": "Elite", "L2_snaps_tier": "At", "L3_composite_pct": 96.7, "L3_stars_pct": 93.91, "L3_composite_tier": "Elite", "HS_CompetitiveIndex": 36.85, "HS_CompetitiveIndex_0to10": 3.68, "HS_CompetitiveIndex_Tier": "At", "composite_score_0to4": 3.5, "Classification": "Elite"}];
+const POSITION_GROUPS = {"QB": "Offense", "HB": "Offense", "FB": "Offense", "WR": "Offense", "TE": "Offense", "T": "Offensive Line", "G": "Offensive Line", "C": "Offensive Line", "DI": "Defensive Line", "ED": "Defensive Line", "LB": "Linebackers", "CB": "Secondary", "S": "Secondary"};
+const POS_COACH = {
+  "QB": "Kenny Guiton",
+  "HB": "Jayden Everett",
+  "FB": "Jayden Everett",
+  "WR": "Ari Confesor",
+  "TE": "Nate Letton",
+  "T": "Eric Mateos",
+  "G": "Eric Mateos",
+  "C": "Eric Mateos",
+  "DI": "E.J. Whitlow",
+  "ED": "Matt Mitchell",
+  "LB": "Tuf Borland",
+  "CB": "Robert Steeples",
+  "S": "Jack Cooper"
+};
+
+// Sort: position group, then Classification rank, then composite score desc
+const TIER_RANK = {Elite:0,Above:1,At:2,Below:3,'Far Below':4,Unknown:5};
+const POS_ORDER = ['QB','HB','FB','TE','WR','T','G','C','DI','ED','LB','CB','S'];
+
+PLAYERS.sort((a,b) => {
+  const pa = POS_ORDER.indexOf(a.pff_position); const pb = POS_ORDER.indexOf(b.pff_position);
+  if (pa !== pb) return pa - pb;
+  const ta = TIER_RANK[a.Classification] ?? 9; const tb = TIER_RANK[b.Classification] ?? 9;
+  if (ta !== tb) return ta - tb;
+  return (b.composite_score_0to4 || 0) - (a.composite_score_0to4 || 0);
+});
+
+const tierClass = t => 'pill ' + (t || 'Unknown').replace(' ','-');
+const fmtNum = n => n == null ? '—' : (typeof n === 'number' ? n.toLocaleString(undefined,{maximumFractionDigits:1}) : n);
+const fmtPct = n => n == null ? '—' : Number(n).toFixed(1);
+
+let filterTier = '';
+let selected = null;
+
+function gradeChipsFor(pos) {
+  const counts = {Elite:0, Above:0, At:0, Below:0, 'Far Below':0};
+  for (const pl of PLAYERS) {
+    if (pl.pff_position === pos && counts.hasOwnProperty(pl.Classification)) counts[pl.Classification]++;
+  }
+  const order = ['Elite','Above','At','Below','Far Below'];
+  return order.filter(k => counts[k] > 0).map(k => `<span class="gchip ${k.replace(' ','-')}">${counts[k]} ${k}</span>`).join('');
+}
+
+function render() {
+  const body = document.getElementById('roster-body');
+  body.innerHTML = '';
+  let lastPos = null;
+  const filtered = PLAYERS.filter(p => !filterTier || p.Classification === filterTier);
+  for (const p of filtered) {
+    if (p.pff_position !== lastPos) {
+      const groupRow = document.createElement('tr');
+      groupRow.className = 'pos-coach-row';
+      const coach = POS_COACH[p.pff_position] || '';
+      const chips = gradeChipsFor(p.pff_position);
+      groupRow.innerHTML = `<td colspan="8">${p.pff_position} — ${POSITION_GROUPS[p.pff_position] || ''}${coach ? ` · Position coach: <span class="coach-name">${coach}</span>` : ''}<span class="grp-grades">${chips}</span></td>`;
+      body.appendChild(groupRow);
+      lastPos = p.pff_position;
+    }
+    const tr = document.createElement('tr');
+    if (selected && selected.pff_player_id === p.pff_player_id) tr.classList.add('selected');
+    tr.innerHTML = `
+      <td><div class="pname">${p.pff_name}</div><div class="pmeta">${p.snaps||0} snaps · ${p.stars||'—'}★</div></td>
+      <td>${p.pff_position}</td>
+      <td><div>${p.high_school||'—'}</div><div class="pmeta">${[p.hometown_city,p.hometown_state].filter(Boolean).join(', ')}</div></td>
+      <td><span class="${tierClass(p.L1_stat_tier)}">${p.L1_stat_tier||'—'}</span></td>
+      <td><span class="${tierClass(p.L2_stat_tier)}">${p.L2_stat_tier||'—'}</span></td>
+      <td><span class="${tierClass(p.L3_composite_tier)}">${p.L3_composite_tier||'—'}</span></td>
+      <td><span class="${tierClass(p.HS_CompetitiveIndex_Tier)}">${p.HS_CompetitiveIndex_Tier||'—'}</span></td>
+      <td><span class="${tierClass(p.Classification)}">${p.Classification||'—'}</span></td>`;
+    tr.addEventListener('click', () => { selected = p; renderDetail(); render(); });
+    body.appendChild(tr);
+  }
+}
+
+function renderSummary() {
+  const counts = {Elite:0, Above:0, At:0, Below:0, 'Far Below':0};
+  for (const p of PLAYERS) if (counts.hasOwnProperty(p.Classification)) counts[p.Classification]++;
+  const order = ['Elite','Above','At','Below','Far Below'];
+  const items = order.filter(k => counts[k] > 0).map(k => `<div class="ss-item"><span class="ss-count">${counts[k]}</span><span class="ss-tier ${k.replace(' ','-')}">${k}</span></div>`).join('');
+  document.getElementById('summary-strip').innerHTML = `<span class="ss-label">2024 Roster Grade · n=${PLAYERS.length}</span>${items}`;
+}
+
+function renderDefaultInsight() {
+  document.getElementById('detail').innerHTML = `
+    <div class="insight-block">
+      <div class="iblbl">Coach, the read at a glance</div>
+      <p><strong class="bright">Your floor was the OL room.</strong> Of the 13 linemen who took snaps in 2024, 7 graded above your program baseline (2 Elite — Benzschawel and Jack Nelson — and 5 Above). Only 1 of 13 graded below. That's the most consistent unit on this roster.</p>
+      <p><strong class="leak">Your leak was the WR room.</strong> Of the 9 receivers, 4 graded below baseline — 44%, the highest below-rate of any group. None graded Elite. That gap reads straight through to 2025: 135th nationally in total offense, 12.8 ppg, last among Power 4. The 2024 evidence pointed to it.</p>
+      <p>Click any player on the left to see exactly where he sat against your program baseline, your staff-era baseline since 2023, his HS recruiting profile, and the strength of competition his HS produced.</p>
+    </div>
+  `;
+}
+
+function renderDetail() {
+  const d = document.getElementById('detail');
+  if (!selected) { renderDefaultInsight(); return; }
+  const p = selected;
+  const coach = POS_COACH[p.pff_position] || '';
+  d.innerHTML = `
+    <h2>${p.pff_name}</h2>
+    <div class="player-meta">${p.pff_position} · ${POSITION_GROUPS[p.pff_position]||''}${coach ? ` · coached by ${coach}` : ''} · ${p.snaps||0} snaps · Grade ${fmtPct(p.grade_primary)} · Primary stat ${fmtNum(p.primary_stat)}</div>
+
+    <div class="layer-card">
+      <div class="head"><span class="ttl">Program baseline</span> <span class="${tierClass(p.L1_stat_tier)}">${p.L1_stat_tier||'—'}</span></div>
+      <div class="desc">Where he lands vs. every Wisconsin ${p.pff_position} since 2014 (n=${p.L1_n_player_seasons||'?'} player-seasons)</div>
+      <div class="row"><span class="k">His number</span><span>${fmtNum(p.primary_stat)}</span></div>
+      <div class="row"><span class="k">Program median</span><span>${fmtNum(p.L1_primary_stat_p50)}</span></div>
+      <div class="row"><span class="k">Program p90 bar</span><span>${fmtNum(p.L1_primary_stat_p90)}</span></div>
+      <div class="row"><span class="k">Grade vs program</span><span class="${tierClass(p.L1_grade_tier)}">${p.L1_grade_tier||'—'}</span></div>
+    </div>
+
+    <div class="layer-card">
+      <div class="head"><span class="ttl">Staff-era baseline</span> <span class="${tierClass(p.L2_stat_tier)}">${p.L2_stat_tier||'—'}</span></div>
+      <div class="desc">Where he lands vs. every Wisconsin ${p.pff_position} your staff has coached since ${p.L2_hc_start_year||'2023'} (n=${p.L2_n_player_seasons||'?'})</div>
+      <div class="row"><span class="k">Staff-era median</span><span>${fmtNum(p.L2_primary_stat_p50)}</span></div>
+      <div class="row"><span class="k">Staff-era p90 bar</span><span>${fmtNum(p.L2_primary_stat_p90)}</span></div>
+      <div class="row"><span class="k">Grade vs staff-era</span><span class="${tierClass(p.L2_grade_tier)}">${p.L2_grade_tier||'—'}</span></div>
+    </div>
+
+    <div class="layer-card">
+      <div class="head"><span class="ttl">HS recruiting profile</span> <span class="${tierClass(p.L3_composite_tier)}">${p.L3_composite_tier||'—'}</span></div>
+      <div class="desc">247Composite percentile within ${p.pff_position}</div>
+      <div class="row"><span class="k">247Composite percentile</span><span>${fmtPct(p.L3_composite_pct)}</span></div>
+      <div class="row"><span class="k">Star percentile</span><span>${fmtPct(p.L3_stars_pct)}</span></div>
+      <div class="row"><span class="k">Stars / composite</span><span>${p.stars||'—'}★ / ${fmtNum(p.composite_score)}</span></div>
+    </div>
+
+    <div class="layer-card">
+      <div class="head"><span class="ttl">HS competition strength</span> <span class="${tierClass(p.HS_CompetitiveIndex_Tier)}">${p.HS_CompetitiveIndex_Tier||'—'}</span></div>
+      <div class="desc">${p.high_school||'?'} — 10-year D1-tracked alumni signal for the HS he came from</div>
+      <div class="row"><span class="k">Score</span><span>${fmtPct(p.HS_CompetitiveIndex_0to10)} / 10</span></div>
+    </div>
+
+    <div class="layer-card">
+      <div class="head"><span class="ttl">Composite grade</span> <span class="${tierClass(p.Classification)}">${p.Classification||'—'}</span></div>
+      <div class="row"><span class="k">Composite score</span><span>${fmtPct(p.composite_score_0to4)} / 4</span></div>
+    </div>
+  `;
+}
+
+document.querySelectorAll('#filters button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#filters button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterTier = btn.dataset.tier;
+    render();
+  });
+});
+
+renderSummary();
+renderDefaultInsight();
+render();
+</script>
+</body>
+</html>

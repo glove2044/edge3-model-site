@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDGE3 × Catapult | Decision Intelligence Layer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --e3-green: #00C853;
+  --e3-green-dim: #00A843;
+  --e3-blue: #1565C0;
+  --e3-blue-light: #42A5F5;
+  --e3-blue-dark: #0D47A1;
+  --e3-navy: #0A1628;
+  --e3-slate: #1B2A4A;
+  --surface: #F5F7FA;
+  --surface-2: #FFFFFF;
+  --surface-3: #EDF1F7;
+  --text-primary: #0A1628;
+  --text-secondary: #4A5568;
+  --text-muted: #8896AB;
+  --border: #D8DEE9;
+  --red: #EF4444;
+  --red-bg: rgba(239,68,68,0.06);
+  --red-border: rgba(239,68,68,0.15);
+  --yellow: #F59E0B;
+  --yellow-bg: rgba(245,158,11,0.06);
+  --yellow-border: rgba(245,158,11,0.15);
+  --orange: #F97316;
+  --green-bg: rgba(0,200,83,0.06);
+  --green-border: rgba(0,200,83,0.15);
+  --catapult-teal: #00BCD4;
+  --catapult-dark: #263238;
+  --purple: #7C4DFF;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--surface);
+  color: var(--text-primary);
+  overflow-x: hidden;
+}
+
+/* ========= STICKY NAV ========= */
+.topnav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px; height: 56px;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+}
+.topnav-brand { display: flex; align-items: center; gap: 16px; }
+.topnav-brand .e3-logo {
+  font-weight: 700; font-size: 18px; letter-spacing: -0.5px;
+  color: var(--e3-green);
+}
+.topnav-brand .e3-logo span { color: var(--e3-blue); }
+.topnav-brand .sep { color: var(--border); font-weight: 300; font-size: 20px; }
+.topnav-brand .catapult-logo {
+  font-weight: 600; font-size: 15px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--catapult-dark);
+}
+.topnav-status {
+  display: flex; align-items: center; gap: 20px; font-size: 12px; color: var(--text-muted);
+}
+.live-dot {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--e3-green);
+  display: inline-block;
+  animation: pulse-dot 2s infinite;
+}
+@keyframes pulse-dot { 0%,100% { opacity:1; } 50% { opacity: 0.3; } }
+
+/* ========= HERO ========= */
+.hero {
+  position: relative;
+  padding: 56px 40px 44px;
+  background: linear-gradient(135deg, var(--e3-navy) 0%, var(--e3-slate) 40%, var(--e3-blue-dark) 100%);
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 600px 400px at 20% 50%, rgba(0,200,83,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 300px at 80% 30%, rgba(21,101,192,0.12) 0%, transparent 70%);
+}
+.hero-grid {
+  position: absolute; inset: 0; opacity: 0.04;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.hero-content { position: relative; max-width: 1280px; margin: 0 auto; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 14px; border-radius: 20px;
+  background: rgba(0,200,83,0.12); border: 1px solid rgba(0,200,83,0.25);
+  font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--e3-green); margin-bottom: 20px;
+}
+.hero h1 {
+  font-size: 40px; font-weight: 700; line-height: 1.15; letter-spacing: -1px;
+  color: #fff; max-width: 720px;
+}
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(90deg, var(--e3-green), var(--e3-blue-light));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-sub {
+  margin-top: 14px; font-size: 15px; color: rgba(255,255,255,0.55);
+  max-width: 600px; line-height: 1.65;
+}
+
+/* Problem/Solution strip */
+.hero-strip {
+  display: grid; grid-template-columns: 1fr 40px 1fr; gap: 0; align-items: stretch;
+  margin-top: 36px; max-width: 800px;
+}
+.hero-strip-box {
+  padding: 20px 24px; border-radius: 12px;
+}
+.hero-strip-box.problem {
+  background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2);
+}
+.hero-strip-box.solution {
+  background: rgba(0,200,83,0.08); border: 1px solid rgba(0,200,83,0.2);
+}
+.hero-strip-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.hero-strip-box.problem .hero-strip-label { color: var(--red); }
+.hero-strip-box.solution .hero-strip-label { color: var(--e3-green); }
+.hero-strip-text {
+  font-size: 13px; line-height: 1.55; color: rgba(255,255,255,0.7);
+}
+.hero-strip-arrow {
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.3); font-size: 20px;
+}
+
+/* ========= SECTION BASICS ========= */
+.section { max-width: 1280px; margin: 0 auto; padding: 48px 40px; }
+.section-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--e3-blue); margin-bottom: 6px;
+}
+.section-title {
+  font-size: 24px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px;
+}
+.section-desc {
+  font-size: 14px; color: var(--text-secondary); line-height: 1.6; max-width: 700px;
+  margin-bottom: 28px;
+}
+
+/* ========= THREE-LAYER ARCHITECTURE (compact) ========= */
+.arch-row {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+}
+.arch-card {
+  padding: 20px; border-radius: 12px;
+  background: var(--surface-2); border: 1px solid var(--border);
+}
+.arch-card-head {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+}
+.arch-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; color: #fff;
+}
+.arch-icon.c { background: linear-gradient(135deg, var(--catapult-teal), #00838F); }
+.arch-icon.v { background: linear-gradient(135deg, var(--purple), #536DFE); }
+.arch-icon.e { background: linear-gradient(135deg, var(--e3-green), var(--e3-blue)); }
+.arch-card-title { font-size: 14px; font-weight: 600; }
+.arch-card-sub { font-size: 11px; color: var(--text-muted); }
+.arch-card p {
+  font-size: 12px; color: var(--text-secondary); line-height: 1.55;
+}
+.arch-outputs {
+  margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px;
+}
+.arch-outputs span {
+  padding: 3px 8px; border-radius: 5px;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.3px;
+  background: var(--surface-3); color: var(--text-secondary);
+}
+
+/* ========= USE CASE TABS ========= */
+.uc-tabs {
+  display: flex; gap: 8px; margin-bottom: 24px;
+}
+.uc-tab {
+  padding: 10px 20px; border-radius: 10px;
+  font-size: 13px; font-weight: 600;
+  border: 1px solid var(--border); background: var(--surface-2);
+  cursor: pointer; transition: all 0.2s;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text-secondary);
+}
+.uc-tab.active {
+  background: var(--e3-blue); color: #fff; border-color: var(--e3-blue);
+}
+.uc-tab:hover:not(.active) { border-color: var(--e3-blue-light); }
+.uc-panel { display: none; }
+.uc-panel.active { display: block; }
+
+/* ========= IN-GAME: VIDEO + DECISION FEED ========= */
+.game-layout {
+  display: grid; grid-template-columns: 1fr 420px; gap: 0;
+  background: var(--surface-2); border-radius: 16px;
+  border: 1px solid var(--border); overflow: hidden;
+  min-height: 520px;
+}
+
+/* Video side */
+.game-video {
+  position: relative; background: var(--e3-navy);
+  display: flex; flex-direction: column;
+}
+.game-video-top {
+  padding: 12px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.game-video-top .gv-label {
+  font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.4);
+  letter-spacing: 1px; text-transform: uppercase;
+}
+.game-video-top .gv-situation {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; color: rgba(255,255,255,0.7);
+}
+.game-film-area {
+  flex: 1; position: relative;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+}
+.film-frame {
+  width: 100%; aspect-ratio: 16/9;
+  background: linear-gradient(135deg, #142a14 0%, #0d1f0d 100%);
+  border-radius: 8px; border: 1px solid rgba(0,200,83,0.12);
+  position: relative; overflow: hidden;
+}
+.field-overlay {
+  position: absolute; inset: 0; opacity: 0.06;
+}
+.field-overlay::before {
+  content: ''; position: absolute;
+  top: 0; bottom: 0; left: 50%; width: 1px; background: #fff;
+}
+.field-overlay::after {
+  content: ''; position: absolute;
+  top: 50%; left: 0; right: 0; height: 1px; background: #fff;
+}
+
+/* Player positions */
+.p-dot {
+  position: absolute; border-radius: 50%; z-index: 2;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace; font-size: 7px; color: #fff;
+  font-weight: 600;
+}
+.p-dot.offense {
+  width: 22px; height: 22px;
+  background: rgba(0,200,83,0.85); box-shadow: 0 0 6px rgba(0,200,83,0.4);
+}
+.p-dot.defense {
+  width: 22px; height: 22px;
+  background: rgba(66,165,245,0.85); box-shadow: 0 0 6px rgba(66,165,245,0.4);
+}
+.p-dot.flagged {
+  width: 26px; height: 26px;
+  background: var(--red); box-shadow: 0 0 12px rgba(239,68,68,0.6);
+  animation: flag-pulse 1.5s ease-in-out infinite;
+}
+@keyframes flag-pulse {
+  0%,100% { box-shadow: 0 0 12px rgba(239,68,68,0.6); }
+  50% { box-shadow: 0 0 24px rgba(239,68,68,0.9), 0 0 48px rgba(239,68,68,0.2); }
+}
+.p-dot.alert-ring {
+  border: 2px solid var(--yellow);
+  box-shadow: 0 0 10px rgba(245,158,11,0.5);
+}
+
+/* Fatigue ghost trail */
+.ghost-trail {
+  position: absolute; z-index: 1;
+}
+.ghost-trail .ghost {
+  position: absolute; width: 18px; height: 18px; border-radius: 50%;
+  background: rgba(239,68,68,0.12); border: 1px dashed rgba(239,68,68,0.25);
+}
+
+/* Film annotation callout */
+.film-callout {
+  position: absolute; z-index: 10;
+  padding: 8px 12px; border-radius: 8px;
+  background: rgba(10,22,40,0.92); border: 1px solid;
+  backdrop-filter: blur(8px);
+  max-width: 200px;
+}
+.film-callout.red-call { border-color: rgba(239,68,68,0.4); }
+.film-callout.yellow-call { border-color: rgba(245,158,11,0.4); }
+.film-callout-label {
+  font-size: 8px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.film-callout.red-call .film-callout-label { color: var(--red); }
+.film-callout.yellow-call .film-callout-label { color: var(--yellow); }
+.film-callout-text {
+  font-size: 10px; color: rgba(255,255,255,0.75); line-height: 1.4;
+}
+
+/* Video timeline */
+.game-timeline {
+  padding: 12px 16px 16px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.timeline-row { display: flex; align-items: center; gap: 10px; }
+.timeline-tc {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: rgba(255,255,255,0.4); width: 80px;
+}
+.timeline-track-wrap { flex: 1; position: relative; height: 28px; }
+.tl-track {
+  position: absolute; top: 12px; left: 0; right: 0;
+  height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px;
+}
+.tl-progress {
+  position: absolute; top: 12px; left: 0;
+  height: 4px; width: 68%; border-radius: 2px;
+  background: linear-gradient(90deg, var(--e3-green), var(--e3-blue-light));
+}
+/* Event markers */
+.tl-mark {
+  position: absolute; top: 4px; width: 3px; height: 20px; border-radius: 1px;
+  cursor: pointer; transition: opacity 0.15s;
+}
+.tl-mark:hover { opacity: 0.7; }
+.tl-mark.fatigue { background: var(--red); }
+.tl-mark.load { background: var(--catapult-teal); }
+.tl-mark.film { background: var(--purple); }
+.tl-mark.decision { background: var(--yellow); }
+.tl-playhead {
+  position: absolute; top: 3px; left: 68%;
+  width: 10px; height: 22px; margin-left: -5px;
+  background: #fff; border-radius: 3px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.timeline-legend {
+  display: flex; gap: 14px; margin-top: 6px;
+}
+.timeline-legend span {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 9px; color: rgba(255,255,255,0.35);
+}
+.timeline-legend span i {
+  width: 8px; height: 3px; border-radius: 1px; display: inline-block;
+}
+
+/* ========= DECISION FEED (right panel) ========= */
+.decision-panel {
+  border-left: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  background: var(--surface-2);
+}
+.dp-header {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+}
+.dp-header-title {
+  font-size: 14px; font-weight: 700;
+}
+.dp-header-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.dp-feed {
+  flex: 1; overflow-y: auto; padding: 0;
+}
+
+/* Decision Card */
+.d-card {
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--surface-3);
+  transition: background 0.15s;
+  cursor: pointer;
+}
+.d-card:hover { background: var(--surface); }
+.d-card-priority {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 10px; border-radius: 5px;
+  font-size: 9px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+}
+.d-card-priority.urgent {
+  background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border);
+}
+.d-card-priority.watch {
+  background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow-border);
+}
+.d-card-priority.positive {
+  background: var(--green-bg); color: var(--e3-green-dim); border: 1px solid var(--green-border);
+}
+.d-card-title {
+  font-size: 13px; font-weight: 700; margin-top: 8px; line-height: 1.35;
+}
+.d-card-evidence {
+  margin-top: 8px; font-size: 11px; color: var(--text-secondary); line-height: 1.55;
+}
+.d-card-evidence strong { color: var(--text-primary); }
+.d-card-sources {
+  display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap;
+}
+.d-card-source {
+  padding: 2px 7px; border-radius: 4px;
+  font-size: 9px; font-weight: 600; color: #fff;
+}
+.src-catapult { background: var(--catapult-teal); }
+.src-video { background: var(--purple); }
+.src-edge3 { background: var(--e3-green-dim); }
+.src-social { background: #E91E63; }
+
+/* THE DECISION BOX — the key output */
+.d-card-action {
+  margin-top: 10px; padding: 10px 14px; border-radius: 8px;
+  font-size: 12px; font-weight: 600; line-height: 1.5;
+}
+.d-card-action.action-red {
+  background: var(--red-bg); border-left: 3px solid var(--red); color: var(--text-primary);
+}
+.d-card-action.action-yellow {
+  background: var(--yellow-bg); border-left: 3px solid var(--yellow); color: var(--text-primary);
+}
+.d-card-action.action-green {
+  background: var(--green-bg); border-left: 3px solid var(--e3-green); color: var(--text-primary);
+}
+.d-card-action .action-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.d-card-action.action-red .action-label { color: var(--red); }
+.d-card-action.action-yellow .action-label { color: var(--yellow); }
+.d-card-action.action-green .action-label { color: var(--e3-green-dim); }
+.d-card-metrics {
+  display: flex; gap: 16px; margin-top: 8px;
+}
+.d-metric {
+  display: flex; flex-direction: column;
+}
+.d-metric-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px; font-weight: 600;
+}
+.d-metric-label {
+  font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;
+}
+
+/* ========= PRACTICE PLANNING PANEL ========= */
+.practice-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+}
+.prac-card {
+  background: var(--surface-2); border-radius: 14px;
+  border: 1px solid var(--border); overflow: hidden;
+}
+.prac-card-head {
+  padding: 14px 18px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.prac-card-title { font-size: 13px; font-weight: 600; }
+.prac-badge {
+  font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 5px;
+}
+.prac-card-body { padding: 18px; }
+
+/* Load management table */
+.load-table { width: 100%; border-collapse: collapse; }
+.load-table th {
+  font-size: 10px; font-weight: 600; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.5px;
+  padding: 6px 8px; text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.load-table td {
+  font-size: 12px; padding: 10px 8px;
+  border-bottom: 1px solid var(--surface-3);
+  vertical-align: middle;
+}
+.load-table td:first-child { font-weight: 600; }
+.load-status {
+  display: inline-block; padding: 2px 8px; border-radius: 4px;
+  font-size: 10px; font-weight: 600;
+}
+.load-status.overload { background: var(--red-bg); color: var(--red); }
+.load-status.optimal { background: var(--green-bg); color: var(--e3-green-dim); }
+.load-status.under { background: var(--yellow-bg); color: var(--yellow); }
+
+/* Practice recommendation card */
+.prac-rec {
+  padding: 14px; border-radius: 10px; margin-bottom: 12px;
+  border: 1px solid var(--border);
+}
+.prac-rec:last-child { margin-bottom: 0; }
+.prac-rec-head {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+}
+.prac-rec-player { font-size: 13px; font-weight: 600; }
+.prac-rec-body { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+.prac-rec-action {
+  margin-top: 8px; padding: 8px 12px; border-radius: 6px;
+  font-size: 11px; font-weight: 600;
+}
+
+/* ========= ROSTER INTELLIGENCE PANEL ========= */
+.roster-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+}
+.roster-card {
+  background: var(--surface-2); border-radius: 14px;
+  border: 1px solid var(--border); overflow: hidden;
+}
+.roster-card-head {
+  padding: 14px 18px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.roster-card-title { font-size: 13px; font-weight: 600; }
+
+/* Signal compound row */
+.signal-row {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--surface-3);
+}
+.signal-row:last-child { border-bottom: none; }
+.signal-indicator {
+  width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0;
+}
+.signal-content { flex: 1; }
+.signal-title { font-size: 12px; font-weight: 600; line-height: 1.4; }
+.signal-detail { font-size: 11px; color: var(--text-secondary); margin-top: 3px; line-height: 1.45; }
+
+/* ========= NIL MONITORING ========= */
+.nil-card {
+  background: var(--surface-2); border-radius: 14px;
+  border: 1px solid var(--border); overflow: hidden;
+  margin-top: 24px;
+}
+.nil-card-head {
+  padding: 14px 18px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nil-card-title { font-size: 13px; font-weight: 600; }
+.nil-row {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--surface-3);
+}
+.nil-row:last-child { border-bottom: none; }
+.nil-domain {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 4px; color: #fff; white-space: nowrap;
+  flex-shrink: 0; margin-top: 1px;
+}
+.nil-domain.leg { background: var(--e3-blue); }
+.nil-domain.lit { background: var(--purple); }
+.nil-domain.ncaa { background: var(--orange); }
+.nil-domain.enf { background: var(--red); }
+.nil-domain.news { background: var(--catapult-teal); }
+.nil-content { flex: 1; }
+.nil-title { font-size: 12px; font-weight: 600; line-height: 1.4; }
+.nil-meta { font-size: 10px; color: var(--text-muted); margin-top: 3px; }
+
+/* ========= CTA ========= */
+.cta-section {
+  margin-top: 40px; padding: 44px 40px; text-align: center;
+  background: linear-gradient(135deg, var(--e3-navy) 0%, var(--e3-blue-dark) 100%);
+  border-radius: 20px; position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(circle 300px at 30% 50%, rgba(0,200,83,0.1), transparent),
+    radial-gradient(circle 300px at 70% 50%, rgba(21,101,192,0.15), transparent);
+}
+.cta-section h2 {
+  position: relative; font-size: 26px; font-weight: 700; color: #fff;
+}
+.cta-section p {
+  position: relative; font-size: 14px; color: rgba(255,255,255,0.5);
+  max-width: 520px; margin: 10px auto 0; line-height: 1.6;
+}
+.cta-buttons {
+  position: relative; display: flex; gap: 12px; justify-content: center; margin-top: 24px;
+}
+.cta-btn {
+  padding: 12px 28px; border-radius: 10px; font-size: 14px; font-weight: 600;
+  border: none; cursor: pointer; transition: all 0.2s;
+  font-family: 'DM Sans', sans-serif;
+}
+.cta-btn.primary { background: var(--e3-green); color: var(--e3-navy); }
+.cta-btn.primary:hover { background: #00E676; transform: translateY(-1px); }
+.cta-btn.secondary {
+  background: rgba(255,255,255,0.08); color: #fff;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.cta-btn.secondary:hover { background: rgba(255,255,255,0.14); }
+
+.footer {
+  text-align: center; padding: 28px 40px;
+  font-size: 11px; color: var(--text-muted);
+}
+.footer a { color: var(--e3-blue); text-decoration: none; }
+
+/* ========= EXPIRATION KEY ========= */
+.expiration-key {
+  position: fixed; bottom: 16px; right: 16px; z-index: 200;
+  padding: 8px 14px; border-radius: 8px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--text-muted);
+  display: flex; align-items: center; gap: 8px;
+}
+
+@media (max-width: 960px) {
+  .game-layout { grid-template-columns: 1fr; }
+  .practice-grid, .roster-grid, .arch-row { grid-template-columns: 1fr; }
+  .hero-strip { grid-template-columns: 1fr; }
+  .hero-strip-arrow { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="topnav">
+  <div class="topnav-brand">
+    <div class="e3-logo">EDGE<span>3</span></div>
+    <span class="sep">×</span>
+    <div class="catapult-logo">Catapult</div>
+  </div>
+  <div class="topnav-status">
+    <span>Athlete Recruiting Wallet — Decision Intelligence</span>
+    <span class="live-dot"></span>
+    <span>LIVE</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="live-dot"></span>
+      Integration Concept — EDGE3 × Catapult × Video AI
+    </div>
+    <h1>Catapult tells you <em>what happened.</em><br>EDGE3 tells you <em>what to do.</em></h1>
+    <p class="hero-sub">
+      Catapult quantifies the body — PlayerLoad, speed zones, acceleration. EDGE3 layers decision intelligence on top: connecting fatigue patterns to on-field mistakes, translating load data into roster decisions, and turning physical metrics into recruiting signals coaches can act on.
+    </p>
+
+    <div class="hero-strip">
+      <div class="hero-strip-box problem">
+        <div class="hero-strip-label">Today's gap</div>
+        <div class="hero-strip-text">
+          Catapult data lives in monitoring dashboards. Coaches see PlayerLoad = 842 AU, but the question is: <strong style="color:#fff">is that why #65 whiffed on that 3rd-down block?</strong> Nobody connects the physical signal to the play-level mistake to the roster decision.
+        </div>
+      </div>
+      <div class="hero-strip-arrow">→</div>
+      <div class="hero-strip-box solution">
+        <div class="hero-strip-label">EDGE3 Decision Layer</div>
+        <div class="hero-strip-text">
+          EDGE3 ingests Catapult outputs, syncs with video, and generates <strong style="color:#fff">specific coaching decisions:</strong> "Pull #65 from 3rd-down package — fatigue-sourced. Film confirms 3 missed assignments in last 8 snaps. Load threshold exceeded 12 min ago."
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ARCHITECTURE -->
+<div class="section">
+  <div class="section-label">How It Works</div>
+  <div class="section-title">Three layers. One decision.</div>
+  <div class="section-desc">
+    Catapult's physical data feeds through video context into EDGE3's decision engine — outputs are coaching actions, not charts.
+  </div>
+
+  <div class="arch-row">
+    <div class="arch-card">
+      <div class="arch-card-head">
+        <div class="arch-icon c">C</div>
+        <div>
+          <div class="arch-card-title">Catapult — The Physical Signal</div>
+          <div class="arch-card-sub">What the body is doing</div>
+        </div>
+      </div>
+      <p>
+        Real-time biometric stream via Vector / Thunder integration. PlayerLoad, speed zones, acceleration events, IMA intensity, movement symmetry, heart rate. Used by 90%+ of FBS programs. Now with NCAA-approved sideline video (SEC first, 2024).
+      </p>
+      <div class="arch-outputs">
+        <span>PlayerLoad™</span><span>Speed Zones</span><span>Accel/Decel</span><span>IMA™</span><span>L/R Symmetry</span><span>Sideline Video</span>
+      </div>
+    </div>
+
+    <div class="arch-card">
+      <div class="arch-card-head">
+        <div class="arch-icon v">V</div>
+        <div>
+          <div class="arch-card-title">Video AI — The Context</div>
+          <div class="arch-card-sub">What the film shows</div>
+        </div>
+      </div>
+      <p>
+        AI-powered video tagging (Twelve Labs-style) on game and practice film. Natural language search across footage. Auto-tags snap-level events: missed blocks, coverage busts, route quality, effort plays. Correlates specific plays to Catapult load moments.
+      </p>
+      <div class="arch-outputs">
+        <span>Snap Tagging</span><span>Mistake Detection</span><span>Effort Grading</span><span>Film Search</span><span>Highlight Reels</span>
+      </div>
+    </div>
+
+    <div class="arch-card">
+      <div class="arch-card-head">
+        <div class="arch-icon e">E3</div>
+        <div>
+          <div class="arch-card-title">EDGE3 — The Decision</div>
+          <div class="arch-card-sub">What the coach should do</div>
+        </div>
+      </div>
+      <p>
+        AI configured by practitioners who generated the data. Fuses physical signals + film context + 26,575 athlete records into decisions: in-game personnel changes, practice load adjustments, transfer risk alerts, and recruiting intelligence. The OS, not features.
+      </p>
+      <div class="arch-outputs">
+        <span>Personnel Decisions</span><span>RNR Risk</span><span>RYG Performance</span><span>PDI</span><span>Anomaly Flags</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- THREE USE CASES -->
+<div class="section" style="padding-top: 24px;">
+  <div class="section-label">Decision Outputs</div>
+  <div class="section-title">Three contexts. Every output is a decision a coach can act on.</div>
+
+  <div class="uc-tabs" id="ucTabs">
+    <button class="uc-tab active" data-panel="game">In-Game Decisions</button>
+    <button class="uc-tab" data-panel="practice">Practice &amp; Load Planning</button>
+    <button class="uc-tab" data-panel="roster">Roster &amp; Recruiting Intel</button>
+  </div>
+
+  <!-- ============ USE CASE 1: IN-GAME ============ -->
+  <div class="uc-panel active" id="panel-game">
+    <div class="game-layout">
+      <!-- Video Side -->
+      <div class="game-video">
+        <div class="game-video-top">
+          <div class="gv-label">Catapult Sideline Video + EDGE3 Overlay</div>
+          <div class="gv-situation">Q3 · 07:42 · 2nd &amp; 8 · OWN 34 · Play 47 of 62</div>
+        </div>
+        <div class="game-film-area">
+          <div class="film-frame">
+            <div class="field-overlay"></div>
+            <!-- Offensive line -->
+            <div class="p-dot offense" style="top:48%;left:38%">74</div>
+            <div class="p-dot offense" style="top:48%;left:43%">72</div>
+            <div class="p-dot offense flagged" style="top:48%;left:48%">65</div>
+            <div class="p-dot offense" style="top:48%;left:53%">78</div>
+            <div class="p-dot offense" style="top:48%;left:58%">77</div>
+            <!-- Skill -->
+            <div class="p-dot offense" style="top:46%;left:48%;width:20px;height:20px;font-size:6px">12</div>
+            <div class="p-dot offense" style="top:54%;left:44%">22</div>
+            <div class="p-dot offense alert-ring" style="top:34%;left:28%">4</div>
+            <div class="p-dot offense" style="top:62%;left:62%">81</div>
+            <div class="p-dot offense" style="top:36%;left:68%">11</div>
+            <div class="p-dot offense" style="top:42%;left:34%">88</div>
+            <!-- Defense -->
+            <div class="p-dot defense" style="top:48%;left:64%">55</div>
+            <div class="p-dot defense" style="top:42%;left:66%">92</div>
+            <div class="p-dot defense" style="top:55%;left:67%">97</div>
+            <div class="p-dot defense" style="top:38%;left:72%">21</div>
+            <div class="p-dot defense" style="top:60%;left:73%">34</div>
+
+            <!-- Ghost trail showing where #65 SHOULD have been -->
+            <div class="ghost-trail">
+              <div class="ghost" style="top:46%;left:50%"></div>
+              <div class="ghost" style="top:44%;left:52%"></div>
+            </div>
+
+            <!-- Film annotation: Fatigue-sourced mistake -->
+            <div class="film-callout red-call" style="top:58%;left:38%;width:190px">
+              <div class="film-callout-label">Fatigue → Mistake</div>
+              <div class="film-callout-text">
+                #65 late to 2nd level. Catapult: PlayerLoad −31% from Q1. 3rd missed assignment in 8 snaps.
+              </div>
+            </div>
+
+            <!-- Film annotation: WR effort signal -->
+            <div class="film-callout yellow-call" style="top:22%;left:14%;width:170px">
+              <div class="film-callout-label">Effort Watch</div>
+              <div class="film-callout-text">
+                #4 WR route speed down 0.4 m/s vs. Q1. Decel events −22%. Monitoring.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="game-timeline">
+          <div class="timeline-row">
+            <div class="timeline-tc">Q3 07:42</div>
+            <div class="timeline-track-wrap">
+              <div class="tl-track"></div>
+              <div class="tl-progress"></div>
+              <div class="tl-mark fatigue" style="left:15%"></div>
+              <div class="tl-mark load" style="left:22%"></div>
+              <div class="tl-mark film" style="left:29%"></div>
+              <div class="tl-mark decision" style="left:35%"></div>
+              <div class="tl-mark fatigue" style="left:42%"></div>
+              <div class="tl-mark load" style="left:48%"></div>
+              <div class="tl-mark film" style="left:53%"></div>
+              <div class="tl-mark decision" style="left:58%"></div>
+              <div class="tl-mark fatigue" style="left:65%"></div>
+              <div class="tl-mark film" style="left:68%"></div>
+              <div class="tl-mark load" style="left:75%"></div>
+              <div class="tl-mark fatigue" style="left:82%"></div>
+              <div class="tl-mark decision" style="left:88%"></div>
+              <div class="tl-playhead"></div>
+            </div>
+          </div>
+          <div class="timeline-legend">
+            <span><i style="background:var(--red)"></i> Fatigue Flag</span>
+            <span><i style="background:var(--catapult-teal)"></i> Catapult Load</span>
+            <span><i style="background:var(--purple)"></i> Video AI Tag</span>
+            <span><i style="background:var(--yellow)"></i> Decision Prompt</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- DECISION FEED -->
+      <div class="decision-panel">
+        <div class="dp-header">
+          <div class="dp-header-title">⚡ Coach Decision Feed</div>
+          <div class="dp-header-sub">AI-generated actions from Catapult + Video + EDGE3</div>
+        </div>
+        <div class="dp-feed">
+
+          <!-- Decision 1: URGENT -->
+          <div class="d-card">
+            <div class="d-card-priority urgent">⬤ Action Required</div>
+            <div class="d-card-title">Pull #65 OG from 3rd-down package.</div>
+            <div class="d-card-evidence">
+              Catapult PlayerLoad dropped <strong>31% from Q1 average</strong>. Video AI confirms: <strong>3 missed assignments in last 8 snaps</strong> — all at 2nd level. Ghost overlay shows late arrival to linebacker on play 44, 47, and 51. IMA asymmetry L/R ratio hit 1.42.
+            </div>
+            <div class="d-card-sources">
+              <span class="d-card-source src-catapult">Catapult</span>
+              <span class="d-card-source src-video">Video AI</span>
+              <span class="d-card-source src-edge3">EDGE3</span>
+            </div>
+            <div class="d-card-action action-red">
+              <div class="action-label">Recommended Action</div>
+              Sub #76 (Ramirez) for 3rd-down snaps. #65 remains available for 1st/2nd down inside zone. Re-evaluate at Q4 start. Flag for Tuesday load review.
+            </div>
+            <div class="d-card-metrics">
+              <div class="d-metric">
+                <div class="d-metric-val" style="color:var(--red)">−31%</div>
+                <div class="d-metric-label">Load Drop</div>
+              </div>
+              <div class="d-metric">
+                <div class="d-metric-val">3 / 8</div>
+                <div class="d-metric-label">Missed Assgn</div>
+              </div>
+              <div class="d-metric">
+                <div class="d-metric-val" style="color:var(--e3-blue)">91%</div>
+                <div class="d-metric-label">Confidence</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Decision 2: WATCH -->
+          <div class="d-card">
+            <div class="d-card-priority watch">⬤ Monitor</div>
+            <div class="d-card-title">#4 WR route speed declining — not yet at threshold.</div>
+            <div class="d-card-evidence">
+              Catapult high-speed running distance down <strong>18% since Q1</strong>. Decel events dropped from 12 to 8 per quarter. Video AI: route-break timing still within 0.1s of baseline, but top-of-route speed is eroding. Not yet producing on-film mistakes.
+            </div>
+            <div class="d-card-sources">
+              <span class="d-card-source src-catapult">Catapult</span>
+              <span class="d-card-source src-video">Video AI</span>
+            </div>
+            <div class="d-card-action action-yellow">
+              <div class="action-label">Watch — No Action Yet</div>
+              If high-speed distance drops below 65% of Q1 baseline, flag for sub. Currently at 72%. Next check: start of Q4. Note: #4 has historically maintained route quality even at lower speeds — EDGE3 model gives 68% chance he stays productive.
+            </div>
+            <div class="d-card-metrics">
+              <div class="d-metric">
+                <div class="d-metric-val" style="color:var(--yellow)">−18%</div>
+                <div class="d-metric-label">HS Distance</div>
+              </div>
+              <div class="d-metric">
+                <div class="d-metric-val">72%</div>
+                <div class="d-metric-label">of Q1 Baseline</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Decision 3: POSITIVE -->
+          <div class="d-card">
+            <div class="d-card-priority positive">⬤ Exploit</div>
+            <div class="d-card-title">Opp. #92 DE fatigue window — run right.</div>
+            <div class="d-card-evidence">
+              Catapult opponent tracking (where available) shows opp. right DE snap count at 38 consecutive. Video AI: pass rush win rate dropped from 22% to 9% in last 6 snaps. Last 3 plays: visibly slower first step. <strong>Window is open for strong-side run.</strong>
+            </div>
+            <div class="d-card-sources">
+              <span class="d-card-source src-catapult">Catapult</span>
+              <span class="d-card-source src-video">Video AI</span>
+              <span class="d-card-source src-edge3">EDGE3</span>
+            </div>
+            <div class="d-card-action action-green">
+              <div class="action-label">Exploit Opportunity</div>
+              Call strong-side power / counter right. Opp. #92 is at physical limit — Video AI shows he's dropping hands and narrowing rush lane. This window closes if they sub. Act in next 2-3 plays.
+            </div>
+          </div>
+
+          <!-- Decision 4: URGENT (QB behavior) -->
+          <div class="d-card">
+            <div class="d-card-priority urgent">⬤ RNR Alert</div>
+            <div class="d-card-title">#12 QB — Compound disengagement signal.</div>
+            <div class="d-card-evidence">
+              This is not a single-game issue. Catapult shows <strong>PlayerLoad trending −18% over 3 weeks</strong>. Video AI: reduced pocket movement, abbreviated follow-throughs on out routes. Pro Data Stack: social media sentiment shift toward transfer portal content. EDGE3 RNR model: <strong>0.78 transfer risk at 87% confidence.</strong>
+            </div>
+            <div class="d-card-sources">
+              <span class="d-card-source src-catapult">Catapult</span>
+              <span class="d-card-source src-video">Video AI</span>
+              <span class="d-card-source src-edge3">EDGE3</span>
+              <span class="d-card-source src-social">Social</span>
+            </div>
+            <div class="d-card-action action-red">
+              <div class="action-label">Staff Action — Post-Game</div>
+              Initiate proactive 1-on-1 with position coach within 48 hours. Not a benching conversation — an engagement conversation. Catapult data provides objective evidence of declining effort without requiring subjective judgment call. Share film clips showing the pattern.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ USE CASE 2: PRACTICE / LOAD PLANNING ============ -->
+  <div class="uc-panel" id="panel-practice">
+    <div class="section-desc" style="margin-top:0">
+      EDGE3 transforms Catapult's weekly load data into specific practice plan adjustments — who needs reps, who needs rest, and which film-identified mistakes are fatigue-sourced vs. technique-sourced.
+    </div>
+
+    <div class="practice-grid">
+      <!-- Weekly Load → Decision Table -->
+      <div class="prac-card">
+        <div class="prac-card-head">
+          <div class="prac-card-title">Tuesday Load Decisions</div>
+          <div class="prac-badge" style="background:rgba(0,188,212,0.1);color:var(--catapult-teal)">Catapult → EDGE3</div>
+        </div>
+        <div class="prac-card-body">
+          <table class="load-table">
+            <thead>
+              <tr>
+                <th>Player</th>
+                <th>Sat Load</th>
+                <th>Week Avg</th>
+                <th>Status</th>
+                <th>Decision</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>#65 OG Davis</td>
+                <td style="font-family:'JetBrains Mono',monospace;font-size:11px">624 AU</td>
+                <td style="font-family:'JetBrains Mono',monospace;font-size:11px">780 AU</td>
+                <td><span class="load-status overload">Overload</span></td>
+                <td style="font-size:11px;color:var(--text-secondary)">No team today. Individual technique drill — film showed <strong style="color:var(--text-primary)">technique</strong> issues on 2nd level combos, not just fatigue.</td>
+              </tr>
+              <tr>
+                <td>#4 WR Thomas</td>
+                <td style="font-family:'JetBrains Mono',monospace;font-size:11px">712 AU</td>
+                <td style="font-family:'JetBrains Mono',monospace;font-size:11px">695 AU</td>
+                <td><span class="load-status optimal">Optimal</span></td>
+                <td style="font-size:11px;color:var(--text-secondary)">Full practice. Speed decline was in-game only — recovery metrics normal. Route work with emphasis on top-of-route explosion.</td>
+              </tr>
+              <tr>
+                <td>#22 RB Johnson</td>
+                <td style="font-family:'JetBrains Mono',monospace;font-size:11px">842 AU</td>
+                <td style="font-family:'JetBrains Mono',monospace;font-size:11px">760 AU</td>
+                <td><span class="load-status overload">Overload</span></td>
+                <td style="font-size:11px;color:var(--text-secondary)">Walk-through only. IMA asymmetry (L/R 1.38) + high carry count. PDI notes: soft-tissue risk elevated for this body type at this load.</td>
+              </tr>
+              <tr>
+                <td>#12 QB Martinez</td>
+                <td style="font-family:'JetBrains Mono',monospace;font-size:11px">518 AU</td>
+                <td style="font-family:'JetBrains Mono',monospace;font-size:11px">640 AU</td>
+                <td><span class="load-status under">Under</span></td>
+                <td style="font-size:11px;color:var(--text-secondary)">Full practice — <strong style="color:var(--red)">load was low because effort was low</strong>, not injury. Address in position meeting. Film shows the pattern.</td>
+              </tr>
+              <tr>
+                <td>#76 OG Ramirez</td>
+                <td style="font-family:'JetBrains Mono',monospace;font-size:11px">380 AU</td>
+                <td style="font-family:'JetBrains Mono',monospace;font-size:11px">420 AU</td>
+                <td><span class="load-status under">Low Use</span></td>
+                <td style="font-size:11px;color:var(--text-secondary)">Increase reps today — earned 3rd-down role Saturday. Needs game-speed 2nd level reps to prepare for expanded role.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Fatigue vs. Technique Separation -->
+      <div class="prac-card">
+        <div class="prac-card-head">
+          <div class="prac-card-title">Film Corrections: Fatigue vs. Technique</div>
+          <div class="prac-badge" style="background:rgba(124,77,255,0.1);color:var(--purple)">Video AI + Catapult</div>
+        </div>
+        <div class="prac-card-body">
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.55;margin-bottom:16px">
+            EDGE3 cross-references Catapult load data at the moment of each film-identified mistake. If load was within normal range when the mistake happened, it's a <strong>technique</strong> issue to drill. If load was degraded, the mistake was <strong>fatigue-sourced</strong> and needs load management, not extra reps.
+          </div>
+
+          <div class="prac-rec" style="border-color:var(--red-border);background:var(--red-bg)">
+            <div class="prac-rec-head">
+              <div class="d-card-priority urgent" style="font-size:8px;padding:2px 7px">Technique</div>
+              <div class="prac-rec-player">#65 — 2nd-level combo block timing</div>
+            </div>
+            <div class="prac-rec-body">
+              Missed on plays 18, 24, 47. Catapult load was <strong>within normal range on plays 18 and 24</strong> (early game). This is a technique issue, not fatigue. Fatigue compounded it on play 47, but the root is footwork.
+            </div>
+            <div class="prac-rec-action" style="background:var(--red-bg);border-left:3px solid var(--red)">
+              <strong style="color:var(--red)">Drill:</strong> Individual OL technique — 2nd level combo timing with LB read. 15 min Tuesday, 10 min Wednesday. Film clips attached to drill plan.
+            </div>
+          </div>
+
+          <div class="prac-rec" style="border-color:var(--yellow-border);background:var(--yellow-bg)">
+            <div class="prac-rec-head">
+              <div class="d-card-priority watch" style="font-size:8px;padding:2px 7px">Fatigue-Sourced</div>
+              <div class="prac-rec-player">#22 — Late to blitz pickup on play 51</div>
+            </div>
+            <div class="prac-rec-body">
+              Catapult shows IMA asymmetry and PlayerLoad were both at game-high levels at snap. This wasn't a recognition issue — film shows correct read but <strong>body couldn't execute</strong>. Load management, not correction.
+            </div>
+            <div class="prac-rec-action" style="background:var(--yellow-bg);border-left:3px solid var(--yellow)">
+              <strong style="color:var(--yellow)">Plan:</strong> Walk-through only Tuesday. Light individual Wednesday. If Catapult shows recovery by Thursday, full team Friday. Do NOT add reps to "fix" this.
+            </div>
+          </div>
+
+          <div class="prac-rec" style="border-color:var(--green-border);background:var(--green-bg)">
+            <div class="prac-rec-head">
+              <div class="d-card-priority positive" style="font-size:8px;padding:2px 7px">Reinforce</div>
+              <div class="prac-rec-player">#78 OT — Dominant edge blocking</div>
+            </div>
+            <div class="prac-rec-body">
+              Catapult load was high (top 10% for position) and sustained. Video AI: 92% block win rate through all four quarters. PDI tracking: +22% squat improvement since HS baseline. <strong>Program is developing this player correctly.</strong>
+            </div>
+            <div class="prac-rec-action" style="background:var(--green-bg);border-left:3px solid var(--e3-green)">
+              <strong style="color:var(--e3-green-dim)">Note:</strong> Maintain current training load. Use this player's film as teaching tape for younger OL. PDI data validates the S&C program for this body type.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ USE CASE 3: ROSTER / RECRUITING ============ -->
+  <div class="uc-panel" id="panel-roster">
+    <div class="section-desc" style="margin-top:0">
+      Catapult's longitudinal physical data compounds EDGE3's RNR/RYG models — turning weekly load trends into transfer risk signals and PDI measurements into verified recruiting intelligence.
+    </div>
+
+    <div class="roster-grid">
+      <!-- Transfer Risk Compound Signals -->
+      <div class="roster-card">
+        <div class="roster-card-head">
+          <div class="roster-card-title">Transfer Risk — Compound Signals</div>
+          <div class="prac-badge" style="background:var(--red-bg);color:var(--red)">RNR Active</div>
+        </div>
+        <div class="signal-row">
+          <div class="signal-indicator" style="background:var(--catapult-teal)"></div>
+          <div class="signal-content">
+            <div class="signal-title">Catapult: Effort trajectory declining 3 weeks</div>
+            <div class="signal-detail">PlayerLoad week-over-week: 780 → 712 → 640 → 518 AU. This isn't injury — sports med cleared. The body is telling us what the player hasn't said yet.</div>
+          </div>
+        </div>
+        <div class="signal-row">
+          <div class="signal-indicator" style="background:var(--purple)"></div>
+          <div class="signal-content">
+            <div class="signal-title">Video AI: On-film disengagement pattern</div>
+            <div class="signal-detail">Abbreviated follow-throughs on out routes (last 2 games). Pocket movement reduced 22%. These are effort choices, not physical limitations — Catapult confirms the body is capable.</div>
+          </div>
+        </div>
+        <div class="signal-row">
+          <div class="signal-indicator" style="background:#E91E63"></div>
+          <div class="signal-content">
+            <div class="signal-title">Social Listening: Transfer portal content engagement</div>
+            <div class="signal-detail">Pro Data Stack detected shift in social media interactions toward portal-related content and engagement with coaches from other programs. Pattern matches 73% of confirmed portal entries in training data.</div>
+          </div>
+        </div>
+        <div class="signal-row">
+          <div class="signal-indicator" style="background:var(--e3-green)"></div>
+          <div class="signal-content">
+            <div class="signal-title">EDGE3 RNR: 0.78 risk at 87% confidence</div>
+            <div class="signal-detail">Model trained on 26,575 records. When physical effort decline + film disengagement + social shift appear together, transfer probability is significantly elevated. Recommend staff engagement within 48 hours.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PDI + Catapult Recruiting Intel -->
+      <div class="roster-card">
+        <div class="roster-card-head">
+          <div class="roster-card-title">Recruiting Intel — Catapult-Verified</div>
+          <div class="prac-badge" style="background:rgba(0,200,83,0.1);color:var(--e3-green-dim)">PDI + Verified</div>
+        </div>
+        <div style="padding:18px">
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.55;margin-bottom:16px">
+            When a recruit visits campus and wears Catapult during workout, EDGE3 captures <strong>verified physical metrics</strong> — not self-reported, not inflated by travel ball coaches. These feed directly into PDI baselines and Competitive Index scoring.
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+            <div style="padding:14px;border-radius:10px;background:var(--surface);text-align:center">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;color:var(--e3-green-dim)">Top 12%</div>
+              <div style="font-size:10px;color:var(--text-muted);margin-top:3px">Speed Index (Catapult-Verified)</div>
+            </div>
+            <div style="padding:14px;border-radius:10px;background:var(--surface);text-align:center">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;color:var(--e3-blue)">78th</div>
+              <div style="font-size:10px;color:var(--text-muted);margin-top:3px">Explosiveness Percentile</div>
+            </div>
+            <div style="padding:14px;border-radius:10px;background:var(--surface);text-align:center">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;color:var(--purple)">8.4</div>
+              <div style="font-size:10px;color:var(--text-muted);margin-top:3px">Film Grade (Video AI)</div>
+            </div>
+            <div style="padding:14px;border-radius:10px;background:var(--surface);text-align:center">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;color:var(--e3-green-dim)">✓</div>
+              <div style="font-size:10px;color:var(--text-muted);margin-top:3px">Offer Integrity — Verified</div>
+            </div>
+          </div>
+
+          <div style="padding:12px 14px;border-radius:8px;background:var(--green-bg);border:1px solid var(--green-border);font-size:12px;line-height:1.55;color:var(--text-secondary)">
+            <strong style="color:var(--e3-green-dim)">Recruiting Decision:</strong>
+            Catapult-verified metrics confirm the 247 Composite (.91) is accurate — no offer integrity anomaly. PDI baseline captured. RYG model projects GREEN at 82% confidence based on this physical profile. Film grade corroborates. This recruit is who the tape says he is.
+          </div>
+
+          <div style="margin-top:14px;padding:12px 14px;border-radius:8px;background:var(--surface);border:1px solid var(--border);font-size:12px;line-height:1.55;color:var(--text-secondary)">
+            <strong style="color:var(--e3-blue)">Longitudinal Value:</strong>
+            Once signed, Catapult continues feeding EDGE3. Quarterly PDI snapshots track how the program develops this athlete's physical tools vs. the baseline captured today. If speed zones decline or IMA asymmetry develops — early intervention, not late-season surprise.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NIL Monitor -->
+    <div class="nil-card">
+      <div class="nil-card-head">
+        <div class="nil-card-title">NIL Monitor — Real-Time Regulatory Intelligence</div>
+        <div class="prac-badge" style="background:rgba(21,101,192,0.1);color:var(--e3-blue)">Matt Reinhart</div>
+      </div>
+      <div class="nil-row">
+        <div class="nil-domain leg">Legislation</div>
+        <div class="nil-content">
+          <div class="nil-title">Senate Commerce Committee advances federal NIL framework bill</div>
+          <div class="nil-meta">2 hours ago · Impact: High · Affects recruiting timelines</div>
+        </div>
+      </div>
+      <div class="nil-row">
+        <div class="nil-domain lit">Litigation</div>
+        <div class="nil-content">
+          <div class="nil-title">House v. NCAA settlement — revenue-sharing caps clarified</div>
+          <div class="nil-meta">6 hours ago · Impact: Critical · Budget implications</div>
+        </div>
+      </div>
+      <div class="nil-row">
+        <div class="nil-domain ncaa">NCAA</div>
+        <div class="nil-content">
+          <div class="nil-title">Division I Council ratifies updated transfer eligibility window</div>
+          <div class="nil-meta">Yesterday · Impact: Medium · Portal timing change</div>
+        </div>
+      </div>
+      <div class="nil-row">
+        <div class="nil-domain enf">Enforcement</div>
+        <div class="nil-content">
+          <div class="nil-title">NIL collective faces investigation for inducement violations</div>
+          <div class="nil-meta">2 days ago · Impact: High · Compliance alert</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="section">
+  <div class="cta-section">
+    <h2>The OS, not features.</h2>
+    <p>
+      Catapult measures the athlete. EDGE3 makes the decision.
+      Built by practitioners who generated the data. Configured for the coaches who use it.
+      Integrated with Thunder. Synced to the sideline.
+    </p>
+    <div class="cta-buttons">
+      <button class="cta-btn primary">Schedule Integration Demo</button>
+      <button class="cta-btn secondary">Download Partnership Brief</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  EDGE3 Athlete Intelligence — Vision Sports Portal LLC · Powered by AWS GenAI · IBM watsonx
+  <br>
+  <span style="margin-top:4px;display:inline-block">
+    Built by practitioners. Configured for coaches. &nbsp;|&nbsp;
+    <a href="#">edge3sports.com</a>
+  </span>
+</footer>
+
+<div class="expiration-key">
+  <span>🔒</span>
+  <span>CONFIDENTIAL · Expires: 2026-06-01 · KEY-E3CAT-0302</span>
+</div>
+
+<script>
+// Tab switching
+document.querySelectorAll('.uc-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.uc-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.uc-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-' + tab.dataset.panel).classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

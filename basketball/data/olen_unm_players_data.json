@@ -1,0 +1,323 @@
+{
+  "meta": {
+    "title": "Coach Olen — Transfer Fit Analysis",
+    "subtitle": "Three portal candidates mapped to UNM's 2026-27 roster holes",
+    "audience": "Coach Eric Olen, University of New Mexico Men's Basketball",
+    "generated_by": "EDGE3 • Vision Sports Portal",
+    "generated_for": "Internal coach-facing demo",
+    "generated_date": "2026-04-22",
+    "data_confidence_note": "Advanced per-possession rates (DReb%, OReb%, Stl%, Blk%, USG%, PER, BPM) are layered in with UNM's 2025-26 roster performance for additional context. Portal departure/incoming intel is aggregated from multiple public reports; sources listed per item."
+  },
+  "coach": {
+    "name": "Eric Olen",
+    "program": "University of New Mexico",
+    "prior_program": "UC San Diego",
+    "prior_tenure_years": 12,
+    "prior_program_d1_years": 5,
+    "stated_philosophy_quote": "I think this whole thing is much more art than science, and you're just trying to do right by everybody. If you get good people in the room, and you treat people the right way, and you create an environment that people want to be part of, then it gives you a chance.",
+    "philosophy_source": "Olen to Mid-Major Madness, 2026-04-17",
+    "system_frame": "Olen's UCSD identity was possession-positive defense — UCSD forced turnovers on 23.3% of opponent possessions in 2024-25, 2nd nationally (per CBS Sports / Yahoo / PrizePicks). Paired with high-efficiency / low-usage offensive spacing. In Year 1 at UNM he hit 26-11 (13-7 MWC, 3rd, NIT semifinal), ORtg 114.8 / DRtg 100.2 — a strong inherit-and-adapt performance. 2026-27 is the first chance to install his full system.",
+    "staff": [
+      { "role": "Head Coach", "name": "Eric Olen", "from": "UCSD (Head Coach, 2013–2025)" },
+      { "role": "Associate HC", "name": "Trevor Tankelewicz", "from": "UCSD (3 seasons with Olen prior to UNM); UNC Greensboro 2017–2021 under Wes Miller; Western Carolina player 2011–2014; pro in Kosovo" },
+      { "role": "Assistant Coach / Offensive Coordinator 2025-26", "name": "Michael Howell", "from": "Former UCSD PG and assistant coach; older brother of UNM SR guard Chris Howell; tasked with coordinating UNM's offense" }
+    ]
+  },
+  "unm_context": {
+    "season": "2025-26 (Olen Year 1 — baseline for 2026-27 rebuild)",
+    "caveat_principle": "",
+    "record": "26-11 overall • 13-7 Mountain West (3rd) • NIT semifinal run (lost to Tulsa at Hinkle)",
+    "team_rate_profile_2025_26": {
+      "ortg_national_rank": "75th of 365 (114.8)",
+      "drtg_national_rank": "42nd of 365 (100.2)",
+      "strengths": [
+        { "metric": "3PT% allowed", "value": "30.2%", "rank": "19th nationally", "note": "Elite perimeter defense — Olen's DNA visible in Year 1." },
+        { "metric": "Steals per game", "value": "8.0", "rank": "51st nationally", "note": "Top-quartile TO generation already." },
+        { "metric": "2PA allowed per game", "value": "30.1", "rank": "12th nationally", "note": "Limits interior volume — defensive shell works." }
+      ],
+      "gaps_that_map_to_olen_thresholds": [
+        { "metric": "Blocks per game", "value": "2.9", "rank": "262nd nationally", "maps_to": "Blk% > 3 threshold", "note": "Biggest structural weakness — supports the shot-blocking ask." },
+        { "metric": "Off. rebounds per game", "value": "10.9", "rank": "174th nationally", "maps_to": "OReb% > 6 threshold", "note": "Below-median ORB." },
+        { "metric": "Def. rebounds allowed", "value": "24.6 allowed", "rank": "238th nationally", "maps_to": "DReb% > 15 threshold", "note": "Opponents grab many defensive rebounds against UNM." },
+        { "metric": "Blocks ALLOWED per game", "value": "3.2", "rank": "174th nationally", "note": "UNM gets blocked a lot — suggests undersized frontcourt interior scoring; supports the 6'8\"+ preference." }
+      ]
+    },
+    "interpretation": "Coach, your four rate thresholds + 6'8\"+ preference map almost 1:1 to where UNM graded out nationally this past year — this is what the portal needs to backfill."
+  },
+  "roster_churn_2025_26_to_2026_27": {
+    "headline": "Coach, here's what's open: four rotation departures — three top-8 minutes guys plus your lead PG. Your stated thresholds line up with the literal holes on the roster.",
+    "confirmed_departures": [
+      {
+        "name": "Tomislav Buljan",
+        "role_lost": "Starting F",
+        "production_lost": "13.1 ppg / 10.3 rpg / 27.0 DRB%",
+        "destination": "Maryland"
+      },
+      {
+        "name": "JT Rock",
+        "role_lost": "Backup C (rim protector)",
+        "production_lost": "9.5 Blk% / 20.8 DRB% / 7'1\"",
+        "destination": "Kansas State"
+      },
+      {
+        "name": "Antonio Chol",
+        "role_lost": "Starting F",
+        "production_lost": "7.7 ppg / 3.6 Blk%",
+        "destination": "Portal (TBD)"
+      },
+      {
+        "name": "Deyton Albury",
+        "role_lost": "Lead PG",
+        "production_lost": "11.7 ppg / 3.0 apg / 22.0 AST%",
+        "destination": "Committed elsewhere"
+      }
+    ],
+    "confirmed_returning": [
+      { "name": "Jake Hall",     "year": "Fr → So", "production_2025_26": "16.4 ppg / 44% 3PT / MWC team leader / 19.1 PER / 21.8 USG%", "note": "Entered portal 2026-04-07, withdrew 2026-04-16 after interest from UConn, Duke, Kansas. Returning." },
+      { "name": "Uriah Tenette", "year": "Fr → So", "production_2025_26": "10.6 ppg / 2.9 apg / 3.0 Stl% / 15.8 PER",                     "note": "Announced return quickly after season ended." }
+    ],
+    "confirmed_incoming": [
+      { "name": "Hudson Mayes",  "from": "UC San Diego",    "role": "Rising sophomore, transfer", "note": "Olen-program continuity — brought from UCSD where Olen's longtime assistant Clint Allard is now head coach. Echoes the 2025-26 Hall/Tenette playbook." },
+      { "name": "Dax Hall",      "from": "HS — St. Augustine (San Diego)", "role": "Incoming freshman G", "note": "Jake Hall's younger brother; 2026 San Diego Section Player of the Year per CIF. Committed 2026-04-15." }
+    ],
+    "seniors_with_eligibility_likely_exhausted": [
+      "Luke Haupt (SR, G, 1039 min, 14.0 PER)",
+      "Tajavis Miller (SR, G, 537 min)",
+      "Chris Howell (SR, G, 269 min — partial year)",
+      "Milos Vicentic (SR, F, 116 min)"
+    ],
+    "open_roster_slots_heading_into_2026_27": [
+      { "slot": "Starting PF (Chol replacement)",           "profile_needed": "6'8\"+, rate-defender, 25+ mpg, low-usage offensive blender" },
+      { "slot": "Starting C / rebound anchor (Buljan replacement)", "profile_needed": "6'9\"+, elite DRB% (>20) + ORB% (>10), can finish 2-pt" },
+      { "slot": "Rim protector (Rock replacement)",         "profile_needed": "6'10\"+ preferred, Blk% 5+, DRB% 18+, 15-20 mpg role" },
+      { "slot": "Lead PG (Albury replacement)",             "profile_needed": "Primary ball-handler, AST% 22+, not filled by any of the three candidates in this brief" }
+    ]
+  },
+  "thresholds": [
+    { "key": "height", "label": "Height", "op": ">=", "value": "6'8\"", "numeric": 80, "unit": "in", "preferred": true, "note": "'Preferred' per Olen — not a hard cut, but a strong bias. Validated by UNM's 174th-ranked opp-blocks-against profile." },
+    { "key": "dreb_pct", "label": "DReb%", "op": ">", "value": "15", "numeric": 15, "unit": "%", "preferred": false, "note": "Defensive rebound rate. UNM's opp-DRB is 238th nationally — this is a real gap." },
+    { "key": "oreb_pct", "label": "OReb%", "op": ">", "value": "6", "numeric": 6, "unit": "%", "preferred": false, "note": "Offensive rebound rate. UNM's ORB/g is 174th nationally — real gap." },
+    { "key": "stl_pct", "label": "Stl%", "op": ">", "value": "2", "numeric": 2, "unit": "%", "preferred": false, "note": "Steal rate. UNM's Stl/g is already 51st — 'maintain' not 'fix'." },
+    { "key": "blk_pct", "label": "Blk%", "op": ">", "value": "3", "numeric": 3, "unit": "%", "preferred": false, "note": "Block rate. UNM's Blk/g is 262nd nationally AND they've now lost their 9.5-Blk%-rate player (Rock) to K-State. Highest-priority gap." }
+  ],
+  "players": [
+    {
+      "id": "petraitis",
+      "name": "Rytis Petraitis",
+      "from_program": "California (Cal Golden Bears)",
+      "year": "Sr",
+      "height_in": 79,
+      "height_display": "6'7\"",
+      "weight_lbs": 210,
+      "position": "Guard / Wing (SR lists position as G; 6'7\" guard/wing — NOT a frontcourt piece)",
+      "nationality": "USA / Lithuania dual (born Arlington, TX; Oak Ridge HS, Montgomery, TX; DOB 1/22/2003)",
+      "international_flag": "Dual US/Lithuania citizenship. US-born and US-raised; debuted for Lithuania's reserve national team (per Basketnews.lt). NOT an international-development profile.",
+      "portal_status": "Entered portal April 2026, uncommitted. Draft-eligible 2026.",
+      "career_path": [
+        "Air Force Academy (2022-23 FR, 2023-24 SO) — MWC",
+        "California (2024-25 JR, 2025-26 SR partial) — ACC",
+        "Transfer portal April 2026"
+      ],
+      "sr_verified_rates": {
+        "source": "Sports Reference CBB, pulled 2026-04-22",
+        "seasons": [
+          { "year": "2022-23", "team": "Air Force", "conf": "MWC", "class": "FR", "games": 32, "per": 22.0, "ts_pct": 0.581, "orb_pct": 8.4,  "drb_pct": 21.5, "stl_pct": 2.2, "blk_pct": 3.0, "usg_pct": 22.6, "bpm": 4.5, "dbpm": 1.6 },
+          { "year": "2023-24", "team": "Air Force", "conf": "MWC", "class": "SO", "games": 24, "per": 23.1, "ts_pct": 0.563, "orb_pct": 7.6,  "drb_pct": 18.0, "stl_pct": 3.0, "blk_pct": 3.4, "usg_pct": 28.4, "bpm": 4.0, "dbpm": -0.1 },
+          { "year": "2024-25", "team": "California", "conf": "ACC", "class": "JR", "games": 33, "per": 16.7, "ts_pct": 0.525, "orb_pct": 10.3, "drb_pct": 13.1, "stl_pct": 2.8, "blk_pct": 1.5, "usg_pct": 15.8, "bpm": 4.0, "dbpm": 1.8 },
+          { "year": "2025-26", "team": "California", "conf": "ACC", "class": "SR", "games": 7,  "per": 18.4, "ts_pct": 0.633, "orb_pct": 5.9,  "drb_pct": 20.5, "stl_pct": 2.0, "blk_pct": 5.9, "usg_pct": 14.3, "bpm": 7.3, "dbpm": 5.1, "note": "Season-ending surgery Jan 2026. 7-game sample — small, but role was clearly shifted to defensive complement." }
+        ]
+      },
+      "season_2025_26": {
+        "team": "California",
+        "games": 7,
+        "note": "Missed first games recovering from OFFSEASON shoulder surgery. Returned, played 7 games, then a separate in-season injury required a second surgery (Jan 2026) that ended his year. Medical redshirt pursued. Against #18 UCLA on Nov 25 2025 (Empire Classic final, Cal upset 80-72): 12 pts + team-high 7 rebounds off the bench."
+      },
+      "season_2023_24": {
+        "team": "Air Force (Mountain West Conference)",
+        "ppg": 15.7,
+        "rpg": 6.3,
+        "apg": 3.7,
+        "spg": 1.6,
+        "bpg": 0.9,
+        "fg_pct": 0.485,
+        "three_pct": 0.349,
+        "ft_pct": 0.658,
+        "note": "Led Air Force in all five major statistical categories as a sophomore. Recorded the 2nd triple-double in AF history (18/13/11 at UNLV, Jan 23)."
+      },
+      "thresholds_check": {
+        "height":   { "status": "fail",   "value": "6'7\"", "display": "6'7\" (–1\" vs 6'8\" preferred — he is a wing, not a frontcourt piece)" },
+        "dreb_pct": { "status": "pass",   "value": 20.5,   "display": "20.5% (2025-26 Cal, small sample) — comfortably clears threshold. Career range 13.1–21.5.", "career_range": "13.1–21.5" },
+        "oreb_pct": { "status": "borderline", "value": 5.9, "display": "5.9% in 2025-26 (just below 6% threshold). Career range 5.9–10.3.", "career_range": "5.9–10.3" },
+        "stl_pct":  { "status": "pass",   "value": 2.0,    "display": "2.0% in 2025-26 (at threshold). Career range 2.0–3.0 — cleanly passes across years.", "career_range": "2.0–3.0" },
+        "blk_pct":  { "status": "pass_small_sample", "value": 5.9, "display": "5.9% in 2025-26 (7-gm sample) — rate is elite but the sample is thin. Career MWC rates 3.0 and 3.4 PASS. ACC 2024-25 JR year 1.5 FAILED.", "career_range": "1.5–5.9" }
+      },
+      "data_confidence": "HIGH on rates; MEDIUM-LOW on 2026-27 availability (medical)",
+      "data_confidence_reasons": [
+        "Full per-season advanced rates layered in across FR / SO / JR / SR seasons.",
+        "2025-26 7-game sample at Cal is a small sample, but the role-shift (lower USG, elite BPM 7.3 / DBPM 5.1) matches the defensive-complement profile.",
+        "Air Force 2023-24 SO year (24 gm MWC) is the most informative full-season baseline: Blk% 3.4, DRB% 18.0, Stl% 3.0 — clears Olen thresholds.",
+        "Medical status is the open risk — two surgeries in one calendar year. 2026-27 availability is the prerequisite question."
+      ],
+      "archetype_read": "Petraitis is NOT a shot-blocking frontcourt big at 6'7\". He is a possession-positive point-forward / combo wing who had elite rate numbers at Air Force (MWC) and shifted into a defensive-helpside role at Cal in a 7-game sample before injury. He DOES clear Blk% threshold in his MWC years and in his 2025-26 Cal stint.",
+      "slot_fit_in_unm_2026_27": {
+        "best_slot_match": "Wing depth / defensive help — NOT a replacement for Buljan, Rock, or Chol (all frontcourt). Would compete with Hall/Tenette/Mayes for perimeter minutes.",
+        "fit_rationale": "Petraitis does not address UNM's primary 2026-27 hole (interior size + rim protection). He fills a secondary need (wing defense, POA disruption) that Hall + Tenette + Mayes may already cover. The high BPM + DBPM + Blk% rates at Cal are intriguing but the role they fill is not UNM's open slot."
+      },
+      "on_court_fit": {
+        "positives": [
+          "Verified Blk% thresholds clear in his two MWC years (3.0, 3.4) and in 2025-26 Cal sample (5.9).",
+          "DRB% 20.5 at Cal 2025-26 and 21.5 at AF FR — elite rebounder for his size.",
+          "34.9% from three on full sample — can space the floor.",
+          "Known commodity in Mountain West competition (Air Force 2022-24) — the level UNM plays in."
+        ],
+        "concerns": [
+          "6'7\" — does NOT fill any of UNM's three primary 2026-27 open roster slots (PF / C / rim protector).",
+          "Medical: two surgeries in 12 months; 2026-27 availability is the open question BEFORE fit.",
+          "2024-25 Cal JR year (the only full-season ACC sample) showed Blk% 1.5 — rate profile was role-dependent, not structural."
+        ]
+      },
+      "olen_fit_note": "Petraitis's rate profile clears Olen's thresholds in his MWC years and in his 2025-26 Cal stint. But the roster-churn picture tells a different story: UNM's open slots are interior (Buljan / Rock / Chol), and at 6'7\" Petraitis does not fill those. He's a wing add in a room that already has Hall + Tenette + Mayes. Recommend: Coach Olen's private read on (a) 2026-27 medical availability, (b) willingness to re-slot him as wing depth given the frontcourt priorities.",
+      "sources": [
+        { "label": "Sports Reference CBB (verified rates)", "url": "https://www.sports-reference.com/cbb/players/rytis-petraitis-1.html" },
+        { "label": "Cal Athletics — season-ending injury announcement (2026-01-16)", "url": "https://calbears.com/news/2026/1/16/mens-basketball-cals-rytis-petraitis-sidelined-for-remainder-of-2025-26-season.aspx" },
+        { "label": "Colorado Springs Gazette — AF portal entry (2024)", "url": "https://gazette.com/2024/03/24/air-force-standouts-rytis-petraitis-kellan-boylan-enter-transfer-portal-1e945fa8-ea1f-11ee-8230-cba7a8f271f8/" },
+        { "label": "RealGM profile", "url": "https://basketball.realgm.com/player/Rytis-Petraitis/Summary/207777" },
+        { "label": "Basketnews.lt player page", "url": "https://www.basketnews.lt/zaidejai/37399-rytis-petraitis.html" }
+      ]
+    },
+    {
+      "id": "butka",
+      "name": "Dovydas Butka",
+      "from_program": "Campbell (transferred from Pepperdine July 2025)",
+      "year": "Jr (2 years of eligibility remaining)",
+      "height_in": 81,
+      "height_display": "6'9\"",
+      "weight_lbs": 235,
+      "position": "Power Forward / Stretch-4",
+      "nationality": "Lithuania (BC Žalgiris youth system; U20 EuroBasket Silver 2022)",
+      "international_flag": "True international — first D1 program was Pepperdine 2024-25; no US prep. Olen's documented affinity for international development profiles fits.",
+      "portal_status": "Finishing 2025-26 at Campbell; prior transfer July 2025; portal entry status 2026 TBD (reference demo assumes portal).",
+      "sr_verified_rates": {
+        "source": "Sports Reference CBB, pulled 2026-04-22",
+        "seasons": [
+          { "year": "2023-24", "team": "Pepperdine",  "conf": "WCC", "class": "(redshirt)", "games": 0,  "note": "Did not play — likely redshirt freshman year." },
+          { "year": "2024-25", "team": "Pepperdine",  "conf": "WCC", "class": "SO", "games": 35, "per": 14.5, "ts_pct": 0.514, "orb_pct": 7.6,  "drb_pct": 15.6, "stl_pct": 1.8, "blk_pct": 1.0, "usg_pct": 18.2, "bpm": -0.5, "dbpm": -0.2 },
+          { "year": "2025-26", "team": "Campbell",    "conf": "CAA", "class": "JR", "games": 31, "per": 17.6, "ts_pct": 0.524, "orb_pct": 11.0, "drb_pct": 18.5, "stl_pct": 2.2, "blk_pct": 0.3, "usg_pct": 22.2, "bpm": 0.1,  "dbpm": -0.9 }
+        ]
+      },
+      "thresholds_check": {
+        "height":   { "status": "pass",  "value": "6'9\"", "display": "6'9\" (+1\" vs 6'8\" preferred)" },
+        "dreb_pct": { "status": "pass",  "value": 18.5,    "display": "18.5% at Campbell 2025-26 (15.6% at Pepperdine 2024-25) — cleanly passes current year." },
+        "oreb_pct": { "status": "pass",  "value": 11.0,    "display": "11.0% at Campbell 2025-26 — well above threshold." },
+        "stl_pct":  { "status": "pass",  "value": 2.2,     "display": "2.2% at Campbell 2025-26 — just clears threshold." },
+        "blk_pct":  { "status": "fail",  "value": 0.3,     "display": "0.3% at Campbell 2025-26 (1.0% at Pepperdine) — STRUCTURAL miss. Not a rim protector at any point in his career." }
+      },
+      "data_confidence": "HIGH (advanced rates across two full D1 seasons)",
+      "data_confidence_reasons": [
+        "Two full D1 seasons of per-possession rates available.",
+        "Campbell's 2025-26 league is CAA (Coastal Athletic).",
+        "Class is JR with 2 years of eligibility remaining — a multi-year piece, not a 1-year plug.",
+        "Block rate miss (0.3) is structural and consistent across his entire career; cannot be attributed to role or opportunity."
+      ],
+      "slot_fit_in_unm_2026_27": {
+        "best_slot_match": "Buljan replacement at the 4 (stretch PF / rebound anchor).",
+        "fit_rationale": "Butka's 2025-26 rate profile is the closest match to what Buljan gave UNM (DRB 18.5 vs 27.0, ORB 11.0 vs 17.5) — less rebounding than Buljan but same role-shape. Adds 2 years of eligibility vs Buljan's 3 remaining (so a longer-term piece). However, he provides ZERO rim protection, meaning UNM would still need a separate Rock replacement for the Blk% slot."
+      },
+      "on_court_fit": {
+        "positives": [
+          "Height + frame + age (JR with 2 yrs left) match multi-year frontcourt rebuild.",
+          "Year-over-year efficiency step-up: 14.5 PER at Pepperdine → 17.6 PER at Campbell. Trending up.",
+          "ORB% 11.0 is exceptional — would BE the UNM ORB answer by himself.",
+          "DRB% 18.5 comfortably clears threshold and addresses UNM's 238th-ranked opp-DRB gap.",
+          "Olen's documented development of international frontcourt players aligns with Butka's profile."
+        ],
+        "concerns": [
+          "Blk% 0.3 is a STRUCTURAL miss — not a sample artifact. He is a rebounder, not a rim protector.",
+          "17.9% from three at Campbell 2025-26 caps his spacing value.",
+          "Big South → Coastal (CAA) → Mountain West is a two-level competition jump; efficiency may compress.",
+          "Does not resolve UNM's shot-blocking gap (Rock's 9.5 Blk% leaving to K-State)."
+        ]
+      },
+      "olen_fit_note": "Butka is the cleanest Buljan-shape replacement on the rebound axis, with a multi-year eligibility bonus. But he is NOT a one-player solution to Olen's four thresholds — he ADDRESSES ORB%, DRB%, Stl%, height; he MISSES Blk%. If Olen pairs him with a separate rim protector, he is a strong add. If Olen expects a single add to check all four thresholds, Butka alone does not."
+    },
+    {
+      "id": "anya",
+      "name": "Kalu Anya",
+      "from_program": "Saint Louis (SLU)",
+      "year": "Sr (final year — portal entry March 30 2026)",
+      "height_in": 80,
+      "height_display": "6'8\"",
+      "weight_lbs": 215,
+      "position": "Power Forward / Undersized Center",
+      "nationality": "USA (Nigerian heritage; Worcester, MA)",
+      "international_flag": "NOT international — US-born, US-raised, US-prep. Nigerian heritage does not make this an international transfer case. Pathway: Worcester MA → IMG Academy → Brown → Saint Louis.",
+      "portal_status": "Entered portal March 30, 2026",
+      "sr_verified_rates": {
+        "source": "Sports Reference CBB, pulled 2026-04-22",
+        "seasons": [
+          { "year": "2022-23", "team": "Brown",        "conf": "Ivy",    "class": "FR", "games": 28, "per": 14.1, "orb_pct": 8.8,  "drb_pct": 20.0, "stl_pct": 1.5, "blk_pct": 3.0, "usg_pct": 20.0 },
+          { "year": "2023-24", "team": "Brown",        "conf": "Ivy",    "class": "SO", "games": 29, "per": 16.9, "orb_pct": 10.5, "drb_pct": 20.0, "stl_pct": 2.6, "blk_pct": 4.0, "usg_pct": 22.0 },
+          { "year": "2024-25", "team": "Saint Louis",  "conf": "A-10",   "class": "JR", "games": 34, "per": 16.1, "ts_pct": 0.560, "orb_pct": 9.2,  "drb_pct": 20.9, "stl_pct": 2.4, "blk_pct": 3.7, "usg_pct": 13.9, "bpm": 3.5, "dbpm": 3.2 }
+        ]
+      },
+      "thresholds_check": {
+        "height":   { "status": "pass", "value": "6'8\"", "display": "6'8\" (meets preferred minimum exactly)" },
+        "dreb_pct": { "status": "pass", "value": 20.9,    "display": "20.9% at SLU 2024-25 — well above threshold. Career consistent (20.0/20.0/20.9)." },
+        "oreb_pct": { "status": "pass", "value": 9.2,     "display": "9.2% at SLU — comfortably clears threshold. Career range 8.8–10.5." },
+        "stl_pct":  { "status": "pass", "value": 2.4,     "display": "2.4% at SLU — clears threshold. Career trend 1.5 → 2.6 → 2.4." },
+        "blk_pct":  { "status": "pass", "value": 3.7,     "display": "3.7% at SLU — CLEARS threshold. Career trend 3.0 → 4.0 → 3.7 — structurally above 3%." }
+      },
+      "data_confidence": "HIGH (advanced rates across three full D1 seasons)",
+      "data_confidence_reasons": [
+        "Three full D1 seasons of per-possession rates available — most of any candidate.",
+        "Blk% sits at 3.7% (career avg 3.6) — clears Olen's hardest threshold.",
+        "Starter workload (34 games, 3.2 DBPM + defensive BPM) — this is what he IS, not what he projects to be.",
+        "Senior with 1 year of eligibility — 1-year plug, not a multi-year piece."
+      ],
+      "slot_fit_in_unm_2026_27": {
+        "best_slot_match": "Chol replacement at the starting 4 + some Rock-role minutes as undersized 5 in small-ball lineups.",
+        "fit_rationale": "Anya's rate profile (Blk 3.7 / DRB 20.9 / ORB 9.2 / Stl 2.4) is the MOST COMPLETE fit against Olen's four thresholds of any candidate. 6'8\" means he covers the 4 naturally and can stretch to small-ball 5 alongside Butka or another 6'9\"+ piece. He does not single-handedly replace Rock's 7'1\" rim protection, but his 3.7 Blk% rate is closer to Rock's role shape than Butka's 0.3."
+      },
+      "on_court_fit": {
+        "positives": [
+          "ALL FOUR rate thresholds cleared + height at threshold — only candidate with a clean 4/4.",
+          "Three-year consistency: Blk% 3.0 / 4.0 / 3.7 is stable across Ivy + A-10 — not a one-year spike.",
+          "DRB% 20.9 directly addresses UNM's 238th-ranked opp-DRB gap.",
+          "Low-usage / high-motor archetype (13.9 USG at SLU) is the textbook 'blend on offense' profile Olen asked for.",
+          "IMG Academy pedigree — tested against elite competition early."
+        ],
+        "concerns": [
+          "Senior with only 1 year of eligibility — a 1-year plug, not a 2-3 year rebuild piece.",
+          "Undersized as a 5 (6'8\") — pairs well with Butka or another 6'10\" but not a standalone C.",
+          "Nigerian heritage is NOT an international-development story. If international background is an Olen priority, Anya does not deliver it.",
+          "TS% 0.560 is solid but not elite — he's not going to be the offensive engine."
+        ]
+      },
+      "olen_fit_note": "Anya is the highest-floor, rate-profile-cleanest fit against the stated thresholds AND the 2026-27 open slot picture. He checks all four rate thresholds, and his 6'8\" / 215-lb frame fits the Chol-replacement slot directly. Pairing him with a multi-year 6'9\" piece (e.g., Butka) gives UNM a complete 4/5 rebuild for 2026-27."
+    }
+  ],
+  "comparative_summary": {
+    "slot_frame": "Each candidate is scored against which specific UNM 2026-27 open slot they'd fill — not a generic 'best profile' match.",
+    "slot_mapping": [
+      { "candidate": "Anya",      "primary_slot": "Starting 4 (Chol replacement) + small-ball 5 minutes", "grade": "A-",  "note": "4/4 rate thresholds + 6'8\" + 1-year immediate impact." },
+      { "candidate": "Butka",     "primary_slot": "Starting 4/5 (Buljan-shape rebound anchor)",          "grade": "B+",  "note": "Fills rebound + size slot, 2 years eligibility — BUT Blk% 0.3 means a separate rim protector still needed." },
+      { "candidate": "Petraitis", "primary_slot": "Wing depth — does NOT fill an interior slot",          "grade": "C+ (conditional on medical)", "note": "Rate profile clears thresholds; slot fit is wrong — UNM needs interior, not wing." }
+    ],
+    "two_player_combo_recommendation": "Anya + Butka together would cover three of Olen's four interior holes (starting 4, rebound anchor, defensive shell) with complementary ages (1 yr + 2 yr). UNM would still need a separate rim-protector for the Rock slot and a lead PG for the Albury slot — neither in this brief.",
+    "single_player_lens": "If forced to pick one: Anya. Highest-floor, cleanest rate match, immediate impact, and fills the slot UNM most directly needs (starting 4).",
+    "edge3_caveat": "All three candidates have private-information gaps (film, medical, character, program fit) that EDGE3 public-data cannot evaluate. The Coach's Private Read panel on each card is where that call gets layered on top of this data."
+  },
+  "data_gaps": [
+    "Coach, a lead-PG replacement for Albury isn't in this three-player brief — happy to run a parallel pass on the PG pool whenever you want.",
+    "A dedicated rim-protector for Rock's slot isn't in this brief either — Anya's 3.7 Blk% partially covers but doesn't fully replace Rock's 7'1\" / 9.5-Blk% profile.",
+    "For Petraitis, 2026-27 medical clearance is the first question before fit even matters.",
+    "Private film / medical / character / culture reads sit with your staff — EDGE3 can't surface those from the outside."
+  ],
+  "branding": {
+    "primary": "#BA0C2F",
+    "secondary": "#A7A8AA",
+    "dark": "#0F1114",
+    "accent": "#F7F7F8",
+    "program_name": "University of New Mexico Lobos"
+  }
+}

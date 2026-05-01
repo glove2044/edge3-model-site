@@ -1,0 +1,1790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>New Mexico Basketball · EDGE3 Risk/Fit Report</title>
+<style>
+  :root {
+    --nm-cherry: #BA0C2F;
+    --nm-cherry-dim: #8a0922;
+    --nm-silver: #A7A8AA;
+    --nm-silver-dim: #6a6b6d;
+    --bg: #0F1114;
+    --bg-elev: #181B20;
+    --bg-elev-2: #22262D;
+    --border: #2B2F37;
+    --text: #F7F7F8;
+    --text-dim: #BFC2C7;
+    --text-faint: #7A7E86;
+    --pass: #2FBF71;
+    --fail: #D64545;
+    --warn: #E8A93A;
+    --unknown: #5A6068;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.55;
+  }
+  a { color: var(--nm-silver); text-decoration: none; }
+  a:hover { color: var(--text); text-decoration: underline; }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+
+  .hero {
+    position: relative;
+    background:
+      radial-gradient(1200px 400px at 20% -10%, rgba(186,12,47,0.35), transparent 60%),
+      radial-gradient(900px 300px at 90% 0%, rgba(167,168,170,0.08), transparent 60%),
+      linear-gradient(180deg, #12151A 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 56px 0 44px;
+    overflow: hidden;
+  }
+  .hero-bar { display: flex; align-items: center; gap: 14px; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--nm-silver); margin-bottom: 18px; }
+  .hero-bar .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--nm-cherry); }
+  .hero-title { font-size: 44px; line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 10px; font-weight: 800; }
+  .hero-title .accent { color: var(--nm-cherry); }
+  .hero-prepared { font-size: 16px; color: var(--nm-silver); margin: 0 0 18px; font-weight: 600; letter-spacing: 0.02em; }
+  .hero-sub { color: var(--text-dim); font-size: 18px; max-width: 860px; margin: 0 0 24px; }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 18px 28px; font-size: 13px; color: var(--text-faint); }
+  .hero-meta span b { color: var(--text-dim); font-weight: 500; }
+  .hero-actions { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn {
+    background: var(--nm-cherry); color: #fff; border: none; padding: 9px 16px; border-radius: 5px;
+    font-size: 13px; font-family: var(--font); letter-spacing: 0.03em; cursor: pointer;
+    font-weight: 600;
+  }
+  .btn:hover { background: var(--nm-cherry-dim); }
+  .btn.ghost { background: transparent; color: var(--nm-silver); border: 1px solid var(--border); }
+  .btn.ghost:hover { color: var(--text); border-color: var(--nm-silver); background: var(--bg-elev); }
+
+  section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: none; }
+  .sec-eyebrow { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--nm-cherry); font-weight: 600; margin-bottom: 12px; }
+  .sec-title { font-size: 28px; font-weight: 700; margin: 0 0 12px; letter-spacing: -0.01em; }
+  .sec-lede { color: var(--text-dim); font-size: 16px; max-width: 880px; margin: 0 0 28px; }
+
+
+  .gap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+  .gap-card { background: var(--bg-elev); border: 1px solid var(--border); border-radius: 6px; padding: 20px 22px; }
+  .gap-card .metric { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--nm-silver); margin-bottom: 6px; }
+  .gap-card .value { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .gap-card .note { font-size: 13px; color: var(--text-dim); }
+  .gap-card.strength { border-left: 3px solid var(--pass); }
+  .gap-card.weakness { border-left: 3px solid var(--fail); }
+  .gap-notes { margin-top: 28px; padding: 20px 22px; background: rgba(232,169,58,0.06); border: 1px solid rgba(232,169,58,0.25); border-radius: 6px; }
+  .gap-notes h5 { margin: 0 0 10px; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--warn); }
+  .gap-notes p { margin: 0; color: var(--text-dim); font-size: 14px; }
+  .caveat-note { margin-top: 16px; font-size: 13px; color: var(--text-faint); font-style: italic; border-left: 2px solid var(--border); padding-left: 12px; }
+
+  /* Roster churn section */
+  .churn-hdr { background: linear-gradient(180deg, rgba(186,12,47,0.14), rgba(186,12,47,0.02)); border: 1px solid rgba(186,12,47,0.35); border-radius: 6px; padding: 20px 24px; margin-bottom: 24px; font-size: 15px; color: var(--text); }
+  .churn-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .churn-col { background: var(--bg-elev); border: 1px solid var(--border); border-radius: 6px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px; }
+  .churn-col.depart { border-left: 3px solid var(--fail); }
+  .churn-col.return { border-left: 3px solid var(--pass); }
+  .churn-col.incoming { border-left: 3px solid var(--warn); }
+  .churn-col h4 { margin: 0; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--nm-silver); font-weight: 600; }
+  .churn-col h4 .count { color: var(--text); margin-left: 6px; font-family: var(--mono); }
+  .churn-item { border-top: 1px solid var(--border); padding-top: 10px; font-size: 13px; color: var(--text-dim); }
+  .churn-item:first-of-type { border-top: none; padding-top: 0; }
+  .churn-item .cname { color: var(--text); font-weight: 600; font-size: 14px; margin-bottom: 2px; }
+  .churn-item .cdest { color: var(--nm-cherry); font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+  .churn-item .cprod { font-size: 12px; color: var(--text-faint); font-family: var(--mono); margin-bottom: 4px; }
+  .churn-item .csrc { font-size: 11px; color: var(--text-faint); font-style: italic; }
+
+  .slots-box { background: var(--bg-elev); border: 1px solid var(--border); border-radius: 6px; padding: 18px 22px; }
+  .slots-box h5 { margin: 0 0 12px; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--nm-cherry); font-weight: 600; }
+  .slots-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .slots-list li { background: var(--bg-elev-2); border: 1px solid var(--border); border-radius: 4px; padding: 10px 12px; font-size: 13px; color: var(--text-dim); }
+  .slots-list li b { color: var(--text); display: block; margin-bottom: 2px; }
+
+  .threshold-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-top: 20px; }
+  .t-pill {
+    background: linear-gradient(180deg, rgba(47,191,113,0.18), rgba(47,191,113,0.06));
+    border: 1px solid rgba(47,191,113,0.55);
+    border-radius: 8px; padding: 18px 18px;
+    display: flex; flex-direction: column; gap: 8px;
+    box-shadow: 0 1px 0 rgba(47,191,113,0.18);
+  }
+  .t-pill .t-label { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--pass); font-weight: 700; }
+  .t-pill .t-val { font-size: 26px; font-weight: 800; color: var(--text); font-family: var(--mono); letter-spacing: -0.01em; }
+  .t-pill .t-note { font-size: 12px; color: var(--text-dim); font-weight: 500; line-height: 1.45; }
+  .t-pill.preferred { border-left: 4px solid var(--pass); }
+
+  .cmp-table { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--bg-elev); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; font-size: 14px; }
+  .cmp-table th, .cmp-table td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .cmp-table th { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text); font-weight: 700; background: var(--bg-elev-2); }
+  .cmp-table tr:last-child td { border-bottom: none; }
+  .cmp-table td.metric-name { color: var(--text); font-weight: 700; }
+  .cmp-table td .cell-detail { color: var(--text); font-weight: 500; margin-top: 6px; line-height: 1.45; }
+  .cmp-pip { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px; border-radius: 5px; font-size: 13px; font-family: var(--mono); font-weight: 700; border: 2px solid transparent; letter-spacing: 0.04em; }
+  .cmp-pip.pass, .cmp-pip.pass_est, .cmp-pip.likely_pass_est { background: rgba(47,191,113,0.18); color: var(--pass); border-color: rgba(47,191,113,0.65); }
+  .cmp-pip.fail { background: rgba(214,69,69,0.18); color: var(--fail); border-color: rgba(214,69,69,0.65); }
+  .cmp-pip.borderline, .cmp-pip.borderline_est { background: rgba(232,169,58,0.18); color: var(--warn); border-color: rgba(232,169,58,0.65); }
+  .cmp-pip.pass_small_sample { background: rgba(47,191,113,0.14); color: var(--pass); border: 2px dashed rgba(47,191,113,0.65); }
+  .cmp-pip.unknown { background: rgba(90,96,104,0.22); color: var(--text-faint); border-color: rgba(90,96,104,0.55); }
+  .cmp-pip .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .cmp-player-header { display: flex; flex-direction: column; gap: 4px; }
+  .cmp-player-header .pname { font-weight: 700; color: var(--text); font-size: 15px; }
+  .cmp-player-header .pfrom { font-size: 12px; color: var(--text-faint); }
+
+  .players-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 24px; }
+  .p-card { background: var(--bg-elev); border: 1px solid var(--border); border-radius: 8px; padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+  .p-head { padding: 20px 22px 16px; border-bottom: 1px solid var(--border); background: linear-gradient(180deg, rgba(186,12,47,0.08), transparent); }
+  .p-head .p-rank { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--nm-silver); margin-bottom: 8px; }
+  .p-head .p-name { font-size: 22px; font-weight: 700; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .p-head .p-sub { font-size: 13px; color: var(--text-dim); margin: 0 0 12px; }
+  .p-head .p-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { display: inline-block; padding: 3px 9px; border-radius: 3px; font-size: 11px; letter-spacing: 0.04em; background: var(--bg-elev-2); color: var(--text-dim); border: 1px solid var(--border); }
+  .chip.conf-LOW        { color: var(--fail); border-color: rgba(214,69,69,0.45); }
+  .chip.conf-MEDIUM     { color: var(--warn); border-color: rgba(232,169,58,0.45); }
+  .chip.conf-MEDIUM-HIGH{ color: var(--pass); border-color: rgba(47,191,113,0.45); }
+  .chip.conf-HIGH       { color: var(--pass); border-color: rgba(47,191,113,0.55); }
+  .chip.intl { background: rgba(167,168,170,0.08); color: var(--nm-silver); border-color: rgba(167,168,170,0.30); }
+
+  .p-body { padding: 18px 22px 20px; display: flex; flex-direction: column; gap: 18px; }
+  .p-section h6 { margin: 0 0 8px; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--nm-silver); font-weight: 600; }
+  .p-thresholds { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .p-thresh {
+    padding: 12px 14px; border-radius: 6px;
+    background: var(--bg-elev-2); border: 2px solid var(--border);
+    font-size: 13px; display: flex; flex-direction: column; gap: 5px;
+    transition: transform 0.12s;
+  }
+  .p-thresh .lab { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); font-weight: 700; }
+  .p-thresh .val { font-family: var(--mono); font-size: 14px; font-weight: 700; letter-spacing: 0.02em; }
+  .p-thresh.pass, .p-thresh.pass_est, .p-thresh.likely_pass_est, .p-thresh.pass_small_sample {
+    border-color: rgba(47,191,113,0.65); background: rgba(47,191,113,0.10);
+  }
+  .p-thresh.pass .val, .p-thresh.pass_est .val, .p-thresh.likely_pass_est .val, .p-thresh.pass_small_sample .val { color: var(--pass); }
+  .p-thresh.fail {
+    border-color: rgba(214,69,69,0.65); background: rgba(214,69,69,0.10);
+  }
+  .p-thresh.fail .val { color: var(--fail); }
+  .p-thresh.borderline, .p-thresh.borderline_est {
+    border-color: rgba(232,169,58,0.65); background: rgba(232,169,58,0.10);
+  }
+  .p-thresh.borderline .val, .p-thresh.borderline_est .val { color: var(--warn); }
+  .p-thresh.unknown { border-color: rgba(90,96,104,0.55); }
+  .p-thresh .sub-display { font-size: 11px; color: var(--text-dim); font-weight: 500; margin-top: 1px; line-height: 1.45; }
+
+  .p-bulletlist { margin: 0; padding-left: 18px; font-size: 13px; color: var(--text-dim); }
+  .p-bulletlist li { margin-bottom: 6px; line-height: 1.5; }
+  .p-bulletlist.pos li::marker { color: var(--pass); }
+  .p-bulletlist.neg li::marker { color: var(--fail); }
+  .p-bulletlist.note li::marker { color: var(--nm-silver); }
+
+  .p-sr-rates { font-size: 12px; }
+  .p-sr-rates table { width: 100%; border-collapse: collapse; }
+  .p-sr-rates th, .p-sr-rates td { text-align: right; padding: 4px 6px; border-bottom: 1px solid var(--border); font-family: var(--mono); }
+  .p-sr-rates th { color: var(--nm-silver); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+  .p-sr-rates td:first-child, .p-sr-rates th:first-child { text-align: left; }
+  .p-sr-rates tr:last-child td { border-bottom: none; }
+  .p-sr-rates .yr { color: var(--text); font-weight: 600; }
+  .p-sr-rates .note { text-align: left; color: var(--text-faint); font-size: 11px; font-style: italic; font-family: var(--font); }
+
+  .p-archetype {
+    background: linear-gradient(180deg, rgba(186,12,47,0.12), rgba(186,12,47,0.02));
+    border: 1px solid rgba(186,12,47,0.35);
+    border-radius: 4px;
+    padding: 12px 14px; font-size: 13px; color: var(--text);
+    line-height: 1.55;
+  }
+  .p-archetype strong { color: var(--nm-cherry); font-weight: 700; }
+
+  .p-slot {
+    background: linear-gradient(180deg, rgba(47,191,113,0.10), rgba(47,191,113,0.02));
+    border: 1px solid rgba(47,191,113,0.30);
+    border-radius: 4px;
+    padding: 12px 14px; font-size: 13px; color: var(--text);
+    line-height: 1.55;
+  }
+  .p-slot strong { color: var(--pass); font-weight: 700; }
+
+  .p-foot { padding: 14px 22px; background: var(--bg-elev-2); border-top: 1px solid var(--border); font-size: 13px; color: var(--text-dim); font-style: italic; }
+  .p-foot strong { color: var(--text); font-style: normal; }
+
+  .p-sources { font-size: 12px; color: var(--text-faint); }
+  .p-sources a { color: var(--nm-silver); text-decoration: none; border-bottom: 1px dotted var(--nm-silver-dim); }
+  .p-sources a:hover { color: var(--text); border-color: var(--text); }
+  .p-sources li { margin-bottom: 4px; }
+
+  /* COACH INPUT PANEL */
+  .coach-panel {
+    margin-top: 0;
+    background: linear-gradient(180deg, rgba(186,12,47,0.07), rgba(186,12,47,0.02));
+    border-top: 1px dashed rgba(186,12,47,0.40);
+    padding: 18px 22px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .coach-panel h5 {
+    margin: 0; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--nm-cherry); font-weight: 700;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .coach-panel h5::before { content: "\2605"; color: var(--nm-cherry); font-size: 14px; }
+  .coach-panel .coach-sublede { font-size: 12px; color: var(--text-dim); margin: -4px 0 4px; font-style: italic; }
+  .rating-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; font-size: 12px; }
+  .rating-row .rating-label { color: var(--text-dim); }
+  .rating-stars { display: inline-flex; gap: 3px; }
+  .star-btn {
+    background: transparent; border: none; padding: 2px; cursor: pointer;
+    color: var(--border); font-size: 16px; line-height: 1; transition: color 0.15s;
+  }
+  .star-btn:hover, .star-btn.filled { color: var(--nm-cherry); }
+  .star-btn:focus { outline: 1px solid var(--nm-silver); outline-offset: 1px; }
+
+  .coach-field { display: flex; flex-direction: column; gap: 4px; }
+  .coach-field label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--nm-silver); font-weight: 600; }
+  .coach-field input[type="text"], .coach-field textarea, .coach-field select {
+    background: var(--bg); color: var(--text); border: 1px solid var(--border);
+    border-radius: 4px; padding: 8px 10px; font-family: var(--font); font-size: 13px;
+    width: 100%; resize: vertical;
+  }
+  .coach-field textarea { min-height: 60px; }
+  .coach-field input:focus, .coach-field textarea:focus, .coach-field select:focus {
+    outline: none; border-color: var(--nm-cherry);
+  }
+  .priority-radio { display: flex; gap: 6px; }
+  .priority-radio label {
+    flex: 1; text-align: center; padding: 6px; border: 1px solid var(--border);
+    border-radius: 3px; cursor: pointer; font-size: 12px; color: var(--text-dim);
+    transition: all 0.15s;
+  }
+  .priority-radio input { display: none; }
+  .priority-radio input:checked + span { color: #fff; }
+  .priority-radio label:has(input:checked) { background: var(--nm-cherry); border-color: var(--nm-cherry); color: #fff; }
+  .coach-panel-footer {
+    display: flex; gap: 8px; flex-wrap: wrap; padding-top: 8px;
+    border-top: 1px solid var(--border);
+  }
+  .coach-saved-indicator { font-size: 11px; color: var(--pass); opacity: 0; transition: opacity 0.3s; margin-left: auto; align-self: center; }
+  .coach-saved-indicator.visible { opacity: 1; }
+
+  /* Summary — slot-mapping */
+  .summary-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 24px; }
+  .sum-card { background: var(--bg-elev); border: 1px solid var(--border); border-radius: 6px; padding: 20px 22px; display: flex; flex-direction: column; gap: 8px; }
+  .sum-card .sum-cand { font-size: 16px; font-weight: 700; color: var(--text); }
+  .sum-card .sum-grade { font-family: var(--mono); font-size: 28px; font-weight: 700; line-height: 1; color: var(--text); }
+  .sum-card .sum-slot { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--nm-silver); }
+  .sum-card .sum-note { font-size: 13px; color: var(--text-dim); margin-top: 4px; }
+  .sum-card.grade-A { border-left: 3px solid var(--pass); }
+  .sum-card.grade-A .sum-grade { color: var(--pass); }
+  .sum-card.grade-B { border-left: 3px solid #7BC896; }
+  .sum-card.grade-B .sum-grade { color: #7BC896; }
+  .sum-card.grade-C { border-left: 3px solid var(--warn); }
+  .sum-card.grade-C .sum-grade { color: var(--warn); }
+  .sum-card.grade-D { border-left: 3px solid var(--fail); }
+  .sum-card.grade-D .sum-grade { color: var(--fail); }
+  .sum-card.grade-F { border-left: 3px solid var(--fail); }
+  .sum-card.grade-F .sum-grade { color: var(--fail); }
+
+  .sum-combo { margin-top: 20px; padding: 22px 24px; border-radius: 6px; background: linear-gradient(180deg, rgba(186,12,47,0.18), rgba(186,12,47,0.04)); border: 1px solid rgba(186,12,47,0.40); }
+  .sum-combo h5 { margin: 0 0 8px; color: var(--nm-cherry); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .sum-combo p { margin: 0 0 10px; font-size: 15px; color: var(--text); line-height: 1.55; }
+  .sum-combo p:last-child { margin-bottom: 0; }
+  .sum-combo .single { font-size: 14px; color: var(--text-dim); font-style: italic; padding-top: 8px; border-top: 1px solid rgba(186,12,47,0.25); }
+
+  footer { padding: 32px 0 56px; color: var(--text-faint); font-size: 12px; border-top: 1px solid var(--border); }
+  footer .foot-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
+  footer .brand { color: var(--nm-silver); font-weight: 600; letter-spacing: 0.08em; }
+
+  details.data-gaps { margin-top: 20px; padding: 16px 20px; background: var(--bg-elev); border: 1px solid var(--border); border-radius: 6px; }
+  details.data-gaps summary { cursor: pointer; color: var(--nm-silver); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; }
+  details.data-gaps[open] summary { color: var(--text); margin-bottom: 12px; }
+  details.data-gaps ul { margin: 0; padding-left: 18px; color: var(--text-dim); font-size: 13px; }
+  details.data-gaps li { margin-bottom: 6px; }
+
+  /* Toast */
+  #toast {
+    position: fixed; bottom: 24px; right: 24px; z-index: 1000;
+    background: var(--nm-cherry); color: #fff; padding: 10px 16px; border-radius: 4px;
+    font-size: 13px; opacity: 0; pointer-events: none; transition: opacity 0.25s;
+  }
+  #toast.show { opacity: 1; pointer-events: auto; }
+
+  @media (max-width: 1040px) {
+    .gap-grid, .players-grid, .summary-grid, .churn-grid { grid-template-columns: 1fr; }
+    .threshold-row { grid-template-columns: repeat(3, 1fr); }
+    .slots-list { grid-template-columns: 1fr; }
+    .hero-title { font-size: 32px; }
+    section { padding: 44px 0; }
+  }
+  @media (max-width: 760px) {
+    .threshold-row { grid-template-columns: repeat(2, 1fr); }
+    .hero { padding: 44px 0 32px; }
+    .hero-title { font-size: 26px; line-height: 1.15; }
+    .hero-prepared { font-size: 14px; }
+    .hero-sub { font-size: 15px; }
+    .hero-meta { font-size: 12px; gap: 10px 16px; }
+    .hero-actions { gap: 8px; }
+    .hero-actions .btn { flex: 1 1 calc(50% - 4px); min-width: 0; font-size: 12px; padding: 10px 12px; }
+    .sec-title { font-size: 22px; }
+    .sec-lede { font-size: 14.5px; }
+    .sec-eyebrow { font-size: 11px; }
+    .t-pill { padding: 14px 14px; }
+    .t-pill .t-val { font-size: 22px; }
+    section { padding: 36px 0; border-bottom: 1px solid var(--border); }
+  }
+  @media (max-width: 640px) {
+    .wrap { padding: 0 16px; }
+    .threshold-row { grid-template-columns: 1fr; gap: 10px; }
+    .p-thresholds { grid-template-columns: 1fr; }
+    .cmp-table { font-size: 12.5px; border-radius: 6px; }
+    .cmp-table th, .cmp-table td { padding: 10px 10px; }
+    .cmp-table th { font-size: 10px; letter-spacing: 0.1em; }
+    .cmp-pip { font-size: 11.5px; padding: 4px 8px; }
+    .p-card { border-radius: 6px; }
+    .p-head { padding: 16px 16px 14px; }
+    .p-head .p-name { font-size: 19px; }
+    .p-head .p-sub { font-size: 12px; }
+    .p-body { padding: 14px 16px 16px; gap: 14px; }
+    .coach-panel { padding: 14px 16px; }
+    .coach-panel-footer { gap: 6px; }
+    .coach-panel-footer .btn { flex: 1 1 100%; font-size: 12px; }
+    .rating-row { grid-template-columns: 1fr; gap: 4px; }
+    .rating-row .rating-label { font-size: 12.5px; }
+    .priority-radio label { font-size: 11.5px; padding: 8px 4px; }
+    .star-btn { font-size: 20px; padding: 4px; }
+    .churn-hdr { padding: 16px 18px; font-size: 14px; }
+    .churn-col { padding: 14px 16px; }
+    .slots-list li { padding: 10px; }
+    .sum-card { padding: 16px 18px; }
+    .sum-card .sum-grade { font-size: 24px; }
+    .sum-combo { padding: 18px 20px; }
+    .gap-card { padding: 16px 18px; }
+    .gap-card .value { font-size: 17px; }
+    footer .foot-row { flex-direction: column; gap: 8px; }
+    footer .foot-row > div:last-child { text-align: left; }
+  }
+  @media (max-width: 420px) {
+    .hero-title { font-size: 23px; }
+    .hero-sub { font-size: 14px; }
+    .sec-title { font-size: 19px; }
+    .t-pill { padding: 12px 12px; }
+    .t-pill .t-val { font-size: 20px; }
+  }
+
+  /* Print — Coach worksheet */
+  @media print {
+    html, body { background: #fff; color: #000; }
+    .hero { background: #fff; color: #000; padding: 20px 0; border-bottom: 2px solid #000; }
+    .hero-title { color: #000; font-size: 22px; }
+    .hero-title .accent { color: var(--nm-cherry); }
+    .hero-sub, .hero-meta, .hero-bar, .hero-actions { display: none !important; }
+    section { padding: 16px 0; border-bottom: 1px solid #aaa; page-break-inside: avoid; }
+    .sec-title { color: #000; font-size: 16px; }
+    .sec-lede, .sec-eyebrow { color: #000; }
+    .gap-card, .gap-notes, .p-card, .p-head, .p-body, .coach-panel,
+    .sum-card, .sum-combo, .t-pill, .churn-col, .slots-box, .churn-hdr { background: #fff !important; color: #000 !important; border-color: #aaa !important; }
+    .p-head .p-name, .cmp-player-header .pname, .t-pill .t-val, .sum-card .sum-cand, .sum-card .sum-grade, .churn-item .cname { color: #000; }
+    .chip, .t-pill .t-label, .t-pill .t-note, .p-thresh .lab, .p-thresh .val,
+    .p-sources, .coach-panel h5, .coach-sublede, .rating-label,
+    .coach-field label, .priority-radio label, .sum-card .sum-slot, .sum-card .sum-note { color: #000; }
+    .coach-field input[type="text"], .coach-field textarea, .coach-field select {
+      background: #fff; color: #000; border: 1px solid #aaa;
+    }
+    .coach-field textarea { min-height: 100px; }
+    .star-btn { color: #ccc; font-size: 14px; }
+    .star-btn.filled { color: #000; }
+    .coach-panel-footer, #toast, .data-gaps summary, details.data-gaps { display: none; }
+    details.data-gaps[open] { display: block; }
+    footer { color: #666; }
+    .p-foot { color: #000; background: #f5f5f5 !important; }
+    .p-archetype, .p-slot { background: #f5f5f5 !important; color: #000 !important; border: 1px solid #aaa !important; }
+    .p-archetype strong { color: var(--nm-cherry); }
+    a { color: #000; text-decoration: underline; }
+  }
+</style>
+  <link rel="stylesheet" href="../../../_gate.css">
+  <script src="../../../_gate.js" defer></script>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="hero-bar">
+      <span class="dot"></span>
+      <span>EDGE3 &middot; Risk/Fit Report</span>
+      <span style="color: var(--text-faint);">&middot;</span>
+      <span>Updated April 22, 2026</span>
+    </div>
+    <h1 class="hero-title">
+      New Mexico Basketball <span class="accent">EDGE3 Risk/Fit Report</span>
+    </h1>
+    <p class="hero-prepared">Prepared for Coach Olen and Staff</p>
+    <p class="hero-sub">
+      Coach, I pulled advanced per-possession rates on three portal candidates and layered them against your stated thresholds, UNM&#39;s 2025-26 roster performance, and the 2026-27 roster churn. Each candidate is graded against a specific open slot &mdash; not a generic rate profile.
+    </p>
+    <div class="hero-meta">
+      <span><b>Candidates:</b> R. Petraitis (CAL) &middot; D. Butka (CAMP) &middot; K. Anya (SLU)</span>
+    </div>
+    <div class="hero-actions">
+      <button class="btn" id="exportAllBtn">Export all coach reads (JSON)</button>
+      <button class="btn ghost" id="importJsonBtn">Import saved JSON</button>
+      <button class="btn ghost" id="printBtn">Print blank worksheet</button>
+      <button class="btn ghost" id="clearAllBtn" style="color: var(--fail); border-color: rgba(214,69,69,0.35);">Clear all saved</button>
+    </div>
+  </div>
+</div>
+
+<section id="thresholds">
+  <div class="wrap">
+    <div class="sec-eyebrow">Coach Olen&#39;s Gate</div>
+    <h2 class="sec-title">Your stated thresholds</h2>
+    <p class="sec-lede">These are the five gates you laid out. I measured every candidate against them and flagged where UNM&#39;s 2025-26 numbers make each one a live need, not a generic preference.</p>
+    <div class="threshold-row" id="thresholdRow"></div>
+  </div>
+</section>
+
+<section id="compare">
+  <div class="wrap">
+    <div class="sec-eyebrow">Threshold Check</div>
+    <h2 class="sec-title">How each candidate clears your profile</h2>
+    <p class="sec-lede">Career per-possession rates, stacked against your gates. Green clears, red misses, yellow is borderline or small-sample. The same rate across a full D1 career is weighted differently than a seven-game sprint &mdash; I&#39;ve flagged both.</p>
+    <table class="cmp-table" id="cmpTable" aria-label="Threshold comparison by player"></table>
+    <details class="data-gaps" style="margin-top:24px;">
+      <summary>Data gaps &amp; caveats (what the rates can&#39;t tell you)</summary>
+      <ul id="dataGapsList"></ul>
+    </details>
+  </div>
+</section>
+
+<section id="players">
+  <div class="wrap">
+    <div class="sec-eyebrow">Per-Candidate Detail</div>
+    <h2 class="sec-title">Per-candidate breakdown + your private read</h2>
+    <p class="sec-lede">
+      What I see from the outside is rates, role, slot fit. What you and the staff see is film, medical, character, culture fit. Each card has a Coach&#39;s Private Read panel for that layer &mdash; it saves to your browser and exports as JSON if you want it.
+    </p>
+    <div class="players-grid" id="playersGrid"></div>
+  </div>
+</section>
+
+<section id="summary">
+  <div class="wrap">
+    <div class="sec-eyebrow">Slot-Mapping Summary</div>
+    <h2 class="sec-title">Which candidate fills which 2026-27 slot</h2>
+    <p class="sec-lede" id="summaryLede"></p>
+    <div class="summary-grid" id="summaryGrid"></div>
+    <div class="sum-combo" id="sumCombo"></div>
+  </div>
+</section>
+
+<section id="churn">
+  <div class="wrap">
+    <div class="sec-eyebrow">2025-26 &rarr; 2026-27 Roster Churn</div>
+    <h2 class="sec-title">Who&#39;s leaving, who&#39;s staying, who&#39;s coming in</h2>
+    <p class="sec-lede">
+      This is what turns your four rate thresholds into literal roster holes. Departures and incoming commits aggregated from public reporting.
+    </p>
+    <div class="churn-hdr" id="churnHeadline"></div>
+    <div class="churn-grid">
+      <div class="churn-col depart">
+        <h4>Confirmed Departures <span class="count" id="departCount"></span></h4>
+        <div id="departList"></div>
+      </div>
+      <div class="churn-col return">
+        <h4>Returning <span class="count" id="returnCount"></span></h4>
+        <div id="returnList"></div>
+      </div>
+      <div class="churn-col incoming">
+        <h4>Incoming <span class="count" id="incomingCount"></span></h4>
+        <div id="incomingList"></div>
+      </div>
+    </div>
+    <div class="slots-box">
+      <h5>Open roster slots heading into 2026-27</h5>
+      <ul class="slots-list" id="slotsList"></ul>
+    </div>
+  </div>
+</section>
+
+<section id="gap">
+  <div class="wrap">
+    <div class="sec-eyebrow" id="gapEyebrow">UNM 2025-26 Baseline</div>
+    <h2 class="sec-title" id="gapTitle">Where your thresholds map into UNM&#39;s real gaps</h2>
+    <p class="sec-lede" id="gapLede"></p>
+    <div class="gap-grid" id="gapGrid"></div>
+    <div class="gap-notes" id="gapNotes"></div>
+    <p class="caveat-note" id="gapCaveat"></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <div>
+        <div class="brand">EDGE3 &middot; Vision Sports Portal</div>
+        <div style="margin-top:4px;">University of New Mexico Basketball &middot; Risk/Fit Report &middot; April 22, 2026</div>
+      </div>
+      <div style="text-align:right; max-width: 520px;">
+        Prepared for Coach Olen and staff. Per-possession rates layered against UNM&#39;s 2025-26 performance and 2026-27 roster churn. Coach&#39;s Private Read layers on top &mdash; that&#39;s the part only you can see.
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script id="dataPayload" type="application/json">
+{
+  "meta": {
+    "title": "Coach Olen — Transfer Fit Analysis",
+    "subtitle": "Three portal candidates mapped to UNM's 2026-27 roster holes",
+    "audience": "Coach Eric Olen, University of New Mexico Men's Basketball",
+    "generated_by": "EDGE3 • Vision Sports Portal",
+    "generated_for": "Internal coach-facing demo",
+    "generated_date": "2026-04-22",
+    "data_confidence_note": "Advanced per-possession rates (DReb%, OReb%, Stl%, Blk%, USG%, PER, BPM) are layered in with UNM's 2025-26 roster performance for additional context. Portal departure/incoming intel is aggregated from multiple public reports; sources listed per item."
+  },
+  "coach": {
+    "name": "Eric Olen",
+    "program": "University of New Mexico",
+    "prior_program": "UC San Diego",
+    "prior_tenure_years": 12,
+    "prior_program_d1_years": 5,
+    "stated_philosophy_quote": "I think this whole thing is much more art than science, and you're just trying to do right by everybody. If you get good people in the room, and you treat people the right way, and you create an environment that people want to be part of, then it gives you a chance.",
+    "philosophy_source": "Olen to Mid-Major Madness, 2026-04-17",
+    "system_frame": "Olen's UCSD identity was possession-positive defense — UCSD forced turnovers on 23.3% of opponent possessions in 2024-25, 2nd nationally (per CBS Sports / Yahoo / PrizePicks). Paired with high-efficiency / low-usage offensive spacing. In Year 1 at UNM he hit 26-11 (13-7 MWC, 3rd, NIT semifinal), ORtg 114.8 / DRtg 100.2 — a strong inherit-and-adapt performance. 2026-27 is the first chance to install his full system.",
+    "staff": [
+      {
+        "role": "Head Coach",
+        "name": "Eric Olen",
+        "from": "UCSD (Head Coach, 2013–2025)"
+      },
+      {
+        "role": "Associate HC",
+        "name": "Trevor Tankelewicz",
+        "from": "UCSD (3 seasons with Olen prior to UNM); UNC Greensboro 2017–2021 under Wes Miller; Western Carolina player 2011–2014; pro in Kosovo"
+      },
+      {
+        "role": "Assistant Coach / Offensive Coordinator 2025-26",
+        "name": "Michael Howell",
+        "from": "Former UCSD PG and assistant coach; older brother of UNM SR guard Chris Howell; tasked with coordinating UNM's offense"
+      }
+    ]
+  },
+  "unm_context": {
+    "season": "2025-26 (Olen Year 1 — baseline for 2026-27 rebuild)",
+    "caveat_principle": "",
+    "record": "26-11 overall • 13-7 Mountain West (3rd) • NIT semifinal run (lost to Tulsa at Hinkle)",
+    "team_rate_profile_2025_26": {
+      "ortg_national_rank": "75th of 365 (114.8)",
+      "drtg_national_rank": "42nd of 365 (100.2)",
+      "strengths": [
+        {
+          "metric": "3PT% allowed",
+          "value": "30.2%",
+          "rank": "19th nationally",
+          "note": "Elite perimeter defense — Olen's DNA visible in Year 1."
+        },
+        {
+          "metric": "Steals per game",
+          "value": "8.0",
+          "rank": "51st nationally",
+          "note": "Top-quartile TO generation already."
+        },
+        {
+          "metric": "2PA allowed per game",
+          "value": "30.1",
+          "rank": "12th nationally",
+          "note": "Limits interior volume — defensive shell works."
+        }
+      ],
+      "gaps_that_map_to_olen_thresholds": [
+        {
+          "metric": "Blocks per game",
+          "value": "2.9",
+          "rank": "262nd nationally",
+          "maps_to": "Blk% > 3 threshold",
+          "note": "Biggest structural weakness — supports the shot-blocking ask."
+        },
+        {
+          "metric": "Off. rebounds per game",
+          "value": "10.9",
+          "rank": "174th nationally",
+          "maps_to": "OReb% > 6 threshold",
+          "note": "Below-median ORB."
+        },
+        {
+          "metric": "Def. rebounds allowed",
+          "value": "24.6 allowed",
+          "rank": "238th nationally",
+          "maps_to": "DReb% > 15 threshold",
+          "note": "Opponents grab many defensive rebounds against UNM."
+        },
+        {
+          "metric": "Blocks ALLOWED per game",
+          "value": "3.2",
+          "rank": "174th nationally",
+          "note": "UNM gets blocked a lot — suggests undersized frontcourt interior scoring; supports the 6'8\"+ preference."
+        }
+      ]
+    },
+    "interpretation": "Coach, your four rate thresholds + 6'8\"+ preference map almost 1:1 to where UNM graded out nationally this past year — this is what the portal needs to backfill."
+  },
+  "roster_churn_2025_26_to_2026_27": {
+    "headline": "Coach, here's what's open: four rotation departures — three top-8 minutes guys plus your lead PG. Your stated thresholds line up with the literal holes on the roster.",
+    "confirmed_departures": [
+      {
+        "name": "Tomislav Buljan",
+        "role_lost": "Starting F",
+        "production_lost": "13.1 ppg / 10.3 rpg / 27.0 DRB%",
+        "destination": "Maryland"
+      },
+      {
+        "name": "JT Rock",
+        "role_lost": "Backup C (rim protector)",
+        "production_lost": "9.5 Blk% / 20.8 DRB% / 7'1\"",
+        "destination": "Kansas State"
+      },
+      {
+        "name": "Antonio Chol",
+        "role_lost": "Starting F",
+        "production_lost": "7.7 ppg / 3.6 Blk%",
+        "destination": "Portal (TBD)"
+      },
+      {
+        "name": "Deyton Albury",
+        "role_lost": "Lead PG",
+        "production_lost": "11.7 ppg / 3.0 apg / 22.0 AST%",
+        "destination": "Committed elsewhere"
+      }
+    ],
+    "confirmed_returning": [
+      {
+        "name": "Jake Hall",
+        "year": "Fr → So",
+        "production_2025_26": "16.4 ppg / 44% 3PT / MWC team leader / 19.1 PER / 21.8 USG%",
+        "note": "Entered portal 2026-04-07, withdrew 2026-04-16 after interest from UConn, Duke, Kansas. Returning."
+      },
+      {
+        "name": "Uriah Tenette",
+        "year": "Fr → So",
+        "production_2025_26": "10.6 ppg / 2.9 apg / 3.0 Stl% / 15.8 PER",
+        "note": "Announced return quickly after season ended."
+      }
+    ],
+    "confirmed_incoming": [
+      {
+        "name": "Hudson Mayes",
+        "from": "UC San Diego",
+        "role": "Rising sophomore, transfer",
+        "note": "Olen-program continuity — brought from UCSD where Olen's longtime assistant Clint Allard is now head coach. Echoes the 2025-26 Hall/Tenette playbook."
+      },
+      {
+        "name": "Dax Hall",
+        "from": "HS — St. Augustine (San Diego)",
+        "role": "Incoming freshman G",
+        "note": "Jake Hall's younger brother; 2026 San Diego Section Player of the Year per CIF. Committed 2026-04-15."
+      }
+    ],
+    "seniors_with_eligibility_likely_exhausted": [
+      "Luke Haupt (SR, G, 1039 min, 14.0 PER)",
+      "Tajavis Miller (SR, G, 537 min)",
+      "Chris Howell (SR, G, 269 min — partial year)",
+      "Milos Vicentic (SR, F, 116 min)"
+    ],
+    "open_roster_slots_heading_into_2026_27": [
+      {
+        "slot": "Starting PF (Chol replacement)",
+        "profile_needed": "6'8\"+, rate-defender, 25+ mpg, low-usage offensive blender"
+      },
+      {
+        "slot": "Starting C / rebound anchor (Buljan replacement)",
+        "profile_needed": "6'9\"+, elite DRB% (>20) + ORB% (>10), can finish 2-pt"
+      },
+      {
+        "slot": "Rim protector (Rock replacement)",
+        "profile_needed": "6'10\"+ preferred, Blk% 5+, DRB% 18+, 15-20 mpg role"
+      },
+      {
+        "slot": "Lead PG (Albury replacement)",
+        "profile_needed": "Primary ball-handler, AST% 22+, not filled by any of the three candidates in this brief"
+      }
+    ]
+  },
+  "thresholds": [
+    {
+      "key": "height",
+      "label": "Height",
+      "op": ">=",
+      "value": "6'8\"",
+      "numeric": 80,
+      "unit": "in",
+      "preferred": true,
+      "note": "'Preferred' per Olen — not a hard cut, but a strong bias. Validated by UNM's 174th-ranked opp-blocks-against profile."
+    },
+    {
+      "key": "dreb_pct",
+      "label": "DReb%",
+      "op": ">",
+      "value": "15",
+      "numeric": 15,
+      "unit": "%",
+      "preferred": false,
+      "note": "Defensive rebound rate. UNM's opp-DRB is 238th nationally — this is a real gap."
+    },
+    {
+      "key": "oreb_pct",
+      "label": "OReb%",
+      "op": ">",
+      "value": "6",
+      "numeric": 6,
+      "unit": "%",
+      "preferred": false,
+      "note": "Offensive rebound rate. UNM's ORB/g is 174th nationally — real gap."
+    },
+    {
+      "key": "stl_pct",
+      "label": "Stl%",
+      "op": ">",
+      "value": "2",
+      "numeric": 2,
+      "unit": "%",
+      "preferred": false,
+      "note": "Steal rate. UNM's Stl/g is already 51st — 'maintain' not 'fix'."
+    },
+    {
+      "key": "blk_pct",
+      "label": "Blk%",
+      "op": ">",
+      "value": "3",
+      "numeric": 3,
+      "unit": "%",
+      "preferred": false,
+      "note": "Block rate. UNM's Blk/g is 262nd nationally AND they've now lost their 9.5-Blk%-rate player (Rock) to K-State. Highest-priority gap."
+    }
+  ],
+  "players": [
+    {
+      "id": "petraitis",
+      "name": "Rytis Petraitis",
+      "from_program": "California (Cal Golden Bears)",
+      "year": "Sr",
+      "height_in": 79,
+      "height_display": "6'7\"",
+      "weight_lbs": 210,
+      "position": "Guard / Wing (SR lists position as G; 6'7\" guard/wing — NOT a frontcourt piece)",
+      "nationality": "USA / Lithuania dual (born Arlington, TX; Oak Ridge HS, Montgomery, TX; DOB 1/22/2003)",
+      "international_flag": "Dual US/Lithuania citizenship. US-born and US-raised; debuted for Lithuania's reserve national team (per Basketnews.lt). NOT an international-development profile.",
+      "portal_status": "Entered portal April 2026, uncommitted. Draft-eligible 2026.",
+      "career_path": [
+        "Air Force Academy (2022-23 FR, 2023-24 SO) — MWC",
+        "California (2024-25 JR, 2025-26 SR partial) — ACC",
+        "Transfer portal April 2026"
+      ],
+      "sr_verified_rates": {
+        "source": "Sports Reference CBB, pulled 2026-04-22",
+        "seasons": [
+          {
+            "year": "2022-23",
+            "team": "Air Force",
+            "conf": "MWC",
+            "class": "FR",
+            "games": 32,
+            "per": 22.0,
+            "ts_pct": 0.581,
+            "orb_pct": 8.4,
+            "drb_pct": 21.5,
+            "stl_pct": 2.2,
+            "blk_pct": 3.0,
+            "usg_pct": 22.6,
+            "bpm": 4.5,
+            "dbpm": 1.6
+          },
+          {
+            "year": "2023-24",
+            "team": "Air Force",
+            "conf": "MWC",
+            "class": "SO",
+            "games": 24,
+            "per": 23.1,
+            "ts_pct": 0.563,
+            "orb_pct": 7.6,
+            "drb_pct": 18.0,
+            "stl_pct": 3.0,
+            "blk_pct": 3.4,
+            "usg_pct": 28.4,
+            "bpm": 4.0,
+            "dbpm": -0.1
+          },
+          {
+            "year": "2024-25",
+            "team": "California",
+            "conf": "ACC",
+            "class": "JR",
+            "games": 33,
+            "per": 16.7,
+            "ts_pct": 0.525,
+            "orb_pct": 10.3,
+            "drb_pct": 13.1,
+            "stl_pct": 2.8,
+            "blk_pct": 1.5,
+            "usg_pct": 15.8,
+            "bpm": 4.0,
+            "dbpm": 1.8
+          },
+          {
+            "year": "2025-26",
+            "team": "California",
+            "conf": "ACC",
+            "class": "SR",
+            "games": 7,
+            "per": 18.4,
+            "ts_pct": 0.633,
+            "orb_pct": 5.9,
+            "drb_pct": 20.5,
+            "stl_pct": 2.0,
+            "blk_pct": 5.9,
+            "usg_pct": 14.3,
+            "bpm": 7.3,
+            "dbpm": 5.1,
+            "note": "Season-ending surgery Jan 2026. 7-game sample — small, but role was clearly shifted to defensive complement."
+          }
+        ]
+      },
+      "season_2025_26": {
+        "team": "California",
+        "games": 7,
+        "note": "Missed first games recovering from OFFSEASON shoulder surgery. Returned, played 7 games, then a separate in-season injury required a second surgery (Jan 2026) that ended his year. Medical redshirt pursued. Against #18 UCLA on Nov 25 2025 (Empire Classic final, Cal upset 80-72): 12 pts + team-high 7 rebounds off the bench."
+      },
+      "season_2023_24": {
+        "team": "Air Force (Mountain West Conference)",
+        "ppg": 15.7,
+        "rpg": 6.3,
+        "apg": 3.7,
+        "spg": 1.6,
+        "bpg": 0.9,
+        "fg_pct": 0.485,
+        "three_pct": 0.349,
+        "ft_pct": 0.658,
+        "note": "Led Air Force in all five major statistical categories as a sophomore. Recorded the 2nd triple-double in AF history (18/13/11 at UNLV, Jan 23)."
+      },
+      "thresholds_check": {
+        "height": {
+          "status": "fail",
+          "value": "6'7\"",
+          "display": "6'7\" (–1\" vs 6'8\" preferred — he is a wing, not a frontcourt piece)"
+        },
+        "dreb_pct": {
+          "status": "pass",
+          "value": 20.5,
+          "display": "20.5% (2025-26 Cal, small sample) — comfortably clears threshold. Career range 13.1–21.5.",
+          "career_range": "13.1–21.5"
+        },
+        "oreb_pct": {
+          "status": "borderline",
+          "value": 5.9,
+          "display": "5.9% in 2025-26 (just below 6% threshold). Career range 5.9–10.3.",
+          "career_range": "5.9–10.3"
+        },
+        "stl_pct": {
+          "status": "pass",
+          "value": 2.0,
+          "display": "2.0% in 2025-26 (at threshold). Career range 2.0–3.0 — cleanly passes across years.",
+          "career_range": "2.0–3.0"
+        },
+        "blk_pct": {
+          "status": "pass_small_sample",
+          "value": 5.9,
+          "display": "5.9% in 2025-26 (7-gm sample) — rate is elite but the sample is thin. Career MWC rates 3.0 and 3.4 PASS. ACC 2024-25 JR year 1.5 FAILED.",
+          "career_range": "1.5–5.9"
+        }
+      },
+      "data_confidence": "HIGH on rates; MEDIUM-LOW on 2026-27 availability (medical)",
+      "data_confidence_reasons": [
+        "Full per-season advanced rates layered in across FR / SO / JR / SR seasons.",
+        "2025-26 7-game sample at Cal is a small sample, but the role-shift (lower USG, elite BPM 7.3 / DBPM 5.1) matches the defensive-complement profile.",
+        "Air Force 2023-24 SO year (24 gm MWC) is the most informative full-season baseline: Blk% 3.4, DRB% 18.0, Stl% 3.0 — clears Olen thresholds.",
+        "Medical status is the open risk — two surgeries in one calendar year. 2026-27 availability is the prerequisite question."
+      ],
+      "archetype_read": "Petraitis is NOT a shot-blocking frontcourt big at 6'7\". He is a possession-positive point-forward / combo wing who had elite rate numbers at Air Force (MWC) and shifted into a defensive-helpside role at Cal in a 7-game sample before injury. He DOES clear Blk% threshold in his MWC years and in his 2025-26 Cal stint.",
+      "slot_fit_in_unm_2026_27": {
+        "best_slot_match": "Wing depth / defensive help — NOT a replacement for Buljan, Rock, or Chol (all frontcourt). Would compete with Hall/Tenette/Mayes for perimeter minutes.",
+        "fit_rationale": "Petraitis does not address UNM's primary 2026-27 hole (interior size + rim protection). He fills a secondary need (wing defense, POA disruption) that Hall + Tenette + Mayes may already cover. The high BPM + DBPM + Blk% rates at Cal are intriguing but the role they fill is not UNM's open slot."
+      },
+      "on_court_fit": {
+        "positives": [
+          "Verified Blk% thresholds clear in his two MWC years (3.0, 3.4) and in 2025-26 Cal sample (5.9).",
+          "DRB% 20.5 at Cal 2025-26 and 21.5 at AF FR — elite rebounder for his size.",
+          "34.9% from three on full sample — can space the floor.",
+          "Known commodity in Mountain West competition (Air Force 2022-24) — the level UNM plays in."
+        ],
+        "concerns": [
+          "6'7\" — does NOT fill any of UNM's three primary 2026-27 open roster slots (PF / C / rim protector).",
+          "Medical: two surgeries in 12 months; 2026-27 availability is the open question BEFORE fit.",
+          "2024-25 Cal JR year (the only full-season ACC sample) showed Blk% 1.5 — rate profile was role-dependent, not structural."
+        ]
+      },
+      "olen_fit_note": "Petraitis's rate profile clears Olen's thresholds in his MWC years and in his 2025-26 Cal stint. But the roster-churn picture tells a different story: UNM's open slots are interior (Buljan / Rock / Chol), and at 6'7\" Petraitis does not fill those. He's a wing add in a room that already has Hall + Tenette + Mayes. Recommend: Coach Olen's private read on (a) 2026-27 medical availability, (b) willingness to re-slot him as wing depth given the frontcourt priorities.",
+      "sources": [
+        {
+          "label": "Sports Reference CBB (verified rates)",
+          "url": "https://www.sports-reference.com/cbb/players/rytis-petraitis-1.html"
+        },
+        {
+          "label": "Cal Athletics — season-ending injury announcement (2026-01-16)",
+          "url": "https://calbears.com/news/2026/1/16/mens-basketball-cals-rytis-petraitis-sidelined-for-remainder-of-2025-26-season.aspx"
+        },
+        {
+          "label": "Colorado Springs Gazette — AF portal entry (2024)",
+          "url": "https://gazette.com/2024/03/24/air-force-standouts-rytis-petraitis-kellan-boylan-enter-transfer-portal-1e945fa8-ea1f-11ee-8230-cba7a8f271f8/"
+        },
+        {
+          "label": "RealGM profile",
+          "url": "https://basketball.realgm.com/player/Rytis-Petraitis/Summary/207777"
+        },
+        {
+          "label": "Basketnews.lt player page",
+          "url": "https://www.basketnews.lt/zaidejai/37399-rytis-petraitis.html"
+        }
+      ]
+    },
+    {
+      "id": "butka",
+      "name": "Dovydas Butka",
+      "from_program": "Campbell (transferred from Pepperdine July 2025)",
+      "year": "Jr (2 years of eligibility remaining)",
+      "height_in": 81,
+      "height_display": "6'9\"",
+      "weight_lbs": 235,
+      "position": "Power Forward / Stretch-4",
+      "nationality": "Lithuania (BC Žalgiris youth system; U20 EuroBasket Silver 2022)",
+      "international_flag": "True international — first D1 program was Pepperdine 2024-25; no US prep. Olen's documented affinity for international development profiles fits.",
+      "portal_status": "Finishing 2025-26 at Campbell; prior transfer July 2025; portal entry status 2026 TBD (reference demo assumes portal).",
+      "sr_verified_rates": {
+        "source": "Sports Reference CBB, pulled 2026-04-22",
+        "seasons": [
+          {
+            "year": "2023-24",
+            "team": "Pepperdine",
+            "conf": "WCC",
+            "class": "(redshirt)",
+            "games": 0,
+            "note": "Did not play — likely redshirt freshman year."
+          },
+          {
+            "year": "2024-25",
+            "team": "Pepperdine",
+            "conf": "WCC",
+            "class": "SO",
+            "games": 35,
+            "per": 14.5,
+            "ts_pct": 0.514,
+            "orb_pct": 7.6,
+            "drb_pct": 15.6,
+            "stl_pct": 1.8,
+            "blk_pct": 1.0,
+            "usg_pct": 18.2,
+            "bpm": -0.5,
+            "dbpm": -0.2
+          },
+          {
+            "year": "2025-26",
+            "team": "Campbell",
+            "conf": "CAA",
+            "class": "JR",
+            "games": 31,
+            "per": 17.6,
+            "ts_pct": 0.524,
+            "orb_pct": 11.0,
+            "drb_pct": 18.5,
+            "stl_pct": 2.2,
+            "blk_pct": 0.3,
+            "usg_pct": 22.2,
+            "bpm": 0.1,
+            "dbpm": -0.9
+          }
+        ]
+      },
+      "thresholds_check": {
+        "height": {
+          "status": "pass",
+          "value": "6'9\"",
+          "display": "6'9\" (+1\" vs 6'8\" preferred)"
+        },
+        "dreb_pct": {
+          "status": "pass",
+          "value": 18.5,
+          "display": "18.5% at Campbell 2025-26 (15.6% at Pepperdine 2024-25) — cleanly passes current year."
+        },
+        "oreb_pct": {
+          "status": "pass",
+          "value": 11.0,
+          "display": "11.0% at Campbell 2025-26 — well above threshold."
+        },
+        "stl_pct": {
+          "status": "pass",
+          "value": 2.2,
+          "display": "2.2% at Campbell 2025-26 — just clears threshold."
+        },
+        "blk_pct": {
+          "status": "fail",
+          "value": 0.3,
+          "display": "0.3% at Campbell 2025-26 (1.0% at Pepperdine) — STRUCTURAL miss. Not a rim protector at any point in his career."
+        }
+      },
+      "data_confidence": "HIGH (advanced rates across two full D1 seasons)",
+      "data_confidence_reasons": [
+        "Two full D1 seasons of per-possession rates available.",
+        "Campbell's 2025-26 league is CAA (Coastal Athletic).",
+        "Class is JR with 2 years of eligibility remaining — a multi-year piece, not a 1-year plug.",
+        "Block rate miss (0.3) is structural and consistent across his entire career; cannot be attributed to role or opportunity."
+      ],
+      "slot_fit_in_unm_2026_27": {
+        "best_slot_match": "Buljan replacement at the 4 (stretch PF / rebound anchor).",
+        "fit_rationale": "Butka's 2025-26 rate profile is the closest match to what Buljan gave UNM (DRB 18.5 vs 27.0, ORB 11.0 vs 17.5) — less rebounding than Buljan but same role-shape. Adds 2 years of eligibility vs Buljan's 3 remaining (so a longer-term piece). However, he provides ZERO rim protection, meaning UNM would still need a separate Rock replacement for the Blk% slot."
+      },
+      "on_court_fit": {
+        "positives": [
+          "Height + frame + age (JR with 2 yrs left) match multi-year frontcourt rebuild.",
+          "Year-over-year efficiency step-up: 14.5 PER at Pepperdine → 17.6 PER at Campbell. Trending up.",
+          "ORB% 11.0 is exceptional — would BE the UNM ORB answer by himself.",
+          "DRB% 18.5 comfortably clears threshold and addresses UNM's 238th-ranked opp-DRB gap.",
+          "Olen's documented development of international frontcourt players aligns with Butka's profile."
+        ],
+        "concerns": [
+          "Blk% 0.3 is a STRUCTURAL miss — not a sample artifact. He is a rebounder, not a rim protector.",
+          "17.9% from three at Campbell 2025-26 caps his spacing value.",
+          "Big South → Coastal (CAA) → Mountain West is a two-level competition jump; efficiency may compress.",
+          "Does not resolve UNM's shot-blocking gap (Rock's 9.5 Blk% leaving to K-State)."
+        ]
+      },
+      "olen_fit_note": "Butka is the cleanest Buljan-shape replacement on the rebound axis, with a multi-year eligibility bonus. But he is NOT a one-player solution to Olen's four thresholds — he ADDRESSES ORB%, DRB%, Stl%, height; he MISSES Blk%. If Olen pairs him with a separate rim protector, he is a strong add. If Olen expects a single add to check all four thresholds, Butka alone does not."
+    },
+    {
+      "id": "anya",
+      "name": "Kalu Anya",
+      "from_program": "Saint Louis (SLU)",
+      "year": "Sr (final year — portal entry March 30 2026)",
+      "height_in": 80,
+      "height_display": "6'8\"",
+      "weight_lbs": 215,
+      "position": "Power Forward / Undersized Center",
+      "nationality": "USA (Nigerian heritage; Worcester, MA)",
+      "international_flag": "NOT international — US-born, US-raised, US-prep. Nigerian heritage does not make this an international transfer case. Pathway: Worcester MA → IMG Academy → Brown → Saint Louis.",
+      "portal_status": "Entered portal March 30, 2026",
+      "sr_verified_rates": {
+        "source": "Sports Reference CBB, pulled 2026-04-22",
+        "seasons": [
+          {
+            "year": "2022-23",
+            "team": "Brown",
+            "conf": "Ivy",
+            "class": "FR",
+            "games": 28,
+            "per": 14.1,
+            "orb_pct": 8.8,
+            "drb_pct": 20.0,
+            "stl_pct": 1.5,
+            "blk_pct": 3.0,
+            "usg_pct": 20.0
+          },
+          {
+            "year": "2023-24",
+            "team": "Brown",
+            "conf": "Ivy",
+            "class": "SO",
+            "games": 29,
+            "per": 16.9,
+            "orb_pct": 10.5,
+            "drb_pct": 20.0,
+            "stl_pct": 2.6,
+            "blk_pct": 4.0,
+            "usg_pct": 22.0
+          },
+          {
+            "year": "2024-25",
+            "team": "Saint Louis",
+            "conf": "A-10",
+            "class": "JR",
+            "games": 34,
+            "per": 16.1,
+            "ts_pct": 0.56,
+            "orb_pct": 9.2,
+            "drb_pct": 20.9,
+            "stl_pct": 2.4,
+            "blk_pct": 3.7,
+            "usg_pct": 13.9,
+            "bpm": 3.5,
+            "dbpm": 3.2
+          }
+        ]
+      },
+      "thresholds_check": {
+        "height": {
+          "status": "pass",
+          "value": "6'8\"",
+          "display": "6'8\" (meets preferred minimum exactly)"
+        },
+        "dreb_pct": {
+          "status": "pass",
+          "value": 20.9,
+          "display": "20.9% at SLU 2024-25 — well above threshold. Career consistent (20.0/20.0/20.9)."
+        },
+        "oreb_pct": {
+          "status": "pass",
+          "value": 9.2,
+          "display": "9.2% at SLU — comfortably clears threshold. Career range 8.8–10.5."
+        },
+        "stl_pct": {
+          "status": "pass",
+          "value": 2.4,
+          "display": "2.4% at SLU — clears threshold. Career trend 1.5 → 2.6 → 2.4."
+        },
+        "blk_pct": {
+          "status": "pass",
+          "value": 3.7,
+          "display": "3.7% at SLU — CLEARS threshold. Career trend 3.0 → 4.0 → 3.7 — structurally above 3%."
+        }
+      },
+      "data_confidence": "HIGH (advanced rates across three full D1 seasons)",
+      "data_confidence_reasons": [
+        "Three full D1 seasons of per-possession rates available — most of any candidate.",
+        "Blk% sits at 3.7% (career avg 3.6) — clears Olen's hardest threshold.",
+        "Starter workload (34 games, 3.2 DBPM + defensive BPM) — this is what he IS, not what he projects to be.",
+        "Senior with 1 year of eligibility — 1-year plug, not a multi-year piece."
+      ],
+      "slot_fit_in_unm_2026_27": {
+        "best_slot_match": "Chol replacement at the starting 4 + some Rock-role minutes as undersized 5 in small-ball lineups.",
+        "fit_rationale": "Anya's rate profile (Blk 3.7 / DRB 20.9 / ORB 9.2 / Stl 2.4) is the MOST COMPLETE fit against Olen's four thresholds of any candidate. 6'8\" means he covers the 4 naturally and can stretch to small-ball 5 alongside Butka or another 6'9\"+ piece. He does not single-handedly replace Rock's 7'1\" rim protection, but his 3.7 Blk% rate is closer to Rock's role shape than Butka's 0.3."
+      },
+      "on_court_fit": {
+        "positives": [
+          "ALL FOUR rate thresholds cleared + height at threshold — only candidate with a clean 4/4.",
+          "Three-year consistency: Blk% 3.0 / 4.0 / 3.7 is stable across Ivy + A-10 — not a one-year spike.",
+          "DRB% 20.9 directly addresses UNM's 238th-ranked opp-DRB gap.",
+          "Low-usage / high-motor archetype (13.9 USG at SLU) is the textbook 'blend on offense' profile Olen asked for.",
+          "IMG Academy pedigree — tested against elite competition early."
+        ],
+        "concerns": [
+          "Senior with only 1 year of eligibility — a 1-year plug, not a 2-3 year rebuild piece.",
+          "Undersized as a 5 (6'8\") — pairs well with Butka or another 6'10\" but not a standalone C.",
+          "Nigerian heritage is NOT an international-development story. If international background is an Olen priority, Anya does not deliver it.",
+          "TS% 0.560 is solid but not elite — he's not going to be the offensive engine."
+        ]
+      },
+      "olen_fit_note": "Anya is the highest-floor, rate-profile-cleanest fit against the stated thresholds AND the 2026-27 open slot picture. He checks all four rate thresholds, and his 6'8\" / 215-lb frame fits the Chol-replacement slot directly. Pairing him with a multi-year 6'9\" piece (e.g., Butka) gives UNM a complete 4/5 rebuild for 2026-27."
+    }
+  ],
+  "comparative_summary": {
+    "slot_frame": "Each candidate is scored against which specific UNM 2026-27 open slot they'd fill — not a generic 'best profile' match.",
+    "slot_mapping": [
+      {
+        "candidate": "Anya",
+        "primary_slot": "Starting 4 (Chol replacement) + small-ball 5 minutes",
+        "grade": "A-",
+        "note": "4/4 rate thresholds + 6'8\" + 1-year immediate impact."
+      },
+      {
+        "candidate": "Butka",
+        "primary_slot": "Starting 4/5 (Buljan-shape rebound anchor)",
+        "grade": "B+",
+        "note": "Fills rebound + size slot, 2 years eligibility — BUT Blk% 0.3 means a separate rim protector still needed."
+      },
+      {
+        "candidate": "Petraitis",
+        "primary_slot": "Wing depth — does NOT fill an interior slot",
+        "grade": "C+ (conditional on medical)",
+        "note": "Rate profile clears thresholds; slot fit is wrong — UNM needs interior, not wing."
+      }
+    ],
+    "two_player_combo_recommendation": "Anya + Butka together would cover three of Olen's four interior holes (starting 4, rebound anchor, defensive shell) with complementary ages (1 yr + 2 yr). UNM would still need a separate rim-protector for the Rock slot and a lead PG for the Albury slot — neither in this brief.",
+    "single_player_lens": "If forced to pick one: Anya. Highest-floor, cleanest rate match, immediate impact, and fills the slot UNM most directly needs (starting 4).",
+    "edge3_caveat": "All three candidates have private-information gaps (film, medical, character, program fit) that EDGE3 public-data cannot evaluate. The Coach's Private Read panel on each card is where that call gets layered on top of this data."
+  },
+  "data_gaps": [
+    "Coach, a lead-PG replacement for Albury isn't in this three-player brief — happy to run a parallel pass on the PG pool whenever you want.",
+    "A dedicated rim-protector for Rock's slot isn't in this brief either — Anya's 3.7 Blk% partially covers but doesn't fully replace Rock's 7'1\" / 9.5-Blk% profile.",
+    "For Petraitis, 2026-27 medical clearance is the first question before fit even matters.",
+    "Private film / medical / character / culture reads sit with your staff — EDGE3 can't surface those from the outside."
+  ],
+  "branding": {
+    "primary": "#BA0C2F",
+    "secondary": "#A7A8AA",
+    "dark": "#0F1114",
+    "accent": "#F7F7F8",
+    "program_name": "University of New Mexico Lobos"
+  }
+}
+</script>
+<script>
+(function() {
+  "use strict";
+  var payload;
+  try {
+    payload = JSON.parse(document.getElementById("dataPayload").textContent);
+  } catch (e) {
+    document.body.innerHTML = '<div style="padding:40px; color:#D64545; font-family:sans-serif;">Data payload failed to parse: ' + e.message + '</div>';
+    return;
+  }
+
+  // ---------- Helpers ----------
+  var LS_KEY = "edge3_olen_coach_reads_v1";
+
+  function loadReads() {
+    try { return JSON.parse(localStorage.getItem(LS_KEY) || "{}"); } catch (e) { return {}; }
+  }
+  function saveReads(reads) {
+    try { localStorage.setItem(LS_KEY, JSON.stringify(reads)); return true; }
+    catch (e) { console.warn("localStorage save failed:", e); return false; }
+  }
+  function toast(msg) {
+    var t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    setTimeout(function() { t.classList.remove("show"); }, 1800);
+  }
+  function download(filename, text) {
+    var blob = new Blob([text], { type: "application/json" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click();
+    document.body.removeChild(a);
+    setTimeout(function() { URL.revokeObjectURL(url); }, 100);
+  }
+  function escapeHtml(s) {
+    if (s == null) return "";
+    return String(s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+
+  var coachReads = loadReads();
+
+  // ---------- GAP (UNM 2025-26 Olen Year 1) ----------
+  (function renderGap() {
+    var u = payload.unm_context || {};
+    var prof = u.team_rate_profile_2025_26 || {};
+    document.getElementById("gapEyebrow").textContent = "UNM " + (u.season || "2025-26");
+    document.getElementById("gapLede").innerHTML =
+      escapeHtml(u.record || "") +
+      ' &nbsp;&middot;&nbsp; ORtg ' + escapeHtml(prof.ortg_national_rank || "") +
+      ' &nbsp;&middot;&nbsp; DRtg ' + escapeHtml(prof.drtg_national_rank || "");
+
+    var gg = document.getElementById("gapGrid");
+    (prof.strengths || []).forEach(function(s) {
+      var el = document.createElement("div");
+      el.className = "gap-card strength";
+      el.innerHTML =
+        '<div class="metric">Strength to preserve</div>' +
+        '<div class="value">' + escapeHtml(s.metric + " \u2014 " + (s.value || "")) + '</div>' +
+        '<div style="font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color: var(--pass); margin-bottom:6px;">' + escapeHtml(s.rank || "") + '</div>' +
+        '<div class="note">' + escapeHtml(s.note || "") + '</div>';
+      gg.appendChild(el);
+    });
+    (prof.gaps_that_map_to_olen_thresholds || []).forEach(function(g) {
+      var el = document.createElement("div");
+      el.className = "gap-card weakness";
+      el.innerHTML =
+        '<div class="metric">' + escapeHtml(g.maps_to ? ("Gap \u2192 " + g.maps_to) : "Gap") + '</div>' +
+        '<div class="value">' + escapeHtml(g.metric + " \u2014 " + (g.value || "")) + '</div>' +
+        '<div style="font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color: var(--fail); margin-bottom:6px;">' + escapeHtml(g.rank || "") + '</div>' +
+        '<div class="note">' + escapeHtml(g.note || "") + '</div>';
+      gg.appendChild(el);
+    });
+
+    document.getElementById("gapNotes").innerHTML =
+      '<h5>Reading your four thresholds against UNM&#39;s real 2025-26 profile</h5>' +
+      '<p>' + escapeHtml(u.interpretation || "") + '</p>';
+    var cavEl = document.getElementById("gapCaveat");
+    if (u.caveat_principle && u.caveat_principle.trim()) {
+      cavEl.textContent = u.caveat_principle;
+    } else {
+      cavEl.remove();
+    }
+  })();
+
+  // ---------- ROSTER CHURN ----------
+  (function renderChurn() {
+    var rc = payload.roster_churn_2025_26_to_2026_27 || {};
+    document.getElementById("churnHeadline").textContent = rc.headline || "";
+
+    var depart = rc.confirmed_departures || [];
+    var ret = rc.confirmed_returning || [];
+    var inc = rc.confirmed_incoming || [];
+
+    document.getElementById("departCount").textContent = "(" + depart.length + ")";
+    document.getElementById("returnCount").textContent = "(" + ret.length + ")";
+    document.getElementById("incomingCount").textContent = "(" + inc.length + ")";
+
+    var dl = document.getElementById("departList");
+    depart.forEach(function(d) {
+      var el = document.createElement("div");
+      el.className = "churn-item";
+      var parts = [];
+      if (d.role_lost) parts.push(escapeHtml(d.role_lost));
+      if (d.destination) parts.push('&rarr; ' + escapeHtml(d.destination));
+      var roleDest = parts.join(' &middot; ');
+      el.innerHTML =
+        '<div class="cname">' + escapeHtml(d.name) + '</div>' +
+        (roleDest ? '<div style="font-size:12px; color: var(--text-dim); margin-bottom:4px;">' + roleDest + '</div>' : '') +
+        (d.production_lost ? '<div class="cprod">' + escapeHtml(d.production_lost) + '</div>' : '');
+      dl.appendChild(el);
+    });
+
+    var rl = document.getElementById("returnList");
+    ret.forEach(function(r) {
+      var el = document.createElement("div");
+      el.className = "churn-item";
+      el.innerHTML =
+        '<div class="cname">' + escapeHtml(r.name) + '</div>' +
+        (r.year ? '<div style="font-size:12px; color: var(--text-dim); margin-bottom:4px;">' + escapeHtml(r.year) + '</div>' : '') +
+        (r.production_2025_26 ? '<div class="cprod">' + escapeHtml(r.production_2025_26) + '</div>' : '') +
+        (r.note ? '<div style="font-size:11px; color: var(--text-faint); font-style:italic; margin-top:4px;">' + escapeHtml(r.note) + '</div>' : '');
+      rl.appendChild(el);
+    });
+
+    var il = document.getElementById("incomingList");
+    inc.forEach(function(i) {
+      var el = document.createElement("div");
+      el.className = "churn-item";
+      el.innerHTML =
+        '<div class="cname">' + escapeHtml(i.name) + '</div>' +
+        (i.from ? '<div class="cdest">From: ' + escapeHtml(i.from) + '</div>' : '') +
+        (i.role ? '<div style="font-size:12px; color: var(--text-dim); margin-bottom:4px;">' + escapeHtml(i.role) + '</div>' : '') +
+        (i.note ? '<div style="font-size:11px; color: var(--text-faint); font-style:italic; margin-top:4px;">' + escapeHtml(i.note) + '</div>' : '');
+      il.appendChild(el);
+    });
+
+    var sl = document.getElementById("slotsList");
+    (rc.open_roster_slots_heading_into_2026_27 || []).forEach(function(s) {
+      var li = document.createElement("li");
+      li.innerHTML = '<b>' + escapeHtml(s.slot) + '</b>' + escapeHtml(s.profile_needed || "");
+      sl.appendChild(li);
+    });
+  })();
+
+  // ---------- THRESHOLD PILLS ----------
+  var tRow = document.getElementById("thresholdRow");
+  payload.thresholds.forEach(function(t) {
+    var el = document.createElement("div");
+    el.className = "t-pill" + (t.preferred ? " preferred" : "");
+    el.innerHTML =
+      '<div class="t-label">' + escapeHtml(t.label) + '</div>' +
+      '<div class="t-val">' + escapeHtml((t.op || '') + ' ' + t.value) + '</div>' +
+      '<div class="t-note">' + escapeHtml(t.note) + '</div>';
+    tRow.appendChild(el);
+  });
+
+  // ---------- COMPARISON TABLE ----------
+  var cmpTable = document.getElementById("cmpTable");
+  var thead = document.createElement("thead");
+  var trH = document.createElement("tr");
+  var thMetric = document.createElement("th");
+  thMetric.textContent = "Threshold";
+  thMetric.style.minWidth = "160px";
+  trH.appendChild(thMetric);
+  payload.players.forEach(function(p) {
+    var th = document.createElement("th");
+    th.innerHTML =
+      '<div class="cmp-player-header">' +
+        '<span class="pname">' + escapeHtml(p.name) + '</span>' +
+        '<span class="pfrom">' + escapeHtml(p.from_program.split('(')[0].trim()) + ' &middot; ' + escapeHtml(p.height_display) + '</span>' +
+      '</div>';
+    trH.appendChild(th);
+  });
+  thead.appendChild(trH);
+  cmpTable.appendChild(thead);
+  var tbody = document.createElement("tbody");
+  var statusLabel = {
+    pass: "PASS", fail: "FAIL",
+    borderline: "BORDERLINE",
+    pass_small_sample: "PASS (small n)",
+    likely_pass_est: "~PASS (est)",
+    pass_est: "PASS (est)",
+    borderline_est: "BORDERLINE (est)",
+    unknown: "NO DATA"
+  };
+  payload.thresholds.forEach(function(t) {
+    var tr = document.createElement("tr");
+    var tdM = document.createElement("td");
+    tdM.className = "metric-name";
+    tdM.innerHTML = '<div>' + escapeHtml(t.label) + '</div><div style="color:var(--text-faint); font-size:11px; font-family:var(--mono); margin-top:2px;">' + escapeHtml((t.op || '') + ' ' + t.value) + '</div>';
+    tr.appendChild(tdM);
+    payload.players.forEach(function(p) {
+      var c = p.thresholds_check[t.key];
+      var td = document.createElement("td");
+      if (!c) {
+        td.innerHTML = '<span class="cmp-pip unknown"><span class="dot"></span>&mdash;</span>';
+      } else {
+        var lbl = statusLabel[c.status] || c.status;
+        td.innerHTML =
+          '<span class="cmp-pip ' + c.status + '">' + escapeHtml(lbl) + '</span>' +
+          '<div class="cell-detail" style="font-size:12.5px;">' + escapeHtml(c.display || '') + '</div>';
+      }
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+  cmpTable.appendChild(tbody);
+
+  // ---------- DATA GAPS ----------
+  var gapsEl = document.getElementById("dataGapsList");
+  (payload.data_gaps || payload.data_gaps_v2 || []).forEach(function(g) {
+    var li = document.createElement("li");
+    li.textContent = g;
+    gapsEl.appendChild(li);
+  });
+
+  // ---------- COACH PANEL ----------
+  var RATING_DIMENSIONS = [
+    { key: "shot_blocking",  label: "Rim protection / shot-blocking" },
+    { key: "rebound_motor",  label: "Rebound motor" },
+    { key: "defensive_iq",   label: "Defensive IQ / positioning" },
+    { key: "offensive_blend",label: "Blends on offense (low usage)" },
+    { key: "character",      label: "Character / culture fit" }
+  ];
+
+  function buildCoachPanel(p) {
+    var read = coachReads[p.id] || {};
+    var ratings = read.ratings || {};
+    var prio = read.priority || "";
+    var conf = read.confidence_override || "";
+    var med = read.medical || "";
+    var notes = read.notes || "";
+
+    var ratingRowsHtml = RATING_DIMENSIONS.map(function(dim) {
+      var val = ratings[dim.key] || 0;
+      var starsHtml = [1,2,3,4,5].map(function(n) {
+        var cls = (n <= val) ? "star-btn filled" : "star-btn";
+        return '<button type="button" class="' + cls + '" data-star="' + n + '" data-dim="' + dim.key + '" aria-label="' + n + ' out of 5 for ' + escapeHtml(dim.label) + '">\u2605</button>';
+      }).join('');
+      return '<div class="rating-row" data-dim-row="' + dim.key + '">' +
+        '<span class="rating-label">' + escapeHtml(dim.label) + '</span>' +
+        '<span class="rating-stars">' + starsHtml + '</span>' +
+        '</div>';
+    }).join('');
+
+    var priorityHtml = '<div class="coach-field"><label>Priority rank</label>' +
+      '<div class="priority-radio">' +
+        [1,2,3].map(function(n) {
+          var checked = (String(prio) === String(n)) ? "checked" : "";
+          return '<label><input type="radio" name="prio-' + p.id + '" value="' + n + '" ' + checked + '/><span>#' + n + ' target</span></label>';
+        }).join('') +
+      '</div></div>';
+
+    var confOptions = ["", "LOW", "MEDIUM", "MEDIUM-HIGH", "HIGH"].map(function(o) {
+      return '<option value="' + o + '"' + (o === conf ? ' selected' : '') + '>' + (o || "\u2014 no override \u2014") + '</option>';
+    }).join('');
+
+    return '<div class="coach-panel" data-pid="' + p.id + '">' +
+      '<h5>Coach&#39;s Private Read <span style="color:var(--text-faint); font-weight:500; letter-spacing:0;"> &middot; saved to this browser</span></h5>' +
+      '<div class="coach-sublede">Layer your private view on top of the public-data read. Saves as you type.</div>' +
+      '<div style="display:flex; flex-direction:column; gap:6px;">' + ratingRowsHtml + '</div>' +
+      priorityHtml +
+      '<div class="coach-field"><label>Medical / availability read</label><input type="text" data-field="medical" value="' + escapeHtml(med) + '" placeholder="e.g. cleared for 2026-27, shoulder 100%" /></div>' +
+      '<div class="coach-field"><label>Confidence override (optional)</label><select data-field="confidence_override">' + confOptions + '</select></div>' +
+      '<div class="coach-field"><label>Private notes</label><textarea data-field="notes" placeholder="Film reads, recruiting intel, character read, system fit">' + escapeHtml(notes) + '</textarea></div>' +
+      '<div class="coach-panel-footer">' +
+        '<button class="btn" type="button" data-action="export-player" data-pid="' + p.id + '">Export ' + escapeHtml(p.name.split(' ')[0]) + ' (JSON)</button>' +
+        '<button class="btn ghost" type="button" data-action="reset-player" data-pid="' + p.id + '">Reset this player</button>' +
+        '<span class="coach-saved-indicator">Saved \u2713</span>' +
+      '</div>' +
+    '</div>';
+  }
+
+  // ---------- SR rates table ----------
+  function buildSrRatesTable(p) {
+    var srv = p.sr_verified_rates || null;
+    if (!srv || !srv.seasons || !srv.seasons.length) return '';
+    var rows = srv.seasons.map(function(s) {
+      if (s.games === 0 || s.games == null) {
+        return '<tr><td class="yr">' + escapeHtml(s.year) + ' ' + escapeHtml(s.team || '') + '</td><td class="note" colspan="7">' + escapeHtml(s.note || 'DNP') + '</td></tr>';
+      }
+      return '<tr>' +
+        '<td class="yr">' + escapeHtml(s.year) + ' (' + escapeHtml(s.class || '') + ')</td>' +
+        '<td>' + escapeHtml(s.team || '') + '</td>' +
+        '<td>' + escapeHtml(s.conf || '') + '</td>' +
+        '<td>' + escapeHtml(String(s.orb_pct != null ? s.orb_pct : '\u2014')) + '</td>' +
+        '<td>' + escapeHtml(String(s.drb_pct != null ? s.drb_pct : '\u2014')) + '</td>' +
+        '<td>' + escapeHtml(String(s.stl_pct != null ? s.stl_pct : '\u2014')) + '</td>' +
+        '<td>' + escapeHtml(String(s.blk_pct != null ? s.blk_pct : '\u2014')) + '</td>' +
+        '<td>' + escapeHtml(String(s.per != null ? s.per : '\u2014')) + '</td>' +
+      '</tr>';
+    }).join('');
+    return '<div class="p-section"><h6>Advanced career rates</h6>' +
+      '<div class="p-sr-rates"><table>' +
+      '<thead><tr><th>Season</th><th>Team</th><th>Conf</th><th>ORB%</th><th>DRB%</th><th>Stl%</th><th>Blk%</th><th>PER</th></tr></thead>' +
+      '<tbody>' + rows + '</tbody>' +
+      '</table>' +
+      '<div style="font-size:11px; color: var(--text-faint); margin-top:6px; font-style:italic;">Source: ' + escapeHtml(srv.source || '') + '</div>' +
+      '</div></div>';
+  }
+
+  // ---------- PLAYER CARDS ----------
+  var grid = document.getElementById("playersGrid");
+  payload.players.forEach(function(p, idx) {
+    var card = document.createElement("div");
+    card.className = "p-card";
+
+    // Thresholds
+    var tStatusLabel = {
+      pass: "\u2713 PASS", fail: "\u2717 FAIL",
+      borderline: "\u26A0 BORDERLINE",
+      pass_small_sample: "\u2713 PASS (small n)",
+      likely_pass_est: "~ PASS (est)",
+      pass_est: "\u2713 PASS (est)",
+      borderline_est: "\u26A0 BORDERLINE",
+      unknown: "\u2014 NO DATA"
+    };
+    var tHtml = '<div class="p-section"><h6>Threshold check</h6><div class="p-thresholds">' +
+      payload.thresholds.map(function(t) {
+        var c = p.thresholds_check[t.key] || { status: "unknown", display: "\u2014" };
+        var lbl = tStatusLabel[c.status] || c.status;
+        return '<div class="p-thresh ' + c.status + '">' +
+          '<div class="lab">' + escapeHtml(t.label + ' ' + (t.op || '') + ' ' + t.value) + '</div>' +
+          '<div class="val">' + escapeHtml(lbl) + '</div>' +
+          '<div style="font-size:11px; color:var(--text-faint); margin-top:2px;">' + escapeHtml(c.display || '') + '</div>' +
+        '</div>';
+      }).join('') + '</div></div>';
+
+    var srRatesHtml = buildSrRatesTable(p);
+
+    // Archetype read
+    var archetypeHtml = p.archetype_read ? '<div class="p-section"><h6>Archetype read</h6><div class="p-archetype"><strong>Reframe:</strong> ' + escapeHtml(p.archetype_read) + '</div></div>' : '';
+
+    // Slot fit
+    var slotHtml = '';
+    if (p.slot_fit_in_unm_2026_27) {
+      var sf = p.slot_fit_in_unm_2026_27;
+      slotHtml = '<div class="p-section"><h6>UNM 2026-27 slot fit</h6>' +
+        '<div class="p-slot">' +
+        '<strong>Best slot match:</strong> ' + escapeHtml(sf.best_slot_match || "") +
+        '<div style="margin-top:8px; color: var(--text-dim);">' + escapeHtml(sf.fit_rationale || "") + '</div>' +
+        '</div></div>';
+    }
+
+    // Career path (Petraitis gets this)
+    var careerHtml = p.career_path && p.career_path.length ? '<div class="p-section"><h6>Career path</h6><ul class="p-bulletlist note">' +
+      p.career_path.map(function(x) { return '<li>' + escapeHtml(x) + '</li>'; }).join('') + '</ul></div>' : '';
+
+    var posHtml = p.on_court_fit && p.on_court_fit.positives && p.on_court_fit.positives.length
+      ? '<div class="p-section"><h6 style="color: var(--pass);">On-court positives</h6><ul class="p-bulletlist pos">' +
+          p.on_court_fit.positives.map(function(x) { return '<li>' + escapeHtml(x) + '</li>'; }).join('') + '</ul></div>'
+      : '';
+    var negHtml = p.on_court_fit && p.on_court_fit.concerns && p.on_court_fit.concerns.length
+      ? '<div class="p-section"><h6 style="color: var(--fail);">Concerns / honest flags</h6><ul class="p-bulletlist neg">' +
+          p.on_court_fit.concerns.map(function(x) { return '<li>' + escapeHtml(x) + '</li>'; }).join('') + '</ul></div>'
+      : '';
+    var dcHtml = p.data_confidence_reasons && p.data_confidence_reasons.length
+      ? '<div class="p-section"><h6>Data confidence &middot; ' + escapeHtml(p.data_confidence || 'n/a') + '</h6><ul class="p-bulletlist note">' +
+          p.data_confidence_reasons.map(function(x) { return '<li>' + escapeHtml(x) + '</li>'; }).join('') + '</ul></div>'
+      : '';
+    var intlHtml = p.international_flag
+      ? '<div class="p-section"><h6>Background / international read</h6><div style="font-size:13px; color: var(--text-dim); line-height:1.5;">' + escapeHtml(p.international_flag) + '</div></div>'
+      : '';
+    var sourcesHtml = p.sources && p.sources.length
+      ? '<div class="p-section"><h6>Sources</h6><ul class="p-bulletlist p-sources">' +
+          p.sources.map(function(s) { return '<li><a href="' + escapeHtml(s.url) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(s.label) + '</a></li>'; }).join('') +
+        '</ul></div>'
+      : '';
+
+    var confClass = 'conf-' + String(p.data_confidence || 'n/a').split(' ')[0].split('(')[0].trim();
+    card.innerHTML =
+      '<div class="p-head">' +
+        '<div class="p-rank">Candidate ' + (idx + 1) + ' of ' + payload.players.length + '</div>' +
+        '<div class="p-name">' + escapeHtml(p.name) + '</div>' +
+        '<div class="p-sub">' + escapeHtml(p.from_program + ' &middot; ' + p.position + ' &middot; ' + p.height_display + ', ' + (p.weight_lbs || '?') + ' lbs &middot; ' + p.year) + '</div>' +
+        '<div class="p-chips">' +
+          '<span class="chip ' + confClass + '">Confidence: ' + escapeHtml(p.data_confidence || 'n/a') + '</span>' +
+          '<span class="chip">' + escapeHtml(p.portal_status || '') + '</span>' +
+          '<span class="chip intl">' + escapeHtml(p.nationality) + '</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="p-body">' +
+        tHtml + srRatesHtml + slotHtml + archetypeHtml + careerHtml + posHtml + negHtml + intlHtml + dcHtml + sourcesHtml +
+      '</div>' +
+      (p.olen_fit_note ? '<div class="p-foot"><strong>Olen-fit read: </strong>' + escapeHtml(p.olen_fit_note) + '</div>' : '') +
+      buildCoachPanel(p);
+
+    grid.appendChild(card);
+  });
+
+  // ---------- SUMMARY (slot-mapping) ----------
+  (function renderSummary() {
+    var cs = payload.comparative_summary || {};
+    document.getElementById("summaryLede").textContent = cs.slot_frame || cs.v1_reframe || "";
+    var sg = document.getElementById("summaryGrid");
+    (cs.slot_mapping || []).forEach(function(m) {
+      var c = document.createElement("div");
+      var gradeLetter = (m.grade || "").charAt(0).toUpperCase();
+      c.className = "sum-card grade-" + gradeLetter;
+      c.innerHTML =
+        '<div class="sum-cand">' + escapeHtml(m.candidate || "") + '</div>' +
+        '<div class="sum-grade">' + escapeHtml(m.grade || "") + '</div>' +
+        '<div class="sum-slot">' + escapeHtml(m.primary_slot || "") + '</div>' +
+        '<div class="sum-note">' + escapeHtml(m.note || "") + '</div>';
+      sg.appendChild(c);
+    });
+    var combo = document.getElementById("sumCombo");
+    combo.innerHTML =
+      '<h5>EDGE3 recommendation framing</h5>' +
+      '<p>' + escapeHtml(cs.two_player_combo_recommendation || "") + '</p>' +
+      '<p class="single"><b>Single-candidate lens:</b> ' + escapeHtml(cs.single_player_lens || "") + '</p>' +
+      (cs.edge3_caveat ? '<p class="single">' + escapeHtml(cs.edge3_caveat) + '</p>' : '');
+  })();
+
+  // ---------- Coach panel interactivity ----------
+  function getPanel(pid) { return document.querySelector('.coach-panel[data-pid="' + pid + '"]'); }
+  function flashSaved(pid) {
+    var el = getPanel(pid);
+    if (!el) return;
+    var ind = el.querySelector('.coach-saved-indicator');
+    if (!ind) return;
+    ind.classList.add('visible');
+    clearTimeout(ind._t);
+    ind._t = setTimeout(function() { ind.classList.remove('visible'); }, 1100);
+  }
+  function updateRead(pid, mut) {
+    coachReads[pid] = coachReads[pid] || { ratings: {} };
+    mut(coachReads[pid]);
+    saveReads(coachReads);
+    flashSaved(pid);
+  }
+
+  document.addEventListener('click', function(ev) {
+    var star = ev.target.closest('.star-btn');
+    if (star) {
+      var panel = star.closest('.coach-panel');
+      var pid = panel.getAttribute('data-pid');
+      var dim = star.getAttribute('data-dim');
+      var n = parseInt(star.getAttribute('data-star'), 10);
+      updateRead(pid, function(r) { r.ratings = r.ratings || {}; r.ratings[dim] = n; });
+      var row = panel.querySelector('[data-dim-row="' + dim + '"]');
+      row.querySelectorAll('.star-btn').forEach(function(b) {
+        var bn = parseInt(b.getAttribute('data-star'), 10);
+        b.classList.toggle('filled', bn <= n);
+      });
+      return;
+    }
+    var action = ev.target.closest('[data-action]');
+    if (action) {
+      var pid = action.getAttribute('data-pid');
+      var a = action.getAttribute('data-action');
+      if (a === 'export-player') {
+        var p = payload.players.find(function(x) { return x.id === pid; });
+        var bundle = {
+          meta: { exported_at: new Date().toISOString(), report_id: "unm_olen_2026_04" },
+          player: {
+            id: p.id, name: p.name, from_program: p.from_program,
+            height: p.height_display, position: p.position,
+            public_data_confidence: p.data_confidence,
+            public_olen_fit_note: p.olen_fit_note,
+            slot_fit: p.slot_fit_in_unm_2026_27 || null
+          },
+          coach_read: coachReads[pid] || {}
+        };
+        download("coach_read_" + pid + ".json", JSON.stringify(bundle, null, 2));
+        toast("Exported " + p.name + " read");
+      } else if (a === 'reset-player') {
+        if (confirm("Reset Coach's read for this player?")) {
+          delete coachReads[pid];
+          saveReads(coachReads);
+          var panel = getPanel(pid);
+          panel.querySelectorAll('.star-btn').forEach(function(b) { b.classList.remove('filled'); });
+          panel.querySelectorAll('input[type="radio"]').forEach(function(r) { r.checked = false; });
+          panel.querySelectorAll('input[type="text"], textarea').forEach(function(i) { i.value = ''; });
+          panel.querySelectorAll('select').forEach(function(s) { s.selectedIndex = 0; });
+          toast("Reset");
+        }
+      }
+    }
+  });
+
+  document.addEventListener('input', function(ev) {
+    var panel = ev.target.closest('.coach-panel');
+    if (!panel) return;
+    var pid = panel.getAttribute('data-pid');
+    var field = ev.target.getAttribute('data-field');
+    if (field) {
+      var val = ev.target.value;
+      updateRead(pid, function(r) { r[field] = val; });
+    }
+  });
+  document.addEventListener('change', function(ev) {
+    var panel = ev.target.closest('.coach-panel');
+    if (!panel) return;
+    var pid = panel.getAttribute('data-pid');
+    if (ev.target.type === 'radio' && ev.target.name && ev.target.name.indexOf('prio-') === 0) {
+      updateRead(pid, function(r) { r.priority = ev.target.value; });
+    }
+    var field = ev.target.getAttribute('data-field');
+    if (field === 'confidence_override') {
+      updateRead(pid, function(r) { r.confidence_override = ev.target.value; });
+    }
+  });
+
+  // ---------- Global buttons ----------
+  document.getElementById("exportAllBtn").addEventListener("click", function() {
+    var bundle = {
+      meta: { exported_at: new Date().toISOString(), report_id: "unm_olen_2026_04", audience: "Coach Eric Olen / UNM" },
+      players: payload.players.map(function(p) {
+        return {
+          id: p.id, name: p.name, from_program: p.from_program,
+          height: p.height_display, public_data_confidence: p.data_confidence,
+          public_olen_fit_note: p.olen_fit_note,
+          slot_fit: p.slot_fit_in_unm_2026_27 || null,
+          coach_read: coachReads[p.id] || null
+        };
+      })
+    };
+    var anyFilled = bundle.players.some(function(p) { return p.coach_read && Object.keys(p.coach_read).length > 0; });
+    if (!anyFilled && !confirm("No coach reads entered yet. Export anyway?")) return;
+    download("olen_all_coach_reads.json", JSON.stringify(bundle, null, 2));
+    toast("Exported all reads");
+  });
+
+  document.getElementById("importJsonBtn").addEventListener("click", function() {
+    var inp = document.createElement("input");
+    inp.type = "file"; inp.accept = "application/json,.json";
+    inp.onchange = function(e) {
+      var f = e.target.files && e.target.files[0];
+      if (!f) return;
+      var reader = new FileReader();
+      reader.onload = function() {
+        try {
+          var parsed = JSON.parse(reader.result);
+          if (parsed && parsed.players && Array.isArray(parsed.players)) {
+            parsed.players.forEach(function(p) {
+              if (p.id && p.coach_read) coachReads[p.id] = p.coach_read;
+            });
+          } else if (parsed && parsed.player && parsed.player.id && parsed.coach_read) {
+            coachReads[parsed.player.id] = parsed.coach_read;
+          } else {
+            throw new Error("Unrecognized JSON shape. Expected EDGE3 export format.");
+          }
+          saveReads(coachReads);
+          toast("Imported \u2014 refresh to see");
+          setTimeout(function() { location.reload(); }, 600);
+        } catch (e) { alert("Import failed: " + e.message); }
+      };
+      reader.readAsText(f);
+    };
+    inp.click();
+  });
+
+  document.getElementById("printBtn").addEventListener("click", function() { window.print(); });
+
+  document.getElementById("clearAllBtn").addEventListener("click", function() {
+    if (!confirm("Clear ALL saved coach reads from this browser? Exports on disk are unaffected.")) return;
+    coachReads = {};
+    saveReads(coachReads);
+    location.reload();
+  });
+
+})();
+</script>
+</body>
+</html>

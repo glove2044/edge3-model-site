@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build your EDGE3 wallet · Onboarding</title>
+<meta name="description" content="Start your EDGE3 wallet. Tell us where you are in your recruiting journey and we'll match you to the right onboarding survey.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brand-dark:    #0A0F1C;
+    --brand-dark-2:  #0E1320;
+    --brand-dark-3:  #161D2D;
+    --brand-white:   #FFFFFF;
+    --brand-green:   #1AB874;
+    --brand-green-d: #14965F;
+    --brand-blue:    #3B82F6;
+    --brand-text:    #E8EDF5;
+    --brand-muted:   #8896AB;
+    --brand-line:    #1F2738;
+    --yellow:        #E8B339;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--brand-dark); color: var(--brand-text); font: 15px/1.6 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+
+  .brandbar { background: var(--brand-dark); border-bottom: 1px solid var(--brand-line); padding: 16px 0; }
+  .brandbar .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .edge3-logo { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.03em; line-height: 1; font-size: 22px; }
+  .edge3-logo .e { color: var(--brand-white); }
+  .edge3-logo .three { color: var(--brand-green); }
+  .crumb { font-size: 13px; color: var(--brand-muted); }
+  .crumb a { color: var(--brand-text); text-decoration: none; }
+  .crumb .sep { margin: 0 8px; color: var(--brand-muted); }
+
+  main { max-width: 720px; margin: 0 auto; padding: 56px 24px 64px; }
+
+  .eyebrow { display: inline-block; background: rgba(26,184,116,0.18); border: 1px solid rgba(26,184,116,0.40); padding: 5px 12px; border-radius: 18px; font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: var(--brand-green); margin-bottom: 18px; }
+  h1 { margin: 0 0 14px; font-size: clamp(28px, 5vw, 38px); line-height: 1.15; font-weight: 800; letter-spacing: -0.02em; color: var(--brand-white); }
+  p.lede { margin: 0 0 28px; font-size: clamp(15px, 2vw, 17px); line-height: 1.55; color: #C7D3E6; }
+
+  .card { background: linear-gradient(135deg, var(--brand-dark-2), var(--brand-dark-3)); border: 1px solid var(--brand-line); border-radius: 14px; padding: 28px 28px 26px; }
+
+  form { display: flex; flex-direction: column; gap: 16px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 600px) { .row { grid-template-columns: 1fr; } }
+
+  label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--brand-muted); font-weight: 700; margin-bottom: 4px; display: block; }
+  input[type=text], input[type=email], select, textarea {
+    width: 100%; background: var(--brand-dark); border: 1px solid var(--brand-line); border-radius: 8px; padding: 11px 14px;
+    color: var(--brand-white); font-size: 14px; font-family: inherit; transition: border-color 0.15s;
+  }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--brand-green); }
+  input::placeholder, textarea::placeholder { color: #5A6373; }
+  textarea { resize: vertical; min-height: 80px; }
+
+  .note { font-size: 12.5px; color: var(--brand-muted); line-height: 1.5; margin: 6px 0 0; }
+  .note strong { color: var(--brand-text); }
+
+  .btn-row { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .btn { display: inline-block; padding: 12px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; text-decoration: none; border: 0; cursor: pointer; font-family: inherit; transition: background 0.15s; }
+  .btn.primary { background: var(--brand-green); color: var(--brand-white); }
+  .btn.primary:hover { background: var(--brand-green-d); }
+  .btn.ghost { background: transparent; border: 1px solid var(--brand-line); color: var(--brand-text); }
+  .btn.ghost:hover { border-color: var(--brand-text); }
+
+  .what-next { margin-top: 28px; padding: 18px 22px; background: rgba(59,130,246,0.06); border: 1px solid rgba(59,130,246,0.20); border-radius: 10px; }
+  .what-next-label { font-size: 10.5px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--brand-blue); font-weight: 700; margin-bottom: 8px; }
+  .what-next p { margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--brand-text); }
+  .what-next ol { margin: 8px 0 0; padding-left: 22px; font-size: 13.5px; color: var(--brand-text); line-height: 1.6; }
+
+  footer { border-top: 1px solid var(--brand-line); padding: 24px; margin-top: 32px; text-align: center; color: var(--brand-muted); font-size: 12.5px; }
+  footer a { color: var(--brand-text); text-decoration: none; }
+
+  @media (max-width: 600px) {
+    main { padding: 32px 18px 40px; }
+    .card { padding: 22px 18px 20px; }
+    h1 { font-size: 26px; }
+    p.lede { font-size: 15px; }
+    .what-next { padding: 16px 18px; }
+    .btn { padding: 12px 18px; font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="brandbar">
+  <div class="wrap">
+    <a href="../../" style="text-decoration: none;"><span class="edge3-logo"><span class="e">EDGE</span><span class="three">3</span></span></a>
+    <div class="crumb"><a href="../../">EDGE3</a><span class="sep">/</span><a href="../">Athletes &amp; Families</a><span class="sep">/</span>Build your wallet</div>
+  </div>
+</div>
+
+<main>
+
+  <span class="eyebrow">Wallet Onboarding</span>
+  <h1>Build your EDGE3 wallet today.</h1>
+  <p class="lede">Tell us where you are in your recruiting or NIL journey. We&rsquo;ll match you to the right onboarding survey and start building the wallet that speaks for you when you&rsquo;re not in the room.</p>
+
+  <div class="card">
+    <form id="onboardingForm" onsubmit="return submitForm(event);">
+
+      <div class="row">
+        <div>
+          <label for="firstName">First name</label>
+          <input type="text" id="firstName" name="firstName" required placeholder="Jordan">
+        </div>
+        <div>
+          <label for="lastName">Last name</label>
+          <input type="text" id="lastName" name="lastName" required placeholder="Williams">
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="you@example.com">
+        </div>
+        <div>
+          <label for="role">I am a</label>
+          <select id="role" name="role" required>
+            <option value="">Select one</option>
+            <option value="HS Recruit">High school recruit</option>
+            <option value="College Student-Athlete">College student-athlete</option>
+            <option value="Transfer Portal">Transfer portal athlete</option>
+            <option value="Family Member">Parent or family member</option>
+            <option value="Coach or Staff">Coach or staff (program side)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="sport">Sport</label>
+          <select id="sport" name="sport" required>
+            <option value="">Select one</option>
+            <option value="Football">Football</option>
+            <option value="Basketball">Basketball</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div>
+          <label for="position">Position (if athlete)</label>
+          <input type="text" id="position" name="position" placeholder="QB, PG, etc.">
+        </div>
+      </div>
+
+      <div>
+        <label for="goal">What are you trying to figure out?</label>
+        <textarea id="goal" name="goal" placeholder="Picking the right schools to target. Comparing two offers. Deciding whether to enter the portal. Building the wallet for life after the game."></textarea>
+      </div>
+
+      <p class="note"><strong>What happens next:</strong> Submitting this opens your email client with the onboarding details prefilled. We&rsquo;ll match you to the right survey within 24 hours and your wallet starts building from there.</p>
+
+      <div class="btn-row">
+        <button type="submit" class="btn primary">Start my wallet &rarr;</button>
+        <a href="../" class="btn ghost">Back to Athletes &amp; Families</a>
+      </div>
+    </form>
+  </div>
+
+  <div class="what-next">
+    <div class="what-next-label">How onboarding works</div>
+    <ol>
+      <li>You submit the form above. Your email opens with the details prefilled, ready to send.</li>
+      <li>We match you to the right onboarding survey based on your role (HS, college, portal, family).</li>
+      <li>The survey takes about 12 minutes. Output is the first version of your EDGE3 wallet.</li>
+      <li>Your wallet updates continuously as new context comes in. You own it.</li>
+    </ol>
+  </div>
+
+</main>
+
+<footer>
+  <a href="../../">EDGE3 home</a> &middot; <a href="../">Athletes &amp; Families</a> &middot; <a href="https://github.com/glove2044/edge3-model">github.com/glove2044/edge3-model</a>
+</footer>
+
+<script>
+  function submitForm(e) {
+    e.preventDefault();
+    const fd = new FormData(document.getElementById('onboardingForm'));
+    const get = k => (fd.get(k) || '').toString().trim();
+
+    const subject = `EDGE3 wallet onboarding · ${get('firstName')} ${get('lastName')}`;
+    const lines = [
+      `Name: ${get('firstName')} ${get('lastName')}`,
+      `Email: ${get('email')}`,
+      `Role: ${get('role')}`,
+      `Sport: ${get('sport')}`,
+      `Position: ${get('position') || '(not specified)'}`,
+      ``,
+      `What I'm trying to figure out:`,
+      get('goal') || '(not specified)',
+      ``,
+      `--`,
+      `Sent from edge3-model.github.io/edge3-model/athletes/onboarding/`
+    ];
+    const body = encodeURIComponent(lines.join('\n'));
+    window.location.href = `mailto:glove2044@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+    return false;
+  }
+</script>
+
+</body>
+</html>

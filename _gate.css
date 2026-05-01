@@ -1,0 +1,177 @@
+/* EDGE3 demo access gate — shared overlay across all gated demos.
+   Mounts on body, hidden when valid access key is present. */
+
+.edge3-gate {
+  position: fixed; inset: 0;
+  background: rgba(10, 15, 28, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 99999;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  font: 15px/1.5 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  color: #E8EDF5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.edge3-gate .eg-card {
+  background: linear-gradient(135deg, #0E1320 0%, #161D2D 100%);
+  border: 1px solid #1F2738;
+  border-radius: 16px;
+  padding: 36px 36px 32px;
+  max-width: 580px;
+  width: 100%;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+  position: relative;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+}
+
+.edge3-gate .eg-tease {
+  background: linear-gradient(135deg, rgba(26,184,116,0.08), rgba(59,130,246,0.05));
+  border: 1px solid rgba(26,184,116,0.25);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin: 6px 0 22px;
+}
+.edge3-gate .eg-tease .eg-tease-label {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  color: #1AB874;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.edge3-gate .eg-tease ul.eg-tease-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.edge3-gate .eg-tease ul.eg-tease-list li {
+  padding: 6px 0 6px 22px;
+  position: relative;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #E8EDF5;
+}
+.edge3-gate .eg-tease ul.eg-tease-list li::before {
+  content: '\2713';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  color: #1AB874;
+  font-weight: 800;
+}
+.edge3-gate .eg-tease ul.eg-tease-list li strong {
+  color: #FFFFFF;
+}
+.edge3-gate .eg-tease .eg-tease-time {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(26,184,116,0.20);
+  font-size: 12px;
+  color: #8896AB;
+  font-style: italic;
+}
+
+.edge3-gate .eg-logo {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  font-size: 26px;
+  display: inline-block;
+  margin-bottom: 22px;
+}
+.edge3-gate .eg-logo .e { color: #FFFFFF; }
+.edge3-gate .eg-logo .three { color: #1AB874; }
+
+.edge3-gate .eg-eyebrow {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  color: #1AB874;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.edge3-gate h2 {
+  margin: 0 0 8px;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  line-height: 1.2;
+}
+
+.edge3-gate p.lede {
+  margin: 0 0 22px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: #C7D3E6;
+}
+
+.edge3-gate form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.edge3-gate label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #8896AB;
+  font-weight: 700;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.edge3-gate input[type=text],
+.edge3-gate input[type=email] {
+  width: 100%;
+  background: #0A0F1C;
+  border: 1px solid #1F2738;
+  border-radius: 8px;
+  padding: 11px 14px;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.15s;
+}
+.edge3-gate input:focus {
+  outline: none;
+  border-color: #1AB874;
+}
+.edge3-gate input::placeholder { color: #5A6373; }
+
+.edge3-gate .eg-submit {
+  margin-top: 8px;
+  background: #1AB874;
+  border: 0;
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 12px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+.edge3-gate .eg-submit:hover { background: #14965F; }
+
+.edge3-gate .eg-foot {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid #1F2738;
+  font-size: 12px;
+  color: #8896AB;
+  line-height: 1.55;
+}
+.edge3-gate .eg-foot a {
+  color: #3B82F6;
+  text-decoration: none;
+}
+.edge3-gate .eg-foot a:hover { text-decoration: underline; }
+
+/* Body lock when gate visible */
+body.edge3-gated { overflow: hidden; }
