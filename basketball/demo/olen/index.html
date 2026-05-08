@@ -3,25 +3,44 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>New Mexico Basketball · EDGE3 Risk/Fit Report</title>
+<title>New Mexico Basketball · EDGE3 Risk/Fit Report for Coach Olen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
+    /* EDGE3 brand tokens (canonical - see docs/BRAND.md) */
+    --brand-dark: #0A0F1C;
+    --brand-dark-2: #0E1320;
+    --brand-dark-3: #161D2D;
+    --brand-white: #FFFFFF;
+    --brand-green: #1AB874;
+    --brand-green-soft: #14965F;
+    --brand-blue: #3B82F6;
+    --brand-blue-soft: #DBEAFE;
+    --brand-text: #E8EDF5;
+    --brand-muted: #8896AB;
+    --brand-line: #1F2738;
+
+    /* UNM personalization - used for content emphasis only, not chrome */
     --nm-cherry: #BA0C2F;
     --nm-cherry-dim: #8a0922;
     --nm-silver: #A7A8AA;
     --nm-silver-dim: #6a6b6d;
-    --bg: #0F1114;
-    --bg-elev: #181B20;
-    --bg-elev-2: #22262D;
-    --border: #2B2F37;
-    --text: #F7F7F8;
-    --text-dim: #BFC2C7;
-    --text-faint: #7A7E86;
-    --pass: #2FBF71;
-    --fail: #D64545;
-    --warn: #E8A93A;
-    --unknown: #5A6068;
-    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+    /* Surface tokens (mapped to EDGE3 brand) */
+    --bg: var(--brand-dark);
+    --bg-elev: var(--brand-dark-3);
+    --bg-elev-2: #1B2336;
+    --border: var(--brand-line);
+    --text: var(--brand-text);
+    --text-dim: #BFC6D2;
+    --text-faint: var(--brand-muted);
+    --pass: var(--brand-green);
+    --fail: #D33F49;
+    --warn: #E8B339;
+    --unknown: #5A6275;
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
   }
   * { box-sizing: border-box; }
@@ -33,61 +52,79 @@
     -webkit-font-smoothing: antialiased;
     line-height: 1.55;
   }
-  a { color: var(--nm-silver); text-decoration: none; }
+  a { color: var(--brand-blue); text-decoration: none; }
   a:hover { color: var(--text); text-decoration: underline; }
   .wrap { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+
+  /* EDGE3 brandbar */
+  .edge3-brandbar { background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-dark-2) 100%); border-bottom: 1px solid var(--brand-line); padding: 16px 0; }
+  .edge3-brandbar .row { display: flex; align-items: center; justify-content: space-between; }
+  .edge3-logo { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.03em; line-height: 1; display: inline-block; font-size: 22px; }
+  .edge3-edge { color: var(--brand-white); }
+  .edge3-three { color: var(--brand-green); }
+  .edge3-brandbar .sport-tag { display: inline-block; background: rgba(123, 31, 46, 0.85); border: 1px solid rgba(255,255,255,0.18); padding: 5px 12px; border-radius: 18px; font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: var(--brand-white); }
+  .edge3-breadcrumb { background: var(--brand-dark-2); border-bottom: 1px solid var(--brand-line); padding: 12px 0; font-size: 13px; color: var(--text-faint); }
+  .edge3-breadcrumb a { color: var(--text-faint); text-decoration: none; }
+  .edge3-breadcrumb a:hover { color: var(--text); }
+
+  /* EDGE3 footer */
+  .edge3-footer { background: var(--brand-dark-2); border-top: 1px solid var(--brand-line); padding: 28px 0 32px; color: var(--text-faint); font-size: 12px; line-height: 1.6; }
+  .edge3-footer .row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 18px; }
+  .edge3-footer .brand-line { color: var(--brand-text); font-weight: 600; margin-bottom: 4px; }
+  .edge3-footer .right { max-width: 540px; text-align: right; }
+  @media (max-width: 700px) { .edge3-footer .row { flex-direction: column; } .edge3-footer .right { text-align: left; max-width: 100%; } }
 
   .hero {
     position: relative;
     background:
-      radial-gradient(1200px 400px at 20% -10%, rgba(186,12,47,0.35), transparent 60%),
-      radial-gradient(900px 300px at 90% 0%, rgba(167,168,170,0.08), transparent 60%),
-      linear-gradient(180deg, #12151A 0%, var(--bg) 100%);
+      radial-gradient(1200px 400px at 20% -10%, rgba(186,12,47,0.22), transparent 60%),
+      radial-gradient(900px 300px at 90% 0%, rgba(59,130,246,0.10), transparent 60%),
+      linear-gradient(180deg, var(--brand-dark-2) 0%, var(--brand-dark) 100%);
     border-bottom: 1px solid var(--border);
-    padding: 56px 0 44px;
+    padding: 48px 0 44px;
     overflow: hidden;
   }
-  .hero-bar { display: flex; align-items: center; gap: 14px; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--nm-silver); margin-bottom: 18px; }
+  .hero-bar { display: flex; align-items: center; gap: 14px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brand-muted); margin-bottom: 16px; font-weight: 600; }
   .hero-bar .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--nm-cherry); }
-  .hero-title { font-size: 44px; line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 10px; font-weight: 800; }
+  .hero-title { font-size: clamp(28px, 5vw, 42px); line-height: 1.08; letter-spacing: -0.02em; margin: 0 0 10px; font-weight: 800; color: var(--brand-white); }
   .hero-title .accent { color: var(--nm-cherry); }
-  .hero-prepared { font-size: 16px; color: var(--nm-silver); margin: 0 0 18px; font-weight: 600; letter-spacing: 0.02em; }
+  .hero-prepared { font-size: 15px; color: var(--brand-muted); margin: 0 0 16px; font-weight: 600; letter-spacing: 0.01em; }
   .hero-sub { color: var(--text-dim); font-size: 18px; max-width: 860px; margin: 0 0 24px; }
   .hero-meta { display: flex; flex-wrap: wrap; gap: 18px 28px; font-size: 13px; color: var(--text-faint); }
   .hero-meta span b { color: var(--text-dim); font-weight: 500; }
   .hero-actions { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px; }
   .btn {
-    background: var(--nm-cherry); color: #fff; border: none; padding: 9px 16px; border-radius: 5px;
-    font-size: 13px; font-family: var(--font); letter-spacing: 0.03em; cursor: pointer;
-    font-weight: 600;
+    background: var(--brand-green); color: #fff; border: none; padding: 9px 16px; border-radius: 8px;
+    font-size: 13px; font-family: var(--font); letter-spacing: 0.02em; cursor: pointer;
+    font-weight: 600; transition: background 0.15s;
   }
-  .btn:hover { background: var(--nm-cherry-dim); }
-  .btn.ghost { background: transparent; color: var(--nm-silver); border: 1px solid var(--border); }
-  .btn.ghost:hover { color: var(--text); border-color: var(--nm-silver); background: var(--bg-elev); }
+  .btn:hover { background: var(--brand-green-soft); }
+  .btn.ghost { background: transparent; color: var(--brand-text); border: 1px solid var(--border); }
+  .btn.ghost:hover { color: var(--brand-white); border-color: var(--brand-blue); background: var(--bg-elev); }
 
   section { padding: 56px 0; border-bottom: 1px solid var(--border); }
   section:last-of-type { border-bottom: none; }
-  .sec-eyebrow { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--nm-cherry); font-weight: 600; margin-bottom: 12px; }
-  .sec-title { font-size: 28px; font-weight: 700; margin: 0 0 12px; letter-spacing: -0.01em; }
+  .sec-eyebrow { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brand-blue); font-weight: 700; margin-bottom: 10px; }
+  .sec-title { font-size: clamp(22px, 3.5vw, 28px); font-weight: 700; margin: 0 0 12px; letter-spacing: -0.01em; color: var(--brand-text); }
   .sec-lede { color: var(--text-dim); font-size: 16px; max-width: 880px; margin: 0 0 28px; }
 
 
   .gap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
-  .gap-card { background: var(--bg-elev); border: 1px solid var(--border); border-radius: 6px; padding: 20px 22px; }
+  .gap-card { background: var(--bg-elev); border: 1px solid var(--border); border-radius: 10px; padding: 20px 22px; }
   .gap-card .metric { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--nm-silver); margin-bottom: 6px; }
   .gap-card .value { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
   .gap-card .note { font-size: 13px; color: var(--text-dim); }
   .gap-card.strength { border-left: 3px solid var(--pass); }
   .gap-card.weakness { border-left: 3px solid var(--fail); }
-  .gap-notes { margin-top: 28px; padding: 20px 22px; background: rgba(232,169,58,0.06); border: 1px solid rgba(232,169,58,0.25); border-radius: 6px; }
+  .gap-notes { margin-top: 28px; padding: 20px 22px; background: rgba(232,169,58,0.06); border: 1px solid rgba(232,169,58,0.25); border-radius: 10px; }
   .gap-notes h5 { margin: 0 0 10px; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--warn); }
   .gap-notes p { margin: 0; color: var(--text-dim); font-size: 14px; }
   .caveat-note { margin-top: 16px; font-size: 13px; color: var(--text-faint); font-style: italic; border-left: 2px solid var(--border); padding-left: 12px; }
 
   /* Roster churn section */
-  .churn-hdr { background: linear-gradient(180deg, rgba(186,12,47,0.14), rgba(186,12,47,0.02)); border: 1px solid rgba(186,12,47,0.35); border-radius: 6px; padding: 20px 24px; margin-bottom: 24px; font-size: 15px; color: var(--text); }
+  .churn-hdr { background: linear-gradient(180deg, rgba(186,12,47,0.14), rgba(186,12,47,0.02)); border: 1px solid rgba(186,12,47,0.35); border-radius: 10px; padding: 20px 24px; margin-bottom: 24px; font-size: 15px; color: var(--text); }
   .churn-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 16px; margin-bottom: 20px; }
-  .churn-col { background: var(--bg-elev); border: 1px solid var(--border); border-radius: 6px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px; }
+  .churn-col { background: var(--bg-elev); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px; }
   .churn-col.depart { border-left: 3px solid var(--fail); }
   .churn-col.return { border-left: 3px solid var(--pass); }
   .churn-col.incoming { border-left: 3px solid var(--warn); }
@@ -100,10 +137,10 @@
   .churn-item .cprod { font-size: 12px; color: var(--text-faint); font-family: var(--mono); margin-bottom: 4px; }
   .churn-item .csrc { font-size: 11px; color: var(--text-faint); font-style: italic; }
 
-  .slots-box { background: var(--bg-elev); border: 1px solid var(--border); border-radius: 6px; padding: 18px 22px; }
+  .slots-box { background: var(--bg-elev); border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; }
   .slots-box h5 { margin: 0 0 12px; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--nm-cherry); font-weight: 600; }
   .slots-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .slots-list li { background: var(--bg-elev-2); border: 1px solid var(--border); border-radius: 4px; padding: 10px 12px; font-size: 13px; color: var(--text-dim); }
+  .slots-list li { background: var(--bg-elev-2); border: 1px solid var(--border); border-radius: 6px; padding: 10px 12px; font-size: 13px; color: var(--text-dim); }
   .slots-list li b { color: var(--text); display: block; margin-bottom: 2px; }
 
   .threshold-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-top: 20px; }
@@ -125,7 +162,7 @@
   .cmp-table tr:last-child td { border-bottom: none; }
   .cmp-table td.metric-name { color: var(--text); font-weight: 700; }
   .cmp-table td .cell-detail { color: var(--text); font-weight: 500; margin-top: 6px; line-height: 1.45; }
-  .cmp-pip { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px; border-radius: 5px; font-size: 13px; font-family: var(--mono); font-weight: 700; border: 2px solid transparent; letter-spacing: 0.04em; }
+  .cmp-pip { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px; border-radius: 8px; font-size: 13px; font-family: var(--mono); font-weight: 700; border: 2px solid transparent; letter-spacing: 0.04em; }
   .cmp-pip.pass, .cmp-pip.pass_est, .cmp-pip.likely_pass_est { background: rgba(47,191,113,0.18); color: var(--pass); border-color: rgba(47,191,113,0.65); }
   .cmp-pip.fail { background: rgba(214,69,69,0.18); color: var(--fail); border-color: rgba(214,69,69,0.65); }
   .cmp-pip.borderline, .cmp-pip.borderline_est { background: rgba(232,169,58,0.18); color: var(--warn); border-color: rgba(232,169,58,0.65); }
@@ -154,7 +191,7 @@
   .p-section h6 { margin: 0 0 8px; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--nm-silver); font-weight: 600; }
   .p-thresholds { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .p-thresh {
-    padding: 12px 14px; border-radius: 6px;
+    padding: 12px 14px; border-radius: 10px;
     background: var(--bg-elev-2); border: 2px solid var(--border);
     font-size: 13px; display: flex; flex-direction: column; gap: 5px;
     transition: transform 0.12s;
@@ -194,7 +231,7 @@
   .p-archetype {
     background: linear-gradient(180deg, rgba(186,12,47,0.12), rgba(186,12,47,0.02));
     border: 1px solid rgba(186,12,47,0.35);
-    border-radius: 4px;
+    border-radius: 6px;
     padding: 12px 14px; font-size: 13px; color: var(--text);
     line-height: 1.55;
   }
@@ -203,7 +240,7 @@
   .p-slot {
     background: linear-gradient(180deg, rgba(47,191,113,0.10), rgba(47,191,113,0.02));
     border: 1px solid rgba(47,191,113,0.30);
-    border-radius: 4px;
+    border-radius: 6px;
     padding: 12px 14px; font-size: 13px; color: var(--text);
     line-height: 1.55;
   }
@@ -246,7 +283,7 @@
   .coach-field label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--nm-silver); font-weight: 600; }
   .coach-field input[type="text"], .coach-field textarea, .coach-field select {
     background: var(--bg); color: var(--text); border: 1px solid var(--border);
-    border-radius: 4px; padding: 8px 10px; font-family: var(--font); font-size: 13px;
+    border-radius: 6px; padding: 8px 10px; font-family: var(--font); font-size: 13px;
     width: 100%; resize: vertical;
   }
   .coach-field textarea { min-height: 60px; }
@@ -269,9 +306,9 @@
   .coach-saved-indicator { font-size: 11px; color: var(--pass); opacity: 0; transition: opacity 0.3s; margin-left: auto; align-self: center; }
   .coach-saved-indicator.visible { opacity: 1; }
 
-  /* Summary — slot-mapping */
+  /* Summary - slot-mapping */
   .summary-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 24px; }
-  .sum-card { background: var(--bg-elev); border: 1px solid var(--border); border-radius: 6px; padding: 20px 22px; display: flex; flex-direction: column; gap: 8px; }
+  .sum-card { background: var(--bg-elev); border: 1px solid var(--border); border-radius: 10px; padding: 20px 22px; display: flex; flex-direction: column; gap: 8px; }
   .sum-card .sum-cand { font-size: 16px; font-weight: 700; color: var(--text); }
   .sum-card .sum-grade { font-family: var(--mono); font-size: 28px; font-weight: 700; line-height: 1; color: var(--text); }
   .sum-card .sum-slot { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--nm-silver); }
@@ -287,7 +324,7 @@
   .sum-card.grade-F { border-left: 3px solid var(--fail); }
   .sum-card.grade-F .sum-grade { color: var(--fail); }
 
-  .sum-combo { margin-top: 20px; padding: 22px 24px; border-radius: 6px; background: linear-gradient(180deg, rgba(186,12,47,0.18), rgba(186,12,47,0.04)); border: 1px solid rgba(186,12,47,0.40); }
+  .sum-combo { margin-top: 20px; padding: 22px 24px; border-radius: 10px; background: linear-gradient(180deg, rgba(186,12,47,0.18), rgba(186,12,47,0.04)); border: 1px solid rgba(186,12,47,0.40); }
   .sum-combo h5 { margin: 0 0 8px; color: var(--nm-cherry); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
   .sum-combo p { margin: 0 0 10px; font-size: 15px; color: var(--text); line-height: 1.55; }
   .sum-combo p:last-child { margin-bottom: 0; }
@@ -297,7 +334,7 @@
   footer .foot-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
   footer .brand { color: var(--nm-silver); font-weight: 600; letter-spacing: 0.08em; }
 
-  details.data-gaps { margin-top: 20px; padding: 16px 20px; background: var(--bg-elev); border: 1px solid var(--border); border-radius: 6px; }
+  details.data-gaps { margin-top: 20px; padding: 16px 20px; background: var(--bg-elev); border: 1px solid var(--border); border-radius: 10px; }
   details.data-gaps summary { cursor: pointer; color: var(--nm-silver); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; }
   details.data-gaps[open] summary { color: var(--text); margin-bottom: 12px; }
   details.data-gaps ul { margin: 0; padding-left: 18px; color: var(--text-dim); font-size: 13px; }
@@ -306,7 +343,7 @@
   /* Toast */
   #toast {
     position: fixed; bottom: 24px; right: 24px; z-index: 1000;
-    background: var(--nm-cherry); color: #fff; padding: 10px 16px; border-radius: 4px;
+    background: var(--nm-cherry); color: #fff; padding: 10px 16px; border-radius: 6px;
     font-size: 13px; opacity: 0; pointer-events: none; transition: opacity 0.25s;
   }
   #toast.show { opacity: 1; pointer-events: auto; }
@@ -338,11 +375,11 @@
     .wrap { padding: 0 16px; }
     .threshold-row { grid-template-columns: 1fr; gap: 10px; }
     .p-thresholds { grid-template-columns: 1fr; }
-    .cmp-table { font-size: 12.5px; border-radius: 6px; }
+    .cmp-table { font-size: 12.5px; border-radius: 10px; }
     .cmp-table th, .cmp-table td { padding: 10px 10px; }
     .cmp-table th { font-size: 10px; letter-spacing: 0.1em; }
     .cmp-pip { font-size: 11.5px; padding: 4px 8px; }
-    .p-card { border-radius: 6px; }
+    .p-card { border-radius: 10px; }
     .p-head { padding: 16px 16px 14px; }
     .p-head .p-name { font-size: 19px; }
     .p-head .p-sub { font-size: 12px; }
@@ -373,7 +410,7 @@
     .t-pill .t-val { font-size: 20px; }
   }
 
-  /* Print — Coach worksheet */
+  /* Print - Coach worksheet */
   @media print {
     html, body { background: #fff; color: #000; }
     .hero { background: #fff; color: #000; padding: 20px 0; border-bottom: 2px solid #000; }
@@ -409,11 +446,26 @@
 </head>
 <body>
 
+<div class="edge3-brandbar">
+  <div class="wrap">
+    <div class="row">
+      <a href="../../../" style="text-decoration: none;"><span class="edge3-logo"><span class="edge3-edge">EDGE</span><span class="edge3-three">3</span></span></a>
+      <span class="sport-tag">Basketball &middot; Risk/Fit Report</span>
+    </div>
+  </div>
+</div>
+
+<div class="edge3-breadcrumb">
+  <div class="wrap">
+    <a href="../../../">EDGE3</a> &rsaquo; <a href="../../../programs/">Programs</a> &rsaquo; <a href="../../">Basketball</a> &rsaquo; Coach Olen &middot; UNM
+  </div>
+</div>
+
 <div class="hero">
   <div class="wrap">
     <div class="hero-bar">
       <span class="dot"></span>
-      <span>EDGE3 &middot; Risk/Fit Report</span>
+      <span>Risk/Fit Report</span>
       <span style="color: var(--text-faint);">&middot;</span>
       <span>Updated April 22, 2026</span>
     </div>
@@ -422,7 +474,7 @@
     </h1>
     <p class="hero-prepared">Prepared for Coach Olen and Staff</p>
     <p class="hero-sub">
-      Coach, I pulled advanced per-possession rates on three portal candidates and layered them against your stated thresholds, UNM&#39;s 2025-26 roster performance, and the 2026-27 roster churn. Each candidate is graded against a specific open slot &mdash; not a generic rate profile.
+      Coach, I pulled advanced per-possession rates on three portal candidates and layered them against your stated thresholds, UNM&#39;s 2025-26 roster performance, and the 2026-27 roster churn. Each candidate is graded against a specific open slot - not a generic rate profile.
     </p>
     <div class="hero-meta">
       <span><b>Candidates:</b> R. Petraitis (CAL) &middot; D. Butka (CAMP) &middot; K. Anya (SLU)</span>
@@ -449,7 +501,7 @@
   <div class="wrap">
     <div class="sec-eyebrow">Threshold Check</div>
     <h2 class="sec-title">How each candidate clears your profile</h2>
-    <p class="sec-lede">Career per-possession rates, stacked against your gates. Green clears, red misses, yellow is borderline or small-sample. The same rate across a full D1 career is weighted differently than a seven-game sprint &mdash; I&#39;ve flagged both.</p>
+    <p class="sec-lede">Career per-possession rates, stacked against your gates. Green clears, red misses, yellow is borderline or small-sample. The same rate across a full D1 career is weighted differently than a seven-game sprint - I&#39;ve flagged both.</p>
     <table class="cmp-table" id="cmpTable" aria-label="Threshold comparison by player"></table>
     <details class="data-gaps" style="margin-top:24px;">
       <summary>Data gaps &amp; caveats (what the rates can&#39;t tell you)</summary>
@@ -463,7 +515,7 @@
     <div class="sec-eyebrow">Per-Candidate Detail</div>
     <h2 class="sec-title">Per-candidate breakdown + your private read</h2>
     <p class="sec-lede">
-      What I see from the outside is rates, role, slot fit. What you and the staff see is film, medical, character, culture fit. Each card has a Coach&#39;s Private Read panel for that layer &mdash; it saves to your browser and exports as JSON if you want it.
+      What I see from the outside is rates, role, slot fit. What you and the staff see is film, medical, character, culture fit. Each card has a Coach&#39;s Private Read panel for that layer - it saves to your browser and exports as JSON if you want it.
     </p>
     <div class="players-grid" id="playersGrid"></div>
   </div>
@@ -519,15 +571,16 @@
   </div>
 </section>
 
-<footer>
+<footer class="edge3-footer">
   <div class="wrap">
-    <div class="foot-row">
+    <div class="row">
       <div>
-        <div class="brand">EDGE3 &middot; Vision Sports Portal</div>
-        <div style="margin-top:4px;">University of New Mexico Basketball &middot; Risk/Fit Report &middot; April 22, 2026</div>
+        <div class="brand-line"><span class="edge3-logo" style="font-size: 14px;"><span class="edge3-edge">EDGE</span><span class="edge3-three">3</span></span> &middot; Vision Sports Portal</div>
+        <div>University of New Mexico Basketball &middot; Risk/Fit Report &middot; April 22, 2026</div>
+        <div style="margin-top: 6px;"><a href="../../../">Home</a> &middot; <a href="../../">Basketball</a> &middot; <a href="../../../programs/">Programs</a></div>
       </div>
-      <div style="text-align:right; max-width: 520px;">
-        Prepared for Coach Olen and staff. Per-possession rates layered against UNM&#39;s 2025-26 performance and 2026-27 roster churn. Coach&#39;s Private Read layers on top &mdash; that&#39;s the part only you can see.
+      <div class="right">
+        Prepared for Coach Olen and staff. Per-possession rates layered against UNM&#39;s 2025-26 performance and 2026-27 roster churn. Coach&#39;s Private Read layers on top - that&#39;s the part only you can see.
       </div>
     </div>
   </div>
@@ -538,7 +591,7 @@
 <script id="dataPayload" type="application/json">
 {
   "meta": {
-    "title": "Coach Olen — Transfer Fit Analysis",
+    "title": "Coach Olen - Transfer Fit Analysis",
     "subtitle": "Three portal candidates mapped to UNM's 2026-27 roster holes",
     "audience": "Coach Eric Olen, University of New Mexico Men's Basketball",
     "generated_by": "EDGE3 • Vision Sports Portal",
@@ -554,7 +607,7 @@
     "prior_program_d1_years": 5,
     "stated_philosophy_quote": "I think this whole thing is much more art than science, and you're just trying to do right by everybody. If you get good people in the room, and you treat people the right way, and you create an environment that people want to be part of, then it gives you a chance.",
     "philosophy_source": "Olen to Mid-Major Madness, 2026-04-17",
-    "system_frame": "Olen's UCSD identity was possession-positive defense — UCSD forced turnovers on 23.3% of opponent possessions in 2024-25, 2nd nationally (per CBS Sports / Yahoo / PrizePicks). Paired with high-efficiency / low-usage offensive spacing. In Year 1 at UNM he hit 26-11 (13-7 MWC, 3rd, NIT semifinal), ORtg 114.8 / DRtg 100.2 — a strong inherit-and-adapt performance. 2026-27 is the first chance to install his full system.",
+    "system_frame": "Olen's UCSD identity was possession-positive defense - UCSD forced turnovers on 23.3% of opponent possessions in 2024-25, 2nd nationally (per CBS Sports / Yahoo / PrizePicks). Paired with high-efficiency / low-usage offensive spacing. In Year 1 at UNM he hit 26-11 (13-7 MWC, 3rd, NIT semifinal), ORtg 114.8 / DRtg 100.2 - a strong inherit-and-adapt performance. 2026-27 is the first chance to install his full system.",
     "staff": [
       {
         "role": "Head Coach",
@@ -574,7 +627,7 @@
     ]
   },
   "unm_context": {
-    "season": "2025-26 (Olen Year 1 — baseline for 2026-27 rebuild)",
+    "season": "2025-26 (Olen Year 1 - baseline for 2026-27 rebuild)",
     "caveat_principle": "",
     "record": "26-11 overall • 13-7 Mountain West (3rd) • NIT semifinal run (lost to Tulsa at Hinkle)",
     "team_rate_profile_2025_26": {
@@ -585,7 +638,7 @@
           "metric": "3PT% allowed",
           "value": "30.2%",
           "rank": "19th nationally",
-          "note": "Elite perimeter defense — Olen's DNA visible in Year 1."
+          "note": "Elite perimeter defense - Olen's DNA visible in Year 1."
         },
         {
           "metric": "Steals per game",
@@ -597,7 +650,7 @@
           "metric": "2PA allowed per game",
           "value": "30.1",
           "rank": "12th nationally",
-          "note": "Limits interior volume — defensive shell works."
+          "note": "Limits interior volume - defensive shell works."
         }
       ],
       "gaps_that_map_to_olen_thresholds": [
@@ -606,7 +659,7 @@
           "value": "2.9",
           "rank": "262nd nationally",
           "maps_to": "Blk% > 3 threshold",
-          "note": "Biggest structural weakness — supports the shot-blocking ask."
+          "note": "Biggest structural weakness - supports the shot-blocking ask."
         },
         {
           "metric": "Off. rebounds per game",
@@ -626,14 +679,14 @@
           "metric": "Blocks ALLOWED per game",
           "value": "3.2",
           "rank": "174th nationally",
-          "note": "UNM gets blocked a lot — suggests undersized frontcourt interior scoring; supports the 6'8\"+ preference."
+          "note": "UNM gets blocked a lot - suggests undersized frontcourt interior scoring; supports the 6'8\"+ preference."
         }
       ]
     },
-    "interpretation": "Coach, your four rate thresholds + 6'8\"+ preference map almost 1:1 to where UNM graded out nationally this past year — this is what the portal needs to backfill."
+    "interpretation": "Coach, your four rate thresholds + 6'8\"+ preference map almost 1:1 to where UNM graded out nationally this past year - this is what the portal needs to backfill."
   },
   "roster_churn_2025_26_to_2026_27": {
-    "headline": "Coach, here's what's open: four rotation departures — three top-8 minutes guys plus your lead PG. Your stated thresholds line up with the literal holes on the roster.",
+    "headline": "Coach, here's what's open: four rotation departures - three top-8 minutes guys plus your lead PG. Your stated thresholds line up with the literal holes on the roster.",
     "confirmed_departures": [
       {
         "name": "Tomislav Buljan",
@@ -679,11 +732,11 @@
         "name": "Hudson Mayes",
         "from": "UC San Diego",
         "role": "Rising sophomore, transfer",
-        "note": "Olen-program continuity — brought from UCSD where Olen's longtime assistant Clint Allard is now head coach. Echoes the 2025-26 Hall/Tenette playbook."
+        "note": "Olen-program continuity - brought from UCSD where Olen's longtime assistant Clint Allard is now head coach. Echoes the 2025-26 Hall/Tenette playbook."
       },
       {
         "name": "Dax Hall",
-        "from": "HS — St. Augustine (San Diego)",
+        "from": "HS - St. Augustine (San Diego)",
         "role": "Incoming freshman G",
         "note": "Jake Hall's younger brother; 2026 San Diego Section Player of the Year per CIF. Committed 2026-04-15."
       }
@@ -691,7 +744,7 @@
     "seniors_with_eligibility_likely_exhausted": [
       "Luke Haupt (SR, G, 1039 min, 14.0 PER)",
       "Tajavis Miller (SR, G, 537 min)",
-      "Chris Howell (SR, G, 269 min — partial year)",
+      "Chris Howell (SR, G, 269 min - partial year)",
       "Milos Vicentic (SR, F, 116 min)"
     ],
     "open_roster_slots_heading_into_2026_27": [
@@ -722,7 +775,7 @@
       "numeric": 80,
       "unit": "in",
       "preferred": true,
-      "note": "'Preferred' per Olen — not a hard cut, but a strong bias. Validated by UNM's 174th-ranked opp-blocks-against profile."
+      "note": "'Preferred' per Olen - not a hard cut, but a strong bias. Validated by UNM's 174th-ranked opp-blocks-against profile."
     },
     {
       "key": "dreb_pct",
@@ -732,7 +785,7 @@
       "numeric": 15,
       "unit": "%",
       "preferred": false,
-      "note": "Defensive rebound rate. UNM's opp-DRB is 238th nationally — this is a real gap."
+      "note": "Defensive rebound rate. UNM's opp-DRB is 238th nationally - this is a real gap."
     },
     {
       "key": "oreb_pct",
@@ -742,7 +795,7 @@
       "numeric": 6,
       "unit": "%",
       "preferred": false,
-      "note": "Offensive rebound rate. UNM's ORB/g is 174th nationally — real gap."
+      "note": "Offensive rebound rate. UNM's ORB/g is 174th nationally - real gap."
     },
     {
       "key": "stl_pct",
@@ -752,7 +805,7 @@
       "numeric": 2,
       "unit": "%",
       "preferred": false,
-      "note": "Steal rate. UNM's Stl/g is already 51st — 'maintain' not 'fix'."
+      "note": "Steal rate. UNM's Stl/g is already 51st - 'maintain' not 'fix'."
     },
     {
       "key": "blk_pct",
@@ -774,13 +827,13 @@
       "height_in": 79,
       "height_display": "6'7\"",
       "weight_lbs": 210,
-      "position": "Guard / Wing (SR lists position as G; 6'7\" guard/wing — NOT a frontcourt piece)",
+      "position": "Guard / Wing (SR lists position as G; 6'7\" guard/wing - NOT a frontcourt piece)",
       "nationality": "USA / Lithuania dual (born Arlington, TX; Oak Ridge HS, Montgomery, TX; DOB 1/22/2003)",
       "international_flag": "Dual US/Lithuania citizenship. US-born and US-raised; debuted for Lithuania's reserve national team (per Basketnews.lt). NOT an international-development profile.",
       "portal_status": "Entered portal April 2026, uncommitted. Draft-eligible 2026.",
       "career_path": [
-        "Air Force Academy (2022-23 FR, 2023-24 SO) — MWC",
-        "California (2024-25 JR, 2025-26 SR partial) — ACC",
+        "Air Force Academy (2022-23 FR, 2023-24 SO) - MWC",
+        "California (2024-25 JR, 2025-26 SR partial) - ACC",
         "Transfer portal April 2026"
       ],
       "sr_verified_rates": {
@@ -849,7 +902,7 @@
             "usg_pct": 14.3,
             "bpm": 7.3,
             "dbpm": 5.1,
-            "note": "Season-ending surgery Jan 2026. 7-game sample — small, but role was clearly shifted to defensive complement."
+            "note": "Season-ending surgery Jan 2026. 7-game sample - small, but role was clearly shifted to defensive complement."
           }
         ]
       },
@@ -874,12 +927,12 @@
         "height": {
           "status": "fail",
           "value": "6'7\"",
-          "display": "6'7\" (–1\" vs 6'8\" preferred — he is a wing, not a frontcourt piece)"
+          "display": "6'7\" (–1\" vs 6'8\" preferred - he is a wing, not a frontcourt piece)"
         },
         "dreb_pct": {
           "status": "pass",
           "value": 20.5,
-          "display": "20.5% (2025-26 Cal, small sample) — comfortably clears threshold. Career range 13.1–21.5.",
+          "display": "20.5% (2025-26 Cal, small sample) - comfortably clears threshold. Career range 13.1–21.5.",
           "career_range": "13.1–21.5"
         },
         "oreb_pct": {
@@ -891,13 +944,13 @@
         "stl_pct": {
           "status": "pass",
           "value": 2.0,
-          "display": "2.0% in 2025-26 (at threshold). Career range 2.0–3.0 — cleanly passes across years.",
+          "display": "2.0% in 2025-26 (at threshold). Career range 2.0–3.0 - cleanly passes across years.",
           "career_range": "2.0–3.0"
         },
         "blk_pct": {
           "status": "pass_small_sample",
           "value": 5.9,
-          "display": "5.9% in 2025-26 (7-gm sample) — rate is elite but the sample is thin. Career MWC rates 3.0 and 3.4 PASS. ACC 2024-25 JR year 1.5 FAILED.",
+          "display": "5.9% in 2025-26 (7-gm sample) - rate is elite but the sample is thin. Career MWC rates 3.0 and 3.4 PASS. ACC 2024-25 JR year 1.5 FAILED.",
           "career_range": "1.5–5.9"
         }
       },
@@ -905,25 +958,25 @@
       "data_confidence_reasons": [
         "Full per-season advanced rates layered in across FR / SO / JR / SR seasons.",
         "2025-26 7-game sample at Cal is a small sample, but the role-shift (lower USG, elite BPM 7.3 / DBPM 5.1) matches the defensive-complement profile.",
-        "Air Force 2023-24 SO year (24 gm MWC) is the most informative full-season baseline: Blk% 3.4, DRB% 18.0, Stl% 3.0 — clears Olen thresholds.",
-        "Medical status is the open risk — two surgeries in one calendar year. 2026-27 availability is the prerequisite question."
+        "Air Force 2023-24 SO year (24 gm MWC) is the most informative full-season baseline: Blk% 3.4, DRB% 18.0, Stl% 3.0 - clears Olen thresholds.",
+        "Medical status is the open risk - two surgeries in one calendar year. 2026-27 availability is the prerequisite question."
       ],
       "archetype_read": "Petraitis is NOT a shot-blocking frontcourt big at 6'7\". He is a possession-positive point-forward / combo wing who had elite rate numbers at Air Force (MWC) and shifted into a defensive-helpside role at Cal in a 7-game sample before injury. He DOES clear Blk% threshold in his MWC years and in his 2025-26 Cal stint.",
       "slot_fit_in_unm_2026_27": {
-        "best_slot_match": "Wing depth / defensive help — NOT a replacement for Buljan, Rock, or Chol (all frontcourt). Would compete with Hall/Tenette/Mayes for perimeter minutes.",
+        "best_slot_match": "Wing depth / defensive help - NOT a replacement for Buljan, Rock, or Chol (all frontcourt). Would compete with Hall/Tenette/Mayes for perimeter minutes.",
         "fit_rationale": "Petraitis does not address UNM's primary 2026-27 hole (interior size + rim protection). He fills a secondary need (wing defense, POA disruption) that Hall + Tenette + Mayes may already cover. The high BPM + DBPM + Blk% rates at Cal are intriguing but the role they fill is not UNM's open slot."
       },
       "on_court_fit": {
         "positives": [
           "Verified Blk% thresholds clear in his two MWC years (3.0, 3.4) and in 2025-26 Cal sample (5.9).",
-          "DRB% 20.5 at Cal 2025-26 and 21.5 at AF FR — elite rebounder for his size.",
-          "34.9% from three on full sample — can space the floor.",
-          "Known commodity in Mountain West competition (Air Force 2022-24) — the level UNM plays in."
+          "DRB% 20.5 at Cal 2025-26 and 21.5 at AF FR - elite rebounder for his size.",
+          "34.9% from three on full sample - can space the floor.",
+          "Known commodity in Mountain West competition (Air Force 2022-24) - the level UNM plays in."
         ],
         "concerns": [
-          "6'7\" — does NOT fill any of UNM's three primary 2026-27 open roster slots (PF / C / rim protector).",
+          "6'7\" - does NOT fill any of UNM's three primary 2026-27 open roster slots (PF / C / rim protector).",
           "Medical: two surgeries in 12 months; 2026-27 availability is the open question BEFORE fit.",
-          "2024-25 Cal JR year (the only full-season ACC sample) showed Blk% 1.5 — rate profile was role-dependent, not structural."
+          "2024-25 Cal JR year (the only full-season ACC sample) showed Blk% 1.5 - rate profile was role-dependent, not structural."
         ]
       },
       "olen_fit_note": "Petraitis's rate profile clears Olen's thresholds in his MWC years and in his 2025-26 Cal stint. But the roster-churn picture tells a different story: UNM's open slots are interior (Buljan / Rock / Chol), and at 6'7\" Petraitis does not fill those. He's a wing add in a room that already has Hall + Tenette + Mayes. Recommend: Coach Olen's private read on (a) 2026-27 medical availability, (b) willingness to re-slot him as wing depth given the frontcourt priorities.",
@@ -933,11 +986,11 @@
           "url": "https://www.sports-reference.com/cbb/players/rytis-petraitis-1.html"
         },
         {
-          "label": "Cal Athletics — season-ending injury announcement (2026-01-16)",
+          "label": "Cal Athletics - season-ending injury announcement (2026-01-16)",
           "url": "https://calbears.com/news/2026/1/16/mens-basketball-cals-rytis-petraitis-sidelined-for-remainder-of-2025-26-season.aspx"
         },
         {
-          "label": "Colorado Springs Gazette — AF portal entry (2024)",
+          "label": "Colorado Springs Gazette - AF portal entry (2024)",
           "url": "https://gazette.com/2024/03/24/air-force-standouts-rytis-petraitis-kellan-boylan-enter-transfer-portal-1e945fa8-ea1f-11ee-8230-cba7a8f271f8/"
         },
         {
@@ -960,7 +1013,7 @@
       "weight_lbs": 235,
       "position": "Power Forward / Stretch-4",
       "nationality": "Lithuania (BC Žalgiris youth system; U20 EuroBasket Silver 2022)",
-      "international_flag": "True international — first D1 program was Pepperdine 2024-25; no US prep. Olen's documented affinity for international development profiles fits.",
+      "international_flag": "True international - first D1 program was Pepperdine 2024-25; no US prep. Olen's documented affinity for international development profiles fits.",
       "portal_status": "Finishing 2025-26 at Campbell; prior transfer July 2025; portal entry status 2026 TBD (reference demo assumes portal).",
       "sr_verified_rates": {
         "source": "Sports Reference CBB, pulled 2026-04-22",
@@ -971,7 +1024,7 @@
             "conf": "WCC",
             "class": "(redshirt)",
             "games": 0,
-            "note": "Did not play — likely redshirt freshman year."
+            "note": "Did not play - likely redshirt freshman year."
           },
           {
             "year": "2024-25",
@@ -1016,63 +1069,63 @@
         "dreb_pct": {
           "status": "pass",
           "value": 18.5,
-          "display": "18.5% at Campbell 2025-26 (15.6% at Pepperdine 2024-25) — cleanly passes current year."
+          "display": "18.5% at Campbell 2025-26 (15.6% at Pepperdine 2024-25) - cleanly passes current year."
         },
         "oreb_pct": {
           "status": "pass",
           "value": 11.0,
-          "display": "11.0% at Campbell 2025-26 — well above threshold."
+          "display": "11.0% at Campbell 2025-26 - well above threshold."
         },
         "stl_pct": {
           "status": "pass",
           "value": 2.2,
-          "display": "2.2% at Campbell 2025-26 — just clears threshold."
+          "display": "2.2% at Campbell 2025-26 - just clears threshold."
         },
         "blk_pct": {
           "status": "fail",
           "value": 0.3,
-          "display": "0.3% at Campbell 2025-26 (1.0% at Pepperdine) — STRUCTURAL miss. Not a rim protector at any point in his career."
+          "display": "0.3% at Campbell 2025-26 (1.0% at Pepperdine) - STRUCTURAL miss. Not a rim protector at any point in his career."
         }
       },
       "data_confidence": "HIGH (advanced rates across two full D1 seasons)",
       "data_confidence_reasons": [
         "Two full D1 seasons of per-possession rates available.",
         "Campbell's 2025-26 league is CAA (Coastal Athletic).",
-        "Class is JR with 2 years of eligibility remaining — a multi-year piece, not a 1-year plug.",
+        "Class is JR with 2 years of eligibility remaining - a multi-year piece, not a 1-year plug.",
         "Block rate miss (0.3) is structural and consistent across his entire career; cannot be attributed to role or opportunity."
       ],
       "slot_fit_in_unm_2026_27": {
         "best_slot_match": "Buljan replacement at the 4 (stretch PF / rebound anchor).",
-        "fit_rationale": "Butka's 2025-26 rate profile is the closest match to what Buljan gave UNM (DRB 18.5 vs 27.0, ORB 11.0 vs 17.5) — less rebounding than Buljan but same role-shape. Adds 2 years of eligibility vs Buljan's 3 remaining (so a longer-term piece). However, he provides ZERO rim protection, meaning UNM would still need a separate Rock replacement for the Blk% slot."
+        "fit_rationale": "Butka's 2025-26 rate profile is the closest match to what Buljan gave UNM (DRB 18.5 vs 27.0, ORB 11.0 vs 17.5) - less rebounding than Buljan but same role-shape. Adds 2 years of eligibility vs Buljan's 3 remaining (so a longer-term piece). However, he provides ZERO rim protection, meaning UNM would still need a separate Rock replacement for the Blk% slot."
       },
       "on_court_fit": {
         "positives": [
           "Height + frame + age (JR with 2 yrs left) match multi-year frontcourt rebuild.",
           "Year-over-year efficiency step-up: 14.5 PER at Pepperdine → 17.6 PER at Campbell. Trending up.",
-          "ORB% 11.0 is exceptional — would BE the UNM ORB answer by himself.",
+          "ORB% 11.0 is exceptional - would BE the UNM ORB answer by himself.",
           "DRB% 18.5 comfortably clears threshold and addresses UNM's 238th-ranked opp-DRB gap.",
           "Olen's documented development of international frontcourt players aligns with Butka's profile."
         ],
         "concerns": [
-          "Blk% 0.3 is a STRUCTURAL miss — not a sample artifact. He is a rebounder, not a rim protector.",
+          "Blk% 0.3 is a STRUCTURAL miss - not a sample artifact. He is a rebounder, not a rim protector.",
           "17.9% from three at Campbell 2025-26 caps his spacing value.",
           "Big South → Coastal (CAA) → Mountain West is a two-level competition jump; efficiency may compress.",
           "Does not resolve UNM's shot-blocking gap (Rock's 9.5 Blk% leaving to K-State)."
         ]
       },
-      "olen_fit_note": "Butka is the cleanest Buljan-shape replacement on the rebound axis, with a multi-year eligibility bonus. But he is NOT a one-player solution to Olen's four thresholds — he ADDRESSES ORB%, DRB%, Stl%, height; he MISSES Blk%. If Olen pairs him with a separate rim protector, he is a strong add. If Olen expects a single add to check all four thresholds, Butka alone does not."
+      "olen_fit_note": "Butka is the cleanest Buljan-shape replacement on the rebound axis, with a multi-year eligibility bonus. But he is NOT a one-player solution to Olen's four thresholds - he ADDRESSES ORB%, DRB%, Stl%, height; he MISSES Blk%. If Olen pairs him with a separate rim protector, he is a strong add. If Olen expects a single add to check all four thresholds, Butka alone does not."
     },
     {
       "id": "anya",
       "name": "Kalu Anya",
       "from_program": "Saint Louis (SLU)",
-      "year": "Sr (final year — portal entry March 30 2026)",
+      "year": "Sr (final year - portal entry March 30 2026)",
       "height_in": 80,
       "height_display": "6'8\"",
       "weight_lbs": 215,
       "position": "Power Forward / Undersized Center",
       "nationality": "USA (Nigerian heritage; Worcester, MA)",
-      "international_flag": "NOT international — US-born, US-raised, US-prep. Nigerian heritage does not make this an international transfer case. Pathway: Worcester MA → IMG Academy → Brown → Saint Louis.",
+      "international_flag": "NOT international - US-born, US-raised, US-prep. Nigerian heritage does not make this an international transfer case. Pathway: Worcester MA → IMG Academy → Brown → Saint Louis.",
       "portal_status": "Entered portal March 30, 2026",
       "sr_verified_rates": {
         "source": "Sports Reference CBB, pulled 2026-04-22",
@@ -1130,30 +1183,30 @@
         "dreb_pct": {
           "status": "pass",
           "value": 20.9,
-          "display": "20.9% at SLU 2024-25 — well above threshold. Career consistent (20.0/20.0/20.9)."
+          "display": "20.9% at SLU 2024-25 - well above threshold. Career consistent (20.0/20.0/20.9)."
         },
         "oreb_pct": {
           "status": "pass",
           "value": 9.2,
-          "display": "9.2% at SLU — comfortably clears threshold. Career range 8.8–10.5."
+          "display": "9.2% at SLU - comfortably clears threshold. Career range 8.8–10.5."
         },
         "stl_pct": {
           "status": "pass",
           "value": 2.4,
-          "display": "2.4% at SLU — clears threshold. Career trend 1.5 → 2.6 → 2.4."
+          "display": "2.4% at SLU - clears threshold. Career trend 1.5 → 2.6 → 2.4."
         },
         "blk_pct": {
           "status": "pass",
           "value": 3.7,
-          "display": "3.7% at SLU — CLEARS threshold. Career trend 3.0 → 4.0 → 3.7 — structurally above 3%."
+          "display": "3.7% at SLU - CLEARS threshold. Career trend 3.0 → 4.0 → 3.7 - structurally above 3%."
         }
       },
       "data_confidence": "HIGH (advanced rates across three full D1 seasons)",
       "data_confidence_reasons": [
-        "Three full D1 seasons of per-possession rates available — most of any candidate.",
-        "Blk% sits at 3.7% (career avg 3.6) — clears Olen's hardest threshold.",
-        "Starter workload (34 games, 3.2 DBPM + defensive BPM) — this is what he IS, not what he projects to be.",
-        "Senior with 1 year of eligibility — 1-year plug, not a multi-year piece."
+        "Three full D1 seasons of per-possession rates available - most of any candidate.",
+        "Blk% sits at 3.7% (career avg 3.6) - clears Olen's hardest threshold.",
+        "Starter workload (34 games, 3.2 DBPM + defensive BPM) - this is what he IS, not what he projects to be.",
+        "Senior with 1 year of eligibility - 1-year plug, not a multi-year piece."
       ],
       "slot_fit_in_unm_2026_27": {
         "best_slot_match": "Chol replacement at the starting 4 + some Rock-role minutes as undersized 5 in small-ball lineups.",
@@ -1161,24 +1214,24 @@
       },
       "on_court_fit": {
         "positives": [
-          "ALL FOUR rate thresholds cleared + height at threshold — only candidate with a clean 4/4.",
-          "Three-year consistency: Blk% 3.0 / 4.0 / 3.7 is stable across Ivy + A-10 — not a one-year spike.",
+          "ALL FOUR rate thresholds cleared + height at threshold - only candidate with a clean 4/4.",
+          "Three-year consistency: Blk% 3.0 / 4.0 / 3.7 is stable across Ivy + A-10 - not a one-year spike.",
           "DRB% 20.9 directly addresses UNM's 238th-ranked opp-DRB gap.",
           "Low-usage / high-motor archetype (13.9 USG at SLU) is the textbook 'blend on offense' profile Olen asked for.",
-          "IMG Academy pedigree — tested against elite competition early."
+          "IMG Academy pedigree - tested against elite competition early."
         ],
         "concerns": [
-          "Senior with only 1 year of eligibility — a 1-year plug, not a 2-3 year rebuild piece.",
-          "Undersized as a 5 (6'8\") — pairs well with Butka or another 6'10\" but not a standalone C.",
+          "Senior with only 1 year of eligibility - a 1-year plug, not a 2-3 year rebuild piece.",
+          "Undersized as a 5 (6'8\") - pairs well with Butka or another 6'10\" but not a standalone C.",
           "Nigerian heritage is NOT an international-development story. If international background is an Olen priority, Anya does not deliver it.",
-          "TS% 0.560 is solid but not elite — he's not going to be the offensive engine."
+          "TS% 0.560 is solid but not elite - he's not going to be the offensive engine."
         ]
       },
       "olen_fit_note": "Anya is the highest-floor, rate-profile-cleanest fit against the stated thresholds AND the 2026-27 open slot picture. He checks all four rate thresholds, and his 6'8\" / 215-lb frame fits the Chol-replacement slot directly. Pairing him with a multi-year 6'9\" piece (e.g., Butka) gives UNM a complete 4/5 rebuild for 2026-27."
     }
   ],
   "comparative_summary": {
-    "slot_frame": "Each candidate is scored against which specific UNM 2026-27 open slot they'd fill — not a generic 'best profile' match.",
+    "slot_frame": "Each candidate is scored against which specific UNM 2026-27 open slot they'd fill - not a generic 'best profile' match.",
     "slot_mapping": [
       {
         "candidate": "Anya",
@@ -1190,24 +1243,24 @@
         "candidate": "Butka",
         "primary_slot": "Starting 4/5 (Buljan-shape rebound anchor)",
         "grade": "B+",
-        "note": "Fills rebound + size slot, 2 years eligibility — BUT Blk% 0.3 means a separate rim protector still needed."
+        "note": "Fills rebound + size slot, 2 years eligibility - BUT Blk% 0.3 means a separate rim protector still needed."
       },
       {
         "candidate": "Petraitis",
-        "primary_slot": "Wing depth — does NOT fill an interior slot",
+        "primary_slot": "Wing depth - does NOT fill an interior slot",
         "grade": "C+ (conditional on medical)",
-        "note": "Rate profile clears thresholds; slot fit is wrong — UNM needs interior, not wing."
+        "note": "Rate profile clears thresholds; slot fit is wrong - UNM needs interior, not wing."
       }
     ],
-    "two_player_combo_recommendation": "Anya + Butka together would cover three of Olen's four interior holes (starting 4, rebound anchor, defensive shell) with complementary ages (1 yr + 2 yr). UNM would still need a separate rim-protector for the Rock slot and a lead PG for the Albury slot — neither in this brief.",
+    "two_player_combo_recommendation": "Anya + Butka together would cover three of Olen's four interior holes (starting 4, rebound anchor, defensive shell) with complementary ages (1 yr + 2 yr). UNM would still need a separate rim-protector for the Rock slot and a lead PG for the Albury slot - neither in this brief.",
     "single_player_lens": "If forced to pick one: Anya. Highest-floor, cleanest rate match, immediate impact, and fills the slot UNM most directly needs (starting 4).",
     "edge3_caveat": "All three candidates have private-information gaps (film, medical, character, program fit) that EDGE3 public-data cannot evaluate. The Coach's Private Read panel on each card is where that call gets layered on top of this data."
   },
   "data_gaps": [
-    "Coach, a lead-PG replacement for Albury isn't in this three-player brief — happy to run a parallel pass on the PG pool whenever you want.",
-    "A dedicated rim-protector for Rock's slot isn't in this brief either — Anya's 3.7 Blk% partially covers but doesn't fully replace Rock's 7'1\" / 9.5-Blk% profile.",
+    "Coach, a lead-PG replacement for Albury isn't in this three-player brief - happy to run a parallel pass on the PG pool whenever you want.",
+    "A dedicated rim-protector for Rock's slot isn't in this brief either - Anya's 3.7 Blk% partially covers but doesn't fully replace Rock's 7'1\" / 9.5-Blk% profile.",
     "For Petraitis, 2026-27 medical clearance is the first question before fit even matters.",
-    "Private film / medical / character / culture reads sit with your staff — EDGE3 can't surface those from the outside."
+    "Private film / medical / character / culture reads sit with your staff - EDGE3 can't surface those from the outside."
   ],
   "branding": {
     "primary": "#BA0C2F",
@@ -1417,7 +1470,7 @@
       var c = p.thresholds_check[t.key];
       var td = document.createElement("td");
       if (!c) {
-        td.innerHTML = '<span class="cmp-pip unknown"><span class="dot"></span>&mdash;</span>';
+        td.innerHTML = '<span class="cmp-pip unknown"><span class="dot"></span>-</span>';
       } else {
         var lbl = statusLabel[c.status] || c.status;
         td.innerHTML =
