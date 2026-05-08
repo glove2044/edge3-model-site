@@ -102,27 +102,28 @@
   .df-cell.output .df-output-body { font-size: 14px; line-height: 1.55; color: #C7D3E6; }
 
   /* Three doors */
-  .doors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-  @media (max-width: 980px) { .doors { grid-template-columns: 1fr; } }
+  .doors { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  @media (max-width: 760px) { .doors { grid-template-columns: 1fr; } }
   .door { background: linear-gradient(135deg, var(--brand-dark-2) 0%, var(--brand-dark-3) 100%); border: 1px solid var(--brand-line); border-radius: 14px; padding: 28px 28px 26px; position: relative; overflow: hidden; transition: transform 0.15s, border-color 0.15s; display: flex; flex-direction: column; }
   .door::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
-  .door.fb::before { background: var(--brand-blue); }
-  .door.bb::before { background: var(--yellow); }
+  .door.programs::before { background: var(--brand-blue); }
   .door.athletes::before { background: var(--brand-green); }
-  .door:hover { transform: translateY(-2px); border-color: var(--brand-blue); }
+  .door:hover { transform: translateY(-2px); }
+  .door.programs:hover { border-color: var(--brand-blue); }
+  .door.athletes:hover { border-color: var(--brand-green); }
   .door .door-tag { display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; padding: 4px 10px; border-radius: 14px; margin-bottom: 18px; }
-  .door.fb .door-tag { background: rgba(59,130,246,0.16); color: var(--brand-blue); border: 1px solid rgba(59,130,246,0.30); }
-  .door.bb .door-tag { background: rgba(232,179,57,0.14); color: var(--yellow); border: 1px solid rgba(232,179,57,0.30); }
+  .door.programs .door-tag { background: rgba(59,130,246,0.16); color: var(--brand-blue); border: 1px solid rgba(59,130,246,0.30); }
   .door.athletes .door-tag { background: rgba(26,184,116,0.16); color: var(--brand-green); border: 1px solid rgba(26,184,116,0.30); }
   .door h3 { margin: 0 0 10px; font-size: 24px; font-weight: 800; letter-spacing: -0.015em; color: var(--brand-white); }
   .door p { margin: 0 0 16px; color: #C7D3E6; font-size: 14.5px; line-height: 1.55; }
   .door ul { list-style: none; padding: 0; margin: 0 0 22px; }
   .door ul li { padding: 6px 0 6px 22px; position: relative; color: var(--brand-text); font-size: 13.5px; line-height: 1.5; }
-  .door ul li::before { content: '\2713'; position: absolute; left: 0; top: 6px; color: var(--brand-green); font-weight: 800; }
+  .door.programs ul li::before { content: '\2713'; position: absolute; left: 0; top: 6px; color: var(--brand-blue); font-weight: 800; }
+  .door.athletes ul li::before { content: '\2713'; position: absolute; left: 0; top: 6px; color: var(--brand-green); font-weight: 800; }
   .door .door-cta { margin-top: auto; }
   .door .btn { display: inline-block; padding: 12px 20px; border-radius: 8px; font-weight: 700; font-size: 14px; text-decoration: none; transition: background 0.15s; }
-  .door.fb .btn, .door.bb .btn { background: var(--brand-blue); color: var(--brand-white); }
-  .door.fb .btn:hover, .door.bb .btn:hover { background: #2C6BD9; text-decoration: none; }
+  .door.programs .btn { background: var(--brand-blue); color: var(--brand-white); }
+  .door.programs .btn:hover { background: #2C6BD9; text-decoration: none; }
   .door.athletes .btn { background: var(--brand-green); color: var(--brand-white); }
   .door.athletes .btn:hover { background: var(--brand-green-d); text-decoration: none; }
   .door .demo-badge { font-size: 10.5px; color: var(--brand-muted); margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--brand-line); }
@@ -168,8 +169,7 @@
   <div class="wrap">
     <a href="./" style="text-decoration: none;"><span class="edge3-logo"><span class="e">EDGE</span><span class="three">3</span></span></a>
     <div class="nav">
-      <a href="./football/">Football</a>
-      <a href="./basketball/">Basketball</a>
+      <a href="./programs/">For Programs</a>
       <a href="./athletes/">Athletes &amp; Families</a>
     </div>
   </div>
@@ -178,107 +178,13 @@
 <header class="hero">
   <div class="wrap">
     <span class="eyebrow">Recruiting Intelligence Platform</span>
-    <h1>One intelligence layer.<br><span class="accent">Two sides of the market. Three doors. One platform.</span></h1>
+    <h1>One intelligence layer.<br><span class="accent">Two engagement channels. One platform.</span></h1>
     <p class="hero-tag">Our AI thinks like a coach.</p>
-    <p class="lede">For FB programs, evaluate prospects with pro-level depth. For athletes, identify, position, and compare with clarity.</p>
+    <p class="lede">Our personalized AI agents help college programs evaluate deeper and student-athletes navigate smarter.</p>
   </div>
 </header>
 
 <main>
-
-  <section>
-    <h2>Three doors</h2>
-    <p class="section-lede">EDGE3 lives in three places. Pick the one built for you.</p>
-    <div class="doors">
-
-      <div class="door fb">
-        <span class="door-tag">FB &middot; Programs</span>
-        <h3>EDGE3 Football</h3>
-        <p>NFL-level scouting intelligence, built for today&rsquo;s college recruiting workflows.</p>
-        <ul>
-          <li>See transfer risk before it happens</li>
-          <li>Project athlete development within your system, not just evaluate current performance</li>
-          <li>Model roster retention and performance trajectory on the verified scouting data your staff already trusts</li>
-        </ul>
-        <div class="door-cta">
-          <a class="btn" href="./football/">Enter EDGE3 Football &rarr;</a>
-          <div class="demo-badge"><strong>Interactive demo by request.</strong> Live walk-throughs scheduled with each program.</div>
-        </div>
-      </div>
-
-      <div class="door bb">
-        <span class="door-tag">BB &middot; Programs</span>
-        <h3>EDGE3 Basketball</h3>
-        <p>NBA-level scouting intelligence, built for today&rsquo;s college basketball recruiting. The same EDGE3 architecture, tuned for Division I. Continuously refreshed. Always current.</p>
-        <ul>
-          <li>See transfer risk before it happens</li>
-          <li>Project player development within your system, not just evaluate current production</li>
-          <li>Position-tagged scheme fit across every D1 program</li>
-        </ul>
-        <div class="door-cta">
-          <a class="btn" href="./basketball/">Enter EDGE3 Basketball &rarr;</a>
-          <div class="demo-badge"><strong>Interactive demo by request.</strong> Live walk-throughs scheduled with each program.</div>
-        </div>
-      </div>
-
-      <div class="door athletes">
-        <span class="door-tag">Athletes &middot; Families</span>
-        <h3>EDGE3 Athlete + Family Recruiting OS</h3>
-        <p>The operating system for recruit families. The same intelligence programs use, now in your hands, on your side of the table.</p>
-        <ul>
-          <li><strong>Identify</strong> what programs you best align with, and what you are as a recruit. <em>(control the narrative)</em></li>
-          <li><strong>Position</strong> the way coaches actually evaluate, not the way highlight tapes suggest</li>
-          <li><strong>Compare</strong> schools, staffs, systems, and players at your position with real clarity</li>
-        </ul>
-        <div class="door-cta">
-          <a class="btn" href="./athletes/">See how it works &rarr;</a>
-          <div class="demo-badge"><strong>Beta &middot; rolling out.</strong> Two pilot assessments completed to date.</div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <section>
-    <h2>How EDGE3 turns data into decisions.</h2>
-    <p class="section-lede">Both sides of the recruiting table need clarity. EDGE3 takes the structured data the recruiting world already trusts, layers in the unstructured context nobody else captures, and turns the combination into one read both sides can act on.</p>
-
-    <div class="data-flow">
-      <div class="df-row inputs">
-        <div class="df-cell input structured">
-          <div class="df-lbl">Structured data</div>
-          <div class="df-val">The measurable inputs: performance, rankings, and recruiting data from trusted sources.</div>
-        </div>
-        <div class="df-plus" aria-hidden="true">+</div>
-        <div class="df-cell input unstructured">
-          <div class="df-lbl">Unstructured context</div>
-          <div class="df-val">The hidden layer: behavior, fit, environment, and signals that don&rsquo;t show up in the numbers.</div>
-        </div>
-      </div>
-
-      <div class="df-arrow" aria-hidden="true">&darr;</div>
-
-      <div class="df-engine">
-        <div class="df-engine-lbl">EDGE3 Intelligence Layer</div>
-        <div class="df-engine-val">We connect what&rsquo;s measured with what&rsquo;s felt, and turn it into decisions. AI recruiting agents built for each user, mirroring how coaches actually think and evaluate.</div>
-      </div>
-
-      <div class="df-arrow" aria-hidden="true">&darr;</div>
-
-      <div class="df-row outputs">
-        <div class="df-cell output programs">
-          <div class="df-output-tag">For programs</div>
-          <div class="df-output-headline">Prospects at NFL and NBA depth.</div>
-          <div class="df-output-body">Who fits the system. Who&rsquo;s likely to stay. Who&rsquo;s trending up. One read per player, built for the staff room.</div>
-        </div>
-        <div class="df-cell output athletes">
-          <div class="df-output-tag">For recruit families</div>
-          <div class="df-output-headline">Identify. Position. Compare.</div>
-          <div class="df-output-body">See yourself the way programs do. Position with real evaluation logic. Compare options across schools, systems, and competition at your position.</div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <section>
     <h2>It&rsquo;s not the data. It&rsquo;s how we put it together.</h2>
@@ -306,14 +212,65 @@
   </section>
 
   <section>
-    <h2>How EDGE3 keeps every read current.</h2>
-    <p class="section-lede">The methodology behind the platform. Public, no gate.</p>
-    <div class="doc-cards" style="grid-template-columns: 1fr; max-width: 640px; margin: 0 auto;">
-      <a class="doc-card" href="./INTELLIGENCE_LOOP.html">
-        <div class="dctype">Methodology</div>
-        <div class="dctitle">Recruiting Decision Intelligence Engine</div>
-        <div class="dcsub">How EDGE3 layers structured and unstructured data into one read, and re-scores it the moment any signal moves.</div>
-      </a>
+    <h2>Two engagement channels.</h2>
+    <p class="section-lede">Pick your door. Both run on the same intelligence layer.</p>
+    <div class="doors">
+
+      <div class="door programs">
+        <span class="door-tag">For Recruiting Staffs</span>
+        <h3>Programs</h3>
+        <p>Coaches and analysts evaluating prospects, building boards, and holding the staff room together with one read per player.</p>
+        <ul>
+          <li>NFL- and NBA-level scouting intelligence</li>
+          <li>Transfer risk + performance trajectory + scheme fit in one combined read</li>
+          <li>Position-tagged across all of FBS / D1 / FCS / mid-major</li>
+        </ul>
+        <div class="door-cta">
+          <a class="btn" href="./programs/">Coaches click here &rarr;</a>
+          <div class="demo-badge"><strong>Football and Basketball.</strong> Pick your sport on the next page.</div>
+        </div>
+      </div>
+
+      <div class="door athletes">
+        <span class="door-tag">For Student-Athletes &amp; Families</span>
+        <h3>Athletes &amp; Families</h3>
+        <p>The athlete-owned recruiting and NIL OS. Position yourself the way coaches actually evaluate. Compare options across schools, systems, and competition at your position.</p>
+        <ul>
+          <li><strong>Identify</strong> the programs where your game translates</li>
+          <li><strong>Position</strong> the way coaches actually evaluate, not how highlight tapes teach</li>
+          <li><strong>Compare</strong> schools, staffs, systems, and depth charts with real clarity</li>
+        </ul>
+        <div class="door-cta">
+          <a class="btn" href="./athletes/">Student-athletes / families click here &rarr;</a>
+          <div class="demo-badge"><strong>Beta &middot; rolling out.</strong> Onboarding open today.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>EDGE3 transforms trusted recruiting data and hidden contextual signals into shared intelligence for programs, athletes, and families.</h2>
+
+    <div class="data-flow">
+      <div class="df-row inputs">
+        <div class="df-cell input structured">
+          <div class="df-lbl">Structured data</div>
+          <div class="df-val">Performance, rankings, recruiting feeds.</div>
+        </div>
+        <div class="df-plus" aria-hidden="true">+</div>
+        <div class="df-cell input unstructured">
+          <div class="df-lbl">Unstructured context</div>
+          <div class="df-val">Behavior, fit, environment, signals beyond the numbers.</div>
+        </div>
+      </div>
+
+      <div class="df-arrow" aria-hidden="true">&darr;</div>
+
+      <div class="df-engine">
+        <div class="df-engine-lbl">EDGE3 Intelligence Layer</div>
+        <div class="df-engine-val">We connect measurable data with human context, powering AI recruiting agents that think like coaches evaluate.</div>
+      </div>
     </div>
   </section>
 
