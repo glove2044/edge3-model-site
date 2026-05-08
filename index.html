@@ -128,6 +128,25 @@
   .door .demo-badge { font-size: 10.5px; color: var(--brand-muted); margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--brand-line); }
   .door .demo-badge strong { color: var(--brand-text); }
 
+  /* Differentiation pillars — "What makes EDGE3 different" */
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 900px) { .pillars { grid-template-columns: 1fr; } }
+  .pillar { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 14px; padding: 26px 24px 24px; position: relative; display: flex; flex-direction: column; }
+  .pillar::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .pillar.synthesis::before { background: var(--brand-green); }
+  .pillar.models::before { background: var(--brand-blue); }
+  .pillar.wallet::before { background: var(--yellow); }
+  .pillar .p-num { font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; margin-bottom: 8px; }
+  .pillar.synthesis .p-num { color: var(--brand-green); }
+  .pillar.models .p-num { color: var(--brand-blue); }
+  .pillar.wallet .p-num { color: var(--yellow); }
+  .pillar h3 { margin: 0 0 10px; font-size: 19px; font-weight: 800; color: var(--brand-white); letter-spacing: -0.01em; line-height: 1.25; }
+  .pillar p.p-body { margin: 0 0 16px; font-size: 14px; line-height: 1.55; color: #C7D3E6; flex: 1; }
+  .pillar .p-sticker { font-size: 14px; line-height: 1.45; color: var(--brand-white); font-style: italic; font-weight: 600; padding-top: 14px; border-top: 1px solid var(--brand-line); }
+  .pillar.synthesis .p-sticker { color: #B5EBD0; }
+  .pillar.models .p-sticker { color: #C7D9FF; }
+  .pillar.wallet .p-sticker { color: #F2D78D; }
+
   /* Companion docs */
   .doc-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
   @media (max-width: 900px) { .doc-cards { grid-template-columns: 1fr 1fr; } }
@@ -257,6 +276,31 @@
           <div class="df-output-headline">Identify. Position. Compare.</div>
           <div class="df-output-body">See yourself the way programs do. Position with real evaluation logic. Compare options across schools, systems, and competition at your position.</div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>It&rsquo;s not the data. It&rsquo;s how we put it together.</h2>
+    <p class="section-lede">What makes EDGE3 different from a recruiting dashboard.</p>
+    <div class="pillars">
+      <div class="pillar synthesis">
+        <div class="p-num">01 &middot; Synthesis</div>
+        <h3>Synthesis, not access.</h3>
+        <p class="p-body">Recruiting data, performance data, behavioral data. Most platforms sell access to one or two streams. EDGE3 fuses structured signals (rates, rankings, snaps) with unstructured context (behavior, fit, environment) into one continuous read.</p>
+        <div class="p-sticker">The data is everywhere. The read isn&rsquo;t.</div>
+      </div>
+      <div class="pillar models">
+        <div class="p-num">02 &middot; Models</div>
+        <h3>Models that earn trust.</h3>
+        <p class="p-body">Every model is refined cycle by cycle. We publish reproducibility checks against holdout seasons we never trained on. When the cohort shifts, we recalibrate. We test the way coaches do, against the seasons that already played out.</p>
+        <div class="p-sticker">We publish how we test. We re-tune when reality moves.</div>
+      </div>
+      <div class="pillar wallet">
+        <div class="p-num">03 &middot; Wallets</div>
+        <h3>Wallets the athletes own.</h3>
+        <p class="p-body">The same intelligence programs use, in the family&rsquo;s hands. A career digital resume, not a one-time NIL deal page. HS recruit, college student-athlete, transfer portal. Three wallet types, athlete-owned, portable.</p>
+        <div class="p-sticker">No other platform puts this on the family&rsquo;s side of the table.</div>
       </div>
     </div>
   </section>
