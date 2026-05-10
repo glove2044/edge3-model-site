@@ -7,7 +7,7 @@
 <meta name="description" content="Recruiting intelligence for college football and basketball staffs. The Recruiting OS for athletes and families. Three doors. One platform.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
     --brand-dark:    #0A0F1C;
@@ -160,13 +160,15 @@
   /* TIM under-the-hood block — tighter, technical-buyer signal */
   .tim-block { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 14px; padding: 26px 30px; position: relative; }
   .tim-block::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--brand-blue); border-radius: 14px 14px 0 0; }
-  .tim-block .tim-eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: var(--brand-blue); margin-bottom: 8px; }
-  .tim-block .tim-title { margin: 0 0 6px; font-size: 22px; font-weight: 800; letter-spacing: -0.015em; color: var(--brand-white); }
+  .tim-block .tim-eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: var(--brand-blue); margin-bottom: 10px; }
+  .tim-block .tim-title { margin: 0 0 4px; font-size: 22px; font-weight: 800; letter-spacing: -0.015em; color: var(--brand-white); line-height: 1.25; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .tim-wordmark { font-family: 'Syne', 'Inter', sans-serif; font-weight: 800; letter-spacing: 0.04em; color: var(--brand-green); font-size: 1.02em; }
+  .tim-version { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--brand-muted); padding: 3px 9px; background: rgba(26,184,116,0.10); border: 1px solid rgba(26,184,116,0.30); border-radius: 12px; }
   .tim-block .tim-body { margin: 0 0 22px; font-size: 14.5px; line-height: 1.55; color: #C7D3E6; max-width: 720px; }
   .tim-families { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 18px; }
   @media (max-width: 760px) { .tim-families { grid-template-columns: 1fr; } }
   .tim-family { background: var(--brand-dark-3); border: 1px solid var(--brand-line); border-radius: 10px; padding: 14px 16px; }
-  .tim-family .tf-label { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--brand-blue); margin-bottom: 6px; }
+  .tim-family .tf-label { font-size: 12px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--brand-blue); margin-bottom: 6px; }
   .tim-family .tf-question { font-size: 14px; color: var(--brand-text); line-height: 1.45; font-weight: 500; }
   .tim-arrow { text-align: center; color: var(--brand-blue); font-size: 22px; font-weight: 800; margin: 4px 0 10px; }
   .tim-output { background: var(--brand-dark-3); border: 1px solid var(--brand-line); border-radius: 10px; padding: 16px 18px; margin-bottom: 16px; }
@@ -177,6 +179,8 @@
   .ryg-dot.red { background: var(--red); }
   .ryg-row strong { color: var(--brand-white); font-weight: 700; min-width: 64px; display: inline-block; }
   .tim-sticker { font-size: 14px; line-height: 1.45; color: #C7D9FF; font-style: italic; font-weight: 600; padding-top: 14px; border-top: 1px solid var(--brand-line); }
+  .tim-money { margin-top: 14px; padding: 12px 16px; background: rgba(232,179,57,0.10); border: 1px solid rgba(232,179,57,0.30); border-left: 3px solid var(--yellow); border-radius: 0 10px 10px 0; font-size: 13.5px; color: #F2D78D; }
+  .tim-money strong { color: var(--brand-white); font-weight: 700; }
   @media (max-width: 600px) { .tim-block { padding: 22px 20px; } .tim-block .tim-title { font-size: 19px; } }
 
   /* Loop panel — bookend to Honest Scope (green accent) */
@@ -254,51 +258,48 @@
   <section>
     <div class="tim-block">
       <div class="tim-eyebrow">Under the hood</div>
-      <h2 class="tim-title">Powered by Truth Intelligence Models.</h2>
-      <p class="tim-body">Three model families work in parallel. Tens of thousands of variables go in. One signal comes out.</p>
+      <h2 class="tim-title">Powered by <span class="tim-wordmark">TIM</span> &mdash; Truth Intelligence Models <span class="tim-version">v1</span></h2>
+      <p class="tim-body">Three model families. One signal in three colors.</p>
       <div class="tim-families">
         <div class="tim-family">
-          <div class="tf-label">TIM Trajectory</div>
+          <div class="tf-label">Trajectory</div>
           <div class="tf-question">Where is this athlete heading?</div>
         </div>
         <div class="tim-family">
-          <div class="tf-label">TIM Retention</div>
-          <div class="tf-question">How likely is this athlete to stay in the program?</div>
+          <div class="tf-label">Retention</div>
+          <div class="tf-question">How likely is this athlete to stay?</div>
         </div>
         <div class="tim-family">
-          <div class="tf-label">TIM Baselines</div>
+          <div class="tf-label">Baselines</div>
           <div class="tf-question">What does each level look like, by position and age band?</div>
         </div>
       </div>
       <div class="tim-arrow" aria-hidden="true">&darr;</div>
       <div class="tim-output">
-        <div class="ryg-row"><span class="ryg-dot green" aria-hidden="true"></span><span><strong>Green.</strong> On track. Retain priority. Move on.</span></div>
-        <div class="ryg-row"><span class="ryg-dot yellow" aria-hidden="true"></span><span><strong>Yellow.</strong> Mixed signals. Watch list. Development conversation worth having.</span></div>
-        <div class="ryg-row"><span class="ryg-dot red" aria-hidden="true"></span><span><strong>Red.</strong> Strong portal flag or development gap. Evaluate now.</span></div>
+        <div class="ryg-row"><span class="ryg-dot green" aria-hidden="true"></span><span><strong>Green.</strong> On track. Retain priority.</span></div>
+        <div class="ryg-row"><span class="ryg-dot yellow" aria-hidden="true"></span><span><strong>Yellow.</strong> Mixed signals. Have the conversation.</span></div>
+        <div class="ryg-row"><span class="ryg-dot red" aria-hidden="true"></span><span><strong>Red.</strong> Portal flag or development gap. Evaluate now.</span></div>
       </div>
       <div class="tim-sticker">The math is the engine. The R/Y/G is the answer.</div>
-    </div>
-  </section>
-
-  <section>
-    <div class="honest-scope">
-      <div class="hs-eyebrow">Honest Scope</div>
-      <h2>What the model isn&rsquo;t (yet).</h2>
-      <p class="hs-body">Money is the #1 reason athletes transfer. Every coach knows this. EDGE3 doesn&rsquo;t yet include verified NIL deal data in the models. We don&rsquo;t pretend to. While other platforms race to slap dollar values on kids without complete pictures, EDGE3 focuses on the other factors. Assume money equal: what else moves the player?</p>
-      <div class="hs-sticker">Money is loud. Fit is louder when money is equal.</div>
+      <div class="tim-money"><strong>Money is loud. Fit is louder when money is equal.</strong> Verified NIL deal data joins as a layer when it&rsquo;s available, not a substitute for fit.</div>
     </div>
   </section>
 
   <section>
     <div class="loop-panel">
-      <div class="lp-eyebrow">Continuous Intelligence Loop</div>
-      <h2>The model predicts. The survey confirms. The next model learns.</h2>
-      <p class="lp-body">Most platforms ship a model and forget. EDGE3 keeps learning. Players, parents, and staff answer short, smart surveys throughout the season. Their answers reveal what&rsquo;s actually driving each athlete&rsquo;s decisions. That feedback feeds the next version of the model. Each cycle, the predictions get sharper because they&rsquo;re tested against what really happened. Shifts get caught player by player, not after the whole roster has moved.</p>
-      <div class="lp-sticker">Every cycle, smarter. Every season, more honest.</div>
+      <div class="lp-eyebrow">Truth Intelligence Loop</div>
+      <h2>Smarter, faster, better with every cycle.</h2>
+      <p class="lp-body">The model predicts. Every transfer, snap, and social signal confirms or corrects it. The next model learns. Players, parents, and staff answer short, smart surveys throughout the season &mdash; their answers reveal what&rsquo;s actually driving decisions. Shifts get caught player by player, not after the whole roster has moved.</p>
+      <div class="lp-sticker">It&rsquo;s not the data or the AI. It&rsquo;s how we bring them together for each coaching staff.</div>
     </div>
   </section>
 
   <section>
+    <div style="background: linear-gradient(135deg, rgba(26,184,116,0.10), rgba(59,130,246,0.06)); border: 1px solid var(--brand-line); border-radius: 14px; padding: 26px 30px; margin-bottom: 32px; text-align: center;">
+      <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: var(--brand-green); margin-bottom: 10px;">Partnership, not platform</div>
+      <h2 style="margin: 0 0 10px; font-size: clamp(20px, 3vw, 26px); font-weight: 800; letter-spacing: -0.015em; color: var(--brand-white); line-height: 1.25;">We source requirements from both sides of the table.</h2>
+      <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #C7D3E6; max-width: 760px; margin: 0 auto;">Schools tell us what they need. Athletes tell us what they need. We read what the outcomes say, and weigh every match against both. Recruiting isn&rsquo;t a database lookup. It&rsquo;s a partnership built on outcomes.</p>
+    </div>
     <h2>Two engagement channels.</h2>
     <p class="section-lede">Pick your door. Both run on the same intelligence layer.</p>
     <div class="doors">
