@@ -570,7 +570,7 @@
 
     <!-- How we test the models — moved directly under the interactive board -->
     <h2 class="section-heading">How we earn the model&rsquo;s trust.</h2>
-    <p class="section-heading-sub">Tested against past seasons the model never saw during training. Re-tuned when patterns shift. Re-tested on every refresh. Every accuracy number below is tested on past seasons the model never trained on.</p>
+    <p class="section-heading-sub">The math is validated against past seasons the model never saw during training. The agents update on game-level data and signals this week. We re-tune when patterns shift and re-test on every refresh. Honest about both what already played out and what&rsquo;s playing out right now.</p>
 
     <div style="background: #fff; border: 1px solid var(--rule); border-radius: 14px; padding: 28px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
       <div class="test-models-grid">
@@ -586,7 +586,7 @@
         </div>
       </div>
       <div style="margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 13px; line-height: 1.55;">
-        <strong style="color: var(--navy);">How accuracy reads:</strong> 50% would be a coin flip. 100% would be perfect. Anything 70%+ means the model is meaningfully better than guessing. We test by hiding past seasons the model never trained on, the same way you scout last year&rsquo;s tape before this year&rsquo;s game. <strong style="color: var(--navy);">Players without a prior-year baseline are flagged "No Baseline" rather than imputed.</strong>
+        <strong style="color: var(--navy);">How accuracy reads:</strong> 50% would be a coin flip. 100% would be perfect. Anything 70%+ means the model is meaningfully better than guessing. The validation hides past seasons from the model and asks it to predict them, the same way you back-test any honest forecasting system. Separately, the agents track game-level data and social signals live, so the scouting view stays current. <strong style="color: var(--navy);">Players without a prior-year baseline are flagged "No Baseline" rather than imputed.</strong>
       </div>
     </div>
 
@@ -753,6 +753,7 @@
 
 <footer>
   <p>EDGE3 Basketball &middot; <a href="../">EDGE3 home</a> &middot; <a href="https://github.com/glove2044/edge3-model">github.com/glove2044/edge3-model</a></p>
+  <p style="font-size: 11px; opacity: 0.7; margin-top: 4px;">Powered by Truth Intelligence Models.</p>
 </footer>
 
 <script>

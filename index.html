@@ -157,6 +157,28 @@
   .honest-scope .hs-sticker { font-size: 16px; line-height: 1.45; color: #F2D78D; font-style: italic; font-weight: 600; padding-top: 16px; border-top: 1px solid var(--brand-line); }
   @media (max-width: 600px) { .honest-scope { padding: 24px 22px; } .honest-scope h2 { font-size: 22px; } }
 
+  /* TIM under-the-hood block — tighter, technical-buyer signal */
+  .tim-block { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 14px; padding: 26px 30px; position: relative; }
+  .tim-block::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--brand-blue); border-radius: 14px 14px 0 0; }
+  .tim-block .tim-eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: var(--brand-blue); margin-bottom: 8px; }
+  .tim-block .tim-title { margin: 0 0 6px; font-size: 22px; font-weight: 800; letter-spacing: -0.015em; color: var(--brand-white); }
+  .tim-block .tim-body { margin: 0 0 22px; font-size: 14.5px; line-height: 1.55; color: #C7D3E6; max-width: 720px; }
+  .tim-families { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 18px; }
+  @media (max-width: 760px) { .tim-families { grid-template-columns: 1fr; } }
+  .tim-family { background: var(--brand-dark-3); border: 1px solid var(--brand-line); border-radius: 10px; padding: 14px 16px; }
+  .tim-family .tf-label { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--brand-blue); margin-bottom: 6px; }
+  .tim-family .tf-question { font-size: 14px; color: var(--brand-text); line-height: 1.45; font-weight: 500; }
+  .tim-arrow { text-align: center; color: var(--brand-blue); font-size: 22px; font-weight: 800; margin: 4px 0 10px; }
+  .tim-output { background: var(--brand-dark-3); border: 1px solid var(--brand-line); border-radius: 10px; padding: 16px 18px; margin-bottom: 16px; }
+  .ryg-row { display: flex; align-items: center; gap: 12px; padding: 6px 0; font-size: 14px; color: var(--brand-text); }
+  .ryg-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .ryg-dot.green { background: var(--brand-green); }
+  .ryg-dot.yellow { background: var(--yellow); }
+  .ryg-dot.red { background: var(--red); }
+  .ryg-row strong { color: var(--brand-white); font-weight: 700; min-width: 64px; display: inline-block; }
+  .tim-sticker { font-size: 14px; line-height: 1.45; color: #C7D9FF; font-style: italic; font-weight: 600; padding-top: 14px; border-top: 1px solid var(--brand-line); }
+  @media (max-width: 600px) { .tim-block { padding: 22px 20px; } .tim-block .tim-title { font-size: 19px; } }
+
   /* Loop panel — bookend to Honest Scope (green accent) */
   .loop-panel { background: linear-gradient(135deg, var(--brand-dark-2) 0%, var(--brand-dark-3) 100%); border: 1px solid var(--brand-line); border-radius: 14px; padding: 32px 36px; position: relative; }
   .loop-panel::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--brand-green); border-radius: 14px 14px 0 0; }
@@ -216,9 +238,9 @@
       </div>
       <div class="pillar models">
         <div class="p-num">02 &middot; Models</div>
-        <h3>Models that earn trust.</h3>
-        <p class="p-body">Every model is refined cycle by cycle. We test against past seasons the model never trained on, then publish the results. When patterns shift, we re-tune. We test the way coaches do, against the seasons that already played out.</p>
-        <div class="p-sticker">We publish how we test. We re-tune when reality moves.</div>
+        <h3>Agentic intelligence. Past, present, and this week.</h3>
+        <p class="p-body">EDGE3 scouts the way actual coaches scout. Multi-season history. Game-level data refreshed every week. Social signals from this week, this morning. Our agents ingest continuously, not seasonally. We also test the math against past seasons the model never trained on, publish the results, and re-tune when reality moves. The math is honest about what already played out. The agents are honest about what&rsquo;s playing out right now.</p>
+        <div class="p-sticker">Continuous, not retrospective. Agentic, not static.</div>
       </div>
       <div class="pillar wallet">
         <div class="p-num">03 &middot; Wallets</div>
@@ -226,6 +248,35 @@
         <p class="p-body">The same intelligence programs use, in the family&rsquo;s hands. A career digital resume, not a one-time NIL deal page. HS recruit, college student-athlete, transfer portal. Three wallet types, athlete-owned, portable.</p>
         <div class="p-sticker">No other platform puts this on the family&rsquo;s side of the table.</div>
       </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="tim-block">
+      <div class="tim-eyebrow">Under the hood</div>
+      <h2 class="tim-title">Powered by Truth Intelligence Models.</h2>
+      <p class="tim-body">Three model families work in parallel. Tens of thousands of variables go in. One signal comes out.</p>
+      <div class="tim-families">
+        <div class="tim-family">
+          <div class="tf-label">TIM Trajectory</div>
+          <div class="tf-question">Where is this athlete heading?</div>
+        </div>
+        <div class="tim-family">
+          <div class="tf-label">TIM Retention</div>
+          <div class="tf-question">How likely is this athlete to stay in the program?</div>
+        </div>
+        <div class="tim-family">
+          <div class="tf-label">TIM Baselines</div>
+          <div class="tf-question">What does each level look like, by position and age band?</div>
+        </div>
+      </div>
+      <div class="tim-arrow" aria-hidden="true">&darr;</div>
+      <div class="tim-output">
+        <div class="ryg-row"><span class="ryg-dot green" aria-hidden="true"></span><span><strong>Green.</strong> On track. Retain priority. Move on.</span></div>
+        <div class="ryg-row"><span class="ryg-dot yellow" aria-hidden="true"></span><span><strong>Yellow.</strong> Mixed signals. Watch list. Development conversation worth having.</span></div>
+        <div class="ryg-row"><span class="ryg-dot red" aria-hidden="true"></span><span><strong>Red.</strong> Strong portal flag or development gap. Evaluate now.</span></div>
+      </div>
+      <div class="tim-sticker">The math is the engine. The R/Y/G is the answer.</div>
     </div>
   </section>
 
@@ -314,7 +365,10 @@
 
 <footer>
   <div class="wrap">
-    <div><span class="edge3-logo" style="font-size:16px;"><span class="e">EDGE</span><span class="three">3</span></span> &middot; Athlete Intelligence</div>
+    <div>
+      <span class="edge3-logo" style="font-size:16px;"><span class="e">EDGE</span><span class="three">3</span></span> &middot; Athlete Intelligence
+      <div style="font-size:11px; color:var(--brand-muted); margin-top:4px;">Powered by Truth Intelligence Models.</div>
+    </div>
     <div><a href="./football/">Football</a> &middot; <a href="./basketball/">Basketball</a> &middot; <a href="./athletes/">Athletes &amp; Families</a> &middot; <a href="https://github.com/glove2044/edge3-model">github.com/glove2044/edge3-model</a></div>
   </div>
 </footer>

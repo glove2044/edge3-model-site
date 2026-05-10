@@ -98,6 +98,25 @@
   .tp-path .tp-path-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--brand-green); font-weight: 700; margin-bottom: 8px; }
   .tp-path p { font-size: 14px; line-height: 1.55; color: #C8D0DE; margin: 0; }
 
+  /* ===== Real Coach Feedback panel — camp-economy lede + agent-protection frame ===== */
+  .rcf-panel { background: linear-gradient(135deg, var(--brand-dark-2) 0%, var(--brand-dark-3) 100%); border: 1px solid var(--brand-line); border-radius: 16px; padding: 44px; position: relative; }
+  .rcf-panel::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--brand-green); border-radius: 16px 16px 0 0; }
+  .rcf-panel .rcf-eyebrow { font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--brand-green); margin-bottom: 14px; font-weight: 700; }
+  .rcf-panel h2 { font-size: clamp(28px, 4vw, 38px); line-height: 1.18; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 16px; color: var(--brand-white); }
+  .rcf-panel p.rcf-lede { font-size: 17px; line-height: 1.55; color: #C8D0DE; margin: 0 0 24px; max-width: 800px; }
+  .rcf-panel p.rcf-lede strong { color: var(--brand-white); font-weight: 700; }
+  .rcf-three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 24px 0 24px; }
+  @media (max-width: 760px) { .rcf-three { grid-template-columns: 1fr; } .rcf-panel { padding: 32px 24px; } }
+  .rcf-step { background: var(--brand-dark); border: 1px solid var(--brand-line); border-radius: 12px; padding: 20px 22px; }
+  .rcf-step .rcf-num { font-size: 11px; font-weight: 700; color: var(--brand-green); letter-spacing: 1.4px; margin-bottom: 8px; }
+  .rcf-step .rcf-title { font-size: 16px; font-weight: 700; color: var(--brand-white); margin-bottom: 8px; line-height: 1.3; }
+  .rcf-step .rcf-text { font-size: 13.5px; line-height: 1.55; color: #C8D0DE; }
+  .rcf-agent { background: var(--brand-dark); border: 1px solid var(--brand-line); border-left: 3px solid var(--yellow); border-radius: 0 10px 10px 0; padding: 18px 22px; margin-top: 12px; }
+  .rcf-agent .ra-eyebrow { font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--yellow); margin-bottom: 6px; font-weight: 700; }
+  .rcf-agent p { font-size: 15px; line-height: 1.55; color: var(--brand-white); margin: 0; font-weight: 600; }
+  .rcf-agent p .accent-yellow { color: var(--yellow); font-style: italic; }
+  .rcf-tagline { font-size: 20px; font-weight: 700; color: var(--brand-white); margin: 22px 0 0; padding-top: 18px; border-top: 1px solid var(--brand-line); text-align: center; letter-spacing: -0.01em; line-height: 1.4; }
+
   /* ===== Wallets (player-owned containers) ===== */
   .wallet-panel { background: linear-gradient(135deg, var(--brand-dark-2) 0%, var(--brand-dark-3) 100%); border: 1px solid var(--brand-line); border-radius: 16px; padding: 44px; }
   .wallet-panel .wp-eyebrow { font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--brand-green); margin-bottom: 16px; font-weight: 700; }
@@ -217,6 +236,40 @@
 </header>
 
 <main>
+
+  <!-- ===== Real Coach Feedback — camp-economy lede + agent-protection frame ===== -->
+  <section>
+    <div class="rcf-panel">
+      <div class="rcf-eyebrow">What we actually do</div>
+      <h2>Most kids at camps never get seen by the right coach.</h2>
+      <p class="rcf-lede">They show up. They pay. They pad up. They leave anonymous. The evaluation never happens. The family drives home with nothing. EDGE3 fixes that. <strong>We make sure your athlete gets seen by the right coach, and that the honest read comes back to you.</strong> No offers promised. Just the truth.</p>
+
+      <div class="rcf-three">
+        <div class="rcf-step">
+          <div class="rcf-num">01 &middot; Visibility</div>
+          <div class="rcf-title">The right coach has eyes on your athlete.</div>
+          <div class="rcf-text">Through our network of former NFL and NBA players acting as extensions of EDGE3 leadership, we make sure your athlete is a named entity at the program before camp begins, not another body in pads.</div>
+        </div>
+        <div class="rcf-step">
+          <div class="rcf-num">02 &middot; Honest Feedback</div>
+          <div class="rcf-title">The actual read comes back to you.</div>
+          <div class="rcf-text">After the evaluation, we source the developmental read directly from that coach. Strengths, gaps, projection, positional flex. The kind of feedback families almost never receive.</div>
+        </div>
+        <div class="rcf-step">
+          <div class="rcf-num">03 &middot; A Wallet That Travels</div>
+          <div class="rcf-title">Your scouting document, owned by you.</div>
+          <div class="rcf-text">We translate every coach&rsquo;s read into structured trait cards in your athlete&rsquo;s wallet. Same vocabulary, comparable across coaches and programs. Your wallet is yours, portable to the next staff and the next conversation.</div>
+        </div>
+      </div>
+
+      <div class="rcf-agent">
+        <div class="ra-eyebrow">A note on agents</div>
+        <p>Agents are signing kids who don&rsquo;t know any better. <span class="accent-yellow">EDGE3 is how the family knows better.</span> Same intelligence the programs use, in your hands, before anyone else walks in the room.</p>
+      </div>
+
+      <div class="rcf-tagline">You hire the agent. You pick the school. You pay the bills. The OS should be yours.</div>
+    </div>
+  </section>
 
   <!-- ===== EDGE3 Recruiting Assistant ===== -->
   <section>
@@ -423,7 +476,10 @@
 
 <footer>
   <div class="wrap">
-    <div><span class="edge3-logo" style="font-size:16px;"><span class="e">EDGE</span><span class="three">3</span></span> &middot; Athlete + Family Recruiting OS</div>
+    <div>
+      <span class="edge3-logo" style="font-size:16px;"><span class="e">EDGE</span><span class="three">3</span></span> &middot; Athlete + Family Recruiting OS
+      <div style="font-size:11px; color:var(--brand-muted); margin-top:4px;">Powered by Truth Intelligence Models.</div>
+    </div>
     <div><a href="../">Home</a> &middot; <a href="../football/">Football</a> &middot; <a href="../basketball/">Basketball</a> &middot; <a href="https://github.com/glove2044/edge3-model">github.com/glove2044/edge3-model</a></div>
   </div>
 </footer>

@@ -3,17 +3,57 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Wisconsin Football — Program Scorecard for Coach Fickell & Staff</title>
+<title>Wisconsin Football · EDGE3 Program Scorecard for Coach Fickell &amp; Staff</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --edge3-red:#C5050C; --edge3-red-dk:#9B040A; --wisc-red:#C5050C;
-    --bg:#0F1115; --panel:#1A1D24; --panel-2:#222631; --line:#2C3140;
-    --text:#E8EAEE; --muted:#8A93A6; --accent:#7BA9FF;
-    --elite:#16C172; --above:#7BC96F; --at:#E8B339; --below:#E07F4D; --far:#D33F49; --unknown:#5A6275;
+    /* EDGE3 brand tokens (canonical) */
+    --brand-dark: #0A0F1C;
+    --brand-dark-2: #0E1320;
+    --brand-dark-3: #161D2D;
+    --brand-white: #FFFFFF;
+    --brand-green: #1AB874;
+    --brand-blue: #3B82F6;
+    --brand-text: #E8EDF5;
+    --brand-muted: #8896AB;
+    --brand-line: #1F2738;
+
+    /* Wisconsin personalization (content emphasis only, not chrome) */
+    --wisc-red: #C5050C; --wisc-red-dk: #9B040A;
+
+    /* Surface tokens (mapped to EDGE3 brand) */
+    --bg: var(--brand-dark);
+    --panel: var(--brand-dark-3);
+    --panel-2: #1B2336;
+    --line: var(--brand-line);
+    --text: var(--brand-text);
+    --muted: var(--brand-muted);
+    --accent: var(--brand-blue);
+    --elite:#1AB874; --above:#7BC96F; --at:#E8B339; --below:#E07F4D; --far:#D33F49; --unknown:#5A6275;
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
   * {box-sizing:border-box}
-  body {margin:0;background:var(--bg);color:var(--text);font:14px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
-  header {background:linear-gradient(135deg,var(--wisc-red),var(--edge3-red-dk));padding:22px 32px 24px;border-bottom:1px solid var(--line)}
+  body {margin:0;background:var(--bg);color:var(--text);font:14px/1.5 var(--font); -webkit-font-smoothing:antialiased}
+
+  /* EDGE3 chrome */
+  .edge3-brandbar { background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-dark-2) 100%); border-bottom: 1px solid var(--brand-line); padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; }
+  .edge3-logo { font-family: var(--font); font-weight: 800; letter-spacing: -0.03em; line-height: 1; display: inline-block; font-size: 22px; }
+  .edge3-edge { color: var(--brand-white); }
+  .edge3-three { color: var(--brand-green); }
+  .edge3-brandbar .sport-tag { display: inline-block; background: rgba(197, 5, 12, 0.85); border: 1px solid rgba(255,255,255,0.18); padding: 5px 12px; border-radius: 18px; font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: var(--brand-white); }
+  .edge3-breadcrumb { background: var(--brand-dark-2); border-bottom: 1px solid var(--brand-line); padding: 12px 32px; font-size: 13px; color: var(--brand-muted); }
+  .edge3-breadcrumb a { color: var(--brand-muted); text-decoration: none; }
+  .edge3-breadcrumb a:hover { color: var(--brand-text); }
+  .edge3-footer { background: var(--brand-dark-2); border-top: 1px solid var(--brand-line); padding: 24px 32px; color: var(--brand-muted); font-size: 12px; line-height: 1.6; }
+  .edge3-footer .row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; }
+  .edge3-footer .brand-line { color: var(--brand-text); font-weight: 600; margin-bottom: 4px; }
+  .edge3-footer .right { max-width: 540px; text-align: right; }
+  .edge3-footer .powered { font-size: 11px; opacity: 0.7; margin-top: 6px; }
+  @media (max-width: 700px) { .edge3-footer .row { flex-direction: column; } .edge3-footer .right { text-align: left; max-width: 100%; } .edge3-brandbar { padding: 14px 16px; } .edge3-breadcrumb { padding: 10px 16px; } }
+  header {background:linear-gradient(135deg, var(--brand-dark-2) 0%, var(--brand-dark) 100%);padding:28px 32px 26px;border-bottom:1px solid var(--line); position:relative}
+  header::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg, var(--wisc-red), var(--wisc-red-dk)); }
   header h1 {margin:0 0 6px 0;font-size:22px;letter-spacing:-0.2px}
   header .hero-sub {color:#FFE1E3;font-size:14px;line-height:1.45;margin:0;max-width:900px}
   .context-band {background:var(--panel);border-bottom:1px solid var(--line);padding:14px 32px;display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
@@ -41,7 +81,7 @@
   .staff-banner .sub {font-size:11px;color:var(--muted);margin-top:2px}
   .filters {display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
   .filters button {background:var(--panel-2);color:var(--text);border:1px solid var(--line);border-radius:18px;padding:6px 14px;font-size:12px;cursor:pointer}
-  .filters button.active {background:var(--edge3-red);border-color:var(--edge3-red);color:#fff}
+  .filters button.active {background:var(--brand-blue);border-color:var(--brand-blue);color:#fff}
   table {width:100%;border-collapse:collapse;font-size:13px}
   th {text-align:left;padding:10px 8px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:1}
   td {padding:10px 8px;border-bottom:1px solid var(--line)}
@@ -73,7 +113,7 @@
   .pill {display:inline-block;padding:3px 9px;border-radius:11px;font-size:11px;font-weight:600;color:#fff;min-width:60px;text-align:center}
   .pill.Elite{background:var(--elite)} .pill.Above{background:var(--above)}
   .pill.At{background:var(--at);color:#222} .pill.Below{background:var(--below)}
-  .pill[class~='Far']{background:var(--far)} .pill.Unknown{background:var(--unknown)} .pill[class~='—']{background:var(--unknown)}
+  .pill[class~='Far']{background:var(--far)} .pill.Unknown{background:var(--unknown)} .pill[class~='-']{background:var(--unknown)}
   .pname {font-weight:600;color:var(--text)} .pmeta {color:var(--muted);font-size:11px}
   /* detail panel */
   .detail h2 {margin:0 0 4px 0;font-size:18px}
@@ -91,8 +131,18 @@
   <script src="../../../_gate.js" defer></script>
 </head>
 <body>
+
+<div class="edge3-brandbar">
+  <a href="../../../" style="text-decoration: none;"><span class="edge3-logo"><span class="edge3-edge">EDGE</span><span class="edge3-three">3</span></span></a>
+  <span class="sport-tag">Football &middot; Program Scorecard</span>
+</div>
+
+<div class="edge3-breadcrumb">
+  <a href="../../../">EDGE3</a> &rsaquo; <a href="../../../programs/">Programs</a> &rsaquo; <a href="../../">Football</a> &rsaquo; Coach Fickell &middot; Wisconsin
+</div>
+
 <header>
-  <h1>Wisconsin Football — Program Scorecard for Coach Fickell &amp; Staff</h1>
+  <h1>Wisconsin Football - Program Scorecard for Coach Fickell &amp; Staff</h1>
   <p class="hero-sub">Coach, here is how your 2024 roster graded out against the Wisconsin program baseline and your staff-era baseline, heading into Year 4. Every player your staff coached that season, ranked by where they landed vs. the program bar at their position.</p>
 </header>
 
@@ -115,14 +165,14 @@
   <div class="cb-item">
     <div class="lbl">Strength of Schedule</div>
     <div class="val">9.40 rating</div>
-    <div class="sub">1st of 136 — toughest in FBS</div>
+    <div class="sub">1st of 136 - toughest in FBS</div>
   </div>
   <div class="cb-item">
     <div class="lbl">Returning Offensive Starters (2026)</div>
     <div class="val">2</div>
     <div class="sub">Heavy portal rebuild</div>
   </div>
-  <div class="context-note">The scorecard below audits the 2024 roster — your Year 2 evidence — so the 2025 outcome (offensive collapse, defense steady) reads against what your staff had to work with. Year 3 data will layer in as PFF publishes the season file.</div>
+  <div class="context-note">The scorecard below audits the 2024 roster - your Year 2 evidence - so the 2025 outcome (offensive collapse, defense steady) reads against what your staff had to work with. Year 3 data will layer in as PFF publishes the season file.</div>
 </div>
 
 <div class="container">
@@ -174,8 +224,18 @@
   </div>
 </div>
 
-<footer>
-  Prepared for Coach Fickell and the Wisconsin staff · 39 players audited from the 2024 season (snaps &gt; 0) · Program baseline pooled from Wisconsin at position, 2014–2024 · Staff-era baseline pooled from Wisconsin at position since 2023 · HS recruiting from 247Composite · HS competition from 10-year D1 alumni signal per high school.
+<footer class="edge3-footer">
+  <div class="row">
+    <div>
+      <div class="brand-line"><span class="edge3-logo" style="font-size: 14px;"><span class="edge3-edge">EDGE</span><span class="edge3-three">3</span></span> &middot; Football &middot; Wisconsin Program Scorecard</div>
+      <div>Prepared for Coach Fickell and the Wisconsin staff. 39 players audited from the 2024 season (snaps &gt; 0).</div>
+      <div style="margin-top: 6px;"><a href="../../../">Home</a> &middot; <a href="../../">Football</a> &middot; <a href="../../../programs/">Programs</a></div>
+      <div class="powered">Powered by Truth Intelligence Models.</div>
+    </div>
+    <div class="right">
+      Program baseline pooled from Wisconsin at position, 2014-2024. Staff-era baseline pooled from Wisconsin at position since 2023. HS recruiting from 247Composite. HS competition from 10-year D1 alumni signal per high school.
+    </div>
+  </div>
 </footer>
 
 <script>
@@ -210,8 +270,8 @@ PLAYERS.sort((a,b) => {
 });
 
 const tierClass = t => 'pill ' + (t || 'Unknown').replace(' ','-');
-const fmtNum = n => n == null ? '—' : (typeof n === 'number' ? n.toLocaleString(undefined,{maximumFractionDigits:1}) : n);
-const fmtPct = n => n == null ? '—' : Number(n).toFixed(1);
+const fmtNum = n => n == null ? '-' : (typeof n === 'number' ? n.toLocaleString(undefined,{maximumFractionDigits:1}) : n);
+const fmtPct = n => n == null ? '-' : Number(n).toFixed(1);
 
 let filterTier = '';
 let selected = null;
@@ -236,21 +296,21 @@ function render() {
       groupRow.className = 'pos-coach-row';
       const coach = POS_COACH[p.pff_position] || '';
       const chips = gradeChipsFor(p.pff_position);
-      groupRow.innerHTML = `<td colspan="8">${p.pff_position} — ${POSITION_GROUPS[p.pff_position] || ''}${coach ? ` · Position coach: <span class="coach-name">${coach}</span>` : ''}<span class="grp-grades">${chips}</span></td>`;
+      groupRow.innerHTML = `<td colspan="8">${p.pff_position} - ${POSITION_GROUPS[p.pff_position] || ''}${coach ? ` · Position coach: <span class="coach-name">${coach}</span>` : ''}<span class="grp-grades">${chips}</span></td>`;
       body.appendChild(groupRow);
       lastPos = p.pff_position;
     }
     const tr = document.createElement('tr');
     if (selected && selected.pff_player_id === p.pff_player_id) tr.classList.add('selected');
     tr.innerHTML = `
-      <td><div class="pname">${p.pff_name}</div><div class="pmeta">${p.snaps||0} snaps · ${p.stars||'—'}★</div></td>
+      <td><div class="pname">${p.pff_name}</div><div class="pmeta">${p.snaps||0} snaps · ${p.stars||'-'}★</div></td>
       <td>${p.pff_position}</td>
-      <td><div>${p.high_school||'—'}</div><div class="pmeta">${[p.hometown_city,p.hometown_state].filter(Boolean).join(', ')}</div></td>
-      <td><span class="${tierClass(p.L1_stat_tier)}">${p.L1_stat_tier||'—'}</span></td>
-      <td><span class="${tierClass(p.L2_stat_tier)}">${p.L2_stat_tier||'—'}</span></td>
-      <td><span class="${tierClass(p.L3_composite_tier)}">${p.L3_composite_tier||'—'}</span></td>
-      <td><span class="${tierClass(p.HS_CompetitiveIndex_Tier)}">${p.HS_CompetitiveIndex_Tier||'—'}</span></td>
-      <td><span class="${tierClass(p.Classification)}">${p.Classification||'—'}</span></td>`;
+      <td><div>${p.high_school||'-'}</div><div class="pmeta">${[p.hometown_city,p.hometown_state].filter(Boolean).join(', ')}</div></td>
+      <td><span class="${tierClass(p.L1_stat_tier)}">${p.L1_stat_tier||'-'}</span></td>
+      <td><span class="${tierClass(p.L2_stat_tier)}">${p.L2_stat_tier||'-'}</span></td>
+      <td><span class="${tierClass(p.L3_composite_tier)}">${p.L3_composite_tier||'-'}</span></td>
+      <td><span class="${tierClass(p.HS_CompetitiveIndex_Tier)}">${p.HS_CompetitiveIndex_Tier||'-'}</span></td>
+      <td><span class="${tierClass(p.Classification)}">${p.Classification||'-'}</span></td>`;
     tr.addEventListener('click', () => { selected = p; renderDetail(); render(); });
     body.appendChild(tr);
   }
@@ -268,8 +328,8 @@ function renderDefaultInsight() {
   document.getElementById('detail').innerHTML = `
     <div class="insight-block">
       <div class="iblbl">Coach, the read at a glance</div>
-      <p><strong class="bright">Your floor was the OL room.</strong> Of the 13 linemen who took snaps in 2024, 7 graded above your program baseline (2 Elite — Benzschawel and Jack Nelson — and 5 Above). Only 1 of 13 graded below. That's the most consistent unit on this roster.</p>
-      <p><strong class="leak">Your leak was the WR room.</strong> Of the 9 receivers, 4 graded below baseline — 44%, the highest below-rate of any group. None graded Elite. That gap reads straight through to 2025: 135th nationally in total offense, 12.8 ppg, last among Power 4. The 2024 evidence pointed to it.</p>
+      <p><strong class="bright">Your floor was the OL room.</strong> Of the 13 linemen who took snaps in 2024, 7 graded above your program baseline (2 Elite - Benzschawel and Jack Nelson - and 5 Above). Only 1 of 13 graded below. That's the most consistent unit on this roster.</p>
+      <p><strong class="leak">Your leak was the WR room.</strong> Of the 9 receivers, 4 graded below baseline - 44%, the highest below-rate of any group. None graded Elite. That gap reads straight through to 2025: 135th nationally in total offense, 12.8 ppg, last among Power 4. The 2024 evidence pointed to it.</p>
       <p>Click any player on the left to see exactly where he sat against your program baseline, your staff-era baseline since 2023, his HS recruiting profile, and the strength of competition his HS produced.</p>
     </div>
   `;
@@ -285,38 +345,38 @@ function renderDetail() {
     <div class="player-meta">${p.pff_position} · ${POSITION_GROUPS[p.pff_position]||''}${coach ? ` · coached by ${coach}` : ''} · ${p.snaps||0} snaps · Grade ${fmtPct(p.grade_primary)} · Primary stat ${fmtNum(p.primary_stat)}</div>
 
     <div class="layer-card">
-      <div class="head"><span class="ttl">Program baseline</span> <span class="${tierClass(p.L1_stat_tier)}">${p.L1_stat_tier||'—'}</span></div>
+      <div class="head"><span class="ttl">Program baseline</span> <span class="${tierClass(p.L1_stat_tier)}">${p.L1_stat_tier||'-'}</span></div>
       <div class="desc">Where he lands vs. every Wisconsin ${p.pff_position} since 2014 (n=${p.L1_n_player_seasons||'?'} player-seasons)</div>
       <div class="row"><span class="k">His number</span><span>${fmtNum(p.primary_stat)}</span></div>
       <div class="row"><span class="k">Program median</span><span>${fmtNum(p.L1_primary_stat_p50)}</span></div>
       <div class="row"><span class="k">Program p90 bar</span><span>${fmtNum(p.L1_primary_stat_p90)}</span></div>
-      <div class="row"><span class="k">Grade vs program</span><span class="${tierClass(p.L1_grade_tier)}">${p.L1_grade_tier||'—'}</span></div>
+      <div class="row"><span class="k">Grade vs program</span><span class="${tierClass(p.L1_grade_tier)}">${p.L1_grade_tier||'-'}</span></div>
     </div>
 
     <div class="layer-card">
-      <div class="head"><span class="ttl">Staff-era baseline</span> <span class="${tierClass(p.L2_stat_tier)}">${p.L2_stat_tier||'—'}</span></div>
+      <div class="head"><span class="ttl">Staff-era baseline</span> <span class="${tierClass(p.L2_stat_tier)}">${p.L2_stat_tier||'-'}</span></div>
       <div class="desc">Where he lands vs. every Wisconsin ${p.pff_position} your staff has coached since ${p.L2_hc_start_year||'2023'} (n=${p.L2_n_player_seasons||'?'})</div>
       <div class="row"><span class="k">Staff-era median</span><span>${fmtNum(p.L2_primary_stat_p50)}</span></div>
       <div class="row"><span class="k">Staff-era p90 bar</span><span>${fmtNum(p.L2_primary_stat_p90)}</span></div>
-      <div class="row"><span class="k">Grade vs staff-era</span><span class="${tierClass(p.L2_grade_tier)}">${p.L2_grade_tier||'—'}</span></div>
+      <div class="row"><span class="k">Grade vs staff-era</span><span class="${tierClass(p.L2_grade_tier)}">${p.L2_grade_tier||'-'}</span></div>
     </div>
 
     <div class="layer-card">
-      <div class="head"><span class="ttl">HS recruiting profile</span> <span class="${tierClass(p.L3_composite_tier)}">${p.L3_composite_tier||'—'}</span></div>
+      <div class="head"><span class="ttl">HS recruiting profile</span> <span class="${tierClass(p.L3_composite_tier)}">${p.L3_composite_tier||'-'}</span></div>
       <div class="desc">247Composite percentile within ${p.pff_position}</div>
       <div class="row"><span class="k">247Composite percentile</span><span>${fmtPct(p.L3_composite_pct)}</span></div>
       <div class="row"><span class="k">Star percentile</span><span>${fmtPct(p.L3_stars_pct)}</span></div>
-      <div class="row"><span class="k">Stars / composite</span><span>${p.stars||'—'}★ / ${fmtNum(p.composite_score)}</span></div>
+      <div class="row"><span class="k">Stars / composite</span><span>${p.stars||'-'}★ / ${fmtNum(p.composite_score)}</span></div>
     </div>
 
     <div class="layer-card">
-      <div class="head"><span class="ttl">HS competition strength</span> <span class="${tierClass(p.HS_CompetitiveIndex_Tier)}">${p.HS_CompetitiveIndex_Tier||'—'}</span></div>
-      <div class="desc">${p.high_school||'?'} — 10-year D1-tracked alumni signal for the HS he came from</div>
+      <div class="head"><span class="ttl">HS competition strength</span> <span class="${tierClass(p.HS_CompetitiveIndex_Tier)}">${p.HS_CompetitiveIndex_Tier||'-'}</span></div>
+      <div class="desc">${p.high_school||'?'} - 10-year D1-tracked alumni signal for the HS he came from</div>
       <div class="row"><span class="k">Score</span><span>${fmtPct(p.HS_CompetitiveIndex_0to10)} / 10</span></div>
     </div>
 
     <div class="layer-card">
-      <div class="head"><span class="ttl">Composite grade</span> <span class="${tierClass(p.Classification)}">${p.Classification||'—'}</span></div>
+      <div class="head"><span class="ttl">Composite grade</span> <span class="${tierClass(p.Classification)}">${p.Classification||'-'}</span></div>
       <div class="row"><span class="k">Composite score</span><span>${fmtPct(p.composite_score_0to4)} / 4</span></div>
     </div>
   `;

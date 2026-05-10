@@ -17,7 +17,14 @@
     'unm-2026',         // UNM (Olen) walk-through
     'wisc-2026',        // Wisconsin (Fickell) walk-through
     'csun-2026',        // CSUN (Killin / Newman) walk-through
-    'partner-2026'      // tech partner / AWS demo
+    'partner-2026',     // tech partner / AWS demo
+    'edge3-owner'       // owner bypass — Kenyon. Permanent. Bookmark URL with ?access=edge3-owner
+  ];
+  // Path substrings that auto-bypass the gate (publicly accessible demos).
+  // Add a path here to make a demo public; remove to re-gate it.
+  var OPEN_PATHS = [
+    '/basketball/demo/olen/',     // Olen UNM transfer comparison — polished public walkthrough
+    '/football/demo/fickell/'     // Fickell Wisconsin scorecard — polished public walkthrough
   ];
   var CONTACT_EMAIL = 'glove2044@gmail.com';
   // ================================================================
@@ -29,7 +36,17 @@
     return match ? decodeURIComponent(match[1]) : null;
   }
 
+  function isOpenPath() {
+    var path = (window.location.pathname || '').toLowerCase();
+    for (var i = 0; i < OPEN_PATHS.length; i++) {
+      if (path.indexOf(OPEN_PATHS[i].toLowerCase()) !== -1) return true;
+    }
+    return false;
+  }
+
   function isAuthorized() {
+    // Open demos always pass
+    if (isOpenPath()) return true;
     // URL key wins; if valid, persist in localStorage
     var urlKey = getQueryParam('access');
     if (urlKey && VALID_KEYS.indexOf(urlKey) !== -1) {
