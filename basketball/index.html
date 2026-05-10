@@ -570,25 +570,31 @@
 
     <!-- How we test the models — moved directly under the interactive board -->
     <h2 class="section-heading">How we earn the model&rsquo;s trust.</h2>
-    <p class="section-heading-sub">The math is validated against past seasons the model never saw during training. The agents update on game-level data and signals this week. We re-tune when patterns shift and re-test on every refresh. Honest about both what already played out and what&rsquo;s playing out right now.</p>
+    <p class="section-heading-sub">We hide past seasons from the model, ask it to predict them, then compare against what actually happened. Live, the agents update weekly on game data and social signals. Honest math, current read.</p>
 
-    <div style="background: #fff; border: 1px solid var(--rule); border-radius: 14px; padding: 28px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
-      <div class="test-models-grid">
-        <div style="border-left: 3px solid var(--brand-blue); padding: 4px 0 4px 18px;">
-          <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--brand-blue); font-weight: 700; margin-bottom: 6px;">Roster Retention Risk &middot; RRR v3</div>
-          <div style="font-size: 32px; font-weight: 800; color: var(--navy); letter-spacing: -0.01em;">78% accuracy</div>
-          <div style="font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5;">Tested on past portal cycles. Players who actually transferred vs. players who stayed. The model significantly out-predicts chance on data it never saw during training.</div>
-        </div>
-        <div style="border-left: 3px solid var(--brand-blue); padding: 4px 0 4px 18px;">
-          <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--brand-blue); font-weight: 700; margin-bottom: 6px;">Performance Trajectory &middot; v1</div>
-          <div style="font-size: 32px; font-weight: 800; color: var(--navy); letter-spacing: -0.01em;">73% / 74% accuracy</div>
-          <div style="font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5;">Tested on whose production actually rose, held, or declined the next season. Improving direction 0.733, declining direction 0.739. Real outcomes that already played out.</div>
-        </div>
+    <div class="trust-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 8px;">
+      <div style="background: linear-gradient(135deg, #0E1320 0%, #161D2D 100%); border-radius: 14px; padding: 26px 28px; position: relative; overflow: hidden; box-shadow: 0 8px 24px -8px rgba(10,15,28,0.18);">
+        <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--brand-green);"></div>
+        <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--brand-green); font-weight: 700; margin-bottom: 12px;">Roster Retention Risk</div>
+        <div style="font-size: 44px; font-weight: 800; color: #fff; letter-spacing: -0.02em; line-height: 1;">78%</div>
+        <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 1.2px; color: #8FA0BC; font-weight: 600; margin-top: 4px;">accuracy on past portal cycles</div>
+        <div style="font-size: 13.5px; color: #C7D3E6; margin-top: 14px; line-height: 1.5;">We compared who actually entered the portal against who stayed. The model meaningfully out-predicted chance on data it never saw during training.</div>
       </div>
-      <div style="margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 13px; line-height: 1.55;">
-        <strong style="color: var(--navy);">How accuracy reads:</strong> 50% would be a coin flip. 100% would be perfect. Anything 70%+ means the model is meaningfully better than guessing. The validation hides past seasons from the model and asks it to predict them, the same way you back-test any honest forecasting system. Separately, the agents track game-level data and social signals live, so the scouting view stays current. <strong style="color: var(--navy);">Players without a prior-year baseline are flagged "No Baseline" rather than imputed.</strong>
+      <div style="background: linear-gradient(135deg, #0E1320 0%, #161D2D 100%); border-radius: 14px; padding: 26px 28px; position: relative; overflow: hidden; box-shadow: 0 8px 24px -8px rgba(10,15,28,0.18);">
+        <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--brand-green);"></div>
+        <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--brand-green); font-weight: 700; margin-bottom: 12px;">Performance Trajectory</div>
+        <div style="font-size: 44px; font-weight: 800; color: #fff; letter-spacing: -0.02em; line-height: 1;">73% / 74%</div>
+        <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 1.2px; color: #8FA0BC; font-weight: 600; margin-top: 4px;">accuracy on who rose, who declined</div>
+        <div style="font-size: 13.5px; color: #C7D3E6; margin-top: 14px; line-height: 1.5;">We tested whether the model knew, in advance, which players would improve next season and which would slip. Real outcomes, no flattering math.</div>
       </div>
     </div>
+
+    <div style="margin-top: 18px; padding: 16px 22px; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; color: var(--muted); font-size: 13.5px; line-height: 1.6;">
+      <strong style="color: var(--navy);">How accuracy reads.</strong> 50% is a coin flip. 70%+ means the model is meaningfully better than guessing. Players without enough prior-year data are flagged "No Baseline" so we don&rsquo;t guess on incomplete pictures.
+    </div>
+    <style>
+      @media (max-width: 760px) { .trust-grid { grid-template-columns: 1fr !important; } }
+    </style>
 
     <div style="background: linear-gradient(135deg, rgba(232,179,57,0.08), rgba(255,255,255,0)); border: 1px solid rgba(232,179,57,0.30); border-left: 3px solid var(--amber); border-radius: 10px; padding: 18px 22px; margin-top: 22px;">
       <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--amber); font-weight: 700; margin-bottom: 8px;">What&rsquo;s NOT in the model yet</div>
@@ -629,11 +635,12 @@
       </div>
     </div>
 
-    <!-- Validation case study — Chol pre/post commitment (moved AFTER the two-questions panel) -->
+    <!-- Continuous validation — replaces one-athlete case-study framing -->
     <section class="case-study">
-      <div class="cs-eyebrow">Real-world test case</div>
-      <h2>What we said in 2024 vs. what the production model says now</h2>
-      <p class="lede">In 2024, before Chol committed to UNM, EDGE3 flagged the same friction context the production model still reads today, two years and two model versions later. Drivers don&rsquo;t move because they were never random.</p>
+      <div class="cs-eyebrow">Tested every cycle, not just at launch</div>
+      <h2>Every transfer, every snap, every game is another test row.</h2>
+      <p class="lede">Most platforms train a model, publish accuracy once, and ship. EDGE3 keeps testing. Every athlete who enters the portal, every snap played, every social signal that shifts, becomes a new row to grade the model against. Last week&rsquo;s outcomes are this week&rsquo;s validation. The 78% accuracy above isn&rsquo;t from a one-time bake-off. It&rsquo;s where the model lands when you grade it against thousands of athletes whose seasons already played out.</p>
+      <p class="lede" style="margin-top: 14px;"><strong style="color: var(--brand-white);">One athlete proves nothing.</strong> The pattern across thousands is what matters. Antonio Chol below is one of those thousands. He&rsquo;s shown because we have the same drivers flagged in 2024, two model versions ago, that still flag elevated risk in production today. Same signal, two refresh cycles later. That&rsquo;s model stability. The accuracy number above is the aggregate.</p>
 
       <div class="cs-compare">
         <div class="cs-side">
@@ -662,8 +669,8 @@
       </div>
 
       <div class="cs-conclusion">
-        <div class="cs-c-label">What this proves</div>
-        <div class="cs-c-text">EDGE3&rsquo;s risk-driver attribution is <strong>stable across model versions</strong> and validated on real outcomes that already happened. The model didn&rsquo;t just predict at intake. It persists, updates, and surfaces the same actionable signal years later. That&rsquo;s the loop in action. <a href="./demo/bb_loop/" style="color: var(--brand-green); font-weight: 600; text-decoration: none;">Watch the loop in motion &rarr;</a></div>
+        <div class="cs-c-label">What this shows</div>
+        <div class="cs-c-text">Model stability, not single-athlete proof. The same drivers EDGE3 flagged two years ago still flag elevated risk in production today. That kind of consistency only holds when the underlying signal is real, not noise. The 78% aggregate accuracy above is where that signal lands across thousands of athletes. <a href="./demo/bb_loop/" style="color: var(--brand-green); font-weight: 600; text-decoration: none;">Watch the loop in motion &rarr;</a></div>
       </div>
     </section>
 

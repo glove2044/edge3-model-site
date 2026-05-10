@@ -588,29 +588,41 @@
     </div>
 
     <h2 class="section-heading">How we earn the model&rsquo;s trust.</h2>
-    <p class="section-heading-sub">The math is validated against past seasons the model never saw during training. The agents update on game-level data and signals this week. We re-tune when patterns shift and re-test on every refresh. Honest about both what already played out and what&rsquo;s playing out right now.</p>
-    <div class="hero-metrics" style="margin-top: 8px; max-width: none;">
-      <div class="metric">
-        <div class="lbl">Roster Retention Risk Accuracy <span class="info"><span class="tip"><strong>72% accuracy</strong> on past portal cycles. Players who actually transferred vs. players who stayed. Validated, not predicted.</span></span></div>
-        <div class="val">0.718</div>
-        <div class="sub">past cycles</div>
+    <p class="section-heading-sub">We hide past seasons from the model, ask it to predict them, then compare against what actually happened. Live, the agents update weekly on game data and social signals. Honest math, current read.</p>
+
+    <div class="trust-grid-fb" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 8px;">
+      <div style="background: linear-gradient(135deg, #0E1320 0%, #161D2D 100%); border-radius: 14px; padding: 26px 28px; position: relative; overflow: hidden; box-shadow: 0 8px 24px -8px rgba(10,15,28,0.18);">
+        <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--brand-green);"></div>
+        <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--brand-green); font-weight: 700; margin-bottom: 12px;">Roster Retention Risk</div>
+        <div style="font-size: 44px; font-weight: 800; color: #fff; letter-spacing: -0.02em; line-height: 1;">72%</div>
+        <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 1.2px; color: #8FA0BC; font-weight: 600; margin-top: 4px;">accuracy on past portal cycles</div>
+        <div style="font-size: 13.5px; color: #C7D3E6; margin-top: 14px; line-height: 1.5;">We compared who actually entered the portal against who stayed. The model meaningfully out-predicted chance on data it never saw during training.</div>
       </div>
-      <div class="metric">
-        <div class="lbl">Trajectory Accuracy <span class="info"><span class="tip"><strong>77% accuracy</strong> on the 2024 season. The model never saw 2024 during training. Tested on outcomes that already played out.</span></span></div>
-        <div class="val">0.770</div>
-        <div class="sub">2024 season test</div>
-      </div>
-      <div class="metric">
-        <div class="lbl">Forward 2025</div>
-        <div class="val">10,678</div>
-        <div class="sub">FBS players scored</div>
-      </div>
-      <div class="metric">
-        <div class="lbl">FBS coverage</div>
-        <div class="val">134</div>
-        <div class="sub">FBS teams scored</div>
+      <div style="background: linear-gradient(135deg, #0E1320 0%, #161D2D 100%); border-radius: 14px; padding: 26px 28px; position: relative; overflow: hidden; box-shadow: 0 8px 24px -8px rgba(10,15,28,0.18);">
+        <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--brand-green);"></div>
+        <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--brand-green); font-weight: 700; margin-bottom: 12px;">Performance Trajectory</div>
+        <div style="font-size: 44px; font-weight: 800; color: #fff; letter-spacing: -0.02em; line-height: 1;">77%</div>
+        <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 1.2px; color: #8FA0BC; font-weight: 600; margin-top: 4px;">accuracy on the 2024 season</div>
+        <div style="font-size: 13.5px; color: #C7D3E6; margin-top: 14px; line-height: 1.5;">The model never saw 2024 during training. We let it predict the season, then graded it against what actually happened.</div>
       </div>
     </div>
+
+    <div class="trust-stats-fb" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 16px;">
+      <div style="background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 18px 22px;">
+        <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--brand-blue); font-weight: 700; margin-bottom: 6px;">2025 forward predictions</div>
+        <div style="font-size: 28px; font-weight: 800; color: var(--navy); letter-spacing: -0.01em; line-height: 1;">10,678</div>
+        <div style="font-size: 12.5px; color: var(--muted); margin-top: 4px;">FBS players scored</div>
+      </div>
+      <div style="background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 18px 22px;">
+        <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--brand-blue); font-weight: 700; margin-bottom: 6px;">FBS coverage</div>
+        <div style="font-size: 28px; font-weight: 800; color: var(--navy); letter-spacing: -0.01em; line-height: 1;">134</div>
+        <div style="font-size: 12.5px; color: var(--muted); margin-top: 4px;">FBS teams scored</div>
+      </div>
+    </div>
+    <style>
+      @media (max-width: 760px) { .trust-grid-fb { grid-template-columns: 1fr !important; } .trust-stats-fb { grid-template-columns: 1fr 1fr !important; } }
+      @media (max-width: 480px) { .trust-stats-fb { grid-template-columns: 1fr !important; } }
+    </style>
 
     <div style="background: linear-gradient(135deg, rgba(232,179,57,0.08), rgba(255,255,255,0)); border: 1px solid rgba(232,179,57,0.30); border-left: 3px solid var(--amber); border-radius: 10px; padding: 18px 22px; margin-top: 22px;">
       <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--amber); font-weight: 700; margin-bottom: 8px;">What&rsquo;s NOT in the model yet</div>

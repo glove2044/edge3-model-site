@@ -26,7 +26,7 @@
     '/basketball/demo/olen/',     // Olen UNM transfer comparison — polished public walkthrough
     '/football/demo/fickell/'     // Fickell Wisconsin scorecard — polished public walkthrough
   ];
-  var CONTACT_EMAIL = 'glove2044@gmail.com';
+  var CONTACT_EMAIL = 'kenyon@edge3.net';
   // ================================================================
 
   var STORAGE_KEY = 'edge3_demo_access';
