@@ -3,32 +3,141 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Jael Martin · EDGE3 Athlete Wallet</title>
+<title>Jael Martin · Transfer Portal Sample · EDGE3</title>
+<meta name="description" content="EDGE3 Transfer Portal Sample. Don't enter the portal without a plan. Pre-portal assessment, fit list, wallet built before he ever entered. Landed at CSUN.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root { --brand-dark: #0A0F1C; --brand-green: #1AB874; --brand-blue: #3B82F6; --brand-text: #E8EDF5; --brand-muted: #8896AB; --brand-line: #1F2738; }
-body { margin: 0; background: var(--brand-dark); color: var(--brand-text); font: 15px/1.6 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
-.wrap { max-width: 700px; margin: 0 auto; padding: 80px 24px; text-align: center; }
-.logo { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.03em; font-size: 32px; margin-bottom: 32px; }
-.logo .three { color: var(--brand-green); }
-h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; color: #fff; margin: 0 0 14px; }
-p { color: #C7D3E6; line-height: 1.6; margin: 0 0 20px; }
-.back { display: inline-block; margin-top: 24px; color: var(--brand-blue); text-decoration: none; font-weight: 600; }
-.back:hover { text-decoration: underline; }
-.note { font-size: 13px; color: var(--brand-muted); padding: 18px 22px; background: rgba(232,179,57,0.10); border: 1px solid rgba(232,179,57,0.30); border-left: 3px solid #E8B339; border-radius: 0 10px 10px 0; text-align: left; margin: 24px 0; }
+:root {
+  --brand-dark: #0A0F1C; --brand-dark-2: #0E1320; --brand-dark-3: #161D2D;
+  --brand-white: #FFFFFF; --brand-green: #1AB874; --brand-green-d: #14965F;
+  --brand-blue: #3B82F6; --brand-text: #E8EDF5; --brand-muted: #8896AB; --brand-line: #1F2738;
+  --yellow: #E8B339;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--brand-dark); color: var(--brand-text); font: 15px/1.6 'Inter', -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+a { color: var(--brand-green); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.brandbar { background: var(--brand-dark); border-bottom: 1px solid var(--brand-line); padding: 14px 0; }
+.brandbar .wrap { max-width: 980px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+.edge3-logo { font-weight: 800; letter-spacing: -0.03em; font-size: 22px; }
+.edge3-logo .e { color: var(--brand-white); }
+.edge3-logo .three { color: var(--brand-green); }
+.sample-tag { font-size: 11px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--brand-green); background: rgba(26,184,116,0.12); border: 1px solid rgba(26,184,116,0.30); padding: 5px 12px; border-radius: 18px; }
+
+.breadcrumb { background: var(--brand-dark-2); border-bottom: 1px solid var(--brand-line); padding: 11px 0; font-size: 12.5px; color: var(--brand-muted); }
+.breadcrumb .wrap { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+.breadcrumb a { color: var(--brand-muted); }
+.breadcrumb a:hover { color: var(--brand-text); }
+
+main { max-width: 980px; margin: 0 auto; padding: 56px 24px 40px; }
+.hero { margin-bottom: 36px; }
+.hero .ev { font-size: 11px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--brand-green); margin-bottom: 12px; }
+.hero h1 { font-size: clamp(28px, 5vw, 40px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; color: var(--brand-white); margin-bottom: 10px; }
+.hero .sub { font-size: 16px; color: #C7D3E6; line-height: 1.55; max-width: 720px; }
+
+.story { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 14px; padding: 32px; margin-bottom: 28px; }
+.story h2 { font-size: 22px; font-weight: 800; color: var(--brand-white); margin-bottom: 14px; letter-spacing: -0.015em; }
+.story p { font-size: 15.5px; line-height: 1.65; color: #C8D0DE; margin-bottom: 14px; max-width: 760px; }
+.story p:last-child { margin-bottom: 0; }
+.story p strong { color: var(--brand-white); font-weight: 700; }
+
+.quote { background: linear-gradient(135deg, rgba(26,184,116,0.10), rgba(26,184,116,0.04)); border: 1px solid rgba(26,184,116,0.25); border-left: 3px solid var(--brand-green); border-radius: 0 10px 10px 0; padding: 22px 26px; margin: 18px 0; font-size: 17px; line-height: 1.55; color: var(--brand-white); font-style: italic; }
+.quote .who { display: block; font-style: normal; font-size: 13px; color: var(--brand-green); margin-top: 8px; font-weight: 700; letter-spacing: 0.3px; }
+
+.work-card { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 14px; padding: 28px 32px; margin-bottom: 28px; }
+.work-card h2 { font-size: 20px; font-weight: 800; color: var(--brand-white); margin-bottom: 16px; letter-spacing: -0.015em; }
+.work-list { list-style: none; padding: 0; margin: 0; }
+.work-list li { padding: 13px 0 13px 26px; border-bottom: 1px solid var(--brand-line); position: relative; font-size: 14.5px; color: #C8D0DE; line-height: 1.55; }
+.work-list li:last-child { border-bottom: none; }
+.work-list li::before { content: ''; position: absolute; left: 0; top: 19px; width: 8px; height: 8px; background: var(--brand-green); border-radius: 2px; }
+.work-list li strong { color: var(--brand-white); font-weight: 700; }
+.work-list li.outcome::before { background: var(--yellow); }
+.work-list li.outcome { background: rgba(232,179,57,0.06); padding-left: 32px; padding-right: 16px; margin: 6px -6px 0; border-radius: 8px; }
+
+.plus { background: linear-gradient(135deg, rgba(232,179,57,0.10), rgba(232,179,57,0.02)); border: 1px solid rgba(232,179,57,0.25); border-left: 3px solid var(--yellow); border-radius: 0 10px 10px 0; padding: 20px 24px; font-size: 15px; line-height: 1.6; color: #F2D78D; font-weight: 600; margin-bottom: 28px; }
+.plus strong { color: var(--brand-white); font-weight: 700; }
+
+.guided { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 14px; padding: 24px 28px; }
+.guided h3 { font-size: 17px; color: var(--brand-white); font-weight: 700; margin-bottom: 8px; letter-spacing: -0.005em; }
+.guided p { font-size: 14.5px; color: #C8D0DE; line-height: 1.6; margin-bottom: 14px; }
+.guided a.cta { display: inline-block; background: var(--brand-green); color: var(--brand-white); padding: 11px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; }
+.guided a.cta:hover { background: var(--brand-green-d); text-decoration: none; }
+
+footer { background: var(--brand-dark-2); border-top: 1px solid var(--brand-line); padding: 24px; margin-top: 40px; color: var(--brand-muted); font-size: 12px; text-align: center; }
+footer a { color: var(--brand-text); }
+footer .powered { margin-top: 6px; opacity: 0.7; font-size: 11px; }
+@media (max-width: 600px) {
+  .hero h1 { font-size: 24px; }
+  .story { padding: 24px 22px; }
+  .quote { padding: 18px 20px; font-size: 15.5px; }
+  .work-card { padding: 22px 22px; }
+  .guided { padding: 20px 22px; }
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="logo"><span>EDGE</span><span class="three">3</span></div>
-  <h1>Jael Martin Wallet · v2 in build</h1>
-  <p>The Transfer Portal wallet example for Jael Martin is being upgraded to the latest EDGE3 brand kit. Live within the week.</p>
-  <div class="note">
-    In the meantime, see Chase Ames (HS recruit) or Takari Hickle (NIL) for live wallet examples that show the EDGE3 wallet structure.
+
+<div class="brandbar">
+  <div class="wrap">
+    <a href="../../../" style="text-decoration: none;"><span class="edge3-logo"><span class="e">EDGE</span><span class="three">3</span></span></a>
+    <span class="sample-tag">Sample Preview &middot; Transfer Portal</span>
   </div>
-  <a class="back" href="../../">&larr; Back to Athletes &amp; Families</a>
 </div>
+
+<div class="breadcrumb">
+  <div class="wrap">
+    <a href="../../../">EDGE3</a> &rsaquo; <a href="../../">Athletes &amp; Families</a> &rsaquo; <a href="../">Wallets</a> &rsaquo; Jael Martin
+  </div>
+</div>
+
+<main>
+
+  <div class="hero">
+    <div class="ev">Transfer Portal Sample &middot; Jael Martin</div>
+    <h1>Don&rsquo;t enter the portal without a plan.</h1>
+    <p class="sub">Most athletes do. Jael didn&rsquo;t. Here&rsquo;s what EDGE3 built before he ever entered.</p>
+  </div>
+
+  <div class="story">
+    <h2>The story</h2>
+    <p>Before Jael ever entered the portal, EDGE3 built him a plan. Assessment. Pre-portal fit list. A wallet that spoke directly to coaches.</p>
+    <p>When Ms Pam (Jael&rsquo;s grandmother) jumped on a Zoom with a college coach, she opened by asking about the program&rsquo;s defense. Mapped to Jael&rsquo;s strengths from his EDGE3 assessment. <strong>The coach told her he had never had a parent lead with a defensive question.</strong></p>
+    <div class="quote">
+      That&rsquo;s what I learned from Kenyon and EDGE3.
+      <span class="who">Ms Pam &middot; Jael&rsquo;s grandmother</span>
+    </div>
+    <p>Parents usually ask about playing time, scholarships, dorms. Defense maps the athlete to the system. Coaches notice when a family leads there.</p>
+  </div>
+
+  <div class="work-card">
+    <h2>The work</h2>
+    <ul class="work-list">
+      <li><strong>Pre-portal.</strong> Assessment, fit list, recruiting wallet that highlighted his strengths and program alignment.</li>
+      <li><strong>30+ hours of coach calls.</strong> Kenyon on the phone with Jael and college coaches throughout the process.</li>
+      <li><strong>In-portal.</strong> Coach visits prepped. School-by-school comparison through the same lens.</li>
+      <li class="outcome"><strong>Outcome.</strong> Jael landed at CSUN with the same NIL he was getting at LMU.</li>
+    </ul>
+  </div>
+
+  <div class="plus">
+    <strong>Plus.</strong> Jael is also an Adobe Express Content Creator NIL athlete through EDGE3. The plan keeps going past the transfer.
+  </div>
+
+  <div class="guided">
+    <h3>Want to see the full plan?</h3>
+    <p>The complete pre-portal plan and recruiting wallet are walked through in guided demos. We show a family or partner directly so the context lands the right way.</p>
+    <a class="cta" href="../../">Reach out to schedule a walkthrough &rarr;</a>
+  </div>
+
+</main>
+
+<footer>
+  <div><a href="../../../">Home</a> &middot; <a href="../../">Athletes &amp; Families</a> &middot; <a href="../">Wallet showcase</a></div>
+  <div class="powered">Powered by Truth Intelligence Models. Sample preview &middot; story shown without proprietary plan details.</div>
+</footer>
+
 </body>
 </html>

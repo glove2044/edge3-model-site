@@ -2,741 +2,119 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chase Ames — QB Recruiting Wallet</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Chase Ames · HS Recruit Wallet Sample · EDGE3</title>
+<meta name="description" content="EDGE3 HS Recruit Wallet sample preview. Structure of a high school recruit wallet built around scheme fit, coach reviews, and program comparison.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#0A1628;--navy-l:#132238;--green:#007A2E;--green-d:#005F23;--green-bright:#00A83A;--blue:#1976D2;--blue-l:#42A5F5;--yellow:#F59E0B;--red:#EF4444;--orange:#EA580C;--bg:#F8FAFC;--card:#FFF;--border:#D1D5DB;--text:#0F172A;--text-s:#374151;--text-m:#6B7280;--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 16px rgba(0,0,0,.08);--shadow-lg:0 8px 32px rgba(0,0,0,.1)}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;font-weight:600}
-
-/* NAV */
-.topnav{position:sticky;top:0;z-index:100;background:var(--navy);padding:0 28px;height:52px;display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid var(--green-bright)}
-.nav-logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:#fff;letter-spacing:-.5px}
-.nav-logo span{color:var(--green)}
-.nav-links{display:flex;gap:20px}
-.nav-links a{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s}
-.nav-links a:hover,.nav-links a.active{color:var(--green-bright)}
-.nav-right{display:flex;align-items:center;gap:12px}
-.nav-class{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:800;letter-spacing:1.5px;color:#fff;background:var(--green);padding:5px 14px;border-radius:4px}
-.nav-live{display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:rgba(255,255,255,.7)}
-.live-dot{width:6px;height:6px;border-radius:50%;background:#fff;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-
-/* HERO */
-.hero{background:linear-gradient(135deg,var(--navy) 0%,#0F2847 50%,#132D4F 100%);padding:56px 40px 48px;position:relative;overflow:hidden;scroll-margin-top:52px}
-.hero::before{content:'';position:absolute;top:-40%;right:-15%;width:600px;height:600px;background:radial-gradient(circle,rgba(0,155,58,.06) 0%,transparent 70%)}
-.hero-inner{position:relative;z-index:2;max-width:1100px;margin:0 auto}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#fff;background:var(--green);border:none;padding:10px 20px;border-radius:6px;margin-bottom:20px}
-.hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:40px;flex-wrap:wrap}
-.hero-left{flex:1;min-width:320px}
-.hero-name{font-family:'Outfit',sans-serif;font-size:52px;font-weight:900;color:#fff;letter-spacing:-2.5px;line-height:1;margin-bottom:6px}
-.hero-pos{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:14px}
-.hero-meta{font-size:14px;color:rgba(255,255,255,.5);margin-bottom:20px;font-weight:600}
-.hero-meta strong{color:rgba(255,255,255,.8);font-weight:800}
-
-/* HERO STAT PILLS — BIG BOLD */
-.hero-stats{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:24px}
-.hs{text-align:center}
-.hs-v{font-family:'Outfit',sans-serif;font-size:42px;font-weight:900;color:#fff;line-height:1;letter-spacing:-1px}
-.hs-k{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--green-bright);margin-top:2px}
-.hs-div{width:1px;height:50px;background:rgba(255,255,255,.1);align-self:center}
-
-.hero-narrative{font-size:15px;color:rgba(255,255,255,.6);line-height:1.7;max-width:560px;font-weight:600}
-.hero-narrative strong{color:rgba(255,255,255,.85);font-weight:800}
-
-.hero-right{flex-shrink:0}
-.hero-pills{display:flex;flex-direction:column;gap:10px;min-width:200px}
-.h-pill{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px 20px;text-align:center}
-.h-pill-v{font-family:'Outfit',sans-serif;font-size:32px;font-weight:900;color:#fff;line-height:1}
-.h-pill-k{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:3px}
-.h-pill.growth{border-color:var(--green-bright);background:var(--green-bright);border-width:2px}
-.h-pill.growth .h-pill-v{color:#fff;font-size:15px;font-weight:900;letter-spacing:.5px}
-.h-pill.growth .h-pill-k{color:rgba(255,255,255,.8)}
-
-/* QUOTE */
-.quote-bar{background:rgba(0,155,58,.1);border-left:4px solid var(--green-bright);border-radius:0 8px 8px 0;padding:18px 22px;margin-top:20px}
-.quote-text{font-size:15px;color:rgba(255,255,255,.8);font-style:italic;font-weight:700;line-height:1.6}
-.quote-attr{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--green-bright);margin-top:8px}
-
-/* SECTIONS */
-.section{max-width:1100px;margin:0 auto;padding:40px 40px 0;scroll-margin-top:60px}
-.sec-label{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--green-d);margin-bottom:6px}
-.sec-title{font-family:'Outfit',sans-serif;font-size:30px;font-weight:900;letter-spacing:-1px;color:var(--text);margin-bottom:6px}
-.sec-desc{font-size:14px;color:var(--text-s);margin-bottom:24px;max-width:700px;font-weight:600}
-
-/* TAGS */
-.w-tag{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;padding:5px 12px;border-radius:4px;letter-spacing:.5px}
-.wt-green{background:var(--green);color:#fff}
-.wt-yellow{background:var(--orange);color:#fff}
-.wt-blue{background:var(--blue);color:#fff}
-
-/* AWARDS */
-.awards-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.aw-card{background:var(--card);border:2px solid var(--border);border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:800;color:var(--text);box-shadow:var(--shadow-sm)}
-.aw-card span{font-size:18px}
-.offers-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-.off-chip{font-size:14px;font-weight:800;padding:12px 22px;border-radius:10px;display:flex;align-items:center;gap:8px}
-.off-chip.offer{background:var(--navy);color:#fff}
-.off-chip .ck{color:var(--green)}
-.off-chip.eval{background:#132238;color:#fff;border:1px solid rgba(0,155,58,.2)}
-
-/* STAT GRID */
-.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.stat-card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:22px 16px;text-align:center;box-shadow:var(--shadow-sm)}
-.st-v{font-family:'Outfit',sans-serif;font-size:32px;font-weight:900;color:var(--text);line-height:1}
-.st-k{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-m);margin-top:5px}
-.stat-card.hl{background:var(--navy);border-color:var(--navy)}
-.stat-card.hl .st-v{color:#fff}
-.stat-card.hl .st-k{color:var(--green-bright)}
-
-/* COMPETITIVE INDEX */
-.ci-card{background:var(--card);border:2px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm)}
-.ci-head{display:grid;grid-template-columns:2.2fr 1.3fr .5fr .5fr;padding:12px 20px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-m);background:#F1F5F9;border-bottom:3px solid var(--border)}
-.ci-row{display:grid;grid-template-columns:2.2fr 1.3fr .5fr .5fr;padding:16px 20px;border-bottom:1px solid #E5E7EB;align-items:center;font-size:14px;font-weight:700}
-.ci-row:last-child{border-bottom:none}
-.ci-opp{font-family:'Outfit',sans-serif;font-weight:900;color:var(--text);font-size:15px}
-.ci-ctx{font-size:11px;color:var(--text-m);margin-top:1px;font-weight:700}
-.ci-line{font-size:13px;color:var(--text-s);font-weight:800}
-.ci-tag{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:800;padding:4px 10px;border-radius:4px;display:inline-block}
-.ci-tag.w{background:var(--green);color:#fff}
-.ci-tag.l{background:var(--red);color:#fff}
-
-/* VIDEO */
-.video-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.video-card{background:var(--card);border:2px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm);transition:transform .2s,box-shadow .2s}
-.video-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
-.video-embed{width:100%;aspect-ratio:16/9;background:var(--navy);display:flex;align-items:center;justify-content:center}
-.video-embed iframe{width:100%;height:100%;border:none}
-.video-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:rgba(255,255,255,.3);width:100%;height:100%}
-.video-placeholder .play-icon{width:48px;height:48px;border-radius:50%;background:rgba(0,155,58,.15);border:2px solid rgba(0,155,58,.3);display:flex;align-items:center;justify-content:center;font-size:18px}
-.video-placeholder span{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
-.video-info{padding:16px 20px}
-.video-info h4{font-family:'Outfit',sans-serif;font-size:15px;font-weight:900;color:var(--text)}
-.video-info p{font-size:12px;color:var(--text-m);margin-top:3px;font-weight:700}
-.video-card.featured{grid-column:1/-1}
-.video-card.featured .video-embed{aspect-ratio:21/9}
-.video-card.welcome{border-color:var(--green-bright);border-width:3px}
-
-/* QB TRAITS */
-.traits-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.trait-card{background:var(--card);border:2px solid var(--border);border-radius:12px;padding:22px;box-shadow:var(--shadow-sm)}
-.trait-name{font-family:'Outfit',sans-serif;font-size:16px;font-weight:900;margin-bottom:2px}
-.trait-grade{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:800;margin-bottom:8px;padding:4px 12px;border-radius:4px;display:inline-block}
-.trait-grade.elite{color:#fff;background:var(--green)}
-.trait-grade.above{color:#fff;background:var(--blue)}
-.trait-grade.building{color:#fff;background:var(--orange)}
-.trait-src{font-size:12px;color:var(--text-s);font-style:italic;font-weight:600;line-height:1.6}
-
-/* REVIEWS */
-.tab-wrap{background:var(--card);border:2px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm)}
-.tab-nav{display:flex;background:#F1F5F9;border-bottom:3px solid var(--border)}
-.tab-btn{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-m);padding:14px 24px;border:none;background:transparent;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .15s}
-.tab-btn.active{color:#fff;border-bottom-color:var(--green);background:var(--green)}
-.tab-panel{display:none;padding:24px}
-.tab-panel.active{display:block}
-.ev-txt{font-size:15px;color:var(--text-s);line-height:1.8;font-weight:700}
-.ev-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
-.ev-tag{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;letter-spacing:.5px;padding:5px 12px;border-radius:4px;text-transform:uppercase}
-.ev-tag.s{background:var(--green);color:#fff}
-.ev-tag.d{background:var(--orange);color:#fff}
-
-/* PROGRAM FIT */
-.fit-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.fit-card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:24px;box-shadow:var(--shadow-sm)}
-.fit-card h4{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;padding-bottom:8px}
-.fit-card.strong h4{color:#fff;border-bottom:none;background:var(--green);margin:-24px -24px 16px;padding:14px 24px;border-radius:12px 12px 0 0}
-.fit-card.lower h4{color:#fff;border-bottom:none;background:var(--orange);margin:-24px -24px 16px;padding:14px 24px;border-radius:12px 12px 0 0}
-.fi{padding:10px 12px;border-radius:8px;margin-bottom:6px}
-.fit-card.strong .fi{background:#F0FDF4}
-.fit-card.lower .fi{background:#FFFBEB}
-.fi-name{font-size:14px;font-weight:900;color:var(--text)}
-.fi-desc{font-size:12px;color:var(--text-s);margin-top:3px;font-weight:600}
-.school-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:16px}
-.school-card{background:var(--card);border:2px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-md);transition:transform .2s,box-shadow .2s}
-.school-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
-.school-hdr{padding:16px 20px 12px;background:var(--navy);display:flex;justify-content:space-between;align-items:center}
-.school-name{font-family:'Outfit',sans-serif;font-size:20px;font-weight:900;color:#fff}
-.school-conf{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:1px;color:rgba(255,255,255,.6)}
-.school-body{padding:18px 22px}
-.tgt-r{font-size:13px;color:var(--text-s);line-height:1.6;font-weight:700}
-
-/* DEV & RISK */
-.dev-risk{background:var(--card);border:2px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow-sm)}
-.dr-top{background:linear-gradient(135deg,var(--navy),#0F2847);padding:28px 32px;color:#fff;position:relative;overflow:hidden}
-.dr-top::after{content:'';position:absolute;top:0;right:0;width:200px;height:100%;background:linear-gradient(90deg,transparent,rgba(0,155,58,.03))}
-.dr-top h3{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--green-bright);margin-bottom:16px}
-.dr-highlight{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
-.dr-hl-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:18px;text-align:center}
-.dr-hl-card.accent{border-color:var(--green-bright);background:var(--green-bright)}
-.dr-hl-v{font-family:'Outfit',sans-serif;font-size:24px;font-weight:900;color:#fff;line-height:1}
-.dr-hl-card.accent .dr-hl-v{color:#fff}
-.dr-hl-k{font-size:12px;color:rgba(255,255,255,.6);margin-top:6px;font-weight:700}
-.dr-hl-card.accent .dr-hl-k{color:rgba(255,255,255,.85)}
-.dr-note{font-size:14px;color:rgba(255,255,255,.7);line-height:1.7;font-weight:700;padding-top:16px;border-top:1px solid rgba(255,255,255,.08)}
-.dr-note strong{color:#fff;font-weight:800}
-.dr-bottom{display:grid;grid-template-columns:1fr 1fr;gap:0}
-.dr-phase{padding:24px 22px;border-right:1px solid var(--border);position:relative}
-.dr-phase:last-child{border-right:none}
-.dr-phase-num{font-family:'Outfit',sans-serif;font-size:40px;font-weight:900;color:#F1F5F9;position:absolute;top:10px;right:14px}
-.dr-phase-label{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
-.dr-phase-title{font-family:'Outfit',sans-serif;font-size:18px;font-weight:900;margin-bottom:10px}
-.dr-phase-items{list-style:none}
-.dr-phase-items li{font-size:13px;color:var(--text-s);padding:4px 0 4px 16px;position:relative;font-weight:700}
-.dr-phase-items li::before{content:'\2192';position:absolute;left:0;color:var(--green);font-weight:700}
-.phase-1 .dr-phase-label{color:var(--green)}
-.phase-2 .dr-phase-label{color:var(--blue)}
-.dr-risks{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:2px solid var(--border)}
-.dr-risk-col{padding:22px 24px}
-.dr-risk-col:first-child{border-right:1px solid var(--border)}
-.dr-risk-col h4{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
-.dr-risk-col.r h4{color:var(--red)}
-.dr-risk-col.m h4{color:var(--green)}
-.ri{font-size:13px;color:var(--text-s);line-height:1.65;margin-bottom:10px;padding-left:16px;position:relative;font-weight:700}
-.ri:last-child{margin-bottom:0}
-.ri::before{content:'';position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%}
-.dr-risk-col.r .ri::before{background:var(--red)}
-.dr-risk-col.m .ri::before{background:var(--green)}
-
-/* SCHEDULE */
-.sched-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.sched-card{background:var(--card);border:2px solid var(--border);border-radius:12px;padding:20px;box-shadow:var(--shadow-sm);text-align:center;transition:transform .2s}
-.sched-card:hover{transform:translateY(-2px)}
-.sched-card.visit{border-color:var(--green);border-width:3px;background:#F0FDF4}
-.sched-card.next{border-color:var(--blue);border-width:3px;background:#EFF6FF}
-.sched-date{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:800;color:var(--text);line-height:1}
-.sched-month{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-m);margin-top:2px}
-.sched-event{font-family:'Outfit',sans-serif;font-size:14px;font-weight:900;color:var(--text);margin-top:10px}
-.sched-loc{font-size:12px;color:var(--text-m);font-weight:700}
-.sched-type{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:4px;margin-top:8px;display:inline-block}
-.sched-type.camp{background:var(--blue);color:#fff}
-.sched-type.v7{background:var(--green);color:#fff}
-.sched-type.visit-tag{background:var(--orange);color:#fff}
-
-/* FOOTER */
-.footer{max-width:1100px;margin:0 auto;padding:32px 40px;text-align:center}
-.footer-text{font-size:13px;color:var(--text-m);font-weight:700}
-.footer-text a{color:var(--blue);text-decoration:none;font-weight:700}
-.footer-disc{font-size:10px;color:var(--text-m);margin-top:8px;opacity:.7}
-.exp-key{position:fixed;bottom:14px;right:14px;z-index:200;padding:7px 14px;border-radius:8px;background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow-md);font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-m);display:flex;align-items:center;gap:8px}
-
-/* RESPONSIVE */
-@media(max-width:960px){
-  .hero{padding:40px 20px 36px}.hero-name{font-size:38px}
-  .section{padding:32px 20px 0}
-  .hero-top{flex-direction:column}
-  .hero-pills{flex-direction:row;flex-wrap:wrap}
-  .hero-stats{gap:12px}
-  .hs-v{font-size:32px}
-  .stat-grid,.traits-grid,.fit-grid,.school-grid,.dr-highlight{grid-template-columns:1fr}
-  .sched-grid{grid-template-columns:1fr 1fr}
-  .video-grid{grid-template-columns:1fr}
-  .video-card.featured .video-embed{aspect-ratio:16/9}
-  .ci-head{display:none}
-  .ci-row{grid-template-columns:1fr;gap:4px;padding:14px 16px;background:#F8FAFC;border-radius:10px;border-bottom:none;margin-bottom:8px}
-  .awards-grid{grid-template-columns:1fr}
-  .dr-bottom{grid-template-columns:1fr}
-  .dr-phase{border-right:none;border-bottom:1px solid var(--border)}
-  .dr-phase:last-child{border-bottom:none}
-  .dr-risks{grid-template-columns:1fr}
-  .dr-risk-col:first-child{border-right:none;border-bottom:1px solid var(--border)}
-  .nav-links{display:none}
-  .offers-row{flex-direction:column}
-  .tab-btn{padding:12px 16px;font-size:9px}
+:root {
+  --brand-dark: #0A0F1C; --brand-dark-2: #0E1320; --brand-dark-3: #161D2D;
+  --brand-white: #FFFFFF; --brand-green: #1AB874; --brand-green-d: #14965F;
+  --brand-blue: #3B82F6; --brand-text: #E8EDF5; --brand-muted: #8896AB; --brand-line: #1F2738;
+  --yellow: #E8B339;
 }
-@media(max-width:480px){
-  .hero-name{font-size:30px}
-  .stat-grid{grid-template-columns:1fr 1fr}
-  .sched-grid{grid-template-columns:1fr}
-  .hs-v{font-size:28px}
-  .hs-div{display:none}
-}
-@media print{
-  .topnav,.exp-key{display:none!important}
-  body{background:#fff;font-weight:700}
-  .section{padding:28px 24px 0;break-inside:avoid}
-  .hero{padding:40px 24px 32px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .hero-name{font-size:56px!important;font-weight:900!important}
-  .hero-pos{font-size:16px!important}
-  .hs-v{font-size:48px!important}
-  .sec-label{font-size:12px!important;font-weight:800!important;letter-spacing:2px!important}
-  .sec-title{font-size:34px!important;font-weight:900!important}
-  .st-v{font-size:36px!important;font-weight:900!important}
-  .st-k{font-size:10px!important;font-weight:700!important}
-  .ci-opp{font-size:16px!important;font-weight:900!important}
-  .trait-name{font-size:16px!important;font-weight:900!important}
-  .school-name{font-size:22px!important;font-weight:900!important}
-  .aw-card{font-size:14px!important;font-weight:800!important}
-  .dr-hl-v{font-size:28px!important}
-  .sched-date{font-size:26px!important}
-  .sched-event{font-size:15px!important}
-  .video-grid{display:none}
-  .quote-bar{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--brand-dark); color: var(--brand-text); font: 15px/1.6 'Inter', -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+a { color: var(--brand-blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.brandbar { background: var(--brand-dark); border-bottom: 1px solid var(--brand-line); padding: 14px 0; }
+.brandbar .wrap { max-width: 980px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+.edge3-logo { font-weight: 800; letter-spacing: -0.03em; font-size: 22px; }
+.edge3-logo .e { color: var(--brand-white); }
+.edge3-logo .three { color: var(--brand-green); }
+.sample-tag { font-size: 11px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--brand-blue); background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.30); padding: 5px 12px; border-radius: 18px; }
+
+.breadcrumb { background: var(--brand-dark-2); border-bottom: 1px solid var(--brand-line); padding: 11px 0; font-size: 12.5px; color: var(--brand-muted); }
+.breadcrumb .wrap { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+.breadcrumb a { color: var(--brand-muted); }
+.breadcrumb a:hover { color: var(--brand-text); }
+
+main { max-width: 980px; margin: 0 auto; padding: 56px 24px 40px; }
+.hero { margin-bottom: 36px; }
+.hero .ev { font-size: 11px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--brand-blue); margin-bottom: 12px; }
+.hero h1 { font-size: clamp(28px, 5vw, 40px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; color: var(--brand-white); margin-bottom: 10px; }
+.hero .sub { font-size: 16px; color: #C7D3E6; line-height: 1.55; max-width: 720px; }
+
+.what-card { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 14px; padding: 32px; margin-bottom: 28px; }
+.what-card h2 { font-size: 20px; font-weight: 800; color: var(--brand-white); margin-bottom: 14px; letter-spacing: -0.015em; }
+.what-card ul { list-style: none; padding: 0; margin: 0; }
+.what-card li { padding: 12px 0 12px 26px; border-bottom: 1px solid var(--brand-line); position: relative; font-size: 14.5px; color: #C8D0DE; line-height: 1.55; }
+.what-card li:last-child { border-bottom: none; }
+.what-card li::before { content: ''; position: absolute; left: 0; top: 18px; width: 8px; height: 8px; background: var(--brand-blue); border-radius: 2px; }
+.what-card li strong { color: var(--brand-white); font-weight: 700; }
+
+.point { background: linear-gradient(135deg, rgba(59,130,246,0.10), rgba(59,130,246,0.04)); border: 1px solid rgba(59,130,246,0.25); border-left: 3px solid var(--brand-blue); border-radius: 0 10px 10px 0; padding: 22px 26px; font-size: 17px; line-height: 1.55; color: var(--brand-white); font-weight: 600; margin-bottom: 28px; letter-spacing: -0.005em; }
+
+.guided { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 14px; padding: 24px 28px; }
+.guided h3 { font-size: 17px; color: var(--brand-white); font-weight: 700; margin-bottom: 8px; letter-spacing: -0.005em; }
+.guided p { font-size: 14.5px; color: #C8D0DE; line-height: 1.6; margin-bottom: 14px; }
+.guided a.cta { display: inline-block; background: var(--brand-green); color: var(--brand-white); padding: 11px 22px; border-radius: 8px; font-weight: 700; font-size: 14px; }
+.guided a.cta:hover { background: var(--brand-green-d); text-decoration: none; }
+
+footer { background: var(--brand-dark-2); border-top: 1px solid var(--brand-line); padding: 24px; margin-top: 40px; color: var(--brand-muted); font-size: 12px; text-align: center; }
+footer a { color: var(--brand-text); }
+footer .powered { margin-top: 6px; opacity: 0.7; font-size: 11px; }
+@media (max-width: 600px) {
+  .hero h1 { font-size: 24px; }
+  .what-card { padding: 24px 20px; }
+  .point { padding: 18px 20px; font-size: 15.5px; }
+  .guided { padding: 20px 22px; }
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="topnav">
-  <div class="nav-logo">EDGE<span>3</span></div>
-  <div class="nav-links">
-    <a href="#profile" class="active" onclick="navScroll(event,'profile')">Profile</a>
-    <a href="#film" onclick="navScroll(event,'film')">Film</a>
-    <a href="#traits" onclick="navScroll(event,'traits')">QB Traits</a>
-    <a href="#reviews" onclick="navScroll(event,'reviews')">Reviews</a>
-    <a href="#fit" onclick="navScroll(event,'fit')">Program Fit</a>
-    <a href="#schedule" onclick="navScroll(event,'schedule')">Schedule</a>
-  </div>
-  <div class="nav-right">
-    <span class="nav-class">CLASS 2027</span>
-    <span class="nav-live"><span class="live-dot"></span>WALLET ACTIVE</span>
-  </div>
-</nav>
-
-<!-- ═══ 1. HERO ═══ -->
-<header class="hero" id="profile">
-  <div class="hero-inner">
-    <div class="hero-badge"><span class="live-dot"></span>QB Recruiting Wallet</div>
-    <div class="hero-top">
-      <div class="hero-left">
-        <h1 class="hero-name">Chase Ames</h1>
-        <div class="hero-pos">Quarterback — Dripping Springs HS — Texas 6A</div>
-        <div class="hero-meta">
-          6'1" · 180 lbs · Class of 2027 · <strong>4.0 GPA</strong> · Dripping Springs, TX
-        </div>
-
-        <!-- BIG BOLD STAT LINE -->
-        <div class="hero-stats">
-          <div class="hs"><div class="hs-v">3,736</div><div class="hs-k">Pass Yards</div></div>
-          <div class="hs-div"></div>
-          <div class="hs"><div class="hs-v">48</div><div class="hs-k">Touchdowns</div></div>
-          <div class="hs-div"></div>
-          <div class="hs"><div class="hs-v">12-2</div><div class="hs-k">Record</div></div>
-          <div class="hs-div"></div>
-          <div class="hs"><div class="hs-v">71%</div><div class="hs-k">Completion</div></div>
-        </div>
-
-        <p class="hero-narrative">
-          <strong>First-year starter. Four school records. 12-2 in Texas 6A.</strong> Chase processes the field fast, gets the ball out quick, and keeps his eyes downfield. He did it at 5'11" 167 pounds — he's now 6'1" 180 and still growing. Coaches who value decision-making, ball placement, and a quarterback who commands the offense will see it on film immediately.
-        </p>
-
-        <div class="quote-bar">
-          <div class="quote-text">"We got ourselves a field general. Telling his receivers where to go, reading coverage, directing traffic. That stood out immediately."</div>
-          <div class="quote-attr">Brian Jones — EDGE3 Co-Founder · Field Evaluation, March 2026</div>
-        </div>
-      </div>
-      <div class="hero-right">
-        <div class="hero-pills">
-          <div class="h-pill"><div class="h-pill-v">4.0</div><div class="h-pill-k">GPA</div></div>
-          <div class="h-pill"><div class="h-pill-v">4</div><div class="h-pill-k">School Records</div></div>
-          <div class="h-pill growth"><div class="h-pill-v">5'11" 167 → 6'1" 180</div><div class="h-pill-k">Growth Since Junior Season</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
-
-<!-- ═══ 2. AWARDS + OFFERS ═══ -->
-<div class="section">
-  <div class="sec-label">Recognition</div>
-  <div class="sec-title">Awards & Honors</div>
-  <div class="awards-grid">
-    <div class="aw-card"><span>🏆</span> 26-6A Offensive Newcomer of the Year</div>
-    <div class="aw-card"><span>🏆</span> DR7 NOLA MVP — 18U Championship (Juice 7v7)</div>
-    <div class="aw-card"><span>📺</span> FOX 7 Austin Player of the Week (x2)</div>
-    <div class="aw-card"><span>📰</span> Austin American-Statesman POTW</div>
-    <div class="aw-card"><span>⭐</span> Elite 11 Regional Camp Invite</div>
-    <div class="aw-card"><span>🏈</span> Multi-Sport Athlete (Baseball — SS/2B/RHP)</div>
-  </div>
-  <div class="offers-row">
-    <div class="off-chip offer"><span class="ck">✓</span> North Texas (Offer)</div>
-    <div class="off-chip offer"><span class="ck">✓</span> Midwestern State (Offer)</div>
-    <div class="off-chip eval"><span style="color:var(--green)">↻</span> UNC — Active Evaluation</div>
+<div class="brandbar">
+  <div class="wrap">
+    <a href="../../../" style="text-decoration: none;"><span class="edge3-logo"><span class="e">EDGE</span><span class="three">3</span></span></a>
+    <span class="sample-tag">Sample Preview &middot; HS Recruit</span>
   </div>
 </div>
 
-<!-- ═══ 3. COMPETITIVE INDEX ═══ -->
-<div class="section">
-  <div class="sec-label">Game Intelligence</div>
-  <div class="sec-title">Competitive Index</div>
-  <div class="sec-desc">Performance against the highest-level opponents on the schedule — coaches can measure Chase against kids they can evaluate.</div>
-  <div class="ci-card">
-    <div class="ci-head"><div>Opponent / Context</div><div>Stat Line</div><div>Result</div><div>Score</div></div>
-    <div class="ci-row">
-      <div><div class="ci-opp">vs Vandegrift</div><div class="ci-ctx">Defending 6A DII State Champions</div></div>
-      <div class="ci-line">19/27, 306 yds, 3 TD</div>
-      <div><span class="ci-tag w">W</span></div>
-      <div>41-14</div>
-    </div>
-    <div class="ci-row">
-      <div><div class="ci-opp">vs Westlake</div><div class="ci-ctx">First DS win vs Westlake since 1959</div></div>
-      <div class="ci-line">25/33, 409 yds, 5 TD</div>
-      <div><span class="ci-tag w">W</span></div>
-      <div>45-35</div>
-    </div>
-    <div class="ci-row">
-      <div><div class="ci-opp">vs Medina Valley</div><div class="ci-ctx">Bi-District Playoff — Perfect completion game</div></div>
-      <div class="ci-line">18/18, 318 yds, 6 TD</div>
-      <div><span class="ci-tag w">W</span></div>
-      <div>45-14</div>
-    </div>
+<div class="breadcrumb">
+  <div class="wrap">
+    <a href="../../../">EDGE3</a> &rsaquo; <a href="../../">Athletes &amp; Families</a> &rsaquo; <a href="../">Wallets</a> &rsaquo; Chase Ames
   </div>
 </div>
 
-<!-- ═══ 4. FILM & VIDEO ═══ -->
-<div class="section" id="film">
-  <div class="sec-label">Film Room</div>
-  <div class="sec-title">Game Film & Workout Footage</div>
-  <div class="sec-desc">Game highlights mapped to the Competitive Index. Workout clips showing active development.</div>
-  <div class="video-grid">
-    <!-- WELCOME VIDEO FROM CHASE -->
-    <div class="video-card welcome">
-      <div class="video-embed">
-        <div class="video-placeholder">
-          <div class="play-icon">▶</div>
-          <span>Personal Welcome from Chase — Drop Video Here</span>
-        </div>
-      </div>
-      <div class="video-info">
-        <h4>Meet Chase Ames</h4>
-        <p>Personal introduction · Shot organically · Who he is, what drives him</p>
-      </div>
-    </div>
-    <!-- HUDL HIGHLIGHT -->
-    <div class="video-card">
-      <div class="video-embed">
-        <div class="video-placeholder">
-          <div class="play-icon">▶</div>
-          <span>Hudl Highlight Reel — Drop Embed Here</span>
-        </div>
-      </div>
-      <div class="video-info">
-        <h4>2025 Junior Season Highlights</h4>
-        <p>3,736 yds · 48 TD · 12-2 · Texas 6A</p>
-      </div>
-    </div>
-    <!-- STRENGTH MAPPING: VS VANDEGRIFT -->
-    <div class="video-card">
-      <div class="video-embed">
-        <div class="video-placeholder">
-          <div class="play-icon">▶</div>
-          <span>vs Vandegrift Cut-Up — Drop Video Here</span>
-        </div>
-      </div>
-      <div class="video-info">
-        <h4>vs Vandegrift — State Champs</h4>
-        <p>19/27, 306 yds, 3 TD · Maps to Competitive Index</p>
-      </div>
-    </div>
-    <!-- STRENGTH MAPPING: VS WESTLAKE -->
-    <div class="video-card">
-      <div class="video-embed">
-        <div class="video-placeholder">
-          <div class="play-icon">▶</div>
-          <span>vs Westlake Cut-Up — Drop Video Here</span>
-        </div>
-      </div>
-      <div class="video-info">
-        <h4>vs Westlake — Program Milestone</h4>
-        <p>25/33, 409 yds, 5 TD · First DS win since 1959</p>
-      </div>
-    </div>
-    <!-- DR7 NOLA / 7v7 -->
-    <div class="video-card">
-      <div class="video-embed">
-        <div class="video-placeholder">
-          <div class="play-icon">▶</div>
-          <span>DR7 NOLA Championship — Drop Video Here</span>
-        </div>
-      </div>
-      <div class="video-info">
-        <h4>DR7 NOLA — 18U Championship MVP</h4>
-        <p>Juice 7v7 · Feb 2026 · Championship game on YouTube</p>
-      </div>
-    </div>
-    <!-- THROWING ON THE MOVE -->
-    <div class="video-card">
-      <div class="video-embed">
-        <div class="video-placeholder">
-          <div class="play-icon">▶</div>
-          <span>Throwing on the Move — Drop Video Here</span>
-        </div>
-      </div>
-      <div class="video-info">
-        <h4>Accuracy on the Move — Training</h4>
-        <p>Rollout throws · Bootleg accuracy · 7v7 play-calling</p>
-      </div>
-    </div>
-  </div>
-</div>
+<main>
 
-<!-- ═══ 5. QB TRAITS ═══ -->
-<div class="section" id="traits">
-  <div class="sec-label">Film Intelligence</div>
-  <div class="sec-title">QB Trait Matrix</div>
-  <div class="sec-desc">Grades sourced to named evaluators and verified game data. No composite scores — just what the film and the feedback show.</div>
-  <div class="traits-grid">
-    <div class="trait-card">
-      <div class="trait-name">Field Vision</div>
-      <div class="trait-grade elite">ELITE</div>
-      <div class="trait-src">Keeps eyes downfield consistently. Reads coverage pre-snap and directs receivers to adjust routes based on what the defense presents. — Marrs (UNC), Platform, BJ Jones field eval</div>
-    </div>
-    <div class="trait-card">
-      <div class="trait-name">Release Speed</div>
-      <div class="trait-grade elite">ELITE</div>
-      <div class="trait-src">Pushes the ball on his release, gets the ball out quick. Quick release is a consistent strength across every evaluation. — Marrs (UNC)</div>
-    </div>
-    <div class="trait-card">
-      <div class="trait-name">Decision Making</div>
-      <div class="trait-grade elite">ELITE</div>
-      <div class="trait-src">18-for-18 in a playoff game. 71% full-season completion. Advanced reads and anticipatory accuracy throughout DR7 NOLA. — Platform, verified stats</div>
-    </div>
-    <div class="trait-card">
-      <div class="trait-name">Pocket Poise</div>
-      <div class="trait-grade above">ABOVE AVERAGE</div>
-      <div class="trait-src">Mechanics stayed clean under pressure. Composed against tight coverage. Remained poised through championship game. — Platform DR7 NOLA</div>
-    </div>
-    <div class="trait-card">
-      <div class="trait-name">Pocket Accuracy</div>
-      <div class="trait-grade above">ABOVE AVERAGE</div>
-      <div class="trait-src">Tight-window delivery. Back-shoulder throws with precision. High-pointing the ball to 6'5" receivers — not a hang, a placement decision. — Platform, family context</div>
-    </div>
-    <div class="trait-card">
-      <div class="trait-name">Athleticism</div>
-      <div class="trait-grade above">FUNCTIONAL</div>
-      <div class="trait-src">Can pick up 2-3 first downs per game with his feet. Scramble ability, not designed QB run. Enough to extend plays. — Marrs (UNC)</div>
-    </div>
-    <div class="trait-card">
-      <div class="trait-name">Deep Ball</div>
-      <div class="trait-grade building">BUILDING</div>
-      <div class="trait-src">Can throw 60 yards on demand. 30+ passes over 40 yards last season. Ball appears to hang because he's high-pointing to 6'5" receivers — coaches should view in that context. Range extending with daily training. — Marrs, family context</div>
-    </div>
-    <div class="trait-card">
-      <div class="trait-name">Accuracy on the Move</div>
-      <div class="trait-grade building">BUILDING</div>
-      <div class="trait-src">Active training focus. Less game film showing rollout throws due to offensive scheme — school 7v7 season (May-July) will provide play-calling reps to showcase. — Marrs</div>
-    </div>
+  <div class="hero">
+    <div class="ev">HS Recruit Sample &middot; Chase Ames</div>
+    <h1>Chase Ames &middot; Quarterback &middot; Class of 2027</h1>
+    <p class="sub">A sample preview of what a high school recruit wallet contains. Real coach feedback inside. The full wallet is walked through in guided demos.</p>
   </div>
-</div>
 
-<!-- ═══ 6. REVIEWS ═══ -->
-<div class="section" id="reviews">
-  <div class="sec-label">Sourced Evaluations</div>
-  <div class="sec-title">See Chase's Reviews</div>
-  <div class="tab-wrap">
-    <div class="tab-nav">
-      <button class="tab-btn active" onclick="showTab('platform')">The Platform — DR7 NOLA</button>
-      <button class="tab-btn" onclick="showTab('marrs')">Alex Marrs — UNC</button>
-    </div>
-    <div id="tab-platform" class="tab-panel active">
-      <div class="ev-txt">Showcased traits college programs covet in a next-level passer. Surgical all weekend — consistently fit the ball into tight windows, delivered back-shoulder throws with precision, remained composed against tight coverage. Mechanics stayed clean under pressure, decision-making was advanced. Strong field vision, anticipatory accuracy, and the mechanical foundation to continue developing physically.</div>
-      <div class="ev-tags">
-        <span class="ev-tag s">Tight-Window Accuracy</span>
-        <span class="ev-tag s">Back-Shoulder Throws</span>
-        <span class="ev-tag s">Poise Under Pressure</span>
-        <span class="ev-tag s">Advanced Decision-Making</span>
-      </div>
-    </div>
-    <div id="tab-marrs" class="tab-panel">
-      <div class="ev-txt">Has good deep ball placement, overall decent accuracy. Pushes the ball on his release, gets the ball out quick. Does a good job keeping his eyes downfield. Has decent footwork in the pocket. He has slightly above average athleticism, could get you 2-3 first downs in a game with his feet.</div>
-      <div class="ev-tags">
-        <span class="ev-tag s">Quick Release</span>
-        <span class="ev-tag s">Eyes Downfield</span>
-        <span class="ev-tag s">Deep Ball Placement</span>
-        <span class="ev-tag s">Pocket Footwork</span>
-        <span class="ev-tag d">Arm Strength</span>
-        <span class="ev-tag d">Accuracy on Move</span>
-      </div>
-    </div>
+  <div class="what-card">
+    <h2>What a Chase Ames wallet contains</h2>
+    <ul>
+      <li><strong>Profile + film.</strong> Who he is. What he does. Tape that mirrors how college coaches actually evaluate.</li>
+      <li><strong>QB traits.</strong> Mapped to college systems. Coaches see exactly how he fits theirs.</li>
+      <li><strong>Real coach reviews.</strong> UNC and others. Honest feedback from staffs that have evaluated him.</li>
+      <li><strong>Program-fit comparisons.</strong> Side-by-side reads on the schools that should be paying attention.</li>
+      <li><strong>Visit schedule and prep.</strong> Questions that surface what the pitch leaves out.</li>
+    </ul>
   </div>
-</div>
 
-<!-- ═══ 7. PROGRAM FIT + TARGETS ═══ -->
-<div class="section" id="fit">
-  <div class="sec-label">Scheme Intelligence</div>
-  <div class="sec-title">Program Fit</div>
-  <div class="fit-grid">
-    <div class="fit-card strong">
-      <h4>▲ Strong Fit</h4>
-      <div class="fi"><div class="fi-name">Spread / RPO / Air Raid Systems</div><div class="fi-desc">Quick reads, ball placement, rhythm passing — Chase ran spread and air raid concepts in 2025 with 30+ throws over 40 yards</div></div>
-      <div class="fi"><div class="fi-name">QB Development Programs</div><div class="fi-desc">Staff committed to physical development over 2-3 years — buy the brain, build the body</div></div>
-      <div class="fi"><div class="fi-name">Academic-Forward Cultures</div><div class="fi-desc">4.0 GPA signals film study capacity and playbook absorption</div></div>
-      <div class="fi"><div class="fi-name">Pro-Style with Quick Game</div><div class="fi-desc">Systems like Ole Miss or Indiana that value release speed and processing — Chase maps to that archetype</div></div>
-    </div>
-    <div class="fit-card lower">
-      <h4>▼ Lower Fit</h4>
-      <div class="fi"><div class="fi-name">Immediate-Impact Programs</div><div class="fi-desc">Physical maturation still in progress — best value is invest and develop</div></div>
-      <div class="fi"><div class="fi-name">Run-Heavy / Option Systems</div><div class="fi-desc">Athleticism is functional scramble, not designed QB run</div></div>
-    </div>
+  <div class="point">
+    A wallet a college coach actually wants to see. Built so the right people are paying attention before camp ends.
   </div>
-  <div class="school-grid">
-    <div class="school-card">
-      <div class="school-hdr"><div><div class="school-name">North Texas</div><div class="school-conf">C-USA · FBS</div></div><span class="w-tag wt-green">OFFER</span></div>
-      <div class="school-body"><div class="tgt-r">Spread-heavy quick-game system. QB development pipeline. Visit scheduled April 10.</div></div>
-    </div>
-    <div class="school-card">
-      <div class="school-hdr"><div><div class="school-name">Texas State</div><div class="school-conf">PAC 12 · FBS</div></div><span class="w-tag wt-yellow">VISIT SCHEDULED</span></div>
-      <div class="school-body"><div class="tgt-r">Kinne's elevated the program. QB Jackson is a freshman — timeline works for Chase to develop behind him and compete when the job opens. Visit March 26.</div></div>
-    </div>
-    <div class="school-card">
-      <div class="school-hdr"><div><div class="school-name">Baylor</div><div class="school-conf">BIG 12 · FBS</div></div><span class="w-tag wt-green">COACH CONTACT</span></div>
-      <div class="school-body"><div class="tgt-r">RPO-centric scheme. Baylor coach screenshotted Chase's Twitter after NOLA MVP and texted directly. Active engagement.</div></div>
-    </div>
-    <div class="school-card">
-      <div class="school-hdr"><div><div class="school-name">Houston</div><div class="school-conf">BIG 12 · FBS</div></div><span class="w-tag wt-blue">INTEREST</span></div>
-      <div class="school-body"><div class="tgt-r">Sean Bell visited Chase in person to discuss spring visits. Tempo-driven passing system aligns with Chase's rhythm-based game.</div></div>
-    </div>
-  </div>
-</div>
 
-<!-- ═══ 8. DEV & RISK ═══ -->
-<div class="section">
-  <div class="sec-label">Development & Risk</div>
-  <div class="sec-title">Growth Profile · Pathway · Risk Assessment</div>
-  <div class="dev-risk">
-    <div class="dr-top">
-      <h3>Growth Profile</h3>
-      <div class="dr-highlight">
-        <div class="dr-hl-card accent">
-          <div class="dr-hl-v">5'11" 167 → 6'1" 180</div>
-          <div class="dr-hl-k">+2 inches · +13 lbs since junior season</div>
-        </div>
-        <div class="dr-hl-card">
-          <div class="dr-hl-v">1st Year Starter</div>
-          <div class="dr-hl-k">4 school records · 12-2 · at a physical disadvantage</div>
-        </div>
-      </div>
-      <div class="dr-note">
-        <strong>Assessment:</strong> Chase produced at an elite statistical level while physically undersized — the production came before the body caught up. He's gained 2 inches and 13 pounds since the season ended and is still growing based on family trajectory. A program investing now is buying a quarterback whose decision-making is college-ready while the frame is still developing. That's the most coachable combination available.
-      </div>
-    </div>
-    <div class="dr-bottom">
-      <div class="dr-phase phase-1">
-        <div class="dr-phase-num">01</div>
-        <div class="dr-phase-label">Senior Season '26</div>
-        <div class="dr-phase-title">Prove It Year</div>
-        <ul class="dr-phase-items">
-          <li>Improved arm on film — 60+ yard throws in game</li>
-          <li>Rollout accuracy showcased in school 7v7</li>
-          <li>Push deeper into playoffs</li>
-          <li>Expand offer sheet with visit performance</li>
-        </ul>
-      </div>
-      <div class="dr-phase phase-2">
-        <div class="dr-phase-num">02</div>
-        <div class="dr-phase-label">Freshman '27-'28</div>
-        <div class="dr-phase-title">College Integration</div>
-        <ul class="dr-phase-items">
-          <li>Redshirt for continued physical maturation</li>
-          <li>Learn system — compete for QB2 by spring</li>
-          <li>Full S&C program — project 195+ lbs</li>
-        </ul>
-      </div>
-    </div>
-    <div class="dr-risks">
-      <div class="dr-risk-col r">
-        <h4>Identified Risks</h4>
-        <div class="ri">Deep ball still developing — can throw 60 on demand but extending consistent range with less effort</div>
-        <div class="ri">6'1" 180 — frame still filling out, durability in high-contact pocket environments</div>
-        <div class="ri">Limited film throwing on the move — school 7v7 (May-July) will provide those reps</div>
-        <div class="ri">Unrated on major recruiting platforms, limiting organic exposure</div>
-      </div>
-      <div class="dr-risk-col m">
-        <h4>Mitigating Factors</h4>
-        <div class="ri">Grew 2" and 13 lbs since junior season — physical trajectory is accelerating, not stalling</div>
-        <div class="ri">Broke 4 school records at 5'11" 167 — production validates the floor regardless of frame</div>
-        <div class="ri">Ball "hang" is contextual — throwing to two 6'5" receivers who high-point the ball. That's placement, not weakness</div>
-        <div class="ri">12-2 in TX 6A vs Vandegrift (state champs) and Westlake — first DS win since 1959</div>
-      </div>
-    </div>
+  <div class="guided">
+    <h3>Want to see the full wallet?</h3>
+    <p>The complete Chase Ames wallet is reserved for guided demos. We walk a coach, partner, or family through it directly so the context lands the right way.</p>
+    <a class="cta" href="../../">Reach out to schedule a walkthrough &rarr;</a>
   </div>
-</div>
 
-<!-- ═══ 9. WHERE TO FIND CHASE ═══ -->
-<div class="section" id="schedule">
-  <div class="sec-label">Upcoming</div>
-  <div class="sec-title">Where to Find Chase</div>
-  <div class="sec-desc">Scheduled visits, camps, and 7v7 tournaments. Updated as events confirm.</div>
-  <div class="sched-grid">
-    <div class="sched-card next">
-      <div class="sched-date">15</div><div class="sched-month">Mar 2026</div>
-      <div class="sched-event">Elite 11 Regional</div>
-      <div class="sched-loc">Houston, TX</div>
-      <span class="sched-type camp">Camp — Next Up</span>
-    </div>
-    <div class="sched-card next">
-      <div class="sched-date">21-22</div><div class="sched-month">Mar 2026</div>
-      <div class="sched-event">Juice 7v7 — San Antonio</div>
-      <div class="sched-loc">San Antonio, TX (near UTSA)</div>
-      <span class="sched-type v7">7v7</span>
-    </div>
-    <div class="sched-card visit">
-      <div class="sched-date">26</div><div class="sched-month">Mar 2026</div>
-      <div class="sched-event">Texas State — Campus Visit</div>
-      <div class="sched-loc">San Marcos, TX</div>
-      <span class="sched-type visit-tag">Visit</span>
-    </div>
-    <div class="sched-card">
-      <div class="sched-date">4</div><div class="sched-month">Apr 2026</div>
-      <div class="sched-event">Juice 7v7 — Round Rock</div>
-      <div class="sched-loc">Round Rock, TX</div>
-      <span class="sched-type v7">7v7</span>
-    </div>
-    <div class="sched-card visit">
-      <div class="sched-date">10</div><div class="sched-month">Apr 2026</div>
-      <div class="sched-event">North Texas — Campus Visit</div>
-      <div class="sched-loc">Denton, TX</div>
-      <span class="sched-type visit-tag">Visit</span>
-    </div>
-    <div class="sched-card">
-      <div class="sched-date">11-12</div><div class="sched-month">Apr 2026</div>
-      <div class="sched-event">Juice 7v7 — Dallas</div>
-      <div class="sched-loc">Waxahachie / Dallas, TX</div>
-      <span class="sched-type v7">7v7</span>
-    </div>
-  </div>
-</div>
+</main>
 
-<!-- FOOTER -->
-<footer class="footer" style="padding-top:48px">
-  <div class="footer-text">
-    Chase Ames · Class of 2027 · QB Recruiting Wallet &nbsp;·&nbsp; Powered by <a href="https://edge3.net">EDGE3</a> &nbsp;·&nbsp; Vision Sports Portal, LLC
-  </div>
-  <div class="footer-disc">Confidential athlete intelligence. Data sourced from MaxPreps, The Platform, game film, and coach evaluations. Not for redistribution without authorization.</div>
+<footer>
+  <div><a href="../../../">Home</a> &middot; <a href="../../">Athletes &amp; Families</a> &middot; <a href="../">Wallet showcase</a></div>
+  <div class="powered">Powered by Truth Intelligence Models. Sample preview &middot; structure shown without proprietary data.</div>
 </footer>
 
-<div class="exp-key">🔒 Expires: <strong>April 10, 2026</strong> &nbsp;·&nbsp; CA27-0311</div>
-
-<script>
-function navScroll(e,id){
-  e.preventDefault();
-  const el=document.getElementById(id);
-  if(!el)return;
-  const navH=document.querySelector('.topnav').offsetHeight;
-  const y=el.getBoundingClientRect().top+window.pageYOffset-navH-8;
-  window.scrollTo({top:y,behavior:'smooth'});
-}
-function showTab(id){
-  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('tab-'+id).classList.add('active');
-  event.currentTarget.classList.add('active');
-}
-const sections=document.querySelectorAll('.section[id],.hero[id]');
-const navLinks=document.querySelectorAll('.nav-links a');
-window.addEventListener('scroll',()=>{
-  const navH=document.querySelector('.topnav').offsetHeight;
-  let current='';
-  sections.forEach(s=>{
-    if(window.pageYOffset>=s.offsetTop-navH-20)current=s.getAttribute('id');
-  });
-  navLinks.forEach(a=>{
-    a.classList.remove('active');
-    if(a.getAttribute('href')==='#'+current)a.classList.add('active');
-  });
-});
-</script>
 </body>
 </html>
