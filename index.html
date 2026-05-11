@@ -111,9 +111,9 @@
   .door:hover { transform: translateY(-2px); }
   .door.programs:hover { border-color: var(--brand-blue); }
   .door.athletes:hover { border-color: var(--brand-green); }
-  .door .door-tag { display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; padding: 4px 10px; border-radius: 14px; margin-bottom: 18px; }
-  .door.programs .door-tag { background: rgba(59,130,246,0.16); color: var(--brand-blue); border: 1px solid rgba(59,130,246,0.30); }
-  .door.athletes .door-tag { background: rgba(26,184,116,0.16); color: var(--brand-green); border: 1px solid rgba(26,184,116,0.30); }
+  .door .door-tag { display: inline-block; font-size: 12px; text-transform: uppercase; letter-spacing: 1.8px; font-weight: 800; padding: 7px 14px; border-radius: 6px; margin-bottom: 18px; }
+  .door.programs .door-tag { background: var(--brand-blue); color: var(--brand-white); border: 1px solid var(--brand-blue); box-shadow: 0 4px 12px -2px rgba(59,130,246,0.45); }
+  .door.athletes .door-tag { background: var(--brand-green); color: var(--brand-white); border: 1px solid var(--brand-green); box-shadow: 0 4px 12px -2px rgba(26,184,116,0.45); }
   .door h3 { margin: 0 0 10px; font-size: 24px; font-weight: 800; letter-spacing: -0.015em; color: var(--brand-white); }
   .door p { margin: 0 0 16px; color: #C7D3E6; font-size: 14.5px; line-height: 1.55; }
   .door ul { list-style: none; padding: 0; margin: 0 0 22px; }
@@ -245,115 +245,83 @@
 
 <header class="hero">
   <div class="wrap">
-    <span class="eyebrow">Recruiting Intelligence Platform</span>
-    <h1>One intelligence layer.<br><span class="accent">Two engagement channels. One platform.</span></h1>
-    <p class="hero-tag">Our AI thinks like a coach.</p>
-    <p class="lede">Our personalized AI agents help college programs evaluate deeper and student-athletes navigate smarter.</p>
+    <span class="eyebrow">EDGE3 Recruiting Intelligence</span>
+    <h1>One intelligence platform.<br><span class="accent">Two sides of the recruiting equation.</span></h1>
+    <p class="lede">EDGE3 uses AI and athlete intelligence to help college programs evaluate deeper and help athletes make smarter decisions.</p>
+    <p class="hero-tag">Built to think like a coach. Designed to understand the athlete.</p>
   </div>
 </header>
 
 <main>
 
   <section>
-    <h2>It&rsquo;s not the data. It&rsquo;s how we put it together.</h2>
-    <p class="section-lede">What makes EDGE3 different from a recruiting dashboard.</p>
+    <h2>It&rsquo;s not the data. It&rsquo;s how we connect it.</h2>
+    <p class="section-lede">What makes EDGE3 different from a recruiting platform.</p>
     <div class="pillars">
       <div class="pillar synthesis">
-        <div class="p-num">01 &middot; Synthesis</div>
-        <h3>Synthesis, not access.</h3>
-        <p class="p-body">Most platforms sell access to one or two data streams. EDGE3 fuses structured signals (rates, rankings, snaps) with unstructured context (behavior, fit, environment) into one continuous read.</p>
-        <div class="p-sticker">The data is everywhere. The read isn&rsquo;t.</div>
+        <div class="p-num">01 &middot; Intelligence</div>
+        <h3>More than data access.</h3>
+        <p class="p-body">Most platforms show rankings and stats. EDGE3 connects performance, behavior, fit, environment, and real world context into one recruiting read.</p>
+        <div class="p-sticker">The data is available. The intelligence is not.</div>
       </div>
       <div class="pillar models">
         <div class="p-num">02 &middot; Models</div>
-        <h3>Agentic intelligence. Past, present, and this week.</h3>
-        <p class="p-body">EDGE3 scouts the way coaches scout. Multi-season history. Game data refreshed weekly. Social signals from this morning. We also test the math against past seasons the model never trained on, then publish the results. Honest about what played out. Honest about what&rsquo;s playing out right now.</p>
-        <div class="p-sticker">Continuous, not retrospective. Agentic, not static.</div>
+        <h3>Built to think like a staff.</h3>
+        <p class="p-body">EDGE3 combines historical trends, weekly performance updates, roster dynamics, and real time signals into continuous evaluation models.</p>
+        <div class="p-sticker">Not static reports. Continuous athlete intelligence.</div>
       </div>
       <div class="pillar wallet">
         <div class="p-num">03 &middot; Wallets</div>
-        <h3>Wallets the athletes own.</h3>
-        <p class="p-body">The same intelligence programs use, in the family&rsquo;s hands. HS recruit, college student-athlete, transfer portal. Three wallet types, athlete-owned, portable.</p>
-        <div class="p-sticker">No other platform puts this on the family&rsquo;s side of the table.</div>
+        <h3>Athlete intelligence on both sides.</h3>
+        <p class="p-body">Programs evaluate deeper while athletes and families gain portable wallets that track recruiting, development, NIL, and long term value.</p>
+        <div class="p-sticker">High school. College. Transfer portal. One evolving athlete record owned by the athlete.</div>
       </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="tim-block">
-      <div class="tim-eyebrow">Under the hood</div>
-      <h2 class="tim-title">Powered by <span class="tim-wordmark">TIM</span> - Truth Intelligence Models <span class="tim-version">v1</span></h2>
-      <div class="tim-families">
-        <div class="tim-family">
-          <div class="tf-label">Trajectory</div>
-          <div class="tf-question">Where is this athlete heading?</div>
-        </div>
-        <div class="tim-family">
-          <div class="tf-label">Retention</div>
-          <div class="tf-question">How likely is this athlete to stay?</div>
-        </div>
-        <div class="tim-family">
-          <div class="tf-label">Baselines</div>
-          <div class="tf-question">What does each level look like, by position and age band?</div>
-        </div>
-      </div>
-      <div class="tim-arrow" aria-hidden="true">&darr;</div>
-      <div class="tim-output">
-        <div class="ryg-row"><span class="ryg-dot green" aria-hidden="true"></span><span><strong>Green.</strong> On track. Retain priority.</span></div>
-        <div class="ryg-row"><span class="ryg-dot yellow" aria-hidden="true"></span><span><strong>Yellow.</strong> Mixed signals. Have the conversation.</span></div>
-        <div class="ryg-row"><span class="ryg-dot red" aria-hidden="true"></span><span><strong>Red.</strong> Portal flag or development gap. Evaluate now.</span></div>
-      </div>
-      <div class="tim-sticker">The math is the engine. The R/Y/G is the answer.</div>
-      <div class="tim-money"><strong>Money is loud. Fit is louder when money is equal.</strong> Verified NIL deal data joins as a layer when it&rsquo;s available, not a substitute for fit.</div>
     </div>
   </section>
 
   <section>
     <div class="loop-panel">
       <div class="lp-eyebrow">Truth Intelligence Loop</div>
-      <h2>Smarter, faster, better with every cycle.</h2>
-      <p class="lp-body">The model predicts. Every transfer, snap, and social signal confirms or corrects it. The next model learns. Players, parents, and staff answer short, smart surveys throughout the season - their answers reveal what&rsquo;s actually driving decisions. Shifts get caught player by player, not after the whole roster has moved.</p>
-      <div class="lp-sticker">It&rsquo;s not the data or the AI. It&rsquo;s how we bring them together for each coaching staff.</div>
+      <h2>Smarter with every cycle.</h2>
+      <p class="lp-body">EDGE3 learns from every transfer, rep, roster move, and athlete signal. Short surveys from players, families, and staff help uncover what is actually driving decisions before the roster changes happen.</p>
+      <p class="lp-body">The model continuously adjusts by player, position group, and program.</p>
+      <div class="lp-sticker">It&rsquo;s not just the data or the AI. It&rsquo;s how EDGE3 brings everything together for each coaching staff.</div>
     </div>
   </section>
 
   <section>
-    <div style="background: linear-gradient(135deg, rgba(26,184,116,0.10), rgba(59,130,246,0.06)); border: 1px solid var(--brand-line); border-radius: 14px; padding: 26px 30px; margin-bottom: 32px; text-align: center;">
-      <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: var(--brand-green); margin-bottom: 10px;">Partnership, not platform</div>
-      <h2 style="margin: 0 0 10px; font-size: clamp(20px, 3vw, 26px); font-weight: 800; letter-spacing: -0.015em; color: var(--brand-white); line-height: 1.25;">We source requirements from both sides of the table.</h2>
-      <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #C7D3E6; max-width: 760px; margin: 0 auto;">Schools tell us what they need. Athletes tell us what they need. We read what the outcomes say, and weigh every match against both. Recruiting isn&rsquo;t a database lookup. It&rsquo;s a partnership built on outcomes.</p>
-    </div>
-    <h2>Two engagement channels.</h2>
-    <p class="section-lede">Pick your door. Both run on the same intelligence layer.</p>
+    <h2>Two engagement channels. One intelligence layer.</h2>
+    <p class="section-lede">Choose your path.</p>
     <div class="doors">
 
       <div class="door programs">
         <span class="door-tag">For Recruiting Staffs</span>
         <h3>Programs</h3>
-        <p>Coaches and analysts evaluating prospects, building boards, and holding the staff room together with one read per player.</p>
+        <p>Built for coaches, personnel staffs, and analysts evaluating athletes across football and basketball.</p>
         <ul>
-          <li>NFL- and NBA-level scouting intelligence</li>
-          <li>Transfer risk + performance trajectory + scheme fit in one combined read</li>
-          <li>Position-tagged across all of FBS / D1 / FCS / mid-major</li>
+          <li>One combined read for fit, trajectory, and transfer risk</li>
+          <li>NFL and NBA influenced athlete intelligence</li>
+          <li>Position based evaluation across FBS, FCS, D1, and mid major programs</li>
+          <li>Built to support faster and smarter staff decisions</li>
         </ul>
         <div class="door-cta">
           <a class="btn" href="./programs/">Coaches click here &rarr;</a>
-          <div class="demo-badge"><strong>Football and Basketball.</strong> Pick your sport on the next page.</div>
         </div>
       </div>
 
       <div class="door athletes">
-        <span class="door-tag">For Student-Athletes &amp; Families</span>
+        <span class="door-tag">For Student Athletes &amp; Families</span>
         <h3>Athletes &amp; Families</h3>
-        <p>The athlete-owned recruiting and NIL OS. Position yourself the way coaches actually evaluate. Compare options across schools, systems, and competition at your position.</p>
+        <p>The athlete owned recruiting and NIL operating system.</p>
         <ul>
-          <li><strong>Identify</strong> the programs where your game translates</li>
-          <li><strong>Position</strong> the way coaches actually evaluate, not how highlight tapes teach</li>
-          <li><strong>Compare</strong> schools, staffs, systems, and depth charts with real clarity</li>
+          <li>Identify where your game truly fits</li>
+          <li>Compare schools, systems, staffs, and depth charts with clarity</li>
+          <li>Understand how coaches actually evaluate athletes</li>
+          <li>Build long term recruiting and NIL value</li>
         </ul>
         <div class="door-cta">
-          <a class="btn" href="./athletes/">Student-athletes / families click here &rarr;</a>
-          <div class="demo-badge"><strong>Beta &middot; rolling out.</strong> Onboarding open today.</div>
+          <a class="btn" href="./athletes/">Student athletes and families click here &rarr;</a>
+          <div class="demo-badge"><strong>Beta rollout now open.</strong></div>
         </div>
       </div>
 

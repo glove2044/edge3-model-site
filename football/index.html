@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    /* EDGE3 brand tokens (canonical — see docs/BRAND.md) */
+    /* EDGE3 brand tokens (canonical - see docs/BRAND.md) */
     --brand-dark: #0A0F1C;
     --brand-dark-2: #0E1320;
     --brand-dark-3: #161D2D;
@@ -93,7 +93,7 @@
   .pane-header .role-tag { background: var(--accent-soft); color: var(--navy); padding: 3px 10px; border-radius: 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.7px; font-weight: 700; }
   .pane-desc { color: var(--muted); font-size: 13.5px; line-height: 1.5; margin: 0 0 18px; }
 
-  /* Analyst — data-heavy table */
+  /* Analyst - data-heavy table */
   .analyst-table { width: 100%; border-collapse: collapse; font-size: 12px; }
   .analyst-table th { text-align: left; padding: 10px 8px; background: var(--accent-soft); color: var(--navy); font-size: 10px; text-transform: uppercase; letter-spacing: 0.6px; border-bottom: 1px solid var(--rule); position: sticky; top: 0; }
   .analyst-table td { padding: 9px 8px; border-bottom: 1px solid var(--rule); }
@@ -105,7 +105,7 @@
   .analyst-controls .ctrl-pill { background: #fff; border: 1px solid var(--rule); padding: 4px 11px; border-radius: 14px; font-size: 11.5px; color: var(--navy); font-weight: 600; }
   @media (max-width: 760px) {
     /* Standard responsive-table pattern: scroll horizontally on narrow screens.
-       Do NOT add display:table/table-layout:fixed on rows — that cancels the scroll. */
+       Do NOT add display:table/table-layout:fixed on rows - that cancels the scroll. */
     .analyst-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
     .analyst-table th, .analyst-table td { white-space: nowrap; }
     .analyst-controls { padding: 8px 10px; gap: 8px; }
@@ -116,7 +116,7 @@
   .pill.neutral { background: var(--muted); }
   .num { font-variant-numeric: tabular-nums; font-weight: 600; }
 
-  /* Position Coach — synthesized cards */
+  /* Position Coach - synthesized cards */
   .pc-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .pc-card { background: #fff; border: 1px solid var(--rule); border-radius: 10px; padding: 16px; }
   .pc-card .pc-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
@@ -128,7 +128,7 @@
   .pc-card .pc-note { font-size: 12.5px; color: #2A3340; padding-top: 10px; border-top: 1px solid var(--rule); margin-top: 6px; line-height: 1.5; }
   .pc-card .pc-rec { margin-top: 12px; padding: 8px 12px; background: var(--accent-soft); border-radius: 6px; font-size: 12.5px; color: var(--navy); font-weight: 600; }
 
-  /* Head Coach — decision-grade */
+  /* Head Coach - decision-grade */
   .hc-finalists { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
   .hc-card { background: #fff; border: 2px solid var(--navy); border-radius: 12px; padding: 18px; position: relative; }
   .hc-card.proceed { border-color: var(--green); }
@@ -170,7 +170,7 @@
   footer { text-align: center; padding: 28px 16px; color: var(--muted); font-size: 12.5px; border-top: 1px solid var(--rule); margin-top: 40px; }
   footer a { color: var(--navy); text-decoration: none; }
 
-  /* TOOLTIPS — coach-readable definitions for technical terms */
+  /* TOOLTIPS - coach-readable definitions for technical terms */
   .info { position: relative; cursor: pointer; border-bottom: 1px dotted var(--brand-blue); }
   .info::after { content: 'i'; display: inline-block; width: 16px; height: 16px; line-height: 16px; text-align: center; background: var(--brand-blue); color: #fff !important; border-radius: 50%; font-size: 10px; font-weight: 700; font-style: italic; margin-left: 5px; vertical-align: middle; opacity: 1; font-family: Georgia, serif; box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.20); transition: transform 0.15s, box-shadow 0.15s; }
   .info:hover::after { transform: scale(1.1); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.35); }
@@ -185,7 +185,7 @@
   }
   /* Tooltip on dark bg (e.g. hero) needs different colors */
   header .info::after { background: rgba(255,255,255,0.85); color: var(--navy-deep) !important; }
-  /* Mobile fallback — taps work */
+  /* Mobile fallback - taps work */
   @media (hover: none) {
     .info:focus .tip, .info:active .tip { opacity: 1; pointer-events: auto; }
   }
@@ -543,7 +543,7 @@
 
     <div class="questions-panel">
       <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--brand-green); font-weight: 700; margin-bottom: 6px;">Refined Positioning</div>
-      <h2>How staffs actually talk about recruits, now operationalized.</h2>
+      <h2>How staffs actually talk about recruits. Now in one read.</h2>
       <p class="lede">One side of the table: <em>"He&rsquo;s a can&rsquo;t miss."</em> The other: <em>"He can&rsquo;t play for us."</em> Where does he fit in our room? Who else are we bringing in? Who does he remind you of? The two questions every staff meeting opens with, answered continuously. EDGE3 has the read before the room sits down, and updates between meetings, not just at intake.</p>
       <div class="q-grid">
         <div class="q-card">
@@ -574,7 +574,7 @@
     </div>
 
     <div class="nfl-panel">
-      <div class="nfl-eyebrow">NFL front-office framework</div>
+      <div class="nfl-eyebrow">How NFL front offices think</div>
       <div class="greenberg-row">
         <blockquote style="margin: 0; padding: 22px 24px; background: rgba(255,255,255,0.06); border-left: 3px solid var(--brand-green); border-radius: 0 10px 10px 0; font-size: 16px; line-height: 1.5; color: #fff; font-style: italic;">
           &ldquo;Every decision comes down to the full picture: on the field, off the field, and how it fits your roster.&rdquo;
@@ -588,7 +588,7 @@
     </div>
 
     <h2 class="section-heading">How we evaluate every recruit.</h2>
-    <p class="section-heading-sub">Three questions on every prospect. EDGE3 surfaces all three layers in one read.</p>
+    <p class="section-heading-sub">Three questions on every recruit. EDGE3 puts all three in one read.</p>
     <div class="three-q-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 36px;">
       <div style="background: #fff; border: 1px solid var(--rule); border-radius: 12px; padding: 18px 20px; border-top: 3px solid var(--brand-blue);">
         <div style="font-size: 10.5px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--brand-blue); font-weight: 700; margin-bottom: 8px;">01 &middot; Your track record</div>
@@ -609,7 +609,7 @@
     <style>@media (max-width: 760px) { .three-q-grid { grid-template-columns: 1fr !important; } }</style>
 
     <h2 class="section-heading">How we earn the model&rsquo;s trust.</h2>
-    <p class="section-heading-sub">We hide past seasons from the model, ask it to predict them, then compare against what actually happened. Live, the agents update weekly on game data and social signals. Honest math, current read.</p>
+    <p class="section-heading-sub">We hide past seasons from the model. We ask it to predict them. We compare against what actually happened. Live, the agents update weekly on game data and social signals. Honest math. Current read.</p>
 
     <div class="trust-grid-fb" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 8px;">
       <div style="background: linear-gradient(135deg, #0E1320 0%, #161D2D 100%); border-radius: 14px; padding: 26px 28px; position: relative; overflow: hidden; box-shadow: 0 8px 24px -8px rgba(10,15,28,0.18);">

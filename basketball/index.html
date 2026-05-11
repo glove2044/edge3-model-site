@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    /* EDGE3 brand tokens (canonical — see docs/BRAND.md) */
+    /* EDGE3 brand tokens (canonical - see docs/BRAND.md) */
     --brand-dark: #0A0F1C;
     --brand-dark-2: #0E1320;
     --brand-dark-3: #161D2D;
@@ -101,7 +101,7 @@
   .analyst-controls .ctrl-pill { background: #fff; border: 1px solid var(--rule); padding: 4px 11px; border-radius: 14px; font-size: 11.5px; color: var(--navy); font-weight: 600; }
   @media (max-width: 760px) {
     /* Standard responsive-table pattern: scroll horizontally on narrow screens.
-       Do NOT add display:table/table-layout:fixed on rows — that cancels the scroll. */
+       Do NOT add display:table/table-layout:fixed on rows - that cancels the scroll. */
     .analyst-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
     .analyst-table th, .analyst-table td { white-space: nowrap; }
     .analyst-controls { padding: 8px 10px; gap: 8px; }
@@ -163,7 +163,7 @@
   footer { text-align: center; padding: 28px 16px; color: var(--muted); font-size: 12.5px; border-top: 1px solid var(--rule); margin-top: 40px; }
   footer a { color: var(--navy); text-decoration: none; }
 
-  /* TOOLTIPS — coach-readable definitions for technical terms */
+  /* TOOLTIPS - coach-readable definitions for technical terms */
   .info { position: relative; cursor: pointer; border-bottom: 1px dotted var(--brand-blue); }
   .info::after { content: 'i'; display: inline-block; width: 16px; height: 16px; line-height: 16px; text-align: center; background: var(--brand-blue); color: #fff !important; border-radius: 50%; font-size: 10px; font-weight: 700; font-style: italic; margin-left: 5px; vertical-align: middle; opacity: 1; font-family: Georgia, serif; box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.20); transition: transform 0.15s, box-shadow 0.15s; }
   .info:hover::after { transform: scale(1.1); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.35); }
@@ -189,7 +189,7 @@
   .q-card .q-answer { color: #2A3340; font-size: 13px; line-height: 1.5; }
   .q-card .q-answer strong { color: var(--navy); }
 
-  /* Validation case study panel — Chol */
+  /* Validation case study panel - Chol */
   .case-study { background: linear-gradient(135deg, var(--brand-dark-3) 0%, var(--brand-dark-2) 100%); color: var(--brand-text); border: 1px solid var(--brand-line); border-radius: 14px; padding: 28px 30px; margin-bottom: 28px; }
   .case-study .cs-eyebrow { display: inline-block; background: var(--brand-green); color: var(--brand-white); font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; padding: 4px 12px; border-radius: 14px; margin-bottom: 16px; }
   .case-study h2 { color: var(--brand-white); margin: 0 0 8px; font-size: 24px; letter-spacing: -0.01em; }
@@ -568,9 +568,9 @@
     </div>
 
 
-    <!-- How we test the models — moved directly under the interactive board -->
+    <!-- How we test the models - moved directly under the interactive board -->
     <h2 class="section-heading">How we evaluate every recruit.</h2>
-    <p class="section-heading-sub">Three questions on every prospect. EDGE3 surfaces all three layers in one read.</p>
+    <p class="section-heading-sub">Three questions on every recruit. EDGE3 puts all three in one read.</p>
     <div class="three-q-grid-bb" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 36px;">
       <div style="background: #fff; border: 1px solid var(--rule); border-radius: 12px; padding: 18px 20px; border-top: 3px solid var(--brand-blue);">
         <div style="font-size: 10.5px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--brand-blue); font-weight: 700; margin-bottom: 8px;">01 &middot; Your track record</div>
@@ -591,7 +591,7 @@
     <style>@media (max-width: 760px) { .three-q-grid-bb { grid-template-columns: 1fr !important; } }</style>
 
     <h2 class="section-heading">How we earn the model&rsquo;s trust.</h2>
-    <p class="section-heading-sub">We hide past seasons from the model, ask it to predict them, then compare against what actually happened. Live, the agents update weekly on game data and social signals. Honest math, current read.</p>
+    <p class="section-heading-sub">We hide past seasons from the model. We ask it to predict them. We compare against what actually happened. Live, the agents update weekly on game data and social signals. Honest math. Current read.</p>
 
     <div class="trust-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 8px;">
       <div style="background: linear-gradient(135deg, #0E1320 0%, #161D2D 100%); border-radius: 14px; padding: 26px 28px; position: relative; overflow: hidden; box-shadow: 0 8px 24px -8px rgba(10,15,28,0.18);">
@@ -611,7 +611,7 @@
     </div>
 
     <div style="margin-top: 18px; padding: 16px 22px; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; color: var(--muted); font-size: 13.5px; line-height: 1.6;">
-      <strong style="color: var(--navy);">How accuracy reads.</strong> 50% is a coin flip. 70%+ means the model is meaningfully better than guessing. Players without enough prior-year data are flagged "No Baseline" so we don&rsquo;t guess on incomplete pictures.
+      <strong style="color: var(--navy);">How accuracy reads.</strong> 50% is a coin flip. 100% is perfect. 70%+ means the model is meaningfully better than guessing. Players without enough prior-year data get flagged "No Baseline." We don&rsquo;t guess on incomplete pictures.
     </div>
     <style>
       @media (max-width: 760px) { .trust-grid { grid-template-columns: 1fr !important; } }
@@ -623,10 +623,10 @@
       <p style="font-size: 13px; color: var(--navy); font-style: italic; font-weight: 600; margin: 0; padding-top: 10px; border-top: 1px solid rgba(232,179,57,0.20);">Money is loud. Fit is louder when money is equal.</p>
     </div>
 
-    <!-- Refined Positioning — replaces the two-questions panel -->
+    <!-- Refined Positioning - replaces the two-questions panel -->
     <div class="questions-panel">
       <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--brand-green); font-weight: 700; margin-bottom: 6px;">Refined Positioning</div>
-      <h2>How staffs actually talk about recruits, now operationalized.</h2>
+      <h2>How staffs actually talk about recruits. Now in one read.</h2>
       <p class="lede">One side of the table: <em>"He&rsquo;s a can&rsquo;t miss."</em> The other: <em>"He can&rsquo;t play for us."</em> Where does he fit in our room? Who else are we bringing in? Who does he remind you of? The two questions every staff meeting opens with, answered continuously. EDGE3 has the read before the room sits down, and updates between meetings, not just at intake.</p>
       <div class="q-grid">
         <div class="q-card">
@@ -656,12 +656,14 @@
       </div>
     </div>
 
-    <!-- Continuous validation — replaces one-athlete case-study framing -->
+    <!-- Continuous validation - replaces one-athlete case-study framing -->
     <section class="case-study">
       <div class="cs-eyebrow">Tested every cycle, not just at launch</div>
       <h2>Every transfer, every snap, every game is another test row.</h2>
-      <p class="lede">Most platforms train a model, publish accuracy once, and ship. EDGE3 keeps testing. Every athlete who enters the portal, every snap played, every social signal that shifts, becomes a new row to grade the model against. Last week&rsquo;s outcomes are this week&rsquo;s validation. The 78% accuracy above isn&rsquo;t from a one-time bake-off. It&rsquo;s where the model lands when you grade it against thousands of athletes whose seasons already played out.</p>
-      <p class="lede" style="margin-top: 14px;"><strong style="color: var(--brand-white);">One athlete proves nothing.</strong> The pattern across thousands is what matters. Antonio Chol below is one of those thousands. He&rsquo;s shown because we have the same drivers flagged in 2024, two model versions ago, that still flag elevated risk in production today. Same signal, two refresh cycles later. That&rsquo;s model stability. The accuracy number above is the aggregate.</p>
+      <p class="lede">Most platforms train a model, publish accuracy once, and ship it. EDGE3 keeps testing.</p>
+      <p class="lede" style="margin-top: 10px;">Every athlete who enters the portal. Every snap played. Every social signal that shifts. New rows to grade the model against. Last week is this week&rsquo;s test.</p>
+      <p class="lede" style="margin-top: 10px;">The 78% above isn&rsquo;t a one-time bake-off. It&rsquo;s where the model lands across thousands of athletes whose seasons already played out.</p>
+      <p class="lede" style="margin-top: 14px;"><strong style="color: var(--brand-white);">Antonio Chol below is one of those thousands.</strong> Same drivers flagged in 2024, two model versions ago, still flag him today. That&rsquo;s model stability. The accuracy number above is the aggregate.</p>
 
       <div class="cs-compare">
         <div class="cs-side">
@@ -695,7 +697,7 @@
       </div>
     </section>
 
-    <!-- Olen request highlight + AI Recruiting Agents — replaces the NBA front-office framework -->
+    <!-- Olen request highlight + AI Recruiting Agents - replaces the NBA front-office framework -->
     <div class="nfl-panel">
       <div class="nfl-eyebrow">Coach Olen&rsquo;s request</div>
       <div class="greenberg-row">
@@ -712,7 +714,7 @@
       </div>
     </div>
 
-    <!-- Model coverage panel — 3 metric cards moved here from hero -->
+    <!-- Model coverage panel - 3 metric cards moved here from hero -->
     <h2 class="section-heading">Model coverage</h2>
     <p class="section-heading-sub">D1 coverage and refresh cadence at a glance.</p>
     <div class="hero-metrics" style="grid-template-columns: repeat(3, 1fr); margin-top: 8px; max-width: none;">
