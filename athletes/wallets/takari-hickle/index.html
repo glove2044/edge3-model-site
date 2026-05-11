@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>EDGE3 NIL Wallet · Takari Hickle #44 · Oregon State</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,500&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --e3-dark:#0F1620;--e3-navy:#1A2233;--e3-slate:#2C3E50;
+  --e3-green:#00873A;--e3-green-d:#006B2D;--e3-green-l:rgba(0,107,45,.08);--e3-green-gl:rgba(0,107,45,.18);
+  --e3-blue:#1565C0;--e3-blue-l:rgba(21,101,192,.07);
+  --e3-orange:#DC6B2F;--e3-orange-l:rgba(220,107,47,.08);
+  --adobe-red:#EB1000;--adobe-red-l:rgba(235,16,0,.06);--adobe-red-gl:rgba(235,16,0,.14);
+  --bg:#F7F8FA;--bg2:#FFFFFF;--bg3:#EEF1F5;--bg4:#E2E7EE;
+  --bdr:#D5DBE4;--bdr2:#C0C9D6;
+  --tx:#0F1620;--tx2:#2C3E50;--tx3:#546E7A;--tx4:#78909C;
+  --r:#E53935;--rg:rgba(229,57,53,.07);--rl:rgba(229,57,53,.12);
+  --y:#EF8C00;--yg:rgba(239,140,0,.07);
+  --osu-orange:#DC4405;--osu-black:#000;
+  --nike-black:#111;
+  --rad:10px;--rad-lg:14px;
+  --ff:'Syne',sans-serif;--fb:'DM Sans',sans-serif;--fm:'JetBrains Mono',monospace;
+  --sh:0 1px 4px rgba(0,0,0,.05);--sh2:0 4px 18px rgba(0,0,0,.07);--sh3:0 8px 32px rgba(0,0,0,.1);
+  --nav-h:56px;--tab-h:46px;
+}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:var(--fb);font-weight:500;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+.topnav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--e3-navy);height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(.8rem,2.5vw,2rem)}
+.logo{font-family:var(--ff);font-weight:800;font-size:1.15rem;letter-spacing:1.5px;color:#fff}
+.logo .three{color:var(--e3-green)}
+.logo .sub{color:rgba(255,255,255,.45);font-weight:600;font-size:.58rem;letter-spacing:1px;margin-left:8px;text-transform:uppercase}
+.topnav-r{display:flex;align-items:center;gap:10px}
+.live-dot{width:9px;height:9px;border-radius:50%;background:var(--e3-green);animation:pls 1.8s infinite;box-shadow:0 0 6px rgba(0,135,58,.5)}
+@keyframes pls{0%,100%{opacity:1;box-shadow:0 0 6px rgba(0,135,58,.5)}50%{opacity:.2;box-shadow:0 0 2px rgba(0,135,58,.15)}}
+.live-tag{font-family:var(--fm);font-size:.7rem;font-weight:800;color:var(--e3-green);letter-spacing:1.5px;text-transform:uppercase;text-shadow:0 0 8px rgba(0,135,58,.3)}
+.athlete-badge{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:3px 10px 3px 4px;font-size:.72rem;font-weight:700;color:rgba(255,255,255,.85)}
+.athlete-badge .num{background:var(--osu-orange);color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-weight:800;font-size:.62rem}
+
+.tab-bar{position:fixed;top:var(--nav-h);left:0;right:0;z-index:190;background:var(--bg2);border-bottom:2px solid var(--bdr);height:var(--tab-h);display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;padding:0 clamp(.3rem,1vw,.6rem)}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab{display:flex;align-items:center;gap:4px;padding:0 clamp(.45rem,1.1vw,.85rem);font-family:var(--ff);font-size:.68rem;font-weight:700;color:var(--tx3);letter-spacing:.5px;text-transform:uppercase;cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap}
+.tab:hover{color:var(--tx)}
+.tab.active{color:var(--e3-green);border-bottom-color:var(--e3-green)}
+.tab .t-dot{width:5px;height:5px;border-radius:50%;background:var(--e3-green);display:none}
+.tab.active .t-dot{display:block}
+
+.content{margin-top:calc(var(--nav-h) + var(--tab-h));padding:clamp(.8rem,2vw,1.5rem);max-width:1100px;margin-left:auto;margin-right:auto}
+.page{display:none}
+.page.active{display:block;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+.pg-hdr{margin-bottom:1.5rem}
+.pg-tag{font-family:var(--fm);font-size:.62rem;font-weight:700;color:var(--e3-green);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.pg-t{font-family:var(--ff);font-size:clamp(1.5rem,4vw,2.2rem);font-weight:800;color:var(--tx);line-height:1.12;margin-bottom:6px;letter-spacing:-.3px}
+.pg-d{font-size:.88rem;font-weight:600;color:var(--tx3);max-width:640px;line-height:1.6}
+
+.card{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--rad-lg);padding:clamp(1rem,2vw,1.5rem);margin-bottom:1rem;box-shadow:var(--sh)}
+.card-sm{padding:clamp(.75rem,1.5vw,1rem)}
+.card-hdr{font-family:var(--ff);font-size:.78rem;font-weight:800;color:var(--tx2);letter-spacing:.8px;text-transform:uppercase;margin-bottom:.8rem;display:flex;align-items:center;gap:6px}
+.card-hdr .icon{width:20px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.68rem}
+
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.8rem}
+.stat-box{background:var(--bg);border:1px solid var(--bdr);border-radius:var(--rad);padding:1rem;text-align:center;transition:all .2s}
+.stat-box:hover{border-color:var(--e3-green);box-shadow:0 0 0 1px var(--e3-green)}
+.stat-val{font-family:var(--ff);font-size:clamp(1.7rem,3.2vw,2.4rem);font-weight:800;color:var(--tx);line-height:1}
+.stat-val.green{color:var(--e3-green)}.stat-val.blue{color:var(--e3-blue)}.stat-val.orange{color:var(--e3-orange)}
+.stat-lbl{font-size:.68rem;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.8px;margin-top:5px}
+.stat-sub{font-size:.62rem;font-weight:600;color:var(--tx4);margin-top:2px}
+
+.sk-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.sk-label{font-size:.76rem;font-weight:700;color:var(--tx2);width:120px;flex-shrink:0;text-align:right}
+.sk-track{flex:1;height:11px;background:var(--bg3);border-radius:6px;overflow:hidden}
+.sk-fill{height:100%;border-radius:6px;transition:width 1s ease;width:0}
+.sk-fill.g{background:linear-gradient(90deg,var(--e3-green-d),var(--e3-green))}
+.sk-fill.b{background:linear-gradient(90deg,#0D47A1,var(--e3-blue))}
+.sk-fill.o{background:linear-gradient(90deg,#BF360C,var(--e3-orange))}
+.sk-pct{font-family:var(--fm);font-size:.68rem;font-weight:700;color:var(--tx2);width:36px;text-align:right}
+
+.tbl{width:100%;border-collapse:collapse;font-size:.8rem;font-weight:600}
+.tbl th{font-family:var(--ff);font-size:.62rem;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:.8px;text-align:left;padding:9px 10px;border-bottom:2px solid var(--bdr);background:var(--bg)}
+.tbl td{padding:9px 10px;border-bottom:1px solid var(--bg3);color:var(--tx2);font-weight:600}
+.tbl tr:hover td{background:var(--e3-green-l)}
+.tbl .hl{font-weight:800;color:var(--e3-green)}
+
+.badge{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:.62rem;font-weight:800;letter-spacing:.5px;text-transform:uppercase}
+.badge-g{background:var(--e3-green-l);color:var(--e3-green-d);border:1px solid var(--e3-green-gl)}
+.badge-b{background:var(--e3-blue-l);color:var(--e3-blue);border:1px solid rgba(21,101,192,.15)}
+.badge-o{background:var(--e3-orange-l);color:var(--e3-orange);border:1px solid rgba(220,107,47,.15)}
+.badge-y{background:var(--yg);color:var(--y);border:1px solid rgba(239,140,0,.15)}
+.badge-adobe{background:var(--adobe-red-l);color:var(--adobe-red);border:1px solid var(--adobe-red-gl)}
+
+/* ══ ADOBE CREATOR PATCH — NFL HONORS STYLE ══ */
+.adobe-patch-banner{display:flex;align-items:center;gap:18px;background:#0a0a0a;border:1px solid rgba(220,68,5,.3);border-radius:var(--rad-lg);padding:16px 22px;margin-bottom:1.2rem;position:relative;overflow:hidden}
+.adobe-patch-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(220,68,5,.06) 0%,transparent 60%);pointer-events:none}
+.adobe-patch-banner::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(220,68,5,.4),transparent)}
+.patch-circle{width:72px;height:72px;flex-shrink:0;position:relative;z-index:1}
+.patch-circle svg{width:100%;height:100%;filter:drop-shadow(0 2px 8px rgba(220,68,5,.35))}
+.patch-info{flex:1;position:relative;z-index:1}
+.patch-title{font-family:var(--ff);font-weight:800;font-size:.92rem;color:#fff;margin-bottom:3px;letter-spacing:.3px}
+.patch-sub{font-size:.68rem;font-weight:600;color:rgba(255,255,255,.45);line-height:1.45}
+.patch-sub strong{color:var(--osu-orange);font-weight:800}
+.patch-tag{display:flex;flex-direction:column;align-items:flex-end;gap:4px;position:relative;z-index:1}
+.patch-tag-label{background:var(--osu-orange);color:#fff;font-family:var(--fm);font-size:.5rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;padding:5px 12px;border-radius:3px;white-space:nowrap}
+.patch-tag-adobe{font-family:var(--fm);font-size:.48rem;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:1px;text-transform:uppercase}
+
+/* ══ PROFILE CARD ══ */
+.athlete-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--rad-lg);padding:1.5rem;box-shadow:var(--sh2);position:relative;overflow:hidden}
+.athlete-card::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,var(--e3-green),var(--e3-blue))}
+.ac-num{font-family:var(--ff);font-size:4.5rem;font-weight:800;color:var(--bg3);position:absolute;top:8px;right:15px;line-height:1}
+.ac-pos{font-family:var(--fm);font-size:.6rem;font-weight:700;color:var(--e3-green);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.ac-name{font-family:var(--ff);font-size:clamp(1.8rem,4.5vw,2.4rem);font-weight:800;color:var(--tx);line-height:1.08;margin-bottom:3px;letter-spacing:-.5px}
+.ac-school{font-size:.85rem;font-weight:700;color:var(--tx3);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.ac-school .dot{width:9px;height:9px;border-radius:50%;background:var(--osu-orange)}
+.ac-details{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ac-detail{text-align:center;padding:10px 0;background:var(--bg);border-radius:8px}
+.ac-detail-val{font-family:var(--ff);font-weight:800;font-size:1.05rem;color:var(--tx)}
+.ac-detail-lbl{font-size:.58rem;font-weight:700;color:var(--tx4);text-transform:uppercase;letter-spacing:.5px}
+.ac-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}
+
+.sec-div{display:flex;align-items:center;gap:8px;margin:1.8rem 0 1rem}
+.sec-div-line{flex:1;height:1px;background:var(--bdr)}
+.sec-div-txt{font-family:var(--fm);font-size:.58rem;font-weight:700;color:var(--tx4);letter-spacing:2px;text-transform:uppercase;white-space:nowrap}
+
+.hl-strip{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+@media(max-width:640px){.hl-strip{grid-template-columns:1fr}}
+.hl-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--rad-lg);padding:1.2rem;box-shadow:var(--sh);cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.hl-card:hover{border-color:var(--e3-green);transform:translateY(-2px);box-shadow:var(--sh2)}
+.hl-card::after{content:'\2192';position:absolute;top:12px;right:14px;font-family:var(--ff);font-size:1rem;font-weight:800;color:var(--bg3);transition:color .2s}
+.hl-card:hover::after{color:var(--e3-green)}
+.hl-tag{font-family:var(--fm);font-size:.55rem;font-weight:700;color:var(--e3-green);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px}
+.hl-title{font-family:var(--ff);font-size:1rem;font-weight:800;color:var(--tx);margin-bottom:4px}
+.hl-desc{font-size:.78rem;font-weight:600;color:var(--tx3);line-height:1.5}
+
+.risk-home{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--rad-lg);padding:1.2rem;box-shadow:var(--sh);margin-bottom:1rem}
+.risk-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--bg3)}
+.risk-row:last-child{border-bottom:none}
+.risk-factor{font-size:.78rem;font-weight:700;color:var(--tx2);flex:1}
+
+.brand-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.9rem}
+.brand-card{background:var(--bg);border:1px solid var(--bdr);border-radius:var(--rad);padding:1.1rem;display:flex;flex-direction:column;gap:6px;transition:all .25s;cursor:default}
+.brand-card:hover{border-color:var(--e3-green);transform:translateY(-2px);box-shadow:var(--sh2)}
+.brand-name{font-family:var(--ff);font-weight:800;font-size:.92rem;color:var(--tx)}
+.brand-cat{font-size:.62rem;font-weight:700;color:var(--tx4);text-transform:uppercase;letter-spacing:.5px}
+.brand-why{font-size:.76rem;font-weight:600;color:var(--tx2);line-height:1.5}
+.brand-fit{display:flex;align-items:center;gap:4px;margin-top:auto;padding-top:6px}
+.brand-fit-bar{flex:1;height:5px;background:var(--bg3);border-radius:3px;overflow:hidden}
+.brand-fit-fill{height:100%;border-radius:3px;background:var(--e3-green)}
+
+.vault-box{background:linear-gradient(135deg,var(--e3-navy) 0%,#1e3a5f 100%);border-radius:var(--rad-lg);padding:clamp(1.3rem,2.5vw,2rem);color:#fff;margin-bottom:1rem;position:relative;overflow:hidden}
+.vault-box::after{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(0,107,45,.06);pointer-events:none}
+.vault-title{font-family:var(--ff);font-weight:800;font-size:1.15rem;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.vault-title .lock{width:22px;height:22px;background:var(--e3-green);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.72rem}
+.vault-desc{font-size:.82rem;font-weight:600;color:rgba(255,255,255,.72);line-height:1.6;margin-bottom:1rem;max-width:600px}
+.vault-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.vault-stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:12px;text-align:center}
+.vault-stat-val{font-family:var(--ff);font-weight:800;font-size:1.4rem;color:var(--e3-green)}
+.vault-stat-lbl{font-size:.6rem;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+
+.explain{background:var(--e3-green-l);border:1px solid var(--e3-green-gl);border-radius:var(--rad-lg);padding:1.3rem;margin-bottom:1.2rem}
+.explain-t{font-family:var(--ff);font-weight:800;font-size:1rem;color:var(--e3-green-d);margin-bottom:6px}
+.explain-body{font-size:.82rem;font-weight:600;color:var(--tx2);line-height:1.65}
+.explain-body strong{color:var(--tx);font-weight:800}
+
+.flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:1rem 0}
+.flow-step{background:var(--bg);border:1px solid var(--bdr);border-radius:8px;padding:9px 15px;font-size:.72rem;font-weight:700;color:var(--tx2);text-align:center}
+.flow-step.active{background:var(--e3-green-l);border-color:var(--e3-green);color:var(--e3-green-d)}
+.flow-arrow{color:var(--tx4);font-size:.72rem;font-weight:800}
+
+.meth-note{background:var(--bg);border:1px solid var(--bdr);border-radius:var(--rad);padding:.9rem 1rem;font-size:.75rem;font-weight:600;color:var(--tx2);line-height:1.55;margin-top:.8rem}
+.meth-note strong{color:var(--e3-green-d);font-weight:800}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:700px){.two-col{grid-template-columns:1fr}}
+
+.pg-footer{text-align:center;padding:1.5rem 0;font-size:.58rem;font-weight:700;color:var(--tx4);letter-spacing:1.2px;text-transform:uppercase;border-top:1px solid var(--bg3);margin-top:2rem}
+
+/* ══ CLEAT SHOWCASE ══ */
+.cleat-stage{background:linear-gradient(160deg,#111 0%,#1a1a1a 40%,#222 100%);border-radius:var(--rad-lg);padding:clamp(1.5rem,3vw,2.5rem);position:relative;overflow:hidden;margin-bottom:1.2rem}
+.cleat-stage::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 50% 80%,rgba(220,68,5,.12) 0%,transparent 60%);pointer-events:none}
+.cleat-stage::after{content:'HICKLE 44';position:absolute;bottom:15px;right:20px;font-family:var(--ff);font-size:3rem;font-weight:800;color:rgba(255,255,255,.03);letter-spacing:3px;line-height:1}
+.cleat-header{display:flex;justify-content:space-between;align-items:start;margin-bottom:1.5rem;position:relative;z-index:1}
+.cleat-brand{display:flex;align-items:center;gap:10px}
+.cleat-swoosh{font-family:var(--ff);font-weight:800;font-size:1.3rem;color:#fff;letter-spacing:1px}
+.cleat-model{font-size:.65rem;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1.5px}
+.cleat-edition{background:var(--osu-orange);color:#fff;font-family:var(--fm);font-size:.55rem;font-weight:700;padding:5px 12px;border-radius:14px;letter-spacing:1px;text-transform:uppercase}
+.cleat-svg-wrap{display:flex;justify-content:center;align-items:center;padding:1rem 0 1.5rem;position:relative;z-index:1}
+.cleat-svg-wrap svg{width:100%;max-width:480px;height:auto;filter:drop-shadow(0 20px 40px rgba(0,0,0,.5));transition:transform .4s ease}
+.cleat-svg-wrap:hover svg{transform:rotate(-2deg) scale(1.03)}
+.cleat-details{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;position:relative;z-index:1}
+.cleat-specs{display:flex;gap:16px}
+.cleat-spec{text-align:center}
+.cleat-spec-val{font-family:var(--ff);font-weight:800;font-size:.9rem;color:#fff}
+.cleat-spec-lbl{font-size:.52rem;font-weight:700;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.5px}
+.buy-btn{background:var(--e3-green);color:#fff;font-family:var(--ff);font-weight:800;font-size:.82rem;letter-spacing:.5px;padding:12px 28px;border:none;border-radius:28px;cursor:pointer;transition:all .25s;box-shadow:0 4px 20px rgba(0,107,45,.35);display:flex;align-items:center;gap:8px}
+.buy-btn:hover{background:#009E42;transform:translateY(-2px);box-shadow:0 6px 28px rgba(0,107,45,.5)}
+.buy-btn .price{font-family:var(--fm);font-weight:700}
+
+/* ══ ADOBE AMBASSADOR SECTION ══ */
+.adobe-section{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--rad-lg);padding:1.5rem;box-shadow:var(--sh);margin-bottom:1rem}
+.adobe-wallet-patch{display:flex;align-items:center;gap:16px;background:#0a0a0a;border-radius:12px;padding:16px 20px;margin-bottom:1rem;position:relative;overflow:hidden}
+.adobe-wallet-patch::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 15% 50%,rgba(220,68,5,.06) 0%,transparent 55%);pointer-events:none}
+.adobe-wallet-patch .patch-sm{width:56px;height:56px;flex-shrink:0}
+.adobe-wallet-patch .patch-sm svg{width:100%;height:100%;filter:drop-shadow(0 2px 6px rgba(220,68,5,.3))}
+.adobe-wallet-patch .pw-info h3{font-family:var(--ff);font-weight:800;font-size:.88rem;color:#fff;margin-bottom:2px}
+.adobe-wallet-patch .pw-info p{font-size:.65rem;font-weight:600;color:rgba(255,255,255,.42)}
+/* ══ COACH CARDS ══ */
+.coach-card{background:var(--bg);border:1px solid var(--bdr);border-radius:var(--rad);padding:1.1rem;margin-bottom:.8rem;transition:border-color .2s}
+.coach-card:hover{border-color:rgba(0,135,58,.3)}
+.coach-name{font-family:var(--ff);font-weight:800;font-size:.95rem;color:var(--tx)}
+.coach-role{font-size:.68rem;font-weight:700;color:var(--tx4);text-transform:uppercase;letter-spacing:.5px}
+.coach-note{font-size:.78rem;font-weight:600;color:var(--tx2);margin-top:6px;line-height:1.55}
+
+/* ══ SCHEME FIT BOXES ══ */
+.scheme-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+@media(max-width:700px){.scheme-grid{grid-template-columns:1fr}}
+.scheme-box{background:var(--bg);border:1px solid var(--bdr);border-radius:var(--rad);padding:1.1rem}
+.scheme-box.best{background:var(--e3-green-l);border-color:var(--e3-green-gl)}
+.scheme-label{font-family:var(--ff);font-weight:800;font-size:.82rem;color:var(--tx);margin-bottom:4px}
+.scheme-body{font-size:.76rem;font-weight:600;color:var(--tx2);line-height:1.55}
+
+/* ══ FIT GRADE ══ */
+.fit-grade{display:inline-flex;align-items:center;gap:5px;background:var(--e3-green-l);border:1px solid var(--e3-green-gl);border-radius:6px;padding:4px 10px;font-family:var(--ff);font-weight:800;font-size:.72rem;color:var(--e3-green-d)}
+.fit-grade.mid{background:var(--yg);border-color:rgba(239,140,0,.15);color:var(--y)}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="logo">EDGE<span class="three">3</span><span class="sub">NIL Wallet</span></div>
+  <div class="topnav-r">
+    <div class="live-dot"></div>
+    <span class="live-tag">Live Intel</span>
+    <div class="athlete-badge"><div class="num">44</div>T. Hickle</div>
+  </div>
+</nav>
+
+<div class="tab-bar">
+  <div class="tab active" data-page="home"><span class="t-dot"></span>Home</div>
+  <div class="tab" data-page="stats"><span class="t-dot"></span>Performance</div>
+  <div class="tab" data-page="wallet"><span class="t-dot"></span>NIL Wallet</div>
+  <div class="tab" data-page="brands"><span class="t-dot"></span>Brand Wishlist</div>
+  <div class="tab" data-page="riskfit"><span class="t-dot"></span>Risk / Fit</div>
+</div>
+
+<div class="content">
+
+<!-- ═══════════════════════════ -->
+<!-- PAGE 1: HOME               -->
+<!-- ═══════════════════════════ -->
+<div class="page active" id="pg-home">
+
+  <!-- ADOBE EXPRESS CREATOR PATCH — NFL HONORS STYLE -->
+  <div class="adobe-patch-banner">
+    <div class="patch-circle">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer ring — OSU black with orange border -->
+        <circle cx="50" cy="50" r="48" fill="#0a0a0a" stroke="#DC4405" stroke-width="2.5"/>
+        <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(220,68,5,.25)" stroke-width=".5"/>
+        <!-- Inner fill -->
+        <circle cx="50" cy="50" r="42" fill="#111"/>
+        <!-- Text around the circle — top arc -->
+        <defs>
+          <path id="topArc" d="M50,50 m-34,0 a34,34 0 1,1 68,0" fill="none"/>
+          <path id="btmArc" d="M50,50 m34,0 a34,34 0 1,1 -68,0" fill="none"/>
+        </defs>
+        <text font-family="Syne,sans-serif" font-weight="800" font-size="5.8" fill="#DC4405" letter-spacing="2.5" text-anchor="middle">
+          <textPath href="#topArc" startOffset="50%">ADOBE EXPRESS</textPath>
+        </text>
+        <text font-family="Syne,sans-serif" font-weight="800" font-size="4.8" fill="rgba(255,255,255,.35)" letter-spacing="2" text-anchor="middle">
+          <textPath href="#btmArc" startOffset="50%">STUDENT ATHLETE</textPath>
+        </text>
+        <!-- Cleat silhouette — centered in patch -->
+        <g transform="translate(22,30) scale(.56)">
+          <path d="M10 55 L18 38 Q22 28 30 22 Q38 16 48 13 L68 12 Q82 12 90 16 Q96 20 98 27 Q100 34 99 40 L98 46 Q97 50 95 52 L85 52 L70 51 L50 53 L32 56 L18 58 Z" fill="#DC4405" stroke="#c03800" stroke-width=".5"/>
+          <path d="M10 55 L18 38 Q22 30 28 25 Q33 20 40 18 L50 17 L54 20 Q52 28 48 36 L42 46 L35 54 L25 57 Z" fill="#b03500" opacity=".5"/>
+          <!-- Swoosh -->
+          <path d="M30 40 Q42 33 56 31 Q70 29 82 32 Q90 34 96 38 Q88 34 78 32 Q68 30 58 31 Q48 32 38 36 Q34 38 32 40 Z" fill="#fff" opacity=".9"/>
+          <!-- 44 on heel -->
+          <text x="88" y="28" font-family="Syne,sans-serif" font-weight="800" font-size="10" fill="#DC4405" opacity=".8">44</text>
+          <!-- Studs -->
+          <ellipse cx="22" cy="60" rx="3.5" ry="1.8" fill="#DC4405"/>
+          <ellipse cx="40" cy="61" rx="3.5" ry="1.8" fill="#DC4405"/>
+          <ellipse cx="58" cy="61" rx="3.5" ry="1.8" fill="#DC4405"/>
+          <ellipse cx="76" cy="60" rx="3.5" ry="1.8" fill="#DC4405"/>
+          <ellipse cx="90" cy="56" rx="3" ry="1.5" fill="#DC4405"/>
+        </g>
+        <!-- Star accents -->
+        <polygon points="50,18 51,20 53,20 51.5,21.5 52,23.5 50,22 48,23.5 48.5,21.5 47,20 49,20" fill="#DC4405" opacity=".7"/>
+        <!-- Divider dots -->
+        <circle cx="26" cy="50" r="1.2" fill="#DC4405" opacity=".4"/>
+        <circle cx="74" cy="50" r="1.2" fill="#DC4405" opacity=".4"/>
+      </svg>
+    </div>
+    <div class="patch-info">
+      <div class="patch-title">Adobe Express Creator Badge</div>
+      <div class="patch-sub"><strong>Oregon State</strong> · Student Athlete Ambassador · Content &amp; merch design powered by Adobe Express · EDGE3 Partnership</div>
+    </div>
+    <div class="patch-tag">
+      <div class="patch-tag-label">Verified Creator</div>
+      <div class="patch-tag-adobe">Adobe Express x EDGE3</div>
+    </div>
+  </div>
+
+  <!-- ATHLETE PROFILE -->
+  <div class="athlete-card" style="margin-bottom:1.2rem">
+    <div class="ac-num">44</div>
+    <div class="ac-pos">Defensive Line · Edge</div>
+    <div class="ac-name">Takari Hickle</div>
+    <div class="ac-school"><span class="dot"></span> Oregon State Beavers · Pac-12</div>
+    <div class="ac-details">
+      <div class="ac-detail"><div class="ac-detail-val">6'3"</div><div class="ac-detail-lbl">Height</div></div>
+      <div class="ac-detail"><div class="ac-detail-val">289</div><div class="ac-detail-lbl">Weight</div></div>
+      <div class="ac-detail"><div class="ac-detail-val">JR</div><div class="ac-detail-lbl">Class</div></div>
+    </div>
+    <div class="ac-tags">
+      <span class="badge badge-g">Projected Starter</span>
+      <span class="badge badge-adobe">Adobe Express Creator</span>
+      <span class="badge badge-b">Psychology Major</span>
+      <span class="badge badge-o">2 Yrs Eligibility</span>
+    </div>
+  </div>
+
+  <div class="two-col" style="margin-bottom:1.2rem">
+    <div class="card card-sm">
+      <div class="card-hdr"><span class="icon" style="background:var(--e3-green-l);color:var(--e3-green)">&#9733;</span> Quick Intel</div>
+      <div style="font-size:.8rem;font-weight:600;color:var(--tx2);line-height:1.7">
+        <strong>From:</strong> Tenino, WA (Olympia area)<br>
+        <strong>HS:</strong> 4-yr varsity starter — DE, FB, OL. 12 sacks + 2,091 rush yds as senior<br>
+        <strong>Aspiration:</strong> Veterinarian<br>
+        <strong>Interests:</strong> Horseback riding, community service (Tenino Food Bank)<br>
+        <strong>Career Stats:</strong> 44 tackles, 4 sacks, 1 FF in 20 games
+      </div>
+    </div>
+    <div class="card card-sm">
+      <div class="card-hdr"><span class="icon" style="background:var(--e3-blue-l);color:var(--e3-blue)">&#9650;</span> Breakout Trajectory</div>
+      <div style="display:flex;gap:12px;margin-bottom:10px">
+        <div style="flex:1;text-align:center;background:var(--bg);border-radius:8px;padding:10px">
+          <div style="font-family:var(--fm);font-size:.62rem;font-weight:700;color:var(--tx4)">2023</div>
+          <div style="font-family:var(--ff);font-weight:800;font-size:1.2rem;color:var(--tx3)">6</div>
+          <div style="font-size:.58rem;font-weight:700;color:var(--tx4)">TACKLES</div>
+        </div>
+        <div style="display:flex;align-items:center;font-size:1.3rem;font-weight:800;color:var(--e3-green)">&#10140;</div>
+        <div style="flex:1;text-align:center;background:var(--e3-green-l);border:1px solid var(--e3-green-gl);border-radius:8px;padding:10px">
+          <div style="font-family:var(--fm);font-size:.62rem;font-weight:700;color:var(--e3-green)">2025</div>
+          <div style="font-family:var(--ff);font-weight:800;font-size:1.2rem;color:var(--e3-green)">38</div>
+          <div style="font-size:.58rem;font-weight:700;color:var(--e3-green-d)">TACKLES</div>
+        </div>
+      </div>
+      <div style="font-size:.78rem;font-weight:600;color:var(--tx3)"><strong style="color:var(--e3-green)">533% production increase</strong> year-over-year. Projected starter entering 2026.</div>
+    </div>
+  </div>
+
+  <!-- PROGRAM COMMITMENT + RISK/FIT SNAPSHOT -->
+  <div class="sec-div"><span class="sec-div-line"></span><span class="sec-div-txt">Program Commitment &amp; Fit</span><span class="sec-div-line"></span></div>
+
+  <div class="risk-home" style="cursor:pointer" onclick="switchPage('riskfit')">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div style="font-family:var(--ff);font-weight:800;font-size:.82rem;color:var(--tx);text-transform:uppercase;letter-spacing:.5px">Oregon State 2026 — Coaching Transition Fit</div>
+      <span style="font-family:var(--ff);font-weight:800;font-size:.8rem;color:var(--e3-green)">View Full Analysis →</span>
+    </div>
+    <div class="risk-row"><span class="risk-factor">Program Commitment</span><span class="badge badge-g">Committed</span><span style="font-size:.72rem;font-weight:600;color:var(--tx3);flex:1.5">Multi-year starter. Not exploring the portal.</span></div>
+    <div class="risk-row"><span class="risk-factor">Scheme Fit</span><span class="badge badge-g">A-</span><span style="font-size:.72rem;font-weight:600;color:var(--tx3);flex:1.5">DC MacIntyre's multiple fronts fit Hickle's versatility.</span></div>
+    <div class="risk-row"><span class="risk-factor">Playing Time</span><span class="badge badge-g">Starter</span><span style="font-size:.72rem;font-weight:600;color:var(--tx3);flex:1.5">Projected D-line starter entering spring 2026.</span></div>
+    <div class="risk-row"><span class="risk-factor">EDGE3 Fit Grade</span><span class="fit-grade">A-</span><span style="font-size:.72rem;font-weight:600;color:var(--tx3);flex:1.5">Full coaching tree, scheme, and depth analysis in Risk/Fit tab.</span></div>
+  </div>
+
+  <!-- NIL + BRAND + CREATOR HIGHLIGHTS -->
+  <div class="sec-div"><span class="sec-div-line"></span><span class="sec-div-txt">Your NIL Wallet</span><span class="sec-div-line"></span></div>
+
+  <div class="hl-strip">
+    <div class="hl-card" onclick="switchPage('wallet')">
+      <div class="hl-tag">NIL Wallet</div>
+      <div class="hl-title">Your Operating System</div>
+      <div class="hl-desc">Social audience, merch, Nike cleat, Adobe Express designs, brand deals, and buyer data — all in one place.</div>
+    </div>
+    <div class="hl-card" onclick="switchPage('brands')">
+      <div class="hl-tag">Brand Wishlist</div>
+      <div class="hl-title">Brands That Fit You</div>
+      <div class="hl-desc">Airbnb, Carhartt, Ariat, and more — mapped to your interests, your story, and your audience.</div>
+    </div>
+  </div>
+  <div class="hl-strip">
+    <div class="hl-card" onclick="switchPage('riskfit')">
+      <div class="hl-tag">Risk / Fit</div>
+      <div class="hl-title">Coaching Tree Analysis</div>
+      <div class="hl-desc">Full breakdown of how you fit under Shephard, MacIntyre, Hagen, Dennison, and Seumalo. Scheme-by-scheme.</div>
+    </div>
+    <div class="hl-card" onclick="switchPage('stats')">
+      <div class="hl-tag">Performance</div>
+      <div class="hl-title">Your Competitive Index</div>
+      <div class="hl-desc">Career stats, skills assessment, and trajectory data. 44 tackles, 4 sacks, 533% production jump.</div>
+    </div>
+  </div>
+
+  <div class="pg-footer">EDGE3 NIL Wallet · Takari Hickle #44 · Oregon State Beavers</div>
+</div>
+
+<!-- ═══════════════════════════ -->
+<!-- PAGE 2: PERFORMANCE        -->
+<!-- ═══════════════════════════ -->
+<div class="page" id="pg-stats">
+  <div class="pg-hdr">
+    <div class="pg-tag">02 / Performance Intelligence</div>
+    <div class="pg-t">Stats &amp; Competitive Index</div>
+    <div class="pg-d">Career production with EDGE3 Competitive Index scoring.</div>
+  </div>
+
+  <div class="stat-grid" style="margin-bottom:1.5rem">
+    <div class="stat-box"><div class="stat-val green">44</div><div class="stat-lbl">Career Tackles</div><div class="stat-sub">15 Solo · 29 Assisted</div></div>
+    <div class="stat-box"><div class="stat-val blue">4</div><div class="stat-lbl">Career Sacks</div><div class="stat-sub">2 in 2023 · 2 in 2025</div></div>
+    <div class="stat-box"><div class="stat-val orange">1</div><div class="stat-lbl">Forced Fumbles</div><div class="stat-sub">vs UC Davis 2023</div></div>
+    <div class="stat-box"><div class="stat-val">20</div><div class="stat-lbl">Games Played</div><div class="stat-sub">8 in '23 · 12 in '25</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-hdr">Career Stat Breakdown</div>
+    <div style="overflow-x:auto">
+      <table class="tbl">
+        <thead><tr><th>Season</th><th>GP</th><th>TOT</th><th>SOLO</th><th>AST</th><th>SACK</th><th>TFL</th><th>FF</th><th>PD</th></tr></thead>
+        <tbody>
+          <tr><td><strong>2022</strong></td><td>—</td><td colspan="7" style="color:var(--tx4);font-style:italic">Redshirt Season</td></tr>
+          <tr><td><strong>2023</strong></td><td>8</td><td>6</td><td>2</td><td>4</td><td class="hl">2.0</td><td>2.5</td><td class="hl">1</td><td>0</td></tr>
+          <tr><td><strong>2024</strong></td><td>—</td><td colspan="7" style="color:var(--tx4);font-style:italic">Did Not Play</td></tr>
+          <tr style="background:var(--e3-green-l)"><td><strong>2025</strong></td><td>12</td><td class="hl">38</td><td class="hl">13</td><td>25</td><td class="hl">2.0</td><td>—</td><td>0</td><td>0</td></tr>
+          <tr style="font-weight:800;border-top:2px solid var(--bdr)"><td>Career</td><td>20</td><td>44</td><td>15</td><td>29</td><td>4.0</td><td>2.5+</td><td>1</td><td>0</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sec-div"><span class="sec-div-line"></span><span class="sec-div-txt">Competitive Index</span><span class="sec-div-line"></span></div>
+
+  <div class="stat-grid" style="margin-bottom:1.2rem">
+    <div class="stat-box"><div class="stat-val green">533%</div><div class="stat-lbl">Tackle Increase</div><div class="stat-sub">2023 → 2025</div></div>
+    <div class="stat-box"><div class="stat-val blue">3.17</div><div class="stat-lbl">Tackles / Game</div><div class="stat-sub">2025 Season</div></div>
+    <div class="stat-box"><div class="stat-val orange">+49 lbs</div><div class="stat-lbl">Weight Gain</div><div class="stat-sub">240 HS → 289 Current</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-hdr">EDGE3 Competitive Index — Skills Assessment</div>
+    <div id="skillBars">
+      <div class="sk-row"><span class="sk-label">Pass Rush</span><div class="sk-track"><div class="sk-fill g" data-w="72" style="width:0"></div></div><span class="sk-pct">72</span></div>
+      <div class="sk-row"><span class="sk-label">Run Defense</span><div class="sk-track"><div class="sk-fill g" data-w="78" style="width:0"></div></div><span class="sk-pct">78</span></div>
+      <div class="sk-row"><span class="sk-label">Motor / Effort</span><div class="sk-track"><div class="sk-fill b" data-w="88" style="width:0"></div></div><span class="sk-pct">88</span></div>
+      <div class="sk-row"><span class="sk-label">Size / Power</span><div class="sk-track"><div class="sk-fill b" data-w="84" style="width:0"></div></div><span class="sk-pct">84</span></div>
+      <div class="sk-row"><span class="sk-label">Versatility</span><div class="sk-track"><div class="sk-fill o" data-w="80" style="width:0"></div></div><span class="sk-pct">80</span></div>
+      <div class="sk-row"><span class="sk-label">Leadership</span><div class="sk-track"><div class="sk-fill o" data-w="82" style="width:0"></div></div><span class="sk-pct">82</span></div>
+    </div>
+    <div class="meth-note"><strong>Methodology:</strong> Aggregates on-field production, physical development trajectory, positional versatility (HS: DE/FB/OL), leadership indicators (3-yr HS captain), and scheme adaptability. Benchmarked against Pac-12 D-linemen.</div>
+  </div>
+  <div class="pg-footer">EDGE3 NIL Wallet · Takari Hickle #44 · Oregon State Beavers</div>
+</div>
+
+<!-- ═══════════════════════════ -->
+<!-- PAGE 3: NIL WALLET          -->
+<!-- ═══════════════════════════ -->
+<!-- ═══════════════════════════════════════════ -->
+<!-- PAGE 3: NIL WALLET (UNIFIED)              -->
+<!-- Social Data · Creator Lab · Audience Vault -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="page" id="pg-wallet">
+  <div class="pg-hdr">
+    <div class="pg-tag">03 / NIL Wallet</div>
+    <div class="pg-t">Your NIL Wallet</div>
+    <div class="pg-d">Everything in one place — your social audience, your merch, your brand deals, your buyer data. This is your operating system.</div>
+  </div>
+
+  <div class="explain">
+    <div class="explain-t">Takari — What Is This?</div>
+    <div class="explain-body">
+      Your NIL Wallet is a digital command center for your business as an athlete. It connects your social audience data, your brand deals, your merch sales, your Adobe Express designs, and your first-party buyer data into one place — and you own all of it. When you graduate and pursue veterinary medicine, this wallet and the audience you built doesn't go away.
+    </div>
+  </div>
+
+  <!-- ── SOCIAL AUDIENCE · PRO DATA STACK ── -->
+  <div class="sec-div"><span class="sec-div-line"></span><span class="sec-div-txt">Your Social Audience · Pro Data Stack</span><span class="sec-div-line"></span></div>
+
+  <div class="vault-box" style="margin-bottom:1rem">
+    <div class="vault-title"><span class="lock" style="background:var(--e3-blue)">&#9783;</span> Social Audience Intelligence</div>
+    <div class="vault-desc">
+      Pro Data Stack aggregates your social reach, engagement metrics, follower demographics, and content performance across every platform you're active on. This is the data layer that powers your Brand Wishlist and tells sponsors exactly what your audience looks like.
+    </div>
+    <div class="vault-stats">
+      <div class="vault-stat"><div class="vault-stat-val">—</div><div class="vault-stat-lbl">Total Reach</div></div>
+      <div class="vault-stat"><div class="vault-stat-val">—</div><div class="vault-stat-lbl">Engagement Rate</div></div>
+      <div class="vault-stat"><div class="vault-stat-val">—</div><div class="vault-stat-lbl">Audience Demo</div></div>
+      <div class="vault-stat"><div class="vault-stat-val">—</div><div class="vault-stat-lbl">Content Score</div></div>
+    </div>
+  </div>
+
+  <div class="two-col" style="margin-bottom:1rem">
+    <div class="card card-sm">
+      <div class="card-hdr">What Pro Data Stack Tracks</div>
+      <div style="font-size:.8rem;font-weight:600;color:var(--tx2);line-height:1.75">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px"><span style="color:var(--e3-green);font-weight:800">&#10003;</span> Cross-platform follower count and growth</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px"><span style="color:var(--e3-green);font-weight:800">&#10003;</span> Engagement rate by platform and content type</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px"><span style="color:var(--e3-green);font-weight:800">&#10003;</span> Audience demographics (age, location, interests)</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px"><span style="color:var(--e3-green);font-weight:800">&#10003;</span> Content performance (views, shares, saves)</div>
+        <div style="display:flex;align-items:center;gap:8px"><span style="color:var(--e3-green);font-weight:800">&#10003;</span> i-Score and social valuation index</div>
+      </div>
+    </div>
+    <div class="card card-sm">
+      <div class="card-hdr">Why This Matters</div>
+      <div style="font-size:.8rem;font-weight:600;color:var(--tx2);line-height:1.65">
+        When a brand evaluates you for a partnership, they don't just look at your follower count. They want to know WHO follows you, WHERE they are, and HOW they engage. Pro Data Stack gives you verified social intelligence that turns "I have followers" into "here's exactly what my audience looks like and what they respond to." That's what moves a brand from interested to committed.
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ADOBE EXPRESS · CREATOR LAB ── -->
+  <div class="sec-div"><span class="sec-div-line"></span><span class="sec-div-txt">Creator Lab · Adobe Express</span><span class="sec-div-line"></span></div>
+
+  <div class="adobe-section" style="margin-bottom:1rem">
+    <div class="adobe-wallet-patch">
+      <div class="patch-sm">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="48" fill="#0a0a0a" stroke="#DC4405" stroke-width="2.5"/>
+          <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(220,68,5,.25)" stroke-width=".5"/>
+          <circle cx="50" cy="50" r="42" fill="#111"/>
+          <defs><path id="topArc2" d="M50,50 m-34,0 a34,34 0 1,1 68,0" fill="none"/><path id="btmArc2" d="M50,50 m34,0 a34,34 0 1,1 -68,0" fill="none"/></defs>
+          <text font-family="Syne,sans-serif" font-weight="800" font-size="5.8" fill="#DC4405" letter-spacing="2.5" text-anchor="middle"><textPath href="#topArc2" startOffset="50%">ADOBE EXPRESS</textPath></text>
+          <text font-family="Syne,sans-serif" font-weight="800" font-size="4.8" fill="rgba(255,255,255,.35)" letter-spacing="2" text-anchor="middle"><textPath href="#btmArc2" startOffset="50%">STUDENT ATHLETE</textPath></text>
+          <g transform="translate(22,30) scale(.56)">
+            <path d="M10 55 L18 38 Q22 28 30 22 Q38 16 48 13 L68 12 Q82 12 90 16 Q96 20 98 27 Q100 34 99 40 L98 46 Q97 50 95 52 L85 52 L70 51 L50 53 L32 56 L18 58 Z" fill="#DC4405" stroke="#c03800" stroke-width=".5"/>
+            <path d="M10 55 L18 38 Q22 30 28 25 Q33 20 40 18 L50 17 L54 20 Q52 28 48 36 L42 46 L35 54 L25 57 Z" fill="#b03500" opacity=".5"/>
+            <path d="M30 40 Q42 33 56 31 Q70 29 82 32 Q90 34 96 38 Q88 34 78 32 Q68 30 58 31 Q48 32 38 36 Q34 38 32 40 Z" fill="#fff" opacity=".9"/>
+            <text x="88" y="28" font-family="Syne,sans-serif" font-weight="800" font-size="10" fill="#DC4405" opacity=".8">44</text>
+            <ellipse cx="22" cy="60" rx="3.5" ry="1.8" fill="#DC4405"/><ellipse cx="40" cy="61" rx="3.5" ry="1.8" fill="#DC4405"/><ellipse cx="58" cy="61" rx="3.5" ry="1.8" fill="#DC4405"/><ellipse cx="76" cy="60" rx="3.5" ry="1.8" fill="#DC4405"/><ellipse cx="90" cy="56" rx="3" ry="1.5" fill="#DC4405"/>
+          </g>
+          <polygon points="50,18 51,20 53,20 51.5,21.5 52,23.5 50,22 48,23.5 48.5,21.5 47,20 49,20" fill="#DC4405" opacity=".7"/>
+          <circle cx="26" cy="50" r="1.2" fill="#DC4405" opacity=".4"/><circle cx="74" cy="50" r="1.2" fill="#DC4405" opacity=".4"/>
+        </svg>
+      </div>
+      <div class="pw-info">
+        <h3>Adobe Express Creator Badge · Oregon State</h3>
+        <p>Student Athlete Ambassador · Content &amp; merch design powered by Adobe Express</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- NIKE CLEAT -->
+  <div class="cleat-stage">
+    <div class="cleat-header">
+      <div class="cleat-brand"><div><div class="cleat-swoosh">NIKE</div><div class="cleat-model">Alpha Menace Elite 4 · Hickle PE</div></div></div>
+      <div class="cleat-edition">#44 Player Exclusive</div>
+    </div>
+    <div class="cleat-svg-wrap">
+      <svg viewBox="0 0 520 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M60 170 Q40 168 30 160 Q18 150 15 140 L20 135 Q30 130 50 128 L90 125 L160 118 L250 110 L340 108 L400 110 L440 116 Q460 120 470 128 Q478 135 475 142 Q472 152 460 158 Q445 165 420 168 L340 172 L250 174 L160 174 L100 172 Z" fill="#1a1a1a" stroke="#333" stroke-width=".5"/>
+        <ellipse cx="70" cy="176" rx="8" ry="4" fill="#DC4405"/><ellipse cx="130" cy="178" rx="8" ry="4" fill="#DC4405"/><ellipse cx="200" cy="179" rx="8" ry="4" fill="#DC4405"/><ellipse cx="270" cy="179" rx="8" ry="4" fill="#DC4405"/><ellipse cx="340" cy="177" rx="8" ry="4" fill="#DC4405"/><ellipse cx="410" cy="173" rx="8" ry="4" fill="#DC4405"/><ellipse cx="455" cy="164" rx="7" ry="3.5" fill="#DC4405"/>
+        <path d="M30 160 Q18 150 15 140 L20 135 Q30 130 50 128 L90 125 L160 118 L250 110 L340 108 L400 110 L440 116 Q460 120 470 128 Q478 135 475 142 Q472 148 465 153 L440 148 L400 142 L340 140 L250 142 L160 148 L90 155 L60 158 Z" fill="#222" stroke="#444" stroke-width=".3"/>
+        <path d="M30 155 L50 120 Q60 95 80 75 Q100 55 130 42 Q160 30 200 26 L260 24 Q300 24 340 30 Q370 35 390 45 Q410 55 420 70 Q435 88 440 110 L445 125 Q448 135 445 142 L400 142 L340 140 L250 142 L160 148 L90 155 L60 158 Z" fill="var(--osu-orange)" stroke="#c03800" stroke-width=".8"/>
+        <path d="M30 155 L50 120 Q60 100 75 85 Q90 70 110 58 L140 55 L160 58 L170 65 Q165 80 155 100 L140 125 L120 145 L90 155 Z" fill="#c03800" opacity=".5"/>
+        <path d="M350 30 Q370 28 390 32 Q410 38 420 50 Q430 62 435 78 Q438 90 440 100 L442 108 Q435 100 420 92 Q400 82 380 75 Q360 68 340 65 Q330 50 340 38 Z" fill="#111" stroke="#333" stroke-width=".5"/>
+        <path d="M110 105 Q140 85 180 78 Q220 72 270 74 Q320 76 360 84 Q390 90 410 100 Q380 88 340 82 Q300 78 260 80 Q220 82 180 90 Q150 96 130 105 Z" fill="#fff" opacity=".95"/>
+        <text x="395" y="68" font-family="Syne,sans-serif" font-weight="800" font-size="22" fill="var(--osu-orange)" opacity=".9">44</text>
+        <text x="180" y="50" font-family="Syne,sans-serif" font-weight="800" font-size="11" fill="#fff" opacity=".4" letter-spacing="4">HICKLE</text>
+        <line x1="200" y1="38" x2="215" y2="58" stroke="#ddd" stroke-width="1.2" opacity=".6"/><line x1="225" y1="35" x2="238" y2="55" stroke="#ddd" stroke-width="1.2" opacity=".6"/><line x1="250" y1="34" x2="260" y2="54" stroke="#ddd" stroke-width="1.2" opacity=".6"/><line x1="275" y1="34" x2="283" y2="54" stroke="#ddd" stroke-width="1.2" opacity=".6"/><line x1="300" y1="35" x2="305" y2="56" stroke="#ddd" stroke-width="1.2" opacity=".5"/>
+        <path d="M130 42 Q160 32 200 28 L260 26 Q290 26 320 30" stroke="var(--e3-green)" stroke-width="2.5" fill="none" opacity=".6" stroke-linecap="round"/>
+        <ellipse cx="250" cy="195" rx="200" ry="12" fill="#000" opacity=".15"/>
+      </svg>
+    </div>
+    <div class="cleat-details">
+      <div class="cleat-specs">
+        <div class="cleat-spec"><div class="cleat-spec-val">OSU Orange</div><div class="cleat-spec-lbl">Colorway</div></div>
+        <div class="cleat-spec"><div class="cleat-spec-val">#44</div><div class="cleat-spec-lbl">Player Edition</div></div>
+        <div class="cleat-spec"><div class="cleat-spec-val">EDGE3</div><div class="cleat-spec-lbl">Green Accent</div></div>
+        <div class="cleat-spec"><div class="cleat-spec-val">Limited</div><div class="cleat-spec-lbl">Availability</div></div>
+      </div>
+      <button class="buy-btn" onclick="alert('Purchase flow coming soon — this transaction will be captured in your Audience Vault as a first-entrant record.')">
+        <span>Buy Now</span>
+        <span class="price">$159.99</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ── AUDIENCE VAULT ── -->
+  <div class="sec-div"><span class="sec-div-line"></span><span class="sec-div-txt">Audience Vault · First-Party Data</span><span class="sec-div-line"></span></div>
+
+  <div class="vault-box">
+    <div class="vault-title"><span class="lock">&#128274;</span> Audience Vault — First-Entrant Data Engine</div>
+    <div class="vault-desc">
+      Every time you sell something — cleats, merch, signed items — or a fan engages through your commerce, the Vault captures the buyer data as a <strong>first-entrant record</strong>. This data belongs to you. Not Instagram. Not TikTok. Not the school.
+    </div>
+    <div class="vault-stats">
+      <div class="vault-stat"><div class="vault-stat-val">—</div><div class="vault-stat-lbl">Vault Records</div></div>
+      <div class="vault-stat"><div class="vault-stat-val">—</div><div class="vault-stat-lbl">Email Captures</div></div>
+      <div class="vault-stat"><div class="vault-stat-val">—</div><div class="vault-stat-lbl">Purchase Events</div></div>
+      <div class="vault-stat"><div class="vault-stat-val">—</div><div class="vault-stat-lbl">Engagement Score</div></div>
+    </div>
+  </div>
+
+  <div class="two-col" style="margin-bottom:1rem">
+    <div class="card card-sm">
+      <div class="card-hdr">Commerce Flow</div>
+      <div class="flow">
+        <div class="flow-step active">Fan Clicks Buy Now</div>
+        <span class="flow-arrow">&#10140;</span>
+        <div class="flow-step">Payment Processes</div>
+        <span class="flow-arrow">&#10140;</span>
+        <div class="flow-step active">Vault Captures Buyer</div>
+        <span class="flow-arrow">&#10140;</span>
+        <div class="flow-step active">You Own Data</div>
+      </div>
+      <div style="font-size:.76rem;font-weight:600;color:var(--tx3);margin-top:8px;line-height:1.5">
+        Every purchase through your wallet captures the buyer's email, location, and purchase data as a permanent record. That's a fan you can sell to again — and it follows you after college.
+      </div>
+    </div>
+    <div class="card card-sm">
+      <div class="card-hdr">What Gets Captured</div>
+      <div style="font-size:.78rem;font-weight:600;color:var(--tx2);line-height:1.75">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="color:var(--e3-green);font-weight:800">&#10003;</span> Buyer email + name</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="color:var(--e3-green);font-weight:800">&#10003;</span> Purchase history</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="color:var(--e3-green);font-weight:800">&#10003;</span> Geographic location</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="color:var(--e3-green);font-weight:800">&#10003;</span> Engagement frequency</div>
+        <div style="display:flex;align-items:center;gap:8px"><span style="color:var(--e3-green);font-weight:800">&#10003;</span> Brand affinity mapping</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-footer">EDGE3 NIL Wallet · Takari Hickle #44 · Oregon State Beavers</div>
+</div>
+
+<!-- ═══════════════════════════ -->
+<!-- PAGE 4: BRAND WISHLIST      -->
+<!-- ═══════════════════════════ -->
+<div class="page" id="pg-brands">
+  <div class="pg-hdr">
+    <div class="pg-tag">04 / Brand Intelligence</div>
+    <div class="pg-t">Brand Wishlist</div>
+    <div class="pg-d">These are brands that align with who you are — your interests, your story, and your audience. This isn't a guess. It's a map.</div>
+  </div>
+
+  <div class="explain">
+    <div class="explain-t">Takari — What Is the Brand Wishlist?</div>
+    <div class="explain-body">
+      Most athletes wait for brands to come to them. The Brand Wishlist flips that. We take everything we know about you — where you're from, what you care about, how you spend your time, what you already use and buy — and we map it to brands that are a natural fit.<br><br>
+      <strong>Here's why it works:</strong> Brands don't want to pay an athlete to hold up a product they've never used. They want authenticity. You already book Airbnbs. You already ride horses. You already shop at stores that fit your lifestyle. The Wishlist turns what you're already doing into potential revenue streams.<br><br>
+      When a brand sees that you genuinely use their product or align with their values, the conversation changes from "how much for a post?" to <strong>"how do we build a partnership?"</strong> That's where the real money is.
+    </div>
+  </div>
+
+  <div class="brand-grid">
+    <div class="brand-card">
+      <div class="brand-cat">Travel / Lifestyle</div>
+      <div class="brand-name">Airbnb</div>
+      <div class="brand-why">You already book Airbnbs — that's authentic alignment. A D-lineman who travels and explores off the field is compelling content. Airbnb actively partners with college athletes in regional markets.</div>
+      <div class="brand-fit"><span style="font-size:.58rem;font-weight:700;color:var(--tx4)">FIT</span><div class="brand-fit-bar"><div class="brand-fit-fill" style="width:95%"></div></div><span style="font-size:.62rem;color:var(--e3-green);font-weight:800">95%</span></div>
+    </div>
+    <div class="brand-card">
+      <div class="brand-cat">Outdoor / Workwear</div>
+      <div class="brand-name">Carhartt</div>
+      <div class="brand-why">Small-town Tenino roots, blue-collar work ethic, horseback riding, physical toughness. You embody the "built tough" narrative without having to fake it.</div>
+      <div class="brand-fit"><span style="font-size:.58rem;font-weight:700;color:var(--tx4)">FIT</span><div class="brand-fit-bar"><div class="brand-fit-fill" style="width:93%"></div></div><span style="font-size:.62rem;color:var(--e3-green);font-weight:800">93%</span></div>
+    </div>
+    <div class="brand-card">
+      <div class="brand-cat">Equestrian / Western</div>
+      <div class="brand-name">Ariat</div>
+      <div class="brand-why">You ride horses for fun. A 289-lb defensive lineman on horseback is content that stops people from scrolling. A lane almost no football player occupies.</div>
+      <div class="brand-fit"><span style="font-size:.58rem;font-weight:700;color:var(--tx4)">FIT</span><div class="brand-fit-bar"><div class="brand-fit-fill" style="width:91%"></div></div><span style="font-size:.62rem;color:var(--e3-green);font-weight:800">91%</span></div>
+    </div>
+    <div class="brand-card">
+      <div class="brand-cat">Pet / Animal Care</div>
+      <div class="brand-name">Purina / Blue Buffalo</div>
+      <div class="brand-why">You want to be a veterinarian. That's not a brand script — it's your actual career plan. A future vet who's also a college football starter is a unique story.</div>
+      <div class="brand-fit"><span style="font-size:.58rem;font-weight:700;color:var(--tx4)">FIT</span><div class="brand-fit-bar"><div class="brand-fit-fill" style="width:90%"></div></div><span style="font-size:.62rem;color:var(--e3-green);font-weight:800">90%</span></div>
+    </div>
+    <div class="brand-card">
+      <div class="brand-cat">Performance Nutrition</div>
+      <div class="brand-name">Optimum Nutrition</div>
+      <div class="brand-why">You gained 49 lbs of functional mass since HS. That documented body transformation — 240 to 289 — is the before/after content nutrition brands build campaigns around.</div>
+      <div class="brand-fit"><span style="font-size:.58rem;font-weight:700;color:var(--tx4)">FIT</span><div class="brand-fit-bar"><div class="brand-fit-fill" style="width:88%"></div></div><span style="font-size:.62rem;color:var(--e3-green);font-weight:800">88%</span></div>
+    </div>
+    <div class="brand-card">
+      <div class="brand-cat">Community / Impact</div>
+      <div class="brand-name">BECU / Local Credit Union</div>
+      <div class="brand-why">Tenino Food Bank volunteer. Psychology major. Community-first values are core to who you are. Regional financial brands pay well for athletes who represent local credibility.</div>
+      <div class="brand-fit"><span style="font-size:.58rem;font-weight:700;color:var(--tx4)">FIT</span><div class="brand-fit-bar"><div class="brand-fit-fill" style="width:86%"></div></div><span style="font-size:.62rem;color:var(--e3-green);font-weight:800">86%</span></div>
+    </div>
+    <div class="brand-card">
+      <div class="brand-cat">Automotive / Truck</div>
+      <div class="brand-name">Toyota Tacoma</div>
+      <div class="brand-why">Pacific NW outdoor lifestyle. Rural Washington is truck country. A Tacoma partnership with content around your life between Tenino and Corvallis writes itself.</div>
+      <div class="brand-fit"><span style="font-size:.58rem;font-weight:700;color:var(--tx4)">FIT</span><div class="brand-fit-bar"><div class="brand-fit-fill" style="width:84%"></div></div><span style="font-size:.62rem;color:var(--e3-green);font-weight:800">84%</span></div>
+    </div>
+    <div class="brand-card">
+      <div class="brand-cat">Mental Health / Wellness</div>
+      <div class="brand-name">BetterHelp / Calm</div>
+      <div class="brand-why">Psychology major who wants to help people. The intersection of mental performance and D-line play is a growing media angle. Wellness brands seek athlete ambassadors with credibility.</div>
+      <div class="brand-fit"><span style="font-size:.58rem;font-weight:700;color:var(--tx4)">FIT</span><div class="brand-fit-bar"><div class="brand-fit-fill" style="width:80%"></div></div><span style="font-size:.62rem;color:var(--e3-green);font-weight:800">80%</span></div>
+    </div>
+  </div>
+
+  <div class="meth-note" style="margin-top:1.2rem">
+    <strong>How This Becomes Revenue:</strong> EDGE3 uses your Brand Wishlist to create warm introductions — not cold DMs. We package your story, your stats, and your audience data from the Vault into a one-page brand brief that makes it easy for a marketing team to say yes. You bring the authenticity. We bring the infrastructure.
+  </div>
+  <div class="pg-footer">EDGE3 NIL Wallet · Takari Hickle #44 · Oregon State Beavers</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PAGE 5: RISK / FIT — FULL COACHING TREE DRILL  -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="page" id="pg-riskfit">
+  <div class="pg-hdr">
+    <div class="pg-tag">05 / EDGE3 Risk / Fit Intelligence</div>
+    <div class="pg-t">Takari Hickle vs. Oregon State Football</div>
+    <div class="pg-d">EDGE3 runs the athlete against the current coaching tree, defensive scheme, position group depth, and program trajectory.</div>
+  </div>
+
+  <!-- PROGRAM COMMITMENT -->
+  <div class="card">
+    <div class="card-hdr"><span class="icon" style="background:var(--e3-green-l);color:var(--e3-green)">&#9745;</span> Program Commitment</div>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+      <span class="badge badge-g" style="font-size:.72rem;padding:5px 14px">COMMITTED</span>
+      <span style="font-size:.8rem;font-weight:700;color:var(--tx2)">Not exploring the transfer portal.</span>
+    </div>
+    <div style="font-size:.78rem;font-weight:600;color:var(--tx3);line-height:1.6">
+      Hickle has been with Oregon State since 2022 and expressed positive sentiments about the program's trajectory in spring 2025 interviews. His breakout 2025 season (38 tackles, 2 sacks) and projected starter role under the new staff reduce departure probability. Psychology major engagement and community ties in the Pacific Northwest further anchor retention.
+    </div>
+    <div class="meth-note" style="margin-top:10px">
+      <strong>Dual-Purpose Indicator:</strong> For Takari, "Committed" tells brands he'll be at Oregon State for the duration of a sponsorship. For athletes exploring the portal, this same field flips to <strong>"Exploring Opportunities"</strong> — signaling to programs that the athlete is genuinely available. The athlete controls this toggle.
+    </div>
+  </div>
+
+  <!-- COACHING TREE -->
+  <div class="sec-div"><span class="sec-div-line"></span><span class="sec-div-txt">Coaching Tree — Oregon State 2026</span><span class="sec-div-line"></span></div>
+
+  <div class="coach-card">
+    <div style="display:flex;justify-content:space-between;align-items:start">
+      <div><div class="coach-name">JaMarcus Shephard</div><div class="coach-role">Head Coach · Hired Nov 2025</div></div>
+      <span class="badge badge-b">Offensive Mind</span>
+    </div>
+    <div class="coach-note">Former Alabama co-OC and assistant head coach under Kalen DeBoer. Previously at Washington during their 14-1 CFP Championship run (2023) and at Purdue where he coached David Bell and Rondale Moore. Offensive background means the defensive staff has significant autonomy in scheme and personnel decisions. Culture-first builder who stated his goal is to create a "farm system" mentality. Five-year deal. First-time head coach but brings elite recruiting connections from Alabama, Washington, and Purdue networks.</div>
+    <div style="margin-top:8px"><span style="font-size:.68rem;font-weight:700;color:var(--tx4)">IMPACT ON HICKLE:</span> <span style="font-size:.72rem;font-weight:600;color:var(--tx2)">Shephard's offensive focus means the DC and DL coach have direct authority over Hickle's development and role. Positive signal — defensive players aren't competing with offensive scheme preferences for the HC's attention.</span></div>
+  </div>
+
+  <div class="coach-card">
+    <div style="display:flex;justify-content:space-between;align-items:start">
+      <div><div class="coach-name">Mike MacIntyre</div><div class="coach-role">Defensive Coordinator / Safeties Coach</div></div>
+      <span class="badge badge-g">Scheme Flexible</span>
+    </div>
+    <div class="coach-note">33-year coaching veteran. Former HC at Colorado (Pac-12 South title, 2016 Consensus National Coach of the Year), San Jose State (10-2, nationally ranked in 2012), and FIU. DC stints at Memphis, Ole Miss, Duke, and Temple. Five years in the NFL with the Dallas Cowboys (under Bill Parcells) and New York Jets. Named AFCA FBS Assistant Coach of the Year in 2009 at Duke. At Ole Miss in 2019, improved the defense nearly 40 ranking spots and was nominated for the Broyles Award.</div>
+    <div style="margin-top:8px;padding:8px 10px;background:var(--e3-green-l);border:1px solid var(--e3-green-gl);border-radius:8px">
+      <span style="font-size:.68rem;font-weight:800;color:var(--e3-green-d)">KEY QUOTE:</span> <span style="font-size:.75rem;font-weight:600;color:var(--tx2);font-style:italic">"I've been 4-2-5, 4-3, 3-4. When I was with the Dallas Cowboys we ran a 4-3 with Mike Zimmer and we did really well. And then Coach Bill Parcells has always been a 3-4 guy."</span>
+    </div>
+    <div style="margin-top:8px"><span style="font-size:.68rem;font-weight:700;color:var(--tx4)">IMPACT ON HICKLE:</span> <span style="font-size:.72rem;font-weight:600;color:var(--tx2)">MacIntyre is not married to any single scheme. He adapts to the personnel in the building. Hickle's size (6'3", 289) and versatility make him a fit across every front MacIntyre has historically deployed. This is the best possible DC hire for a tweener DE/DT like Hickle.</span></div>
+  </div>
+
+  <div class="coach-card">
+    <div style="display:flex;justify-content:space-between;align-items:start">
+      <div><div class="coach-name">Mark Hagen</div><div class="coach-role">Defensive Line Coach</div></div>
+      <span class="badge badge-o">Direct Developer</span>
+    </div>
+    <div class="coach-note">Former Louisville defensive line coach. Hagen's hire has a direct connection to Shephard — his second stint coaching Purdue's defensive linemen began during Shephard's final season at Purdue (2021). Replaces Inoke Breckterfield. Known for developing pass-rush technique and D-line versatility across multiple fronts.</div>
+    <div style="margin-top:8px"><span style="font-size:.68rem;font-weight:700;color:var(--tx4)">IMPACT ON HICKLE:</span> <span style="font-size:.72rem;font-weight:600;color:var(--tx2)">This is Hickle's position coach — the most direct influence on his daily development. Hagen's experience coaching linemen in both 4-man and 3-man fronts aligns with MacIntyre's scheme flexibility. Hickle's pass-rush technique refinement and run-defense anchor development happen in Hagen's room.</span></div>
+  </div>
+
+  <div class="coach-card">
+    <div style="display:flex;justify-content:space-between;align-items:start">
+      <div><div class="coach-name">Cort Dennison</div><div class="coach-role">Co-Defensive Coordinator / Linebackers Coach</div></div>
+      <span class="badge badge-b">Elite Run D</span>
+    </div>
+    <div class="coach-note">Led Idaho's defense to PFF grades of 1st in the Big Sky in rushing defense (92.9) and 2nd in total defense (90.5) in 2025. Statistically, Idaho finished 3rd in the conference in total defense (382.5 ypg) and 4th in scoring defense (26.4 ppg). Coached Isiah King to unanimous First Team All-Big Sky honors. Prior stops at Missouri State, Utah, Louisville, and Oregon.</div>
+    <div style="margin-top:8px"><span style="font-size:.68rem;font-weight:700;color:var(--tx4)">IMPACT ON HICKLE:</span> <span style="font-size:.72rem;font-weight:600;color:var(--tx2)">Dennison coordinates the linebackers behind Hickle. A co-DC with elite run-defense credentials means the front seven will be coached as an integrated unit. Hickle's run defense grade (78 in our Competitive Index) has room to improve — Dennison's presence accelerates that.</span></div>
+  </div>
+
+  <div class="coach-card">
+    <div style="display:flex;justify-content:space-between;align-items:start">
+      <div><div class="coach-name">Joe Seumalo</div><div class="coach-role">Defensive Tackles Coach</div></div>
+      <span class="badge badge-y">Interior Partner</span>
+    </div>
+    <div class="coach-note">Works alongside Hagen to develop the interior D-line. Seumalo's room develops the DTs that Hickle plays next to in any front. The DT-DE partnership is critical in both 4-3 and 3-4 looks — interior push creates opportunities for edge players like Hickle to convert pressures into sacks.</div>
+    <div style="margin-top:8px"><span style="font-size:.68rem;font-weight:700;color:var(--tx4)">IMPACT ON HICKLE:</span> <span style="font-size:.72rem;font-weight:600;color:var(--tx2)">Seumalo developing interior push directly benefits Hickle's sack production. In 2025, Hickle had 2 sacks — DT play quality beside him determines whether that number doubles in 2026.</span></div>
+  </div>
+
+  <!-- SCHEME FIT ANALYSIS -->
+  <div class="sec-div"><span class="sec-div-line"></span><span class="sec-div-txt">Scheme Fit Analysis</span><span class="sec-div-line"></span></div>
+
+  <div class="card">
+    <div class="card-hdr">Defensive Scheme Transition — What MacIntyre Will Run</div>
+    <div style="font-size:.8rem;font-weight:600;color:var(--tx2);line-height:1.65;margin-bottom:1rem">
+      Oregon State under Trent Bray ran a base 4-3 defense. MacIntyre is scheme-agnostic and adapts to the personnel in the building. Given Hickle's size (6'3", 289) and his evolution from a 240-lb edge rusher to a near-290-lb interior/edge hybrid, here's how each potential scheme impacts his role:
+    </div>
+
+    <div class="scheme-grid">
+      <div class="scheme-box">
+        <div class="scheme-label">If MacIntyre Runs 4-3 Base</div>
+        <div class="scheme-body">
+          Hickle projects as a <strong>strong-side DE or 3-technique DT</strong>. His 289 lbs gives him enough anchor against the run while his pass-rush ability (4 career sacks) keeps him on the field in passing situations. High fit — this is closest to what he played under Bray in 2025.
+        </div>
+        <div style="margin-top:8px"><span class="fit-grade">FIT: A-</span></div>
+      </div>
+      <div class="scheme-box">
+        <div class="scheme-label">If MacIntyre Runs 3-4 Base</div>
+        <div class="scheme-body">
+          Hickle could play <strong>5-technique DE</strong> in a 3-4 front — a two-gap player responsible for controlling the C-gap. His weight gain supports this. Alternatively, he could rush from the OLB position in sub-packages. Moderate fit — requires technique adjustment but his motor and size translate.
+        </div>
+        <div style="margin-top:8px"><span class="fit-grade mid">FIT: B+</span></div>
+      </div>
+    </div>
+
+    <div style="background:var(--e3-green-l);border:1px solid var(--e3-green-gl);border-radius:var(--rad);padding:1.1rem">
+      <div style="font-family:var(--ff);font-weight:800;font-size:.85rem;color:var(--e3-green-d);margin-bottom:6px">Most Likely: Hybrid 4-2-5 / Multiple Front</div>
+      <div style="font-size:.78rem;font-weight:600;color:var(--tx2);line-height:1.6">
+        MacIntyre's most recent DC tenures (Memphis, Ole Miss) featured multiple fronts that shift between 4-3 and nickel packages. Hickle's versatility — his HS background playing DE, FB, and OL — makes him an ideal fit for a multiple-front defense that asks linemen to play different techniques based on formation. His 2025 stat line (38 tackles, 2 sacks across multiple alignments) already demonstrates this adaptability. BeaversEdge identified Hickle as a projected starter entering spring under this new staff.
+      </div>
+      <div style="margin-top:8px"><span class="fit-grade">EDGE3 FIT GRADE: A-</span></div>
+    </div>
+  </div>
+
+  <!-- FULL FIT SUMMARY TABLE -->
+  <div class="card" style="margin-top:1rem">
+    <div class="card-hdr">EDGE3 Risk / Fit Summary</div>
+    <div style="overflow-x:auto">
+      <table class="tbl">
+        <thead><tr><th>Factor</th><th>Grade</th><th>Assessment</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Program Commitment</strong></td><td><span class="badge badge-g">Committed</span></td><td>Multi-year starter. Positive spring comments. Not exploring the portal.</td></tr>
+          <tr><td><strong>Scheme Fit</strong></td><td><span class="badge badge-g">A-</span></td><td>MacIntyre's scheme flexibility accommodates Hickle's skill set in any front.</td></tr>
+          <tr><td><strong>Playing Time</strong></td><td><span class="badge badge-g">Starter</span></td><td>BeaversEdge identifies him as a D-line starter entering 2026 spring.</td></tr>
+          <tr><td><strong>DL Coach Alignment</strong></td><td><span class="badge badge-g">Strong</span></td><td>Hagen's multi-front experience directly supports Hickle's development path.</td></tr>
+          <tr><td><strong>HC Stability</strong></td><td><span class="badge badge-y">Year 1</span></td><td>Shephard on 5-year deal provides runway, but first-time HC risk exists.</td></tr>
+          <tr><td><strong>Conference Exposure</strong></td><td><span class="badge badge-y">Rebuilding</span></td><td>Rebuilt Pac-12 has less TV revenue and national visibility than Power 4.</td></tr>
+          <tr><td><strong>Physical Projection</strong></td><td><span class="badge badge-g">Trending Up</span></td><td>+49 lbs since HS. Frame supports continued growth into 295-300 range.</td></tr>
+          <tr><td><strong>Positional Depth</strong></td><td><span class="badge badge-g">Favorable</span></td><td>Oregon State lost multiple D-linemen to the portal. Less competition for snaps.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="meth-note" style="margin-top:1rem">
+    <strong>EDGE3 Risk / Fit Methodology:</strong> This analysis runs the athlete against the current coaching tree, defensive scheme history, position group depth, and program trajectory. Scheme history cross-referenced against MacIntyre's tenure at Colorado, Duke, Memphis, Ole Miss, and NFL stops with the Cowboys and Jets.
+  </div>
+
+  <div class="pg-footer">EDGE3 NIL Wallet · Takari Hickle #44 · Oregon State Beavers</div>
+</div>
+
+</div><!-- /content -->
+
+<script>
+function switchPage(id){
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  const pg=document.getElementById('pg-'+id);
+  if(pg){pg.classList.add('active');window.scrollTo(0,0)}
+  document.querySelectorAll('.tab').forEach(t=>{
+    if(t.dataset.page===id) t.classList.add('active');
+  });
+  if(id==='stats'){
+    setTimeout(()=>{
+      document.querySelectorAll('#skillBars .sk-fill').forEach(b=>{b.style.width=b.dataset.w+'%'});
+    },150);
+  }
+}
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click',()=>switchPage(t.dataset.page));
+});
+</script>
+</body>
+</html>

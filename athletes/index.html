@@ -98,7 +98,7 @@
   .tp-path .tp-path-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--brand-green); font-weight: 700; margin-bottom: 8px; }
   .tp-path p { font-size: 14px; line-height: 1.55; color: #C8D0DE; margin: 0; }
 
-  /* ===== Real Coach Feedback panel — camp-economy lede + agent-protection frame ===== */
+  /* ===== Real Coach Feedback panel - camp-economy lede + agent-protection frame ===== */
   .rcf-panel { background: linear-gradient(135deg, var(--brand-dark-2) 0%, var(--brand-dark-3) 100%); border: 1px solid var(--brand-line); border-radius: 16px; padding: 44px; position: relative; }
   .rcf-panel::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--brand-green); border-radius: 16px 16px 0 0; }
   .rcf-panel .rcf-eyebrow { font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--brand-green); margin-bottom: 14px; font-weight: 700; }
@@ -137,6 +137,48 @@
   .wallet-card ul li { padding: 7px 0 7px 22px; position: relative; font-size: 13.5px; line-height: 1.5; color: #C8D0DE; }
   .wallet-card ul li::before { content: '\2713'; position: absolute; left: 0; top: 7px; color: var(--brand-green); font-weight: 800; }
   .wallet-card ul li strong { color: var(--brand-white); }
+
+  /* ===== Ty Benefield use-case panel ===== */
+  .tycase-panel { background: linear-gradient(135deg, var(--brand-dark-2) 0%, var(--brand-dark-3) 100%); border: 1px solid var(--brand-line); border-radius: 16px; padding: 44px; position: relative; }
+  .tycase-panel::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--brand-blue); border-radius: 16px 16px 0 0; }
+  .tycase-panel .tc-eyebrow { font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--brand-blue); margin-bottom: 14px; font-weight: 700; }
+  .tycase-panel h2 { font-size: clamp(24px, 3.5vw, 32px); line-height: 1.18; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 14px; color: var(--brand-white); }
+  .tycase-panel p.tc-sub { font-size: 16px; line-height: 1.55; color: var(--brand-muted); margin: 0 0 28px; max-width: 760px; }
+  .tc-chapters { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 760px) { .tc-chapters { grid-template-columns: 1fr; } .tycase-panel { padding: 32px 24px; } }
+  .tc-chapter { background: var(--brand-dark); border: 1px solid var(--brand-line); border-radius: 12px; padding: 22px 24px; display: flex; flex-direction: column; }
+  .tc-chapter .tc-chapter-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--brand-blue); font-weight: 700; margin-bottom: 10px; }
+  .tc-chapter h3 { font-size: 18px; color: var(--brand-white); font-weight: 700; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .tc-chapter p { font-size: 14px; line-height: 1.55; color: #C8D0DE; margin: 0 0 12px; }
+  .tc-chapter p:last-of-type { margin-bottom: 0; }
+  .tc-chapter .tc-takeaway { padding: 12px 14px; background: rgba(26,184,116,0.10); border: 1px solid rgba(26,184,116,0.30); border-left: 3px solid var(--brand-green); border-radius: 0 8px 8px 0; font-size: 13px; color: #C8D0DE; margin-top: auto; }
+  .tc-chapter .tc-takeaway strong { color: var(--brand-green); font-weight: 700; }
+  .tycase-panel .tc-close { margin: 28px 0 0; padding-top: 22px; border-top: 1px solid var(--brand-line); font-size: 17px; font-weight: 600; color: var(--brand-white); text-align: center; letter-spacing: -0.005em; }
+
+  /* ===== Wallet showcase - named-athlete examples ===== */
+  .ws-panel { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 16px; padding: 40px; }
+  .ws-eyebrow { font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--yellow); margin-bottom: 14px; font-weight: 700; }
+  .ws-panel h2 { font-size: clamp(24px, 3.5vw, 32px); line-height: 1.18; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 14px; color: var(--brand-white); }
+  .ws-panel p.ws-sub { font-size: 16px; line-height: 1.55; color: var(--brand-muted); margin: 0 0 28px; max-width: 760px; }
+  .ws-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 900px) { .ws-grid { grid-template-columns: 1fr; } .ws-panel { padding: 32px 24px; } }
+  .ws-card { background: var(--brand-dark); border: 1px solid var(--brand-line); border-radius: 12px; padding: 22px 24px; display: flex; flex-direction: column; transition: transform 0.15s, border-color 0.15s; text-decoration: none; color: var(--brand-text); }
+  .ws-card:hover { transform: translateY(-2px); text-decoration: none; }
+  .ws-card.hs:hover { border-color: var(--brand-blue); }
+  .ws-card.transfer:hover { border-color: var(--brand-green); }
+  .ws-card.nil:hover { border-color: var(--yellow); }
+  .ws-card .ws-tag { display: inline-block; align-self: flex-start; font-size: 10.5px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; padding: 4px 10px; border-radius: 12px; margin-bottom: 12px; }
+  .ws-card.hs .ws-tag { background: rgba(59,130,246,0.16); color: var(--brand-blue); border: 1px solid rgba(59,130,246,0.30); }
+  .ws-card.transfer .ws-tag { background: rgba(26,184,116,0.16); color: var(--brand-green); border: 1px solid rgba(26,184,116,0.30); }
+  .ws-card.nil .ws-tag { background: rgba(232,179,57,0.14); color: var(--yellow); border: 1px solid rgba(232,179,57,0.30); }
+  .ws-card .ws-name { font-size: 19px; font-weight: 800; color: var(--brand-white); letter-spacing: -0.01em; margin-bottom: 4px; }
+  .ws-card .ws-meta { font-size: 12.5px; color: var(--brand-muted); margin-bottom: 14px; }
+  .ws-card .ws-desc { font-size: 13.5px; line-height: 1.55; color: #C8D0DE; flex: 1; margin: 0 0 14px; }
+  .ws-card .ws-cta { font-size: 13px; font-weight: 700; letter-spacing: 0.02em; padding-top: 12px; border-top: 1px solid var(--brand-line); }
+  .ws-card.hs .ws-cta { color: var(--brand-blue); }
+  .ws-card.transfer .ws-cta { color: var(--brand-green); }
+  .ws-card.nil .ws-cta { color: var(--yellow); }
+  .ws-card .ws-status { font-size: 10.5px; text-transform: uppercase; letter-spacing: 1px; color: var(--brand-muted); margin-top: 6px; font-style: italic; }
 
   /* ===== RFP / Buyer-side panel ===== */
   .rfp-panel { background: linear-gradient(135deg, var(--brand-dark-2) 0%, var(--brand-dark-3) 100%); border: 1px solid rgba(232, 179, 57, 0.30); border-radius: 16px; padding: 44px; }
@@ -237,37 +279,88 @@
 
 <main>
 
-  <!-- ===== Real Coach Feedback — camp-economy lede + agent-protection frame ===== -->
+  <!-- ===== NEW opening: Standing out is the hard part - network frame ===== -->
   <section>
     <div class="rcf-panel">
       <div class="rcf-eyebrow">What we actually do</div>
-      <h2>Most kids at camps never get seen by the right coach.</h2>
-      <p class="rcf-lede">They show up. They pay. They pad up. They leave anonymous. The evaluation never happens. The family drives home with nothing. EDGE3 fixes that. <strong>We make sure your athlete gets seen by the right coach, and that the honest read comes back to you.</strong> No offers promised. Just the truth.</p>
+      <h2>Standing out is the hard part.</h2>
+      <p class="rcf-lede">Families invest thousands in training. Athletes put in the reps. Then comes the part nobody trained them for: <strong>getting a coach&rsquo;s attention and communicating fit, against thousands of other athletes doing the same thing.</strong> That&rsquo;s where EDGE3 comes in. We don&rsquo;t sell coaches on athletes who aren&rsquo;t fits. Our engine surfaces the alignment first, then we reach out to coaches leading with what we found in common: past players who succeeded in their system, scheme overlap, position-room fit. The coach takes our call because we&rsquo;re bringing them a fit, not a sales pitch.</p>
 
       <div class="rcf-three">
         <div class="rcf-step">
-          <div class="rcf-num">01 &middot; Visibility</div>
-          <div class="rcf-title">The right coach has eyes on your athlete.</div>
-          <div class="rcf-text">Through our network of former NFL and NBA players acting as extensions of EDGE3 leadership, we make sure your athlete is a named entity at the program before camp begins, not another body in pads.</div>
+          <div class="rcf-num">01 &middot; Fit, surfaced</div>
+          <div class="rcf-title">The engine finds the alignment.</div>
+          <div class="rcf-text">TIM identifies programs where your game maps to the coach&rsquo;s system, where past players who looked like you have succeeded, and where the position room actually has a path.</div>
         </div>
         <div class="rcf-step">
-          <div class="rcf-num">02 &middot; Honest Feedback</div>
-          <div class="rcf-title">The actual read comes back to you.</div>
-          <div class="rcf-text">After the evaluation, we source the developmental read directly from that coach. Strengths, gaps, projection, positional flex. The kind of feedback families almost never receive.</div>
+          <div class="rcf-num">02 &middot; Network, executed</div>
+          <div class="rcf-title">The right coach takes the call.</div>
+          <div class="rcf-text">Former NFL and NBA leadership reaches out directly, leading with the alignment our engine surfaced. Coaches we know take the call because we&rsquo;re bringing a fit, not another anonymous pitch.</div>
         </div>
         <div class="rcf-step">
-          <div class="rcf-num">03 &middot; A Wallet That Travels</div>
-          <div class="rcf-title">Your scouting document, owned by you.</div>
-          <div class="rcf-text">We translate every coach&rsquo;s read into structured trait cards in your athlete&rsquo;s wallet. Same vocabulary, comparable across coaches and programs. Your wallet is yours, portable to the next staff and the next conversation.</div>
+          <div class="rcf-num">03 &middot; Read, returned</div>
+          <div class="rcf-title">The honest feedback comes back.</div>
+          <div class="rcf-text">Strengths. Gaps. Projection. Positional flex. The kind of read families almost never receive, translated into trait cards in your wallet that travel to the next staff and the next conversation.</div>
         </div>
-      </div>
-
-      <div class="rcf-agent">
-        <div class="ra-eyebrow">A note on agents</div>
-        <p>Agents are signing kids who don&rsquo;t know any better. <span class="accent-yellow">EDGE3 is how the family knows better.</span> Same intelligence the programs use, in your hands, before anyone else walks in the room.</p>
       </div>
 
       <div class="rcf-tagline">You hire the agent. You pick the school. You pay the bills. The OS should be yours.</div>
+    </div>
+  </section>
+
+  <!-- ===== Athletes with options - MOVED UP from former buyer-side / RFP panel ===== -->
+  <section>
+    <div class="rfp-panel">
+      <div class="rfp-eyebrow">Athletes with options</div>
+      <h2>When schools are chasing you, you have leverage. Use it.</h2>
+      <p class="rfp-sub">Top recruits get pitched by every program that wants them. Very few have a structured way to compare those pitches side-by-side. <strong>EDGE3 gives you the scorecard.</strong> Same dimensions on every program, your requirements and objectives at the center, no apples-to-oranges sales pitches.</p>
+
+      <div class="rfp-grid">
+        <div class="rfp-step">
+          <div class="rfp-num">01</div>
+          <div class="rfp-title">Score every program on the same dimensions</div>
+          <div class="rfp-text">System fit. Depth chart at your position. Staff continuity. NIL. Development track record. One scorecard. Every program.</div>
+        </div>
+        <div class="rfp-step">
+          <div class="rfp-num">02</div>
+          <div class="rfp-title">Run head-to-head comparisons</div>
+          <div class="rfp-text">Evaluate every option side-by-side, based on your criteria, not theirs. No more apples-to-oranges pitches.</div>
+        </div>
+        <div class="rfp-step">
+          <div class="rfp-num">03</div>
+          <div class="rfp-title">Control the conversation</div>
+          <div class="rfp-text">Walk into every visit with the questions, the comparisons, and the bar each program has to clear.</div>
+        </div>
+      </div>
+
+      <p style="font-size: 22px; font-weight: 700; color: var(--brand-white); margin: 28px 0 0; text-align: center; letter-spacing: -0.01em;">You&rsquo;re not being recruited. You&rsquo;re selecting a partner.</p>
+    </div>
+  </section>
+
+  <!-- ===== Use case - Ty Benefield (two chapters: Boise stay → LSU portal) ===== -->
+  <section>
+    <div class="tycase-panel">
+      <div class="tc-eyebrow">Use case &middot; Ty Benefield</div>
+      <h2>Sometimes the right call is to stay. Sometimes it&rsquo;s to go. The data drives both.</h2>
+      <p class="tc-sub">Two chapters with the same athlete. The same intelligence drove opposite calls, one year apart. That&rsquo;s how EDGE3 earns the family&rsquo;s trust.</p>
+
+      <div class="tc-chapters">
+        <div class="tc-chapter">
+          <div class="tc-chapter-tag">Chapter 1 &middot; 2024 season at Boise State</div>
+          <h3>The call: stay another year.</h3>
+          <p>David Benefield (Ty&rsquo;s dad) reached out after the 2024 season. Should Ty enter the portal? EDGE3 pulled the snap data on safety transfers moving from Tier 2 Power 5 programs to Tier 1 Power 4 destinations. <strong>The pattern: reduced snaps in year one, almost across the board.</strong> The contrarian recommendation: stay another year at Boise, build the tape, enter the portal from a position of strength.</p>
+          <p class="tc-takeaway"><strong>What this shows:</strong> EDGE3 isn&rsquo;t biased toward transferring. The data drives the call. Sometimes the smart move is to stay.</p>
+        </div>
+
+        <div class="tc-chapter">
+          <div class="tc-chapter-tag">Chapter 2 &middot; 2025 portal cycle</div>
+          <h3>The call: pick the right Power 4 home.</h3>
+          <p>Ty entered the portal as a top-ranked safety. Every Power 4 staff that needed a safety wanted him. EDGE3 worked alongside Ty, his agent, and his family across the named suitors: <strong>Risk/Fit Report per school. Visit question pack per school. Side-by-side scorecard.</strong> The conversation moved from &ldquo;who wants me most&rdquo; to &ldquo;where do I fit best.&rdquo;</p>
+          <p class="tc-takeaway"><strong>Outcome:</strong> Ty landed at <strong>LSU</strong>. The decision was structured, the family was informed, and the school selection matched the system fit the engine surfaced.</p>
+        </div>
+      </div>
+
+      <p class="tc-close">EDGE3 didn&rsquo;t replace Ty&rsquo;s agent. We were the family&rsquo;s intelligence layer alongside the agent. Same team. Sharper deal. Better outcome.</p>
     </div>
   </section>
 
@@ -303,125 +396,39 @@
     </div>
   </section>
 
-  <!-- ===== EDGE3 Wallets ===== -->
+  <!-- ===== Wallet showcase - named-athlete examples ===== -->
   <section>
-    <div class="wallet-panel">
-      <div class="wp-eyebrow">EDGE3 Wallets &middot; Athlete-owned, portable, two-sided</div>
-      <h2>Your wallet. Your narrative.</h2>
-      <p class="wp-sub">Three wallet types, built for where you are. The same intelligence programs use, in the family&rsquo;s hands. <strong style="color: var(--brand-white);">No other platform puts this on the family&rsquo;s side of the table.</strong></p>
+    <div class="ws-panel">
+      <div class="ws-eyebrow">Wallet examples &middot; HS / Transfer / NIL</div>
+      <h2>Real wallets. Real athletes. Real intelligence.</h2>
+      <p class="ws-sub">Each EDGE3 wallet is built around the athlete&rsquo;s situation. HS recruit getting evaluated, transfer portal candidate weighing offers, college athlete managing NIL. Same engine, different surface for each.</p>
 
-      <div class="wallet-grid">
-        <div class="wallet-card hs">
-          <div class="wallet-tag">HS Recruit Wallet</div>
-          <h3>Identify the right schools. Show up prepared.</h3>
-          <ul>
-            <li>Fit + alignment across every program on your list</li>
-            <li>Position-specific question packs for each staff</li>
-            <li>Communication templates in your voice</li>
-            <li>Side-by-side program comparison at your position</li>
-          </ul>
-          <p style="font-size: 13px; color: var(--brand-white); font-weight: 600; margin: 16px 0 0; padding-top: 14px; border-top: 1px solid var(--brand-line);">Know your fit before they define it.</p>
-        </div>
-
-        <div class="wallet-card college featured">
-          <div class="wallet-tag">College Student-Athlete Wallet</div>
-          <div class="wallet-feature-flag">Career Digital Resume + NIL Intelligence</div>
-          <h3>Your career digital resume. The wallet that speaks for you when you&rsquo;re not in the room.</h3>
-          <ul>
-            <li><strong>Career digital resume:</strong> jobs, NIL deals, brand-fit signals, career artifacts in one place</li>
-            <li>Position-tier market context, not just NIL</li>
-            <li>Transfer-fit scans + pre-meeting agendas</li>
-            <li>The same R/Y/G signals coaches use</li>
-          </ul>
-          <p style="font-size: 13px; color: var(--brand-white); font-weight: 600; margin: 16px 0 0; padding-top: 14px; border-top: 1px solid var(--brand-line);">Manage your value on and off the field. Build a record that follows you after the game.</p>
-        </div>
-
-        <div class="wallet-card portal">
-          <div class="wallet-tag">Transfer Portal Wallet</div>
-          <h3>Find the right fit, not just the next offer.</h3>
-          <ul>
-            <li>System fit and depth chart view across interested programs</li>
-            <li>What changed at your current program, and what didn&rsquo;t</li>
-            <li>Offer comparison with program-specific question frameworks</li>
-            <li>Fit-first decision model, not just NIL-first</li>
-          </ul>
-          <p style="font-size: 13px; color: var(--brand-white); font-weight: 600; margin: 16px 0 0; padding-top: 14px; border-top: 1px solid var(--brand-line);">Make the right move, not just the fast one.</p>
-        </div>
+      <div class="ws-grid">
+        <a class="ws-card hs" href="./wallets/chase-ames/">
+          <div class="ws-tag">HS Recruit</div>
+          <div class="ws-name">Chase Ames</div>
+          <div class="ws-meta">QB &middot; Active recruiting</div>
+          <p class="ws-desc">Profile, film, QB traits, real coach reviews (UNC), program fit, schedule. The wallet a college coach actually wants to see.</p>
+          <div class="ws-cta">View wallet &rarr;</div>
+        </a>
+        <a class="ws-card transfer" href="./wallets/jael-martin/">
+          <div class="ws-tag">Transfer Portal</div>
+          <div class="ws-name">Jael Martin</div>
+          <div class="ws-meta">Basketball &middot; CSUN</div>
+          <p class="ws-desc">Performance breakdown, risk and fit reads against target programs, why the stats don&rsquo;t tell the whole story.</p>
+          <div class="ws-cta">View wallet &rarr;</div>
+          <div class="ws-status">v2 in build &middot; preview available</div>
+        </a>
+        <a class="ws-card nil" href="./wallets/takari-hickle/">
+          <div class="ws-tag">NIL</div>
+          <div class="ws-name">Takari Hickle</div>
+          <div class="ws-meta">Oregon State &middot; DL/Edge &middot; #44</div>
+          <p class="ws-desc">NIL wallet with brand wishlist, performance, risk/fit reads, and Adobe Express Creator Lab integration. The college athlete&rsquo;s career resume.</p>
+          <div class="ws-cta">View wallet &rarr;</div>
+        </a>
       </div>
 
-      <p style="font-size: 12.5px; color: var(--brand-muted); margin-top: 22px; padding-top: 18px; border-top: 1px dashed var(--brand-line); font-style: italic;">NIL intelligence is grounded in public position-tier data, conference and collective listings, and disclosed deal context, not private deal data. Clear inputs. Honest scope. Real guidance.</p>
-    </div>
-  </section>
-
-  <!-- ===== Buyer-side / RFP framing ===== -->
-  <section>
-    <div class="rfp-panel">
-      <div class="rfp-eyebrow">For athletes in buying positions</div>
-      <h2>When you&rsquo;re the one being recruited.</h2>
-      <p class="rfp-sub">Top recruits get pitched by every program that wants them. Very few have a structured way to compare those pitches side-by-side. <strong>EDGE3 gives you the scorecard:</strong> same dimensions on every program, no apples-to-oranges sales pitches.</p>
-
-      <div class="rfp-grid">
-        <div class="rfp-step">
-          <div class="rfp-num">01</div>
-          <div class="rfp-title">Score every program on the same dimensions</div>
-          <div class="rfp-text">System fit. Depth chart at your position. Staff continuity. NIL. Development track record. One scorecard. Every program.</div>
-        </div>
-        <div class="rfp-step">
-          <div class="rfp-num">02</div>
-          <div class="rfp-title">Run head-to-head comparisons</div>
-          <div class="rfp-text">Evaluate every option side-by-side, based on your criteria, not theirs. No more apples-to-oranges pitches.</div>
-        </div>
-        <div class="rfp-step">
-          <div class="rfp-num">03</div>
-          <div class="rfp-title">Control the conversation</div>
-          <div class="rfp-text">Walk into every visit with the questions, the comparisons, and the bar each program has to clear.</div>
-        </div>
-      </div>
-
-      <p style="font-size: 22px; font-weight: 700; color: var(--brand-white); margin: 28px 0 0; text-align: center; letter-spacing: -0.01em;">You&rsquo;re not being recruited. You&rsquo;re selecting a partner.</p>
-    </div>
-  </section>
-
-  <!-- ===== EDGE3 Agent Intelligence ===== -->
-  <section>
-    <div class="deal-panel">
-      <div class="dp-eyebrow">EDGE3 Agent Intelligence</div>
-      <h2>The family&rsquo;s intelligence layer in NIL negotiations.</h2>
-      <p class="dp-sub">Agents present the deal. EDGE3 surfaces the structure, ensuring the family is fully informed in real time. Work directly with the family, or alongside the agent they choose. <strong style="color: var(--brand-white);">Same team. Better outcomes.</strong></p>
-
-      <div class="deal-grid">
-        <div class="deal-col">
-          <h3>What it looks like in the room</h3>
-          <p>Tablet open between Mom and Dad. The agent presents the headline number. EDGE3 surfaces what&rsquo;s underneath, quietly, in real time.</p>
-          <div class="decode-box">
-            <div class="decode-row headline">
-              <span>Pitch says</span>
-              <strong>$500K NIL package</strong>
-            </div>
-            <div class="decode-row decoded"><span>Collective base</span><strong>$250K</strong></div>
-            <div class="decode-row decoded"><span>Playing-time + start triggers</span><strong>$150K</strong></div>
-            <div class="decode-row decoded"><span>Brand deals (performance-contingent)</span><strong>$80K</strong></div>
-            <div class="decode-row decoded"><span>Postseason / honors bonuses</span><strong>$20K</strong></div>
-            <div class="decode-context"><strong>EDGE3 adds context.</strong> Position-tier market scan: comparable players in this conference signed $200&ndash;350K collective base, with $80&ndash;200K tied to playing-time triggers.</div>
-          </div>
-          <p class="deal-illustrative">Illustrative example. Real deals benchmarked against position-tier market data.</p>
-        </div>
-
-        <div class="deal-col">
-          <h3>The questions that surface</h3>
-          <ul class="prompt-list">
-            <li>What&rsquo;s the playing-time trigger language?</li>
-            <li>What happens to the collective payment on injury?</li>
-            <li>What happens to the deal if I enter the portal?</li>
-          </ul>
-          <p class="lede-quote">&ldquo;What&rsquo;s the playing-time trigger?&rdquo;<span class="speaker">Mom, in the room</span></p>
-          <p style="margin-top: 16px;">The agent is a trusted partner. EDGE3 ensures the family sees what the agent sees.</p>
-        </div>
-      </div>
-
-      <p class="deal-tagline">Agents negotiate. EDGE3 ensures the family understands.</p>
-
-      <p class="deal-close">You choose the <em>school</em>. You carry the <em>risk</em>. EDGE3 ensures you have the <em>intelligence</em>, every step of the way.</p>
+      <p style="font-size: 12.5px; color: var(--brand-muted); margin-top: 22px; padding-top: 18px; border-top: 1px dashed var(--brand-line); font-style: italic;">NIL intelligence is grounded in public position-tier data, conference and collective listings, and disclosed deal context. Clear inputs. Honest scope. Real guidance.</p>
     </div>
   </section>
 
