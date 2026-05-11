@@ -40,7 +40,7 @@
 
 **Tab 1 — Analyst view** (90 sec)
 
-> "Your portal-board builder's view. Real lead guards — Gavin Paull at Tennessee, Quan Lax at Austin Peay, Sencire Harris at Cincinnati. Risk and trajectory columns are real model output from our 2026-27 predictions.
+> "Your portal-board builder's view. Real point guards - Gavin Paull at Tennessee, Quan Lax at Austin Peay, Sencire Harris at Cincinnati. Risk and trajectory columns are real model output from our 2026-27 predictions.
 >
 > Watch the bottom row — Trevon Payton, risk 0.67 + frustration markers. Filtered off the board. The other three move to the guards coach."
 
