@@ -1,4 +1,4 @@
-# EDGE3 Basketball Model — Positional Groups & Feature Architecture
+# EDGE3 Basketball Model - Positional Groups & Feature Architecture
 # Vision Sports Portal, LLC / EDGE3 Athlete Intelligence
 # Scoped: April 2026
 
@@ -8,7 +8,7 @@
 
 Basketball requires a fundamentally different positional model than football.
 Football has rigid positional groups with clear physical profiles.
-Basketball positions are fluid — a 6'6" player might be a wing, a point-forward, or a small-ball 4 depending on the system.
+Basketball positions are fluid - a 6'6" player might be a wing, a point-forward, or a small-ball 4 depending on the system.
 
 EDGE3 basketball models should classify by **role archetype**, not traditional positions.
 
@@ -119,7 +119,7 @@ EDGE3 basketball models should classify by **role archetype**, not traditional p
 
 ---
 
-## Feature Set — Per Model
+## Feature Set - Per Model
 
 ### Recruiting Features (available at HS level)
 These mirror the football model's 6-feature approach:
@@ -128,13 +128,13 @@ These mirror the football model's 6-feature approach:
 |---------|--------|-------|
 | Height | Assessment / 247Sports | In inches |
 | Weight | Assessment / 247Sports | In pounds |
-| Wingspan | Assessment / Noah's program | Critical for basketball — not in football model |
+| Wingspan | Assessment / Noah's program | Critical for basketball - not in football model |
 | 247CompositeScore | 247Sports | If available (basketball has less coverage than football) |
 | NatlRank | 247Sports / ESPN | National ranking |
 | PositionRank | 247Sports | Position-specific ranking |
 | Stars | 247Sports / Rivals / ESPN | Star rating (2-5) |
 
-### Assessment Features (from Noah's program — unique to EDGE3)
+### Assessment Features (from Noah's program - unique to EDGE3)
 These are the differentiator. No one else has standardized, longitudinal skill data.
 
 | Feature | Age Groups | Measurement |
@@ -150,7 +150,7 @@ These are the differentiator. No one else has standardized, longitudinal skill d
 | Wingspan | All ages | Measured quarterly |
 | Standing Reach | All ages | Measured quarterly |
 
-### Performance Features (college level — for transfer risk/RNR)
+### Performance Features (college level - for transfer risk/RNR)
 | Feature | Source | Notes |
 |---------|--------|-------|
 | Minutes per game | Sports Reference / ESPN | Usage indicator |
@@ -166,12 +166,12 @@ These are the differentiator. No one else has standardized, longitudinal skill d
 
 ---
 
-## RNR (Transfer Risk) Model — Basketball
+## RNR (Transfer Risk) Model - Basketball
 
 Same concept as football: predict which athletes are likely to transfer.
 
 **Key risk signals unique to basketball:**
-- Minutes reduction (biggest single predictor — player losing playing time)
+- Minutes reduction (biggest single predictor - player losing playing time)
 - Coaching change (same as football)
 - New highly-ranked recruit at same position arriving
 - Declining efficiency metrics (PER, TS%, BPM trending down)
@@ -189,7 +189,7 @@ Same concept as football: predict which athletes are likely to transfer.
 
 ---
 
-## RYG (Performance Outcome) Model — Basketball
+## RYG (Performance Outcome) Model - Basketball
 
 Predict performance trajectory: will this athlete produce at their next school?
 
@@ -212,7 +212,7 @@ Quarterly Reassessments (skill deltas tracked)
     ↓
 6th-8th Grade (expanded drill set, positional grouping begins)
     ↓
-HS Freshman Assessment (full battery — recruiting features populated)
+HS Freshman Assessment (full battery - recruiting features populated)
     ↓
 EDGE3 Recruiting Wallet (RNR + RYG classification eligible)
     ↓
@@ -233,7 +233,7 @@ AWS Camera Automation (standardized skill testing at scale)
 | KenPom | Team efficiency, tempo, strength of schedule | Subscription ($) |
 | NCAA Statistics | Official game stats | ncaa.org |
 | hoopmath.com | Shot location data | Public |
-| Noah's Assessments | Quarterly skill data (youth → HS) | Internal — EDGE3 proprietary |
+| Noah's Assessments | Quarterly skill data (youth → HS) | Internal - EDGE3 proprietary |
 
 ---
 

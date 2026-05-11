@@ -183,6 +183,30 @@
   .tim-money strong { color: var(--brand-white); font-weight: 700; }
   @media (max-width: 600px) { .tim-block { padding: 22px 20px; } .tim-block .tim-title { font-size: 19px; } }
 
+  /* Wallet architecture section — visual-first */
+  .wa-block { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 14px; padding: 30px 32px; position: relative; }
+  .wa-block::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--yellow); border-radius: 14px 14px 0 0; }
+  .wa-block .wa-eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: var(--yellow); margin-bottom: 10px; }
+  .wa-block h2 { margin: 0 0 8px; font-size: clamp(20px, 3vw, 26px); font-weight: 800; letter-spacing: -0.015em; color: var(--brand-white); }
+  .wa-block .wa-sub { margin: 0 0 24px; font-size: 14.5px; line-height: 1.55; color: #C7D3E6; max-width: 760px; }
+  .wa-stack { display: grid; grid-template-columns: 1fr 32px 1fr; gap: 0; align-items: stretch; margin-bottom: 16px; }
+  @media (max-width: 760px) { .wa-stack { grid-template-columns: 1fr; gap: 12px; } .wa-arrow { display: none !important; } }
+  .wa-side { background: var(--brand-dark-3); border: 1px solid var(--brand-line); border-radius: 10px; padding: 18px 20px; }
+  .wa-side .ws-tag { font-size: 10.5px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; margin-bottom: 8px; }
+  .wa-side.programs .ws-tag { color: var(--brand-blue); }
+  .wa-side.athletes .ws-tag { color: var(--brand-green); }
+  .wa-side h3 { margin: 0 0 6px; font-size: 15.5px; color: var(--brand-white); font-weight: 700; }
+  .wa-side ul { margin: 8px 0 0; padding: 0; list-style: none; }
+  .wa-side ul li { font-size: 13px; line-height: 1.5; color: #C7D3E6; padding: 4px 0 4px 16px; position: relative; }
+  .wa-side.programs ul li::before { content: '+'; color: var(--brand-blue); position: absolute; left: 0; font-weight: 800; }
+  .wa-side.athletes ul li::before { content: '+'; color: var(--brand-green); position: absolute; left: 0; font-weight: 800; }
+  .wa-arrow { display: flex; align-items: center; justify-content: center; color: var(--yellow); font-size: 22px; font-weight: 800; }
+  .wa-engine { background: linear-gradient(135deg, rgba(232,179,57,0.10), rgba(232,179,57,0.04)); border: 1px solid rgba(232,179,57,0.30); border-radius: 10px; padding: 18px 22px; text-align: center; margin-top: 14px; }
+  .wa-engine .we-label { font-size: 10.5px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: var(--yellow); margin-bottom: 6px; }
+  .wa-engine .we-body { font-size: 15px; line-height: 1.5; color: var(--brand-white); font-weight: 600; max-width: 700px; margin: 0 auto; }
+  .wa-engine .we-body em { color: #F2D78D; font-style: normal; font-weight: 700; }
+  @media (max-width: 600px) { .wa-block { padding: 22px 20px; } }
+
   /* Loop panel — bookend to Honest Scope (green accent) */
   .loop-panel { background: linear-gradient(135deg, var(--brand-dark-2) 0%, var(--brand-dark-3) 100%); border: 1px solid var(--brand-line); border-radius: 14px; padding: 32px 36px; position: relative; }
   .loop-panel::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--brand-green); border-radius: 14px 14px 0 0; }
@@ -282,6 +306,45 @@
       </div>
       <div class="tim-sticker">The math is the engine. The R/Y/G is the answer.</div>
       <div class="tim-money"><strong>Money is loud. Fit is louder when money is equal.</strong> Verified NIL deal data joins as a layer when it&rsquo;s available, not a substitute for fit.</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wa-block">
+      <div class="wa-eyebrow">Wallet architecture</div>
+      <h2>The right data sources, brought together for each decision.</h2>
+      <p class="wa-sub">Each EDGE3 wallet is one of one. Built around what that staff or that family is actually deciding.</p>
+
+      <div class="wa-stack">
+        <div class="wa-side programs">
+          <div class="ws-tag">Programs side</div>
+          <h3>What we source for the staff room</h3>
+          <ul>
+            <li>Verified performance rates (PFF for FB, Sports Reference for BB)</li>
+            <li>Recruiting profile (HS, JUCO, transfer portal)</li>
+            <li>Scheme and position room fit against your roster</li>
+            <li>Real coach feedback through the network</li>
+            <li>Game-level data refreshed weekly</li>
+          </ul>
+        </div>
+        <div class="wa-arrow" aria-hidden="true">&rarr;</div>
+        <div class="wa-side athletes">
+          <div class="ws-tag">Family side</div>
+          <h3>What we source for the household</h3>
+          <ul>
+            <li>Where this athlete fits across target programs</li>
+            <li>Position room reality at each school (depth, returnees, incoming)</li>
+            <li>Coach system + staff stability + developmental track record</li>
+            <li>Pre-conversation question packs tuned to each program</li>
+            <li>Honest scope on NIL and what&rsquo;s in the deal</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="wa-engine">
+        <div class="we-label">The architecture</div>
+        <div class="we-body">EDGE3 brings the right data sources together for each side, then <em>weighs incoming athletes against the outcomes each program actually needs</em>. One wallet at a time. Built for the decision, not the database.</div>
+      </div>
     </div>
   </section>
 

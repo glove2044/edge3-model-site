@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>EDGE3 — Truth Intelligence Loop</title>
+<title>EDGE3 - Truth Intelligence Loop</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -158,18 +158,40 @@
 
   .reset-btn { background: transparent; border: 1px solid var(--muted); color: var(--muted); border-radius: 6px; padding: 6px 12px; font-size: 12px; cursor: pointer; }
   .reset-btn:hover { border-color: var(--text); color: var(--text); }
+
+  /* EDGE3 brandbar + breadcrumb + footer chrome (added 2026-05-10 overnight) */
+  .edge3-brandbar { background: linear-gradient(135deg, #0A0F1C 0%, #0E1320 100%); border-bottom: 1px solid #1F2738; padding: 14px 28px; display: flex; align-items: center; justify-content: space-between; }
+  .edge3-logo-bb { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.03em; line-height: 1; display: inline-block; font-size: 22px; }
+  .edge3-edge-bb { color: #FFFFFF; }
+  .edge3-three-bb { color: #1AB874; }
+  .edge3-sport-tag { display: inline-block; background: rgba(59, 130, 246, 0.18); border: 1px solid rgba(59, 130, 246, 0.35); padding: 5px 12px; border-radius: 18px; font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: #C7D9FF; }
+  .edge3-sport-tag.bb { background: rgba(123, 31, 46, 0.85); border-color: rgba(255,255,255,0.18); color: #fff; }
+  .edge3-breadcrumb { background: #0E1320; border-bottom: 1px solid #1F2738; padding: 11px 28px; font-size: 13px; color: #8896AB; }
+  .edge3-breadcrumb a { color: #8896AB; text-decoration: none; }
+  .edge3-breadcrumb a:hover { color: #E8EDF5; }
+  .edge3-tim-footer { background: #0E1320; border-top: 1px solid #1F2738; padding: 16px 28px; font-size: 11px; color: #8896AB; text-align: center; }
+  @media (max-width: 700px) { .edge3-brandbar { padding: 12px 16px; } .edge3-breadcrumb { padding: 10px 16px; } }
 </style>
   <link rel="stylesheet" href="../../../_gate.css">
   <script src="../../../_gate.js" defer></script>
 </head>
 <body>
+<div class="edge3-brandbar">
+  <a href="../../../" style="text-decoration: none;"><span class="edge3-logo-bb"><span class="edge3-edge-bb">EDGE</span><span class="edge3-three-bb">3</span></span></a>
+  <span class="edge3-sport-tag ">Football &middot; Truth Intelligence Loop</span>
+</div>
+
+<div class="edge3-breadcrumb">
+  <a href="../../../">EDGE3</a> &rsaquo; <a href="../../../programs/">Programs</a> &rsaquo; <a href="../../../football/">Football</a> &rsaquo; Truth Intelligence Loop
+</div>
+
 
 <header>
   <div class="wrap">
     <a href="../../" style="text-decoration: none; display: inline-block; margin-bottom: 18px;"><span class="edge3-logo"><span class="edge3-edge">EDGE</span><span class="edge3-three">3</span></span></a>
     <h1>Truth Intelligence Loop</h1>
-    <p class="tag">Decision intelligence — not data. Watch what your coach sees, not what the model computes.</p>
-    <p class="sub">Pick a player, simulate the personalized HC-framed survey, toggle social listening signals on or off. The model re-scores live — but what you see is what the coach sees: <strong>what changed, what it means, what to do</strong>. AI complexity stays under the hood.</p>
+    <p class="tag">Decision intelligence - not data. Watch what your coach sees, not what the model computes.</p>
+    <p class="sub">Pick a player, simulate the personalized HC-framed survey, toggle social listening signals on or off. The model re-scores live - but what you see is what the coach sees: <strong>what changed, what it means, what to do</strong>. AI complexity stays under the hood.</p>
   </div>
 </header>
 
@@ -209,8 +231,8 @@
     <div class="hc-banner">
       <div class="hc-portrait">LF</div>
       <div class="hc-text">
-        <div class="hc-quote">"Hey Mabrey — Coach Fickell wants to learn more about you, your game, and how to help you reach your ceiling. These questions stay between you and the staff. Be honest — there are no wrong answers."</div>
-        <div class="hc-by">Personalized HC framing — automated by the program (Wisconsin's logo + voice + name). Focus groups confirmed athletes reveal more when they believe the head coach is asking. The QwikU integration adds a 5-8 second synthetic HC video intro per section, deepening the trust signal.</div>
+        <div class="hc-quote">"Hey Mabrey - Coach Fickell wants to learn more about you, your game, and how to help you reach your ceiling. These questions stay between you and the staff. Be honest - there are no wrong answers."</div>
+        <div class="hc-by">Personalized HC framing - automated by the program (Wisconsin's logo + voice + name). Focus groups confirmed athletes reveal more when they believe the head coach is asking. The QwikU integration adds a 5-8 second synthetic HC video intro per section, deepening the trust signal.</div>
       </div>
     </div>
   </div>
@@ -242,22 +264,22 @@
 
         <div class="feat-grid">
           <div class="feat">
-            <div class="feat-label">Satisfaction <span class="info">read<span class="tip"><strong>Satisfaction read</strong> — the player's read on their own fit, role, and development. Blends coachability, resilience, identity, and patience. 0.0 = unhappy, 1.0 = strong alignment. Drives the trajectory model.</span></span></div>
+            <div class="feat-label">Satisfaction <span class="info">read<span class="tip"><strong>Satisfaction read</strong> - the player's read on their own fit, role, and development. Blends coachability, resilience, identity, and patience. 0.0 = unhappy, 1.0 = strong alignment. Drives the trajectory model.</span></span></div>
             <div class="feat-value" id="feat-sat">0.50</div>
             <div class="feat-bar"><div class="feat-bar-fill" id="bar-sat" style="width: 50%"></div></div>
           </div>
           <div class="feat">
-            <div class="feat-label">Culture fit <span class="info">read<span class="tip"><strong>Culture fit</strong> — how well the player's values align with the program. Heavy external influence (agents, NIL collectives) pulls this down. 0.0 = mismatch, 1.0 = strong alignment.</span></span></div>
+            <div class="feat-label">Culture fit <span class="info">read<span class="tip"><strong>Culture fit</strong> - how well the player's values align with the program. Heavy external influence (agents, NIL collectives) pulls this down. 0.0 = mismatch, 1.0 = strong alignment.</span></span></div>
             <div class="feat-value" id="feat-fit">0.50</div>
             <div class="feat-bar"><div class="feat-bar-fill" id="bar-fit" style="width: 50%"></div></div>
           </div>
           <div class="feat">
-            <div class="feat-label">Authority <span class="info">friction<span class="tip"><strong>Authority friction</strong> — likelihood of conflict with coaching staff. Built from authority resistance, external influence, and coachability. 0.0 = clean, 1.0 = high friction risk.</span></span></div>
+            <div class="feat-label">Authority <span class="info">friction<span class="tip"><strong>Authority friction</strong> - likelihood of conflict with coaching staff. Built from authority resistance, external influence, and coachability. 0.0 = clean, 1.0 = high friction risk.</span></span></div>
             <div class="feat-value" id="feat-auth">0.50</div>
             <div class="feat-bar"><div class="feat-bar-fill" id="bar-auth" style="width: 50%"></div></div>
           </div>
           <div class="feat">
-            <div class="feat-label">External <span class="info">pressure<span class="tip"><strong>External pressure</strong> — pull from outside voices (NIL, agents, family). Predicts pressure-driven transfers. 0.0 = low, 1.0 = heavy outside pull.</span></span></div>
+            <div class="feat-label">External <span class="info">pressure<span class="tip"><strong>External pressure</strong> - pull from outside voices (NIL, agents, family). Predicts pressure-driven transfers. 0.0 = low, 1.0 = heavy outside pull.</span></span></div>
             <div class="feat-value" id="feat-ext">0.50</div>
             <div class="feat-bar"><div class="feat-bar-fill" id="bar-ext" style="width: 50%"></div></div>
           </div>
@@ -283,7 +305,7 @@
 
         <div class="recommended-action" id="recommended-action">
           <div class="ra-title">What the coach actually sees</div>
-          <div class="ra-text" id="ra-text">No new signals — staff continues current development plan. Pulse re-survey in 90 days.</div>
+          <div class="ra-text" id="ra-text">No new signals - staff continues current development plan. Pulse re-survey in 90 days.</div>
         </div>
       </div>
     </div>
@@ -328,6 +350,7 @@
   Demo player data: Mabrey Mettauer, Wisconsin QB, 2024 baseline (PFF). Trajectory v1 forward-looking 2025 prediction.
   · <a href="../../">Back to landing</a>
 </footer>
+<div class="edge3-tim-footer">Powered by Truth Intelligence Models.</div>
 
 <script>
 // 10 behavioral dimensions with default starting values (neutral 0.5)
@@ -344,15 +367,15 @@ const DIMENSIONS = [
   { key: 'distance_tolerance', name: 'Distance tolerance', desc: 'Comfort far from home' },
 ];
 
-// Social listening signals — coach-readable. No AI jargon.
+// Social listening signals - coach-readable. No AI jargon.
 const SOCIAL_SIGNALS = [
-  { key: 'rival_coach_follow', name: 'Rival coach started following him', desc: 'A coach at another program (assistant or HC) recently followed Mabrey publicly. Recruiting probe — usually shows up weeks before any public commitment language.', delta_external: 0.22, delta_culture: -0.10 },
+  { key: 'rival_coach_follow', name: 'Rival coach started following him', desc: 'A coach at another program (assistant or HC) recently followed Mabrey publicly. Recruiting probe - usually shows up weeks before any public commitment language.', delta_external: 0.22, delta_culture: -0.10 },
   { key: 'critic_engagement', name: 'Liking posts from a program critic', desc: 'Mabrey has liked 3+ posts in 14 days from a fan/media account that consistently criticizes the offense or staff decisions. Pattern, not single events.', delta_authority: 0.12, delta_satisfaction: -0.10 },
-  { key: 'search_velocity', name: 'Search interest spike on his name', desc: 'Google searches for "Mabrey Mettauer" jumped above his rolling baseline. Other staffs are doing their homework — the recruiting market around him is heating up.', delta_external: 0.15 },
+  { key: 'search_velocity', name: 'Search interest spike on his name', desc: 'Google searches for "Mabrey Mettauer" jumped above his rolling baseline. Other staffs are doing their homework - the recruiting market around him is heating up.', delta_external: 0.15 },
   { key: 'frustration_markers', name: 'Frustration markers (3+ in 30d)', desc: 'Cryptic posts about playing time, role, or staff decisions. Subtweet patterns. Tone shift from team-positive to team-neutral over the last 14 days.', delta_authority: 0.15, delta_satisfaction: -0.12 },
 ];
 
-// Default state — start at "neutral" 0.5 across all dimensions
+// Default state - start at "neutral" 0.5 across all dimensions
 const dimensionState = {};
 DIMENSIONS.forEach(d => dimensionState[d.key] = 0.5);
 const socialState = {};
@@ -538,24 +561,24 @@ function recompute() {
   }
   document.getElementById('traj-shift').innerHTML = shift_text;
 
-  // Update recommended action — coach-readable, decision intelligence framing
+  // Update recommended action - coach-readable, decision intelligence framing
   // Pattern: What changed → What it means → What to do
   let ra_text = '';
   if (signal === 'Red') {
     if (socialState.frustration_markers && socialState.rival_coach_follow) {
-      ra_text = `<strong>What changed:</strong> A rival coach started following Mabrey while Mabrey's posting frustration markers about playing time. <strong>What it means:</strong> Outside recruiting interest is heating up at the same time the player is showing public friction with the role. <strong>What to do:</strong> 15-minute check-in this week. Anchor on the route-tree conversation from the survey response — Mabrey told Coach Fickell scheme fit was the reason for choosing the program. Reaffirm the development plan before this drifts.`;
+      ra_text = `<strong>What changed:</strong> A rival coach started following Mabrey while Mabrey's posting frustration markers about playing time. <strong>What it means:</strong> Outside recruiting interest is heating up at the same time the player is showing public friction with the role. <strong>What to do:</strong> 15-minute check-in this week. Anchor on the route-tree conversation from the survey response - Mabrey told Coach Fickell scheme fit was the reason for choosing the program. Reaffirm the development plan before this drifts.`;
     } else if (socialState.search_velocity && socialState.critic_engagement) {
-      ra_text = `<strong>What changed:</strong> Search interest in Mabrey's name spiked while he's engaging with critics of the offense. <strong>What it means:</strong> Other programs are doing their homework on him while he's publicly questioning the system. <strong>What to do:</strong> HC sit-down this week. Don't lead with the social activity — lead with role and development. Address the offensive scheme conversation directly.`;
+      ra_text = `<strong>What changed:</strong> Search interest in Mabrey's name spiked while he's engaging with critics of the offense. <strong>What it means:</strong> Other programs are doing their homework on him while he's publicly questioning the system. <strong>What to do:</strong> HC sit-down this week. Don't lead with the social activity - lead with role and development. Address the offensive scheme conversation directly.`;
     } else if (features.auth > 0.7) {
       ra_text = `<strong>What changed:</strong> Authority resistance climbed sharply on the latest survey. <strong>What it means:</strong> Mabrey is showing patterns that lead to friction with coaching staff. <strong>What to do:</strong> Position coach runs a one-on-one before next practice. Frame as a development conversation, not a discipline conversation.`;
     } else if (features.ext > 0.7) {
-      ra_text = `<strong>What changed:</strong> External pressure signal jumped — agent or family pull. <strong>What it means:</strong> The decision-making chain around Mabrey is shifting outside the program. <strong>What to do:</strong> Director of Player Development engages the family this week. Re-anchor the conversation on the pro pipeline plan and Year-2 trajectory.`;
+      ra_text = `<strong>What changed:</strong> External pressure signal jumped - agent or family pull. <strong>What it means:</strong> The decision-making chain around Mabrey is shifting outside the program. <strong>What to do:</strong> Director of Player Development engages the family this week. Re-anchor the conversation on the pro pipeline plan and Year-2 trajectory.`;
     } else {
       ra_text = `<strong>What changed:</strong> Combined risk crossed Red threshold. <strong>What it means:</strong> Multiple signals are pointing the same direction. <strong>What to do:</strong> HC schedules a check-in within 7 days.`;
     }
   } else if (signal === 'Yellow') {
     if (socialState.rival_coach_follow || socialState.search_velocity) {
-      ra_text = `<strong>What changed:</strong> External recruiting interest is rising on the social signal. <strong>What it means:</strong> The market around Mabrey is heating up but the survey signals are still aligned. <strong>What to do:</strong> Position coach checks in within 14 days. Don't escalate yet — but get ahead of it.`;
+      ra_text = `<strong>What changed:</strong> External recruiting interest is rising on the social signal. <strong>What it means:</strong> The market around Mabrey is heating up but the survey signals are still aligned. <strong>What to do:</strong> Position coach checks in within 14 days. Don't escalate yet - but get ahead of it.`;
     } else {
       ra_text = `<strong>What changed:</strong> Mixed signals on the survey or social layer. <strong>What it means:</strong> Worth watching, not worth interrupting. <strong>What to do:</strong> Monthly position-coach check-in continues. Quarterly pulse on schedule.`;
     }

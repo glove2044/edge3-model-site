@@ -6,7 +6,7 @@
 
 ## Logo
 
-The wordmark is "EDGE3" — "EDGE" in white, "3" in brand green. Always rendered on a dark background.
+The wordmark is "EDGE3" - "EDGE" in white, "3" in brand green. Always rendered on a dark background.
 
 Pure CSS, no asset required:
 
@@ -86,9 +86,9 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "Hel
 
 ## Design language
 
-- **Modern dark-first** — headers, hero sections, and decision-grade panels (NFL validation, recommended action) use dark surface. Body content stays light for daytime readability.
-- **High contrast** — pure white on `#0A0F1C`, dark text on `#F7F9FC`.
-- **Subtle elevation** —
+- **Modern dark-first** - headers, hero sections, and decision-grade panels (NFL validation, recommended action) use dark surface. Body content stays light for daytime readability.
+- **High contrast** - pure white on `#0A0F1C`, dark text on `#F7F9FC`.
+- **Subtle elevation** -
   - Light cards: `box-shadow: 0 1px 3px rgba(0,0,0,0.04)`
   - Dark elevated panels: `box-shadow: 0 4px 16px rgba(0,0,0,0.25)`
 - **Border radius:** 10–14px for cards, 6–8px for buttons, 18–22px for pills/chips
@@ -102,14 +102,14 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "Hel
 
 ## Out of scope
 
-- **Athlete-facing Wallet product** — separate palette to differentiate athlete experience from coach/AD experience
-- **Use-case artifact school colors** — Wisconsin red on the Fickell scorecard, UNM crimson on the Olen comparison — stay because they ARE the school's identity, not EDGE3's
+- **Athlete-facing Wallet product** - separate palette to differentiate athlete experience from coach/AD experience
+- **Use-case artifact school colors** - Wisconsin red on the Fickell scorecard, UNM crimson on the Olen comparison - stay because they ARE the school's identity, not EDGE3's
 
 ---
 
 ## Enforcement
 
-Every enterprise EDGE3 surface references the `--brand-*` tokens above. Ad-hoc hex values that don't trace back to a token are a brand violation — flag and fix.
+Every enterprise EDGE3 surface references the `--brand-*` tokens above. Ad-hoc hex values that don't trace back to a token are a brand violation - flag and fix.
 
 Currently applied to:
 - `docs/index.html` (main landing)

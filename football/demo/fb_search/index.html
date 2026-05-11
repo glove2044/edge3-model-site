@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>EDGE3 — Player Search · Football</title>
+<title>EDGE3 - Player Search · Football</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -105,11 +105,33 @@
   @media (max-width: 480px) {
     .filter-grid { grid-template-columns: 1fr; }
   }
+
+  /* EDGE3 brandbar + breadcrumb + footer chrome (added 2026-05-10 overnight) */
+  .edge3-brandbar { background: linear-gradient(135deg, #0A0F1C 0%, #0E1320 100%); border-bottom: 1px solid #1F2738; padding: 14px 28px; display: flex; align-items: center; justify-content: space-between; }
+  .edge3-logo-bb { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.03em; line-height: 1; display: inline-block; font-size: 22px; }
+  .edge3-edge-bb { color: #FFFFFF; }
+  .edge3-three-bb { color: #1AB874; }
+  .edge3-sport-tag { display: inline-block; background: rgba(59, 130, 246, 0.18); border: 1px solid rgba(59, 130, 246, 0.35); padding: 5px 12px; border-radius: 18px; font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: #C7D9FF; }
+  .edge3-sport-tag.bb { background: rgba(123, 31, 46, 0.85); border-color: rgba(255,255,255,0.18); color: #fff; }
+  .edge3-breadcrumb { background: #0E1320; border-bottom: 1px solid #1F2738; padding: 11px 28px; font-size: 13px; color: #8896AB; }
+  .edge3-breadcrumb a { color: #8896AB; text-decoration: none; }
+  .edge3-breadcrumb a:hover { color: #E8EDF5; }
+  .edge3-tim-footer { background: #0E1320; border-top: 1px solid #1F2738; padding: 16px 28px; font-size: 11px; color: #8896AB; text-align: center; }
+  @media (max-width: 700px) { .edge3-brandbar { padding: 12px 16px; } .edge3-breadcrumb { padding: 10px 16px; } }
 </style>
   <link rel="stylesheet" href="../../../_gate.css">
   <script src="../../../_gate.js" defer></script>
 </head>
 <body>
+<div class="edge3-brandbar">
+  <a href="../../../" style="text-decoration: none;"><span class="edge3-logo-bb"><span class="edge3-edge-bb">EDGE</span><span class="edge3-three-bb">3</span></span></a>
+  <span class="edge3-sport-tag ">Football &middot; Player Search</span>
+</div>
+
+<div class="edge3-breadcrumb">
+  <a href="../../../">EDGE3</a> &rsaquo; <a href="../../../programs/">Programs</a> &rsaquo; <a href="../../../football/">Football</a> &rsaquo; Player Search
+</div>
+
 
 <header>
   <div class="wrap">
@@ -177,7 +199,7 @@
       <button class="preset" onclick="applyQbDevPreset()">Preset: developing QBs (Rising trajectory, low risk)</button>
       <button class="preset" onclick="applyDLPasher()">Preset: DL/EDGE pass-rushers (any signal)</button>
       <button onclick="resetFilters()">Reset</button>
-      <span style="margin-left: auto; color: var(--brand-muted); font-size: 12px; align-self: center;" id="result-count">— players</span>
+      <span style="margin-left: auto; color: var(--brand-muted); font-size: 12px; align-self: center;" id="result-count">- players</span>
     </div>
   </div>
 
@@ -203,13 +225,13 @@
 
   <div class="compare-panel">
     <h2>Side-by-side compare</h2>
-    <p class="lede">Up to 3 players. The model is the same — different inputs land at different signals.</p>
+    <p class="lede">Up to 3 players. The model is the same - different inputs land at different signals.</p>
     <div id="compare-content"></div>
   </div>
 
   <div class="method-block">
     <h3>How EDGE3 reads players the model has never seen</h3>
-    <p><strong>Returning college players</strong> have prior-year PFF grades. The trajectory model uses the player's prior-year overall grade + scheme context + room dynamics + behavioral signals to predict next-season improvement or decline. That's the model behind the table above. Validated on the 2024 forward holdout — the model never saw 2024 during training; AUC 0.770 on real 2024 outcomes.</p>
+    <p><strong>Returning college players</strong> have prior-year PFF grades. The trajectory model uses the player's prior-year overall grade + scheme context + room dynamics + behavioral signals to predict next-season improvement or decline. That's the model behind the table above. Validated on the 2024 forward holdout - the model never saw 2024 during training; AUC 0.770 on real 2024 outcomes.</p>
     <p><strong>HS recruits with no college stats yet</strong> use a different read: 247 composite + national rank, HS scheme experience (asked in the survey), position archetype matching against historical comparables, scheme-transition signal scoring how different the HS scheme is from the program's college scheme. Output is a development band, not a single trajectory score.</p>
     <p><strong>FCS, JUCO</strong> are on the Q3–Q4 2026 roadmap as PFF + CFBD pipelines extend coverage. Today's search is FBS-live; coverage expands as data lands.</p>
   </div>
@@ -221,6 +243,7 @@
   · <a href="../../">Back to EDGE3 Football</a>
   · <a href="../loop/">Truth Intelligence Loop</a>
 </footer>
+<div class="edge3-tim-footer">Powered by Truth Intelligence Models.</div>
 
 <script>
 let PLAYERS = [];
@@ -229,7 +252,7 @@ let compareList = [];
 let sortKey = 'sig';
 let sortDir = 'asc';
 
-// Tier priority — Green first, Yellow second, Red third
+// Tier priority - Green first, Yellow second, Red third
 function tierOrder(sig) {
   return {Green: 0, Yellow: 1, Red: 2}[sig] ?? 99;
 }
@@ -318,7 +341,7 @@ function renderCompare() {
   while (compareList.length < 3) compareList.push(null);
 
   function row(label, getter, fmt) {
-    const cells = compareList.map(p => p ? `<div class="cmp-val">${fmt ? fmt(getter(p)) : getter(p)}</div>` : `<div class="cmp-val"><div class="cmp-empty">—</div></div>`).join('');
+    const cells = compareList.map(p => p ? `<div class="cmp-val">${fmt ? fmt(getter(p)) : getter(p)}</div>` : `<div class="cmp-val"><div class="cmp-empty">-</div></div>`).join('');
     return `<div class="cmp-row"><div class="cmp-label">${label}</div>${cells}</div>`;
   }
 
@@ -331,7 +354,7 @@ function renderCompare() {
   html += row('Transfer Risk', p => p.risk, v => v.toFixed(3));
   html += row('Trajectory', p => `${p.traj > 0 ? '+' : ''}${p.traj.toFixed(3)} ${p.tier}`, x => x);
   html += row('Combined', p => p.combined, v => v.toFixed(3));
-  html += `<div class="cmp-row"><div class="cmp-label">R/Y/G Signal</div>${compareList.map(p => p ? `<div class="cmp-val"><span class="pill ${p.sig.toLowerCase()}">${p.sig}</span></div>` : `<div class="cmp-val">—</div>`).join('')}</div>`;
+  html += `<div class="cmp-row"><div class="cmp-label">R/Y/G Signal</div>${compareList.map(p => p ? `<div class="cmp-val"><span class="pill ${p.sig.toLowerCase()}">${p.sig}</span></div>` : `<div class="cmp-val">-</div>`).join('')}</div>`;
   html += `</div>`;
   container.innerHTML = html;
   compareList = compareList.filter(x => x);

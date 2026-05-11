@@ -1,4 +1,4 @@
-# EDGE3 — System Architecture
+# EDGE3 - System Architecture
 
 **For data engineers, AI/ML folks, AWS partners, and any technical reviewer.** This is the data-flow + model + integration map. Pair with [`TRAINING_METHODOLOGY.md`](TRAINING_METHODOLOGY.md) for the model refinement process.
 
@@ -126,7 +126,7 @@ edge3-model/
 - **AUC:** 0.718 (out-of-sample, time-aware)
 - **Training:** 2021–2024 player-seasons
 - **Features (~28):** `prev_overall`, recruiting (stars, composite, natl_rank), room dynamics (room_size, pos_share, room_vs_national, snap rank), opportunity (games_played_pct, snaps), program (win_pct, xfer_rate, coaching_change, coach_tenure, conference_change), demographics (distance_from_home, hometown income/population)
-- **Predictions:** `football_predictions_v8_2024.csv` — 7,329 rows, 2026 portal cycle outlook
+- **Predictions:** `football_predictions_v8_2024.csv` - 7,329 rows, 2026 portal cycle outlook
 - **Config:** `models/transfer-risk/data/transfer_risk_model_config_v8.json`
 
 #### FB Performance Trajectory v1 (refreshed 2026-04-26)
@@ -134,11 +134,11 @@ edge3-model/
 - **Architecture:** Predicts P(grade improves ≥ 5 points next season) + P(grade declines ≥ 5 points next season). Trajectory score = P(improving) − P(declining) ∈ [-1, +1]
 - **AUC:**
   - Replicated 2023 holdout: **0.805 / 0.806** (improving / declining)
-  - **NEW 2024 forward holdout: 0.770 / 0.781** — true forward-looking validation (2024 was unseen during training)
+  - **NEW 2024 forward holdout: 0.770 / 0.781** - true forward-looking validation (2024 was unseen during training)
 - **Training:** Now includes 2022, 2023, 2024 (17,356 rows; was 13,721)
 - **Predictions:**
-  - `football_performance_predictions_v1_2024.csv` — refreshed 7,485 rows
-  - `football_performance_predictions_v1_2025.csv` — **NEW** 7,486 rows forward-looking
+  - `football_performance_predictions_v1_2024.csv` - refreshed 7,485 rows
+  - `football_performance_predictions_v1_2025.csv` - **NEW** 7,486 rows forward-looking
 - **Script:** `models/transfer-risk/scripts/train_fb_trajectory_v1_refresh.py`
 
 #### FB Combined Risk/Fit
@@ -160,7 +160,7 @@ edge3-model/
 - **Target:** `0.6 * BPM_delta + 0.4 * PRPG_delta`; improving ≥ +0.5, declining ≤ −0.5
 - **AUC:** 0.733 / 0.739 (improving / declining)
 - **Features (40):** current performance (BPM, PRPG, USG, EFG, etc.), player context (class, position, height, intl, conf tier), coaching system, recruiting profile, performance trend
-- **Predictions:** `bball_performance_predictions_v1_2026.csv` — 4,979 rows, predicts 2026-27
+- **Predictions:** `bball_performance_predictions_v1_2026.csv` - 4,979 rows, predicts 2026-27
 
 #### BB Combined Risk/Fit
 - Same logic shape as FB; thresholds tuned tighter (0.55/0.35) because BB rosters are smaller per program
@@ -199,16 +199,16 @@ Entity resolution handles name variations across PFF, CFBD, 247 (~95% match rate
 
 The coach never sees raw model probabilities. The dashboard surfaces:
 
-1. **Combined R/Y/G** per player — Red/Yellow/Green dot
-2. **Trajectory tier** — Rising / Steady / Declining / No Baseline
-3. **Top three drivers** — what's pushing the signal
+1. **Combined R/Y/G** per player - Red/Yellow/Green dot
+2. **Trajectory tier** - Rising / Steady / Declining / No Baseline
+3. **Top three drivers** - what's pushing the signal
 4. **Verbatim quotes** from survey responses (with HC name preserved)
-5. **Recommended action** — coach-readable: *what changed, what it means, what to do*
+5. **Recommended action** - coach-readable: *what changed, what it means, what to do*
 
 This is delivered through:
-- **Static use-case artifacts** (Wisconsin Fickell scorecard, UNM Olen comparison) — examples
-- **Interactive Continuous Intelligence Loop demo** (`/demo/loop/`) — simulates live updates
-- **Future: authenticated Coach Suite microsites** — per-school dashboards (on roadmap)
+- **Static use-case artifacts** (Wisconsin Fickell scorecard, UNM Olen comparison) - examples
+- **Interactive Continuous Intelligence Loop demo** (`/demo/loop/`) - simulates live updates
+- **Future: authenticated Coach Suite microsites** - per-school dashboards (on roadmap)
 
 ---
 
@@ -235,11 +235,11 @@ Threshold-driven re-scoring: model output updates only when an input crosses a t
 - **Demo surface:** GitHub Pages (static HTML + vanilla JS for the loop simulator). No backend.
 
 ### What needs infrastructure (Phase 2)
-- **Authenticated Coach Suite microsites** (`demo.edge3.net/[program-slug]/`) — needs SSO + per-school config + audit trail
-- **Survey ingestion API** — to write athlete responses → feature columns → model re-score
-- **Social listening pipeline** — public-account monitoring service; sentiment scoring; threshold detection
-- **Model serving layer** — for real-time re-scoring on new inputs (currently batch CSV)
-- **Coach dashboard backend** — to surface what-changed / what-it-means / what-to-do continuously
+- **Authenticated Coach Suite microsites** (`demo.edge3.net/[program-slug]/`) - needs SSO + per-school config + audit trail
+- **Survey ingestion API** - to write athlete responses → feature columns → model re-score
+- **Social listening pipeline** - public-account monitoring service; sentiment scoring; threshold detection
+- **Model serving layer** - for real-time re-scoring on new inputs (currently batch CSV)
+- **Coach dashboard backend** - to surface what-changed / what-it-means / what-to-do continuously
 
 ### AWS-aligned reference architecture
 
@@ -310,9 +310,9 @@ Outputs:
 
 ## Companion docs
 
-- [`TRAINING_METHODOLOGY.md`](TRAINING_METHODOLOGY.md) — refinement process, validation standards, AUC reporting
-- [`INTELLIGENCE_LOOP.md`](INTELLIGENCE_LOOP.md) — agentic feedback loop architecture
-- [`SOCIAL_LISTENING.md`](SOCIAL_LISTENING.md) — always-on signal layer
-- [`NEXT_STEPS_ROADMAP.md`](NEXT_STEPS_ROADMAP.md) — what's next
-- [`BRAND.md`](BRAND.md) — visual identity for any new artifact built on this stack
-- `surveys/scoring_methodology.md` — survey response → feature column math
+- [`TRAINING_METHODOLOGY.md`](TRAINING_METHODOLOGY.md) - refinement process, validation standards, AUC reporting
+- [`INTELLIGENCE_LOOP.md`](INTELLIGENCE_LOOP.md) - agentic feedback loop architecture
+- [`SOCIAL_LISTENING.md`](SOCIAL_LISTENING.md) - always-on signal layer
+- [`NEXT_STEPS_ROADMAP.md`](NEXT_STEPS_ROADMAP.md) - what's next
+- [`BRAND.md`](BRAND.md) - visual identity for any new artifact built on this stack
+- `surveys/scoring_methodology.md` - survey response → feature column math
