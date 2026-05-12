@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
 <style>
   :root {
     /* EDGE3 brand tokens (canonical - see docs/BRAND.md) */
@@ -40,7 +41,37 @@
   .edge3-logo { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.03em; line-height: 1; display: inline-block; }
   .edge3-edge { color: var(--brand-white); }
   .edge3-three { color: var(--brand-green); }
-  header { background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-dark-2) 100%); color: var(--brand-text); padding: 48px 24px 44px; }
+  /* Hero: basketball arena photo with brand-color overlay for readability */
+  header {
+    background:
+      linear-gradient(135deg, rgba(10,15,28,0.80) 0%, rgba(14,19,32,0.66) 60%, rgba(10,15,28,0.86) 100%),
+      url('../assets/photos/arena-hero.jpg') center 45%/cover no-repeat,
+      var(--brand-dark);
+    color: var(--brand-text);
+    padding: 80px 24px 72px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 50% 35% at 85% 25%, rgba(26,184,116,0.16), transparent 65%),
+      radial-gradient(ellipse 45% 30% at 15% 75%, rgba(59,130,246,0.14), transparent 65%);
+    pointer-events: none;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(180deg, transparent 0%, var(--brand-dark) 100%);
+    pointer-events: none;
+  }
+  header > * { position: relative; z-index: 1; }
   .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
   header .wrap { padding: 0 24px; }
   header .logo-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
@@ -162,6 +193,12 @@
 
   footer { text-align: center; padding: 28px 16px; color: var(--muted); font-size: 12.5px; border-top: 1px solid var(--rule); margin-top: 40px; }
   footer a { color: var(--navy); text-decoration: none; }
+
+  /* Partner strip */
+  .partners-bb { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 12px; padding: 20px 28px; display: flex; align-items: center; justify-content: center; gap: 28px; flex-wrap: wrap; margin-top: 28px; }
+  .partners-bb .p-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: var(--brand-muted); margin-right: 8px; }
+  .partners-bb .p-logo { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.02em; color: var(--brand-white); opacity: 0.9; }
+  .partners-bb .p-logo.ibm { font-size: 28px; letter-spacing: -0.06em; }
 
   /* TOOLTIPS - coach-readable definitions for technical terms */
   .info { position: relative; cursor: pointer; border-bottom: 1px dotted var(--brand-blue); }
@@ -569,6 +606,34 @@
 
 
     <!-- How we test the models - moved directly under the interactive board -->
+    <h2 class="section-heading">Under the hood.</h2>
+    <p class="section-heading-sub">Powered by TIM. Truth Intelligence Models v1. Three model families. One signal in three colors.</p>
+    <div style="background: linear-gradient(135deg, #0E1320 0%, #161D2D 100%); border-radius: 14px; padding: 28px; margin-bottom: 28px; color: #E8EDF5; position: relative; overflow: hidden;">
+      <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--brand-blue);"></div>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 18px;" class="tim-fam-grid-bb">
+        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10); border-radius: 10px; padding: 14px 16px;">
+          <div style="font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--brand-blue); margin-bottom: 6px;">Trajectory</div>
+          <div style="font-size: 14px; color: #C7D3E6; line-height: 1.45;">Where is this athlete heading?</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10); border-radius: 10px; padding: 14px 16px;">
+          <div style="font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--brand-blue); margin-bottom: 6px;">Retention</div>
+          <div style="font-size: 14px; color: #C7D3E6; line-height: 1.45;">How likely is this athlete to stay?</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10); border-radius: 10px; padding: 14px 16px;">
+          <div style="font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--brand-blue); margin-bottom: 6px;">Baselines</div>
+          <div style="font-size: 14px; color: #C7D3E6; line-height: 1.45;">What does each level look like, by position and age band?</div>
+        </div>
+      </div>
+      <div style="text-align: center; color: var(--brand-blue); font-size: 20px; font-weight: 800; margin: 4px 0 10px;">&darr;</div>
+      <div style="background: rgba(0,0,0,0.30); border: 1px solid rgba(255,255,255,0.10); border-radius: 10px; padding: 14px 18px; margin-bottom: 14px;">
+        <div style="display: flex; align-items: center; gap: 12px; padding: 5px 0; font-size: 14px;"><span style="width: 12px; height: 12px; border-radius: 50%; background: #1AB874;"></span><span><strong style="color: #fff; font-weight: 700; min-width: 64px; display: inline-block;">Green.</strong> On track. Retain priority.</span></div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 5px 0; font-size: 14px;"><span style="width: 12px; height: 12px; border-radius: 50%; background: #E8B339;"></span><span><strong style="color: #fff; font-weight: 700; min-width: 64px; display: inline-block;">Yellow.</strong> Mixed signals. Have the conversation.</span></div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 5px 0; font-size: 14px;"><span style="width: 12px; height: 12px; border-radius: 50%; background: #D33F49;"></span><span><strong style="color: #fff; font-weight: 700; min-width: 64px; display: inline-block;">Red.</strong> Portal flag or development gap. Evaluate now.</span></div>
+      </div>
+      <div style="font-size: 14px; line-height: 1.45; color: #C7D9FF; font-style: italic; font-weight: 600; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.10);">The math is the engine. The R/Y/G is the answer.</div>
+    </div>
+    <style>@media (max-width: 760px) { .tim-fam-grid-bb { grid-template-columns: 1fr !important; } }</style>
+
     <h2 class="section-heading">How we evaluate every recruit.</h2>
     <p class="section-heading-sub">Three questions on every recruit. EDGE3 puts all three in one read.</p>
     <div class="three-q-grid-bb" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 36px;">
@@ -778,8 +843,19 @@
     <p style="color: var(--muted); font-size: 13px; margin-top: 28px; text-align: center;">
       Looking for the football version? <a href="../football/" style="color: var(--navy);">EDGE3 Football</a> &rarr;
     </p>
+
+    <!-- ===== Partner strip ===== -->
+    <div class="partners-bb" data-aos="fade-up">
+      <span class="p-label">Trusted by</span>
+      <span class="p-logo ibm">IBM</span>
+    </div>
   </div>
 </main>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  if (window.AOS) { AOS.init({ duration: 700, once: true, easing: 'ease-out', offset: 60 }); }
+</script>
 
 <footer>
   <p>EDGE3 Basketball &middot; <a href="../">EDGE3 home</a> &middot; <a href="https://github.com/glove2044/edge3-model">github.com/glove2044/edge3-model</a></p>

@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
 <style>
   :root {
     --brand-dark:    #0A0F1C;
@@ -297,6 +298,43 @@
   .beta-card .bc-title { font-weight: 700; color: var(--brand-white); font-size: 14.5px; margin-bottom: 6px; }
   .beta-card p { font-size: 13px; line-height: 1.55; color: #C7D3E6; margin: 0; }
 
+  /* Trusted voices photo strip (Colorado + BJ CBS) */
+  .voices { background: linear-gradient(135deg, var(--brand-dark-2) 0%, var(--brand-dark-3) 100%); border: 1px solid var(--brand-line); border-radius: 16px; padding: 36px 38px 32px; position: relative; }
+  .voices::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--brand-green); border-radius: 16px 16px 0 0; }
+  .voices .v-eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: var(--brand-green); margin-bottom: 12px; }
+  .voices h2 { margin: 0 0 8px; font-size: 26px; font-weight: 800; letter-spacing: -0.015em; color: var(--brand-white); }
+  .voices p.v-sub { margin: 0 0 24px; font-size: 15px; line-height: 1.6; color: #C7D3E6; max-width: 760px; }
+  .voices-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 760px) { .voices-grid { grid-template-columns: 1fr; } }
+  .voice-tile { background: var(--brand-dark); border: 1px solid var(--brand-line); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+  .voice-tile img { display: block; width: 100%; height: 240px; object-fit: cover; }
+  .voice-tile .vt-body { padding: 16px 18px 18px; }
+  .voice-tile .vt-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: var(--brand-green); margin-bottom: 6px; }
+  .voice-tile h3 { margin: 0 0 6px; font-size: 16px; font-weight: 700; color: var(--brand-white); letter-spacing: -0.01em; }
+  .voice-tile p { font-size: 13.5px; line-height: 1.5; color: #C7D3E6; margin: 0; }
+  @media (max-width: 600px) { .voices { padding: 28px 22px; } .voices h2 { font-size: 22px; } .voice-tile img { height: 200px; } }
+
+  /* Partner strip */
+  .partners-ath { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 12px; padding: 20px 28px; display: flex; align-items: center; justify-content: center; gap: 28px; flex-wrap: wrap; margin: 28px 0 0; }
+  .partners-ath .p-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: var(--brand-muted); margin-right: 8px; }
+  .partners-ath .p-logo { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.02em; color: var(--brand-white); opacity: 0.9; }
+  .partners-ath .p-logo.ibm { font-size: 28px; letter-spacing: -0.06em; }
+  @media (max-width: 540px) { .partners-ath { padding: 16px 18px; } .partners-ath .p-logo.ibm { font-size: 22px; } }
+
+  /* Family testimonial video block */
+  .testimonial { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 16px; padding: 36px 38px; position: relative; }
+  .testimonial::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--yellow); border-radius: 16px 16px 0 0; }
+  .testimonial .t-eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: var(--yellow); margin-bottom: 12px; }
+  .testimonial h2 { margin: 0 0 8px; font-size: 26px; font-weight: 800; letter-spacing: -0.015em; color: var(--brand-white); }
+  .testimonial p.t-sub { margin: 0 0 24px; font-size: 15px; line-height: 1.6; color: #C7D3E6; max-width: 760px; }
+  .testimonial-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: center; }
+  @media (max-width: 760px) { .testimonial-grid { grid-template-columns: 1fr; } }
+  .testimonial video { display: block; width: 100%; border-radius: 10px; background: var(--brand-dark); border: 1px solid var(--brand-line); }
+  .testimonial .t-quote { font-size: 17px; line-height: 1.55; color: var(--brand-white); font-style: italic; font-weight: 600; letter-spacing: -0.005em; margin: 0 0 14px; }
+  .testimonial .t-attrib { font-size: 13px; color: var(--brand-muted); font-style: normal; }
+  .testimonial .t-attrib strong { color: var(--brand-text); font-weight: 700; }
+  @media (max-width: 600px) { .testimonial { padding: 28px 22px; } .testimonial h2 { font-size: 22px; } .testimonial .t-quote { font-size: 15.5px; } }
+
   /* CTA back to home */
   .footer-cta { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; padding: 24px 0 0; }
   .footer-cta a { padding: 11px 20px; border-radius: 8px; font-weight: 700; font-size: 14px; }
@@ -394,6 +432,34 @@
     </div>
   </section>
 
+  <!-- ===== Trusted voices (Colorado + BJ on CBS) ===== -->
+  <section data-aos="fade-up">
+    <div class="voices">
+      <div class="v-eyebrow">Who is in the room</div>
+      <h2>The voices already in the rooms families need to reach.</h2>
+      <p class="v-sub">EDGE3 was built by founders who sit inside college football and the broader sports world every week. The same voices that families want guidance from are the ones shaping how EDGE3 evaluates fit, opportunity, and long term value.</p>
+
+      <div class="voices-grid">
+        <div class="voice-tile">
+          <img src="../assets/photos/brian-jones-cbs.jpg" alt="Brian Jones on CBS Inside College Football">
+          <div class="vt-body">
+            <div class="vt-tag">CBS Inside College Football</div>
+            <h3>Brian Jones</h3>
+            <p>EDGE3 founder. On college football TV every Saturday. Decades inside locker rooms, meeting rooms, and the studio.</p>
+          </div>
+        </div>
+        <div class="voice-tile">
+          <img src="../assets/photos/edge3-colorado.jpg" alt="Kenyon Rasheed, Brian Jones, Warren Sapp, and Deion Sanders at Colorado">
+          <div class="vt-body">
+            <div class="vt-tag">On campus &middot; Colorado</div>
+            <h3>EDGE3 founders with Coach Prime</h3>
+            <p>Kenyon Rasheed, Brian Jones, and Warren Sapp on campus at Colorado with Deion Sanders. The network that makes EDGE3 different.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 
   <!-- ===== Wallet examples ===== -->
   <section>
@@ -427,6 +493,26 @@
       </div>
 
       <p style="font-size: 12.5px; color: var(--brand-muted); margin-top: 22px; padding-top: 18px; border-top: 1px dashed var(--brand-line); font-style: italic;">Sample previews show wallet structure. Full wallets are walked through in guided demos. In today&rsquo;s media-rich AI world, EDGE3 helps you control your recruiting and NIL narrative digitally.</p>
+    </div>
+  </section>
+
+  <!-- ===== Family testimonial: Jake Kyman ===== -->
+  <section data-aos="fade-up">
+    <div class="testimonial">
+      <div class="t-eyebrow">A family who used it</div>
+      <h2>What it sounds like from the family side.</h2>
+      <p class="t-sub">Jake Kyman went through high school recruiting, then the college transfer portal. Hear what working through it with EDGE3 looked like in practice.</p>
+
+      <div class="testimonial-grid">
+        <video controls preload="metadata" poster="../assets/videos/jake-kyman-poster.jpg">
+          <source src="../assets/videos/jake-kyman-testimonial.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div>
+          <p class="t-quote">EDGE3 gave our family the information we needed to make the right call. It is not just data. It is what families actually need to hear.</p>
+          <div class="t-attrib"><strong>Jake Kyman</strong> &middot; College basketball player and EDGE3 family</div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -506,6 +592,12 @@
     </div>
   </section>
 
+  <!-- ===== Partner strip ===== -->
+  <div class="partners-ath">
+    <span class="p-label">Trusted by</span>
+    <span class="p-logo ibm">IBM</span>
+  </div>
+
   <div class="footer-cta" style="margin-top: 28px;">
     <a class="ghost" href="../">Back to EDGE3 home &rarr;</a>
     <a class="ghost" href="../INTELLIGENCE_LOOP.html">How the loop works</a>
@@ -522,6 +614,11 @@
     <div><a href="../">Home</a> &middot; <a href="../football/">Football</a> &middot; <a href="../basketball/">Basketball</a> &middot; <a href="https://github.com/glove2044/edge3-model">github.com/glove2044/edge3-model</a></div>
   </div>
 </footer>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  if (window.AOS) { AOS.init({ duration: 700, once: true, easing: 'ease-out', offset: 60 }); }
+</script>
 
 </body>
 </html>

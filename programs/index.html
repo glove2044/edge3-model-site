@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
 <style>
   :root {
     --brand-dark:    #0A0F1C;
@@ -87,6 +88,26 @@
   .staff-msg p { margin: 0; font-size: 14.5px; line-height: 1.55; color: #C7D3E6; max-width: 800px; }
   @media (max-width: 600px) { .staff-msg { padding: 20px 22px; } .staff-msg h2 { font-size: 19px; } }
 
+  /* IBM partnership panel */
+  .ibm-panel { background: linear-gradient(135deg, var(--brand-dark-2) 0%, var(--brand-dark-3) 100%); border: 1px solid var(--brand-line); border-radius: 14px; padding: 30px 32px; position: relative; }
+  .ibm-panel::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--brand-blue); border-radius: 14px 14px 0 0; }
+  .ibm-panel .ip-eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: var(--brand-blue); margin-bottom: 10px; }
+  .ibm-panel h2 { margin: 0 0 12px; font-size: 22px; font-weight: 800; letter-spacing: -0.015em; color: var(--brand-white); }
+  .ibm-panel-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 26px; align-items: center; }
+  @media (max-width: 760px) { .ibm-panel-grid { grid-template-columns: 1fr; } }
+  .ibm-panel img { display: block; width: 100%; border-radius: 10px; border: 1px solid var(--brand-line); }
+  .ibm-panel p { margin: 0 0 12px; font-size: 14.5px; line-height: 1.6; color: #C7D3E6; }
+  .ibm-panel p:last-child { margin-bottom: 0; }
+  .ibm-panel .ip-sticker { font-size: 13.5px; line-height: 1.5; color: #C7D9FF; font-style: italic; font-weight: 600; padding-top: 14px; border-top: 1px solid var(--brand-line); margin-top: 14px; }
+  @media (max-width: 600px) { .ibm-panel { padding: 22px 20px; } .ibm-panel h2 { font-size: 19px; } }
+
+  /* Partner strip */
+  .partners { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 12px; padding: 20px 28px; display: flex; align-items: center; justify-content: center; gap: 28px; flex-wrap: wrap; }
+  .partners .p-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: var(--brand-muted); margin-right: 8px; }
+  .partners .p-logo { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.02em; color: var(--brand-white); opacity: 0.9; }
+  .partners .p-logo.ibm { font-size: 28px; letter-spacing: -0.06em; }
+  @media (max-width: 540px) { .partners { padding: 16px 18px; } .partners .p-logo.ibm { font-size: 22px; } }
+
   footer { border-top: 1px solid var(--brand-line); padding: 28px 24px 36px; margin-top: 24px; }
   footer .wrap { max-width: 1180px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; font-size: 12.5px; color: var(--brand-muted); }
   footer .wrap a { color: var(--brand-text); text-decoration: none; }
@@ -115,7 +136,6 @@
     <p class="lede">What you need is a faster way to see who actually fits your program.</p>
     <p class="lede" style="margin-top: 14px;">EDGE3 helps your staff evaluate athletes the way great staffs already think. Scheme fit. Roster fit. Development trajectory. Transfer risk. Long term value.</p>
     <p class="lede" style="margin-top: 14px; color: var(--brand-white); font-weight: 600;">Walk into staff meetings with clearer answers and one recruiting read per athlete.</p>
-    <p class="lede" style="margin-top: 14px; color: var(--brand-green); font-weight: 600;">Choose your sport to enter the team room.</p>
   </div>
 </header>
 
@@ -171,7 +191,36 @@
     </div>
   </section>
 
+  <!-- ===== IBM panel ===== -->
+  <section data-aos="fade-up">
+    <div class="ibm-panel">
+      <div class="ip-eyebrow">Partnership</div>
+      <h2>EDGE3 on stage at IBM THINK.</h2>
+      <div class="ibm-panel-grid">
+        <img src="../assets/photos/kenyon-ibm-think.jpg" alt="Kenyon Rasheed presenting EDGE3 on stage at IBM THINK" loading="lazy">
+        <div>
+          <p>EDGE3 has been featured by IBM at IBM THINK, the company&rsquo;s flagship technology event, where Kenyon presented how AI-driven athlete intelligence is reshaping college recruiting.</p>
+          <p>EDGE3 also partners with IBM Watsonx on the data and AI infrastructure that powers the platform.</p>
+          <div class="ip-sticker">Enterprise grade AI. Built for the recruiting room.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Partner strip ===== -->
+  <section data-aos="fade-up">
+    <div class="partners">
+      <span class="p-label">Trusted by</span>
+      <span class="p-logo ibm">IBM</span>
+    </div>
+  </section>
+
 </main>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  if (window.AOS) { AOS.init({ duration: 700, once: true, easing: 'ease-out', offset: 60 }); }
+</script>
 
 <footer>
   <div class="wrap">

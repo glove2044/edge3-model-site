@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
 <style>
   :root {
     /* EDGE3 brand tokens (canonical - see docs/BRAND.md) */
@@ -41,7 +42,37 @@
   .edge3-logo { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.03em; line-height: 1; display: inline-block; }
   .edge3-edge { color: var(--brand-white); }
   .edge3-three { color: var(--brand-green); }
-  header { background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-dark-2) 100%); color: var(--brand-text); padding: 48px 24px 44px; }
+  /* Hero: football + AI decision-intelligence photo with brand-color overlay */
+  header {
+    background:
+      linear-gradient(135deg, rgba(10,15,28,0.82) 0%, rgba(14,19,32,0.68) 60%, rgba(10,15,28,0.88) 100%),
+      url('../assets/photos/football-ai-hero.jpg') center 45%/cover no-repeat,
+      var(--brand-dark);
+    color: var(--brand-text);
+    padding: 80px 24px 72px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 50% 35% at 85% 25%, rgba(26,184,116,0.16), transparent 65%),
+      radial-gradient(ellipse 45% 30% at 15% 75%, rgba(59,130,246,0.14), transparent 65%);
+    pointer-events: none;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(180deg, transparent 0%, var(--brand-dark) 100%);
+    pointer-events: none;
+  }
+  header > * { position: relative; z-index: 1; }
   .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
   header .wrap { padding: 0 24px; }
   header .logo-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
@@ -219,6 +250,23 @@
   .hw-callout { background: linear-gradient(135deg, rgba(26,184,116,0.10), rgba(59,130,246,0.06)); border: 1px solid rgba(26,184,116,0.30); border-radius: 10px; padding: 16px 18px; }
   .hw-callout-label { font-size: 10.5px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--brand-green); font-weight: 700; margin-bottom: 6px; }
   .hw-callout-text { font-size: 13.5px; line-height: 1.55; color: #C7D3E6; }
+
+  /* In-the-room voice panel (BJ on CBS) */
+  .voice-panel { background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy-dark) 100%); color: #fff; border-radius: 14px; padding: 28px 30px; margin-top: 22px; position: relative; overflow: hidden; }
+  .voice-panel .vp-eyebrow { color: #C7D3E6; font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; margin-bottom: 8px; }
+  .voice-panel h2 { color: #fff; margin: 0 0 8px; font-size: 22px; letter-spacing: -0.015em; }
+  .voice-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; align-items: center; margin-top: 12px; }
+  @media (max-width: 760px) { .voice-grid { grid-template-columns: 1fr; } }
+  .voice-grid img { display: block; width: 100%; border-radius: 10px; border: 1px solid rgba(255,255,255,0.10); }
+  .voice-grid p { color: #C7D3E6; font-size: 14.5px; line-height: 1.6; margin: 0 0 12px; }
+  .voice-grid .vp-sticker { color: #C7D9FF; font-size: 14px; font-style: italic; font-weight: 600; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.10); }
+  @media (max-width: 600px) { .voice-panel { padding: 22px 20px; } .voice-panel h2 { font-size: 19px; } }
+
+  /* Partner strip */
+  .partners-fb { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 12px; padding: 20px 28px; display: flex; align-items: center; justify-content: center; gap: 28px; flex-wrap: wrap; margin-top: 28px; }
+  .partners-fb .p-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: var(--brand-muted); margin-right: 8px; }
+  .partners-fb .p-logo { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.02em; color: var(--brand-white); opacity: 0.9; }
+  .partners-fb .p-logo.ibm { font-size: 28px; letter-spacing: -0.06em; }
 
   /* Meeting questions panel */
   .questions-panel { background: linear-gradient(135deg, #F4F7FB 0%, #EAF0F7 100%); border: 1px solid var(--rule); border-radius: 14px; padding: 26px 28px; margin-top: 26px; }
@@ -587,6 +635,48 @@
       </div>
     </div>
 
+    <!-- ===== Brian Jones voice panel ===== -->
+    <div class="voice-panel" data-aos="fade-up">
+      <div class="vp-eyebrow">In the room every Saturday</div>
+      <h2>The college football voice at the EDGE3 table.</h2>
+      <div class="voice-grid">
+        <img src="../assets/photos/brian-jones-cbs.jpg" alt="Brian Jones on CBS Inside College Football" loading="lazy">
+        <div>
+          <p>Brian Jones, EDGE3 founder, breaks down college football every Saturday on CBS Inside College Football. He has spent decades inside the meeting rooms, the locker rooms, and the studio. He knows how staffs evaluate, and how players develop.</p>
+          <p>That voice is built into how EDGE3 evaluates every recruit.</p>
+          <div class="vp-sticker">25 years inside college football. Now in the model.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-heading">Under the hood.</h2>
+    <p class="section-heading-sub">Powered by TIM. Truth Intelligence Models v1. Three model families. One signal in three colors.</p>
+    <div style="background: linear-gradient(135deg, #0E1320 0%, #161D2D 100%); border-radius: 14px; padding: 28px; margin-bottom: 28px; color: #E8EDF5; position: relative; overflow: hidden;">
+      <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--brand-blue);"></div>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 18px;" class="tim-fam-grid">
+        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10); border-radius: 10px; padding: 14px 16px;">
+          <div style="font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--brand-blue); margin-bottom: 6px;">Trajectory</div>
+          <div style="font-size: 14px; color: #C7D3E6; line-height: 1.45;">Where is this athlete heading?</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10); border-radius: 10px; padding: 14px 16px;">
+          <div style="font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--brand-blue); margin-bottom: 6px;">Retention</div>
+          <div style="font-size: 14px; color: #C7D3E6; line-height: 1.45;">How likely is this athlete to stay?</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10); border-radius: 10px; padding: 14px 16px;">
+          <div style="font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--brand-blue); margin-bottom: 6px;">Baselines</div>
+          <div style="font-size: 14px; color: #C7D3E6; line-height: 1.45;">What does each level look like, by position and age band?</div>
+        </div>
+      </div>
+      <div style="text-align: center; color: var(--brand-blue); font-size: 20px; font-weight: 800; margin: 4px 0 10px;">&darr;</div>
+      <div style="background: rgba(0,0,0,0.30); border: 1px solid rgba(255,255,255,0.10); border-radius: 10px; padding: 14px 18px; margin-bottom: 14px;">
+        <div style="display: flex; align-items: center; gap: 12px; padding: 5px 0; font-size: 14px;"><span style="width: 12px; height: 12px; border-radius: 50%; background: #1AB874;"></span><span><strong style="color: #fff; font-weight: 700; min-width: 64px; display: inline-block;">Green.</strong> On track. Retain priority.</span></div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 5px 0; font-size: 14px;"><span style="width: 12px; height: 12px; border-radius: 50%; background: #E8B339;"></span><span><strong style="color: #fff; font-weight: 700; min-width: 64px; display: inline-block;">Yellow.</strong> Mixed signals. Have the conversation.</span></div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 5px 0; font-size: 14px;"><span style="width: 12px; height: 12px; border-radius: 50%; background: #D33F49;"></span><span><strong style="color: #fff; font-weight: 700; min-width: 64px; display: inline-block;">Red.</strong> Portal flag or development gap. Evaluate now.</span></div>
+      </div>
+      <div style="font-size: 14px; line-height: 1.45; color: #C7D9FF; font-style: italic; font-weight: 600; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.10);">The math is the engine. The R/Y/G is the answer.</div>
+    </div>
+    <style>@media (max-width: 760px) { .tim-fam-grid { grid-template-columns: 1fr !important; } }</style>
+
     <h2 class="section-heading">How we evaluate every recruit.</h2>
     <p class="section-heading-sub">Three questions on every recruit. EDGE3 puts all three in one read.</p>
     <div class="three-q-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 36px;">
@@ -694,8 +784,19 @@
     <p style="color: var(--muted); font-size: 13px; margin-top: 28px; text-align: center;">
       Looking for the basketball version? <a href="../basketball/" style="color: var(--navy);">EDGE3 Basketball</a> &rarr;
     </p>
+
+    <!-- ===== Partner strip ===== -->
+    <div class="partners-fb" data-aos="fade-up">
+      <span class="p-label">Trusted by</span>
+      <span class="p-logo ibm">IBM</span>
+    </div>
   </div>
 </main>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  if (window.AOS) { AOS.init({ duration: 700, once: true, easing: 'ease-out', offset: 60 }); }
+</script>
 
 <footer>
   <p>EDGE3 Football &middot; <a href="../">EDGE3 home</a> &middot; <a href="https://github.com/glove2044/edge3-model">github.com/glove2044/edge3-model</a></p>
