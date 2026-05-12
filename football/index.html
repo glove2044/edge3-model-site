@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
   :root {
     /* EDGE3 brand tokens (canonical - see docs/BRAND.md) */
@@ -701,21 +702,19 @@
     <h2 class="section-heading">How we earn the model&rsquo;s trust.</h2>
     <p class="section-heading-sub">We hide past seasons from the model. We ask it to predict them. We compare against what actually happened. Live, the agents update weekly on game data and social signals. Honest math. Current read.</p>
 
-    <div class="trust-grid-fb" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 8px;">
-      <div style="background: linear-gradient(135deg, #0E1320 0%, #161D2D 100%); border-radius: 14px; padding: 26px 28px; position: relative; overflow: hidden; box-shadow: 0 8px 24px -8px rgba(10,15,28,0.18);">
-        <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--brand-green);"></div>
-        <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--brand-green); font-weight: 700; margin-bottom: 12px;">Roster Retention Risk</div>
-        <div style="font-size: 44px; font-weight: 800; color: #fff; letter-spacing: -0.02em; line-height: 1;">72%</div>
-        <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 1.2px; color: #8FA0BC; font-weight: 600; margin-top: 4px;">accuracy on past portal cycles</div>
-        <div style="font-size: 13.5px; color: #C7D3E6; margin-top: 14px; line-height: 1.5;">We compared who actually entered the portal against who stayed. The model meaningfully out-predicted chance on data it never saw during training.</div>
+    <div class="trust-chart-fb" style="background: linear-gradient(135deg, #0E1320 0%, #161D2D 100%); border-radius: 14px; padding: 28px 30px; position: relative; overflow: hidden; box-shadow: 0 8px 24px -8px rgba(10,15,28,0.18);">
+      <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--brand-green);"></div>
+      <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--brand-green); font-weight: 700; margin-bottom: 6px;">Model accuracy vs. chance</div>
+      <div style="font-size: 18px; font-weight: 800; color: #fff; letter-spacing: -0.01em; margin-bottom: 4px;">Honest math. Real outcomes.</div>
+      <div style="font-size: 13px; color: #8FA0BC; margin-bottom: 18px;">50% is a coin flip. Anything higher means the model out-predicts guessing on data it never saw during training.</div>
+      <div style="position: relative; height: 240px;">
+        <canvas id="fbTrustChart"></canvas>
       </div>
-      <div style="background: linear-gradient(135deg, #0E1320 0%, #161D2D 100%); border-radius: 14px; padding: 26px 28px; position: relative; overflow: hidden; box-shadow: 0 8px 24px -8px rgba(10,15,28,0.18);">
-        <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--brand-green);"></div>
-        <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--brand-green); font-weight: 700; margin-bottom: 12px;">Performance Trajectory</div>
-        <div style="font-size: 44px; font-weight: 800; color: #fff; letter-spacing: -0.02em; line-height: 1;">77%</div>
-        <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 1.2px; color: #8FA0BC; font-weight: 600; margin-top: 4px;">accuracy on the 2024 season</div>
-        <div style="font-size: 13.5px; color: #C7D3E6; margin-top: 14px; line-height: 1.5;">The model never saw 2024 during training. We let it predict the season, then graded it against what actually happened.</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 22px;" class="trust-context-fb">
+        <div style="font-size: 12.5px; color: #C7D3E6; line-height: 1.5;"><strong style="color: #fff;">Roster Retention Risk &middot; 72%.</strong> We compared who actually entered the portal against who stayed. Tested on data the model never saw during training.</div>
+        <div style="font-size: 12.5px; color: #C7D3E6; line-height: 1.5;"><strong style="color: #fff;">Performance Trajectory &middot; 77%.</strong> The model never saw 2024 during training. We let it predict the season, then graded it against what actually happened.</div>
       </div>
+      <style>@media (max-width: 600px) { .trust-context-fb { grid-template-columns: 1fr !important; } }</style>
     </div>
 
     <div class="trust-stats-fb" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 16px;">
@@ -796,6 +795,75 @@
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
   if (window.AOS) { AOS.init({ duration: 700, once: true, easing: 'ease-out', offset: 60 }); }
+
+  // FB trust chart — model accuracy vs. 50% chance baseline
+  (function() {
+    const el = document.getElementById('fbTrustChart');
+    if (!el || typeof Chart === 'undefined') return;
+    new Chart(el, {
+      type: 'bar',
+      data: {
+        labels: ['Roster Retention Risk', 'Performance Trajectory'],
+        datasets: [
+          {
+            label: 'EDGE3 model accuracy',
+            data: [72, 77],
+            backgroundColor: 'rgba(26,184,116,0.85)',
+            borderColor: 'rgba(26,184,116,1)',
+            borderWidth: 1,
+            borderRadius: 6,
+            barThickness: 38
+          },
+          {
+            label: 'Coin flip',
+            data: [50, 50],
+            backgroundColor: 'rgba(143,160,188,0.25)',
+            borderColor: 'rgba(143,160,188,0.55)',
+            borderWidth: 1,
+            borderRadius: 6,
+            barThickness: 38
+          }
+        ]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { duration: 900, easing: 'easeOutQuart' },
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { color: '#C7D3E6', font: { family: 'Inter', size: 12, weight: '600' }, boxWidth: 14, padding: 14 }
+          },
+          tooltip: {
+            backgroundColor: 'rgba(10,15,28,0.96)',
+            borderColor: 'rgba(26,184,116,0.4)',
+            borderWidth: 1,
+            titleColor: '#FFFFFF',
+            bodyColor: '#C7D3E6',
+            padding: 12,
+            callbacks: {
+              label: function(ctx) { return ctx.dataset.label + ': ' + ctx.parsed.x + '%'; }
+            }
+          }
+        },
+        scales: {
+          x: {
+            beginAtZero: true,
+            max: 100,
+            ticks: { color: '#8FA0BC', font: { family: 'Inter', size: 11 }, callback: function(v) { return v + '%'; } },
+            grid: { color: 'rgba(255,255,255,0.06)' },
+            border: { color: 'rgba(255,255,255,0.10)' }
+          },
+          y: {
+            ticks: { color: '#FFFFFF', font: { family: 'Inter', size: 13, weight: '700' } },
+            grid: { display: false },
+            border: { color: 'rgba(255,255,255,0.10)' }
+          }
+        }
+      }
+    });
+  })();
 </script>
 
 <footer>
