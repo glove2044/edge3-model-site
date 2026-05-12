@@ -245,87 +245,35 @@
   .loop-panel h2 { margin: 0 0 22px; font-size: 26px; font-weight: 800; letter-spacing: -0.015em; color: var(--brand-white); }
   .loop-panel .lp-sticker { font-size: 16px; line-height: 1.45; color: #B5EBD0; font-style: italic; font-weight: 600; padding-top: 18px; border-top: 1px solid var(--brand-line); margin-top: 22px; }
 
-  /* Loop visual - 4 nodes in a 2x2 grid with directional arrows */
-  .loop-visual {
+  /* Loop wheel - circular cycle with arrows + orbiting pulse */
+  .loop-wheel-container {
     display: grid;
-    grid-template-columns: 1fr 32px 1fr;
-    grid-template-rows: auto 32px auto;
-    gap: 0;
-    align-items: stretch;
-    max-width: 760px;
-  }
-  .loop-node {
-    background: var(--brand-dark);
-    border: 1px solid var(--brand-line);
-    border-radius: 12px;
-    padding: 16px 18px 14px;
-    position: relative;
-    transition: border-color 0.3s, transform 0.3s;
-  }
-  .loop-node::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--brand-green);
-    border-radius: 12px 12px 0 0;
-    opacity: 0.5;
-    transition: opacity 0.3s;
-  }
-  .loop-node.active::before { opacity: 1; }
-  .loop-node.active { border-color: rgba(26,184,116,0.55); transform: translateY(-2px); }
-  .loop-node .loop-num {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.6px;
-    color: var(--brand-green);
-    margin-bottom: 6px;
-  }
-  .loop-node .loop-label {
-    font-size: 15.5px;
-    font-weight: 700;
-    color: var(--brand-white);
-    letter-spacing: -0.01em;
-    margin-bottom: 4px;
-  }
-  .loop-node .loop-sub {
-    font-size: 12.5px;
-    color: #C7D3E6;
-    line-height: 1.45;
-  }
-  .loop-node.node-1 { grid-column: 1; grid-row: 1; }
-  .loop-node.node-2 { grid-column: 3; grid-row: 1; }
-  .loop-node.node-3 { grid-column: 3; grid-row: 3; }
-  .loop-node.node-4 { grid-column: 1; grid-row: 3; }
-  .loop-arrow {
-    display: flex;
+    grid-template-columns: 1fr 380px 1fr;
+    grid-template-rows: auto 380px auto;
     align-items: center;
-    justify-content: center;
-    color: var(--brand-green);
-    font-size: 22px;
-    font-weight: 800;
-    opacity: 0.55;
-    transition: opacity 0.3s, transform 0.3s;
+    gap: 12px 24px;
+    max-width: 880px;
+    margin: 0 auto;
   }
-  .loop-arrow.active { opacity: 1; transform: scale(1.25); }
-  .loop-arrow.arrow-1 { grid-column: 2; grid-row: 1; }
-  .loop-arrow.arrow-2 { grid-column: 3; grid-row: 2; }
-  .loop-arrow.arrow-3 { grid-column: 2; grid-row: 3; }
-  .loop-arrow.arrow-4 { grid-column: 1; grid-row: 2; }
+  .wheel-svg { grid-column: 2; grid-row: 2; display: block; width: 100%; max-width: 380px; height: auto; margin: 0 auto; }
+  .wheel-label { font-family: 'Inter', sans-serif; }
+  .wheel-label .wl-title { font-size: 15px; font-weight: 800; color: var(--brand-white); letter-spacing: -0.01em; margin-bottom: 4px; }
+  .wheel-label .wl-sub { font-size: 12.5px; color: #C7D3E6; line-height: 1.45; }
+  .label-top    { grid-column: 2; grid-row: 1; text-align: center; }
+  .label-right  { grid-column: 3; grid-row: 2; text-align: left;   max-width: 200px; }
+  .label-bottom { grid-column: 2; grid-row: 3; text-align: center; }
+  .label-left   { grid-column: 1; grid-row: 2; text-align: right;  max-width: 200px; justify-self: end; }
   @media (max-width: 760px) {
-    .loop-visual {
+    .loop-wheel-container {
       grid-template-columns: 1fr;
-      grid-template-rows: auto 28px auto 28px auto 28px auto;
+      grid-template-rows: repeat(5, auto);
+      gap: 10px;
     }
-    .loop-node.node-1 { grid-column: 1; grid-row: 1; }
-    .loop-arrow.arrow-1 { grid-column: 1; grid-row: 2; transform: rotate(90deg); }
-    .loop-arrow.arrow-1.active { transform: rotate(90deg) scale(1.25); }
-    .loop-node.node-2 { grid-column: 1; grid-row: 3; }
-    .loop-arrow.arrow-2 { grid-column: 1; grid-row: 4; }
-    .loop-node.node-3 { grid-column: 1; grid-row: 5; }
-    .loop-arrow.arrow-3 { grid-column: 1; grid-row: 6; transform: rotate(-90deg); }
-    .loop-arrow.arrow-3.active { transform: rotate(-90deg) scale(1.25); }
-    .loop-node.node-4 { grid-column: 1; grid-row: 7; }
-    .loop-arrow.arrow-4 { display: none; }
+    .wheel-svg { grid-column: 1; grid-row: 3; max-width: 320px; }
+    .label-top    { grid-column: 1; grid-row: 1; }
+    .label-right  { grid-column: 1; grid-row: 2; text-align: left; max-width: 100%; }
+    .label-bottom { grid-column: 1; grid-row: 4; }
+    .label-left   { grid-column: 1; grid-row: 5; text-align: left; max-width: 100%; justify-self: start; }
   }
   @media (max-width: 600px) { .loop-panel { padding: 24px 22px; } .loop-panel h2 { font-size: 22px; } }
 
@@ -409,34 +357,89 @@
       <div class="lp-eyebrow">Truth Intelligence Loop</div>
       <h2>Smarter with every cycle.</h2>
 
-      <div class="loop-visual">
-        <div class="loop-node node-1">
-          <div class="loop-num">01</div>
-          <div class="loop-label">Signals in</div>
-          <div class="loop-sub">Player, family, staff, performance, social</div>
-        </div>
-        <div class="loop-arrow arrow-1">&rarr;</div>
+      <div class="loop-wheel-container">
 
-        <div class="loop-node node-2">
-          <div class="loop-num">02</div>
-          <div class="loop-label">Model predicts</div>
-          <div class="loop-sub">Fit, trajectory, retention, transfer risk</div>
+        <div class="wheel-label label-top">
+          <div class="wl-title">01 &middot; Signals in</div>
+          <div class="wl-sub">Player, family, staff, performance, social</div>
         </div>
-        <div class="loop-arrow arrow-2">&darr;</div>
 
-        <div class="loop-node node-3">
-          <div class="loop-num">03</div>
-          <div class="loop-label">Outcomes confirm</div>
-          <div class="loop-sub">Portal, snaps, game data, decisions</div>
+        <div class="wheel-label label-right">
+          <div class="wl-title">02 &middot; Model predicts</div>
+          <div class="wl-sub">Fit, trajectory, retention, transfer risk</div>
         </div>
-        <div class="loop-arrow arrow-3">&larr;</div>
 
-        <div class="loop-node node-4">
-          <div class="loop-num">04</div>
-          <div class="loop-label">Model retrains</div>
-          <div class="loop-sub">Weights adjust, signals sharpen</div>
+        <div class="wheel-label label-bottom">
+          <div class="wl-title">03 &middot; Outcomes confirm</div>
+          <div class="wl-sub">Portal, snaps, game data, decisions</div>
         </div>
-        <div class="loop-arrow arrow-4">&uarr;</div>
+
+        <div class="wheel-label label-left">
+          <div class="wl-title">04 &middot; Model retrains</div>
+          <div class="wl-sub">Weights adjust, signals sharpen</div>
+        </div>
+
+        <svg class="wheel-svg" viewBox="0 0 360 360" aria-hidden="true">
+          <defs>
+            <marker id="loopArrow" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto">
+              <path d="M0,0 L0,9 L8,4.5 z" fill="#1AB874"/>
+            </marker>
+            <filter id="loopGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+
+          <!-- Track ring (subtle) -->
+          <circle cx="180" cy="180" r="140" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="36"/>
+          <circle cx="180" cy="180" r="140" fill="none" stroke="rgba(26,184,116,0.18)" stroke-width="1"/>
+
+          <!-- 4 clockwise arc segments with arrowheads -->
+          <!-- Top-right: 12 o'clock to 3 o'clock -->
+          <path d="M 200 41 A 140 140 0 0 1 319 200" fill="none" stroke="rgba(26,184,116,0.85)" stroke-width="2.5" marker-end="url(#loopArrow)"/>
+          <!-- Bottom-right: 3 o'clock to 6 o'clock -->
+          <path d="M 319 200 A 140 140 0 0 1 200 319" fill="none" stroke="rgba(26,184,116,0.85)" stroke-width="2.5" marker-end="url(#loopArrow)"/>
+          <!-- Bottom-left: 6 o'clock to 9 o'clock -->
+          <path d="M 160 319 A 140 140 0 0 1 41 200" fill="none" stroke="rgba(26,184,116,0.85)" stroke-width="2.5" marker-end="url(#loopArrow)"/>
+          <!-- Top-left: 9 o'clock to 12 o'clock -->
+          <path d="M 41 200 A 140 140 0 0 1 160 41" fill="none" stroke="rgba(26,184,116,0.85)" stroke-width="2.5" marker-end="url(#loopArrow)"/>
+
+          <!-- 4 numbered stage badges at N/E/S/W -->
+          <g>
+            <circle cx="180" cy="40" r="22" fill="#0A0F1C" stroke="#1AB874" stroke-width="2"/>
+            <text x="180" y="47" text-anchor="middle" fill="#1AB874" font-family="Inter, sans-serif" font-size="13" font-weight="800">01</text>
+          </g>
+          <g>
+            <circle cx="320" cy="180" r="22" fill="#0A0F1C" stroke="#1AB874" stroke-width="2"/>
+            <text x="320" y="187" text-anchor="middle" fill="#1AB874" font-family="Inter, sans-serif" font-size="13" font-weight="800">02</text>
+          </g>
+          <g>
+            <circle cx="180" cy="320" r="22" fill="#0A0F1C" stroke="#1AB874" stroke-width="2"/>
+            <text x="180" y="327" text-anchor="middle" fill="#1AB874" font-family="Inter, sans-serif" font-size="13" font-weight="800">03</text>
+          </g>
+          <g>
+            <circle cx="40" cy="180" r="22" fill="#0A0F1C" stroke="#1AB874" stroke-width="2"/>
+            <text x="40" y="187" text-anchor="middle" fill="#1AB874" font-family="Inter, sans-serif" font-size="13" font-weight="800">04</text>
+          </g>
+
+          <!-- Center hub -->
+          <circle cx="180" cy="180" r="56" fill="#0A0F1C" stroke="rgba(26,184,116,0.35)" stroke-width="1"/>
+          <text x="180" y="173" text-anchor="middle" fill="#FFFFFF" font-family="Inter, sans-serif" font-size="14" font-weight="800">EDGE3</text>
+          <text x="180" y="190" text-anchor="middle" fill="#1AB874" font-family="Inter, sans-serif" font-size="8" font-weight="700" letter-spacing="1.4px">TRUTH INTELLIGENCE</text>
+          <text x="180" y="202" text-anchor="middle" fill="#1AB874" font-family="Inter, sans-serif" font-size="8" font-weight="700" letter-spacing="1.4px">LOOP</text>
+
+          <!-- Orbiting pulse along the ring -->
+          <circle r="6" fill="#1AB874" filter="url(#loopGlow)" opacity="0.95">
+            <animateMotion dur="9s" repeatCount="indefinite" rotate="auto">
+              <mpath href="#loop-orbit"/>
+            </animateMotion>
+          </circle>
+          <path id="loop-orbit" d="M 180 40 A 140 140 0 1 1 179 40 Z" fill="none" stroke="none"/>
+        </svg>
+
       </div>
 
       <div class="lp-sticker">Every cycle, the read gets sharper. Per player. Per position. Per program.</div>
@@ -508,26 +511,12 @@
 <script>
   if (window.AOS) { AOS.init({ duration: 700, once: true, easing: 'ease-out', offset: 60 }); }
 
-  // Truth Intelligence Loop — cycle the active highlight through the four nodes
+  // Truth Intelligence Loop wheel — pulse animation is in the SVG itself (animateMotion).
+  // Honor prefers-reduced-motion by pausing all animations.
   (function() {
-    const nodes = document.querySelectorAll('.loop-node');
-    const arrows = document.querySelectorAll('.loop-arrow');
-    if (!nodes.length) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      nodes.forEach(n => n.classList.add('active'));
-      arrows.forEach(a => a.classList.add('active'));
-      return;
+      document.querySelectorAll('.wheel-svg animateMotion').forEach(a => { try { a.endElement(); } catch(e){} });
     }
-    let i = 0;
-    function step() {
-      nodes.forEach(n => n.classList.remove('active'));
-      arrows.forEach(a => a.classList.remove('active'));
-      nodes[i].classList.add('active');
-      arrows[i].classList.add('active');
-      i = (i + 1) % nodes.length;
-    }
-    step();
-    setInterval(step, 1600);
   })();
 </script>
 
