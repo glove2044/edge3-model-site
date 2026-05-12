@@ -107,77 +107,152 @@
   .flow-stage .flow-task { font-size: 12.5px; color: var(--muted); }
   .flow-arrow-cell { display: flex; align-items: center; justify-content: center; color: var(--brand-green); font-size: 24px; font-weight: 800; }
 
-  /* ========== PERSONA WORKFLOW DEMO ========== */
-  .persona-demo { background: #fff; border: 1px solid var(--rule); border-radius: 14px; padding: 28px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
-  .persona-tabs { display: flex; gap: 0; border-bottom: 2px solid var(--rule); margin-bottom: 22px; flex-wrap: wrap; }
-  .persona-tab { background: transparent; border: none; padding: 14px 22px; font-size: 14px; font-weight: 600; color: var(--muted); cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s; font-family: inherit; }
-  .persona-tab.active { color: var(--navy); border-bottom-color: var(--navy); }
-  .persona-tab:hover:not(.active) { color: var(--navy-dark); }
-  .persona-tab .step { display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: var(--rule); color: var(--muted); border-radius: 50%; font-size: 12px; margin-right: 8px; vertical-align: middle; }
-  .persona-tab.active .step { background: var(--navy); color: #fff; }
+  /* ========== PERSONA WORKFLOW DEMO — modernized ========== */
+  .persona-demo {
+    background: linear-gradient(180deg, #FFFFFF 0%, #F7F9FC 100%);
+    border: 1px solid #E4EAF2;
+    border-radius: 16px;
+    padding: 28px 28px 26px;
+    box-shadow: 0 18px 40px -28px rgba(10,15,28,0.20), 0 2px 6px rgba(10,15,28,0.04);
+  }
+  .persona-tabs { display: flex; gap: 6px; padding: 5px; background: #EEF2F7; border-radius: 12px; margin-bottom: 22px; flex-wrap: wrap; }
+  .persona-tab {
+    background: transparent; border: none;
+    padding: 10px 18px; font-size: 13px; font-weight: 700; color: #5A6373;
+    cursor: pointer; border-radius: 8px;
+    transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+    font-family: inherit; letter-spacing: -0.005em;
+  }
+  .persona-tab:hover:not(.active) { color: var(--navy); background: rgba(255,255,255,0.55); }
+  .persona-tab.active {
+    color: var(--navy-deep); background: #FFFFFF;
+    box-shadow: 0 1px 3px rgba(10,15,28,0.08), 0 0 0 1px rgba(10,15,28,0.04);
+  }
+  .persona-tab .step { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; background: #D5DEEA; color: #5A6373; border-radius: 50%; font-size: 11px; font-weight: 700; margin-right: 8px; vertical-align: middle; }
+  .persona-tab.active .step { background: var(--brand-blue); color: #fff; box-shadow: 0 2px 6px -1px rgba(59,130,246,0.50); }
 
   .persona-pane { display: none; }
   .persona-pane.active { display: block; animation: fadeIn 0.3s; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 
-  .pane-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; flex-wrap: wrap; }
-  .pane-header h3 { margin: 0; font-size: 18px; color: var(--navy); }
-  .pane-header .role-tag { background: var(--accent-soft); color: var(--navy); padding: 3px 10px; border-radius: 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.7px; font-weight: 700; }
-  .pane-desc { color: var(--muted); font-size: 13.5px; line-height: 1.5; margin: 0 0 18px; }
-
-  /* Analyst - data-heavy table */
-  .analyst-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-  .analyst-table th { text-align: left; padding: 10px 8px; background: var(--accent-soft); color: var(--navy); font-size: 10px; text-transform: uppercase; letter-spacing: 0.6px; border-bottom: 1px solid var(--rule); position: sticky; top: 0; }
-  .analyst-table td { padding: 9px 8px; border-bottom: 1px solid var(--rule); }
-  .analyst-table tr:hover { background: #FAFCFE; }
-  .analyst-table .pname { font-weight: 600; color: var(--navy); }
-  .analyst-table .pmeta { color: var(--muted); font-size: 11px; }
-  .analyst-controls { display: flex; gap: 14px; margin-bottom: 14px; flex-wrap: wrap; align-items: center; padding: 10px 14px; background: #F4F7FB; border-radius: 8px; font-size: 12px; }
-  .analyst-controls .ctrl-label { color: var(--muted); }
-  .analyst-controls .ctrl-pill { background: #fff; border: 1px solid var(--rule); padding: 4px 11px; border-radius: 14px; font-size: 11.5px; color: var(--navy); font-weight: 600; }
-  @media (max-width: 760px) {
-    /* Standard responsive-table pattern: scroll horizontally on narrow screens.
-       Do NOT add display:table/table-layout:fixed on rows - that cancels the scroll. */
-    .analyst-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
-    .analyst-table th, .analyst-table td { white-space: nowrap; }
-    .analyst-controls { padding: 8px 10px; gap: 8px; }
-    .analyst-controls .ctrl-pill { padding: 3px 8px; font-size: 10.5px; }
+  .pane-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+  .pane-header h3 { margin: 0; font-size: 17px; color: var(--navy-deep); letter-spacing: -0.01em; font-weight: 800; }
+  .pane-header .role-tag {
+    background: rgba(59,130,246,0.10); color: var(--brand-blue);
+    border: 1px solid rgba(59,130,246,0.22);
+    padding: 4px 11px; border-radius: 14px; font-size: 10.5px;
+    text-transform: uppercase; letter-spacing: 1.2px; font-weight: 800;
   }
-  .pill { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; color: #fff; }
-  .pill.green { background: var(--green); } .pill.amber { background: var(--amber); } .pill.red { background: var(--red); }
-  .pill.neutral { background: var(--muted); }
-  .num { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .pane-desc { color: var(--muted); font-size: 13px; line-height: 1.5; margin: 0 0 18px; }
 
-  /* Position Coach - synthesized cards */
+  /* Analyst - modern data table */
+  .analyst-controls {
+    display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; align-items: center;
+    padding: 10px 14px; background: #F0F4F9; border-radius: 10px; font-size: 12px;
+  }
+  .analyst-controls .ctrl-label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-right: 4px; }
+  .analyst-controls .ctrl-pill {
+    background: #fff; border: 1px solid #DBE1EA;
+    padding: 5px 12px; border-radius: 16px;
+    font-size: 11.5px; color: var(--navy); font-weight: 600;
+    box-shadow: 0 1px 2px rgba(10,15,28,0.04);
+  }
+  .analyst-table-wrap {
+    background: #fff;
+    border: 1px solid #E4EAF2;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(10,15,28,0.04);
+  }
+  .analyst-table {
+    width: 100%; border-collapse: separate; border-spacing: 0;
+    font-size: 12.5px; font-feature-settings: "tnum" 1;
+  }
+  .analyst-table th {
+    text-align: left; padding: 12px 12px;
+    background: #F4F7FB; color: var(--navy-deep);
+    font-size: 10px; text-transform: uppercase; letter-spacing: 1.3px; font-weight: 800;
+    border-bottom: 1px solid #E4EAF2; position: sticky; top: 0; z-index: 2;
+    white-space: nowrap;
+  }
+  .analyst-table td { padding: 12px 12px; border-bottom: 1px solid #EEF2F7; vertical-align: middle; }
+  .analyst-table tbody tr { transition: background 0.12s; }
+  .analyst-table tbody tr:hover { background: #F8FBFE; }
+  .analyst-table tbody tr:last-child td { border-bottom: 0; }
+  .analyst-table .pname { font-weight: 700; color: var(--navy-deep); font-size: 13px; letter-spacing: -0.005em; }
+  .analyst-table .pmeta { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  @media (max-width: 760px) {
+    .analyst-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .analyst-table { min-width: 920px; }
+    .analyst-controls { padding: 8px 10px; gap: 6px; }
+    .analyst-controls .ctrl-pill { padding: 4px 10px; font-size: 10.5px; }
+  }
+  /* Modern score pills — subtle tint with strong text */
+  .pill {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 3px 9px; border-radius: 12px;
+    font-size: 11.5px; font-weight: 700;
+    font-feature-settings: "tnum" 1; letter-spacing: -0.005em;
+    border: 1px solid transparent;
+  }
+  .pill.green  { background: rgba(26,184,116,0.12); color: #0F7B4D; border-color: rgba(26,184,116,0.30); }
+  .pill.amber  { background: rgba(232,179,57,0.14); color: #9A6E0F; border-color: rgba(232,179,57,0.35); }
+  .pill.red    { background: rgba(211,63,73,0.10);  color: #B22A33; border-color: rgba(211,63,73,0.30); }
+  .pill.neutral{ background: #EEF2F7;                color: #5A6373; border-color: #DBE1EA; }
+  .num { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--navy-deep); }
+
+  /* Position Coach — modern cards */
   .pc-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .pc-card { background: #fff; border: 1px solid var(--rule); border-radius: 10px; padding: 16px; }
-  .pc-card .pc-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-  .pc-card .pc-name { font-weight: 700; font-size: 15px; color: var(--navy); }
-  .pc-card .pc-meta { color: var(--muted); font-size: 12px; }
-  .pc-card .pc-flags { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 14px; margin: 10px 0; font-size: 12.5px; }
-  .pc-card .pc-flag { display: flex; justify-content: space-between; }
-  .pc-card .pc-flag .k { color: var(--muted); }
-  .pc-card .pc-note { font-size: 12.5px; color: #2A3340; padding-top: 10px; border-top: 1px solid var(--rule); margin-top: 6px; line-height: 1.5; }
-  .pc-card .pc-rec { margin-top: 12px; padding: 8px 12px; background: var(--accent-soft); border-radius: 6px; font-size: 12.5px; color: var(--navy); font-weight: 600; }
+  .pc-card {
+    background: #fff; border: 1px solid #E4EAF2; border-radius: 14px; padding: 18px 20px;
+    box-shadow: 0 1px 3px rgba(10,15,28,0.05);
+    transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s;
+  }
+  .pc-card:hover { border-color: rgba(59,130,246,0.40); box-shadow: 0 8px 24px -12px rgba(10,15,28,0.18); transform: translateY(-1px); }
+  .pc-card .pc-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid #EEF2F7; }
+  .pc-card .pc-name { font-weight: 800; font-size: 15px; color: var(--navy-deep); letter-spacing: -0.01em; }
+  .pc-card .pc-meta { color: var(--muted); font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; }
+  .pc-card .pc-flags { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 18px; margin: 12px 0; font-size: 12.5px; }
+  .pc-card .pc-flag { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .pc-card .pc-flag .k { color: var(--muted); font-size: 11.5px; font-weight: 600; }
+  .pc-card .pc-note { font-size: 12.5px; color: #3A4250; padding-top: 12px; border-top: 1px solid #EEF2F7; margin-top: 10px; line-height: 1.55; }
+  .pc-card .pc-rec { margin-top: 14px; padding: 10px 14px; background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.22); border-radius: 8px; font-size: 12.5px; color: var(--brand-blue); font-weight: 700; }
 
-  /* Head Coach - decision-grade */
+  /* Head Coach — premium decision cards */
   .hc-finalists { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  .hc-card { background: #fff; border: 2px solid var(--navy); border-radius: 12px; padding: 18px; position: relative; }
-  .hc-card.proceed { border-color: var(--green); }
-  .hc-card.watch { border-color: var(--amber); }
-  .hc-card .hc-rank { position: absolute; top: -10px; left: 16px; background: var(--navy); color: #fff; padding: 3px 11px; border-radius: 10px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.7px; font-weight: 700; }
-  .hc-card.proceed .hc-rank { background: var(--green); }
-  .hc-card.watch .hc-rank { background: var(--amber); }
-  .hc-card h4 { margin: 6px 0 4px; font-size: 17px; color: var(--navy); }
-  .hc-card .summary { font-size: 13px; color: #2A3340; line-height: 1.55; margin: 8px 0 12px; }
-  .hc-card .conf-row { display: flex; gap: 10px; margin: 12px 0; padding: 10px; background: #F8FAFD; border-radius: 8px; flex-wrap: wrap; }
+  .hc-card {
+    background: #fff; border: 1px solid #E4EAF2; border-radius: 14px; padding: 22px 22px 18px;
+    position: relative; box-shadow: 0 4px 14px -8px rgba(10,15,28,0.18);
+    border-top: 4px solid var(--navy-deep);
+  }
+  .hc-card.proceed { border-top-color: var(--brand-green); }
+  .hc-card.watch { border-top-color: var(--amber); }
+  .hc-card.pass { border-top-color: var(--red); }
+  .hc-card .hc-rank {
+    position: absolute; top: -12px; left: 18px;
+    background: var(--navy-deep); color: #fff;
+    padding: 4px 12px; border-radius: 12px;
+    font-size: 10.5px; text-transform: uppercase; letter-spacing: 1.3px; font-weight: 800;
+    box-shadow: 0 4px 10px -3px rgba(10,15,28,0.35);
+  }
+  .hc-card.proceed .hc-rank { background: var(--brand-green); box-shadow: 0 4px 10px -3px rgba(26,184,116,0.45); }
+  .hc-card.watch .hc-rank { background: var(--amber); box-shadow: 0 4px 10px -3px rgba(232,179,57,0.45); }
+  .hc-card.pass .hc-rank { background: var(--red); box-shadow: 0 4px 10px -3px rgba(211,63,73,0.40); }
+  .hc-card h4 { margin: 8px 0 4px; font-size: 18px; color: var(--navy-deep); letter-spacing: -0.015em; font-weight: 800; }
+  .hc-card .summary { font-size: 13px; color: #3A4250; line-height: 1.6; margin: 8px 0 14px; }
+  .hc-card .conf-row { display: flex; gap: 10px; margin: 14px 0; padding: 12px; background: #F4F7FB; border-radius: 10px; border: 1px solid #E4EAF2; flex-wrap: wrap; }
   .hc-card .conf { flex: 1; min-width: 90px; }
-  .hc-card .conf .label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 4px; }
-  .hc-card .conf .val { font-size: 16px; font-weight: 700; color: var(--navy); }
-  .hc-card .conf .by { font-size: 10.5px; color: var(--muted); margin-top: 2px; }
-  .hc-card .verdict { padding: 10px 14px; background: var(--green); color: #fff; border-radius: 8px; font-weight: 700; text-align: center; font-size: 13px; letter-spacing: 0.4px; }
-  .hc-card.watch .verdict { background: var(--amber); }
-  .hc-card.pass .verdict { background: var(--red); }
+  .hc-card .conf .label { font-size: 9.5px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.2px; font-weight: 700; margin-bottom: 4px; }
+  .hc-card .conf .val { font-size: 17px; font-weight: 800; color: var(--navy-deep); font-feature-settings: "tnum" 1; letter-spacing: -0.01em; }
+  .hc-card .conf .by { font-size: 10.5px; color: var(--muted); margin-top: 2px; font-style: italic; }
+  .hc-card .verdict {
+    padding: 11px 16px; background: var(--brand-green); color: #fff;
+    border-radius: 10px; font-weight: 800; text-align: center;
+    font-size: 12.5px; letter-spacing: 0.6px; text-transform: uppercase;
+    box-shadow: 0 4px 12px -3px rgba(26,184,116,0.40);
+  }
+  .hc-card.watch .verdict { background: var(--amber); box-shadow: 0 4px 12px -3px rgba(232,179,57,0.40); }
+  .hc-card.pass .verdict { background: var(--red); box-shadow: 0 4px 12px -3px rgba(211,63,73,0.40); }
 
   /* Use case + report builder */
   .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
@@ -452,6 +527,7 @@
           <span style="color: var(--muted); font-size: 11.5px; margin-left: auto;">Showing 8 of 47 candidates</span>
         </div>
 
+        <div class="analyst-table-wrap">
         <table class="analyst-table">
           <thead>
             <tr>
@@ -459,7 +535,7 @@
               <th>Stars</th>
               <th>247</th>
               <th>Roster Retention Risk <span class="info"><span class="tip"><strong>Roster Retention Risk (RRR)</strong>: the model&rsquo;s read on how likely the player is to leave your program, on a 0&ndash;100 scale. Higher = more likely to enter the portal. Updated continuously as new signals come in.</span></span></th>
-              <th>Trajectory <span class="info"><span class="tip"><strong>Performance Trajectory</strong>: whether next-season production is heading <strong>Up</strong>, <strong>Stable</strong>, or <strong>Down</strong>. Built from prior-year grades, scheme context, and behavioral signals.</span></span></th>
+              <th>Trajectory <span class="info"><span class="tip"><strong>Performance Trajectory</strong>: whether next-season production is <strong>Climbing</strong>, <strong>Holding</strong>, or <strong>Slipping</strong>. Built from prior-year grades, scheme context, and behavioral signals.</span></span></th>
               <th>Scheme Fit <span class="info"><span class="tip"><strong>Scheme Fit</strong>: how cleanly the player&rsquo;s game maps to your system. Green = clean match. Yellow = borderline / requires adjustment. Red = mismatch.</span></span></th>
               <th>Behavioral</th>
               <th>Social Signal</th>
@@ -473,7 +549,7 @@
               <td class="num">4★</td>
               <td class="num">0.949</td>
               <td><span class="pill green">0.39</span></td>
-              <td><span class="pill green">+0.90</span> Rising</td>
+              <td><span class="pill green">+0.90</span> Climbing</td>
               <td><span class="pill green">0.10</span> Match</td>
               <td><span class="pill green">Coachable</span></td>
               <td><span class="pill green">Clean</span></td>
@@ -485,7 +561,7 @@
               <td class="num">3★</td>
               <td class="num">0.877</td>
               <td><span class="pill green">0.42</span></td>
-              <td><span class="pill green">+0.90</span> Rising</td>
+              <td><span class="pill green">+0.90</span> Climbing</td>
               <td><span class="pill green">0.05</span> Match</td>
               <td><span class="pill green">Coachable</span></td>
               <td><span class="pill green">Clean</span></td>
@@ -497,7 +573,7 @@
               <td class="num">5★</td>
               <td class="num">0.985</td>
               <td><span class="pill amber">0.70</span></td>
-              <td><span class="pill green">+0.41</span> Stable</td>
+              <td><span class="pill green">+0.41</span> Holding</td>
               <td><span class="pill green">0.10</span> Match</td>
               <td><span class="pill amber">Mixed</span></td>
               <td><span class="pill amber">Watching</span></td>
@@ -509,7 +585,7 @@
               <td class="num">3★</td>
               <td class="num">0.832</td>
               <td><span class="pill red">1.00</span></td>
-              <td><span class="pill amber">-0.06</span> Stable</td>
+              <td><span class="pill amber">-0.06</span> Holding</td>
               <td><span class="pill amber">50</span> Borderline</td>
               <td><span class="pill red">Authority flag</span></td>
               <td><span class="pill red">Frustration</span></td>
@@ -521,7 +597,7 @@
               <td class="num">n/a</td>
               <td class="num">n/a</td>
               <td><span class="pill green">0.06</span></td>
-              <td><span class="pill green">+0.90</span> Rising</td>
+              <td><span class="pill green">+0.90</span> Climbing</td>
               <td><span class="pill green">0.20</span> Match</td>
               <td><span class="pill green">Coachable</span></td>
               <td><span class="pill green">Clean</span></td>
@@ -530,6 +606,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
         <p style="font-size: 12px; color: var(--muted); margin-top: 12px;">Analyst flags 3 to position coach for deeper review. Veltkamp filtered off. Risk + behavioral both pointing the wrong way.</p>
       </div>
 
@@ -552,7 +629,7 @@
             </div>
             <div class="pc-flags">
               <div class="pc-flag"><span class="k">Transfer risk (v8)</span><span class="pill green">0.39</span></div>
-              <div class="pc-flag"><span class="k">Trajectory score</span><span class="pill green">+0.90 Rising</span></div>
+              <div class="pc-flag"><span class="k">Trajectory score</span><span class="pill green">+0.90 Climbing</span></div>
               <div class="pc-flag"><span class="k">Combined R/Y/G</span><span class="pill green">Green / 0.23</span></div>
               <div class="pc-flag"><span class="k">247 composite</span><span class="pill green">0.949</span></div>
               <div class="pc-flag"><span class="k">Scheme transition</span><span class="pill green">Match (illustrative)</span></div>
@@ -572,7 +649,7 @@
             </div>
             <div class="pc-flags">
               <div class="pc-flag"><span class="k">Transfer risk (v8)</span><span class="pill green">0.42</span></div>
-              <div class="pc-flag"><span class="k">Trajectory score</span><span class="pill green">+0.90 Rising</span></div>
+              <div class="pc-flag"><span class="k">Trajectory score</span><span class="pill green">+0.90 Climbing</span></div>
               <div class="pc-flag"><span class="k">Combined R/Y/G</span><span class="pill green">Green / 0.26</span></div>
               <div class="pc-flag"><span class="k">247 composite</span><span class="pill green">0.877</span></div>
               <div class="pc-flag"><span class="k">Scheme transition</span><span class="pill green">Match (illustrative)</span></div>
@@ -616,7 +693,7 @@
           <div class="hc-card proceed">
             <span class="hc-rank">Rank 1</span>
             <h4>AJ Swann, LSU</h4>
-            <div class="summary">4★ recruit. Trajectory model says Rising (+0.90), Roster Retention Risk v8 reads 0.39 (Green), Combined 0.23. Strongest blend on the board: high recruit pedigree + rising forward trajectory + clean risk profile. <strong>Best floor.</strong> <em>Illustrative behavioral + social signal commentary populate from survey + social listening once onboarded.</em></div>
+            <div class="summary">4★ recruit. Trajectory model says Climbing (+0.90), Roster Retention Risk v8 reads 0.39 (Green), Combined 0.23. Strongest blend on the board: high recruit pedigree + climbing forward trajectory + clean risk profile. <strong>Best floor.</strong> <em>Illustrative behavioral + social signal commentary populate from survey + social listening once onboarded.</em></div>
             <div class="conf-row">
               <div class="conf"><div class="label">Analyst confidence</div><div class="val">9/10</div><div class="by">data fit</div></div>
               <div class="conf"><div class="label">QB Coach confidence</div><div class="val">9/10</div><div class="by">illustrative</div></div>
