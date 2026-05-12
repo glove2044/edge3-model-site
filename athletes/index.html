@@ -307,12 +307,12 @@
   .voices-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   @media (max-width: 760px) { .voices-grid { grid-template-columns: 1fr; } }
   .voice-tile { background: var(--brand-dark); border: 1px solid var(--brand-line); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
-  .voice-tile img { display: block; width: 100%; height: 240px; object-fit: cover; }
+  .voice-tile img { display: block; width: 100%; height: 320px; object-fit: cover; object-position: center 28%; }
   .voice-tile .vt-body { padding: 16px 18px 18px; }
   .voice-tile .vt-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: var(--brand-green); margin-bottom: 6px; }
   .voice-tile h3 { margin: 0 0 6px; font-size: 16px; font-weight: 700; color: var(--brand-white); letter-spacing: -0.01em; }
   .voice-tile p { font-size: 13.5px; line-height: 1.5; color: #C7D3E6; margin: 0; }
-  @media (max-width: 600px) { .voices { padding: 28px 22px; } .voices h2 { font-size: 22px; } .voice-tile img { height: 200px; } }
+  @media (max-width: 600px) { .voices { padding: 28px 22px; } .voices h2 { font-size: 22px; } .voice-tile img { height: 260px; } }
 
   /* Partner strip */
   .partners-ath { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 12px; padding: 20px 28px; display: flex; align-items: center; justify-content: center; gap: 28px; flex-wrap: wrap; margin: 28px 0 0; }
@@ -327,9 +327,10 @@
   .testimonial .t-eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: var(--yellow); margin-bottom: 12px; }
   .testimonial h2 { margin: 0 0 8px; font-size: 26px; font-weight: 800; letter-spacing: -0.015em; color: var(--brand-white); }
   .testimonial p.t-sub { margin: 0 0 24px; font-size: 15px; line-height: 1.6; color: #C7D3E6; max-width: 760px; }
-  .testimonial-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: center; }
-  @media (max-width: 760px) { .testimonial-grid { grid-template-columns: 1fr; } }
-  .testimonial video { display: block; width: 100%; border-radius: 10px; background: var(--brand-dark); border: 1px solid var(--brand-line); }
+  .testimonial-grid { display: grid; grid-template-columns: 320px 1fr; gap: 32px; align-items: center; }
+  @media (max-width: 760px) { .testimonial-grid { grid-template-columns: 1fr; justify-items: center; } }
+  .testimonial .video-wrap { width: 320px; max-width: 100%; }
+  .testimonial video { display: block; width: 100%; max-height: 568px; border-radius: 10px; background: var(--brand-dark); border: 1px solid var(--brand-line); }
   .testimonial .t-quote { font-size: 17px; line-height: 1.55; color: var(--brand-white); font-style: italic; font-weight: 600; letter-spacing: -0.005em; margin: 0 0 14px; }
   .testimonial .t-attrib { font-size: 13px; color: var(--brand-muted); font-style: normal; }
   .testimonial .t-attrib strong { color: var(--brand-text); font-weight: 700; }
@@ -504,10 +505,12 @@
       <p class="t-sub">Jake Kyman went through high school recruiting, then the college transfer portal. Hear what working through it with EDGE3 looked like in practice.</p>
 
       <div class="testimonial-grid">
-        <video controls preload="metadata" poster="../assets/videos/jake-kyman-poster.jpg">
-          <source src="../assets/videos/jake-kyman-testimonial.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
+        <div class="video-wrap">
+          <video controls preload="metadata" playsinline poster="../assets/videos/jake-kyman-poster.jpg">
+            <source src="../assets/videos/jake-kyman-testimonial.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
         <div>
           <p class="t-quote">EDGE3 gave our family the information we needed to make the right call. It is not just data. It is what families actually need to hear.</p>
           <div class="t-attrib"><strong>Jake Kyman</strong> &middot; College basketball player and EDGE3 family</div>
