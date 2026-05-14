@@ -35,6 +35,7 @@ const PAGES = [
   'docs/athletes/index.html',
   'docs/athletes/onboarding/index.html',
   'docs/about/index.html',
+  'docs/press/index.html',
 ];
 
 let blockers = [];

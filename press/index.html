@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>EDGE3 in the Press · Coverage + Media</title>
+<meta name="description" content="EDGE3 coverage from Sports Business Journal, IBM THINK, and other publications. Recruiting intelligence in the press.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+<style>
+  :root {
+    --brand-dark:    #0A0F1C;
+    --brand-dark-2:  #0E1320;
+    --brand-dark-3:  #161D2D;
+    --brand-white:   #FFFFFF;
+    --brand-green:   #1AB874;
+    --brand-blue:    #3B82F6;
+    --brand-text:    #E8EDF5;
+    --brand-muted:   #8896AB;
+    --brand-line:    #1F2738;
+    --yellow:        #E8B339;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--brand-dark); color: var(--brand-text); font: 15px/1.6 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: var(--brand-blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .brandbar { background: var(--brand-dark); border-bottom: 1px solid var(--brand-line); padding: 18px 0; }
+  .brandbar .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .edge3-logo { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.03em; line-height: 1; font-size: 22px; }
+  .edge3-logo .e { color: var(--brand-white); }
+  .edge3-logo .three { color: var(--brand-green); }
+  .brandbar .nav { display: flex; gap: 4px; }
+  .brandbar .nav a { color: var(--brand-text); font-size: 14px; font-weight: 700; letter-spacing: -0.005em; padding: 8px 14px; border-radius: 8px; transition: background 0.15s, color 0.15s; text-decoration: none; }
+  .brandbar .nav a:hover { background: rgba(59,130,246,0.10); color: var(--brand-white); text-decoration: none; }
+  .brandbar .nav a.active { background: rgba(26,184,116,0.12); color: var(--brand-green); }
+  @media (max-width: 540px) { .brandbar .nav a { font-size: 13px; padding: 7px 11px; } }
+
+  header.hero { background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-dark-2) 100%); padding: 72px 0 56px; border-bottom: 1px solid var(--brand-line); position: relative; overflow: hidden; }
+  header.hero::before { content: ''; position: absolute; top: -40%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(59,130,246,0.10), transparent 60%); pointer-events: none; }
+  header.hero .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; position: relative; }
+  .eyebrow { display: inline-block; background: rgba(59,130,246,0.14); border: 1px solid rgba(59,130,246,0.32); padding: 6px 13px; border-radius: 18px; font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: #C7D9FF; margin-bottom: 22px; }
+  header.hero h1 { margin: 0 0 14px; font-size: clamp(32px, 6vw, 52px); line-height: 1.08; font-weight: 800; letter-spacing: -0.025em; color: var(--brand-white); max-width: 880px; }
+  header.hero h1 .accent { color: var(--brand-green); }
+  header.hero p.lede { margin: 0; font-size: clamp(15px, 2vw, 18px); line-height: 1.55; color: #C7D3E6; max-width: 760px; }
+
+  main { max-width: 1180px; margin: 0 auto; padding: 56px 24px 32px; }
+  section { margin-bottom: 56px; }
+
+  .section-eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 1.6px; font-weight: 700; color: var(--brand-green); margin-bottom: 10px; }
+  .section-title { font-size: clamp(22px, 3vw, 30px); font-weight: 800; letter-spacing: -0.02em; color: var(--brand-white); margin: 0 0 12px; }
+  .section-sub { color: #C7D3E6; font-size: 15px; line-height: 1.6; max-width: 760px; margin: 0 0 28px; }
+
+  /* Logos strip — publications */
+  .pub-strip { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 14px; padding: 26px 30px; display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap; }
+  .pub-strip .pub-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.6px; font-weight: 700; color: var(--brand-muted); width: 100%; text-align: center; margin-bottom: 6px; }
+  .pub-strip .pub-logo { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.01em; color: var(--brand-white); opacity: 0.85; font-size: 22px; }
+  .pub-strip .pub-logo.ibm { letter-spacing: -0.06em; font-size: 26px; }
+  .pub-strip .pub-logo.sbj { font-size: 18px; letter-spacing: 0.02em; }
+  @media (max-width: 540px) { .pub-strip { gap: 22px; padding: 20px 22px; } .pub-strip .pub-logo { font-size: 18px; } }
+
+  /* Article grid */
+  .articles { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  @media (max-width: 760px) { .articles { grid-template-columns: 1fr; } }
+  .article-card {
+    background: var(--brand-dark-2);
+    border: 1px solid var(--brand-line);
+    border-radius: 14px;
+    padding: 0;
+    overflow: hidden;
+    transition: border-color 0.18s, transform 0.18s;
+    display: flex;
+    flex-direction: column;
+  }
+  .article-card:hover { border-color: rgba(59,130,246,0.30); transform: translateY(-2px); }
+  .article-img {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-dark-3) 100%);
+    border-bottom: 1px solid var(--brand-line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--brand-muted);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    font-weight: 700;
+    position: relative;
+    overflow: hidden;
+  }
+  .article-img img { width: 100%; height: 100%; object-fit: cover; }
+  .article-body { padding: 22px 24px 22px; flex: 1; display: flex; flex-direction: column; }
+  .article-meta { font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: var(--brand-blue); margin-bottom: 10px; }
+  .article-meta .meta-date { color: var(--brand-muted); margin-left: 6px; font-weight: 600; }
+  .article-title { font-size: 18px; font-weight: 800; color: var(--brand-white); letter-spacing: -0.015em; line-height: 1.3; margin: 0 0 10px; }
+  .article-excerpt { font-size: 13.5px; color: #C7D3E6; line-height: 1.55; margin: 0 0 16px; flex: 1; }
+  .article-link { font-size: 13px; font-weight: 700; color: var(--brand-green); text-decoration: none; margin-top: auto; }
+  .article-link:hover { text-decoration: underline; }
+  .article-placeholder { background: rgba(232,179,57,0.06); border: 1px dashed rgba(232,179,57,0.40); }
+  .article-placeholder .article-meta { color: var(--yellow); }
+  .article-placeholder .article-link { color: var(--yellow); }
+
+  /* Media contact CTA */
+  .media-cta { background: linear-gradient(135deg, var(--brand-dark-2) 0%, var(--brand-dark-3) 100%); border: 1px solid var(--brand-line); border-radius: 14px; padding: 36px 38px; text-align: center; position: relative; }
+  .media-cta::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--brand-green); border-radius: 14px 14px 0 0; }
+  .media-cta h3 { margin: 0 0 12px; font-size: 22px; font-weight: 800; letter-spacing: -0.015em; color: var(--brand-white); }
+  .media-cta p { margin: 0 0 18px; color: #C7D3E6; font-size: 15px; max-width: 580px; margin-left: auto; margin-right: auto; line-height: 1.55; }
+  .media-cta .btn { display: inline-block; padding: 12px 24px; background: var(--brand-green); color: #fff; border-radius: 8px; font-weight: 700; font-size: 14px; text-decoration: none; }
+  .media-cta .btn:hover { background: #14965F; text-decoration: none; }
+
+  footer { border-top: 1px solid var(--brand-line); padding: 28px 24px 36px; margin-top: 24px; }
+  footer .wrap { max-width: 1180px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; font-size: 12.5px; color: var(--brand-muted); }
+  footer .wrap a { color: var(--brand-text); }
+</style>
+</head>
+<body>
+
+<div class="brandbar">
+  <div class="wrap">
+    <a href="../" style="text-decoration: none;"><span class="edge3-logo"><span class="e">EDGE</span><span class="three">3</span></span></a>
+    <div class="nav">
+      <a href="../">Home</a>
+      <a href="../programs/">Programs</a>
+      <a href="../athletes/">Athletes</a>
+      <a href="../about/">About</a>
+      <a href="./" class="active">Press</a>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">EDGE3 in the Press</span>
+    <h1>How EDGE3 is reshaping <span class="accent">recruiting intelligence.</span></h1>
+    <p class="lede">Coverage of EDGE3 across business, sports, and technology press. Including IBM THINK, Sports Business Journal, and others.</p>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===== Publications strip ===== -->
+  <section data-aos="fade-up">
+    <div class="pub-strip">
+      <div class="pub-label">As featured by</div>
+      <span class="pub-logo ibm">IBM</span>
+      <span class="pub-logo sbj">SPORTS BUSINESS JOURNAL</span>
+      <!-- Add more publication wordmarks here as articles come in:
+      <span class="pub-logo">FORBES</span>
+      <span class="pub-logo">SBJ</span>
+      <span class="pub-logo">SPORTICO</span>
+      -->
+    </div>
+  </section>
+
+  <!-- ===== Article grid ===== -->
+  <section data-aos="fade-up">
+    <div class="section-eyebrow">Recent coverage</div>
+    <h2 class="section-title">Articles, features, and appearances.</h2>
+    <p class="section-sub">EDGE3 founders and the platform are covered across business and sports press. The list grows as the recruiting intelligence story develops.</p>
+
+    <div class="articles">
+
+      <!-- ===== IBM THINK article ===== -->
+      <article class="article-card">
+        <div class="article-img">
+          <img src="../assets/photos/kenyon-ibm-think.jpg" alt="Kenyon Rasheed on stage at IBM THINK">
+        </div>
+        <div class="article-body">
+          <div class="article-meta">IBM THINK<span class="meta-date">&middot; Featured speaker</span></div>
+          <h3 class="article-title">EDGE3 on stage at IBM THINK&rsquo;s AI Summit.</h3>
+          <p class="article-excerpt">EDGE3 Founder/CEO Kenyon Rasheed presented how AI-driven athlete intelligence is reshaping college recruiting at IBM&rsquo;s flagship technology event. EDGE3 also partners with IBM Watsonx on the data and AI infrastructure that powers the platform.</p>
+          <a class="article-link" href="https://www.ibm.com/think" target="_blank" rel="noopener">Read more on IBM &rarr;</a>
+        </div>
+      </article>
+
+      <!-- ===== Sports Business Journal placeholder ===== -->
+      <article class="article-card article-placeholder">
+        <div class="article-img" style="background: linear-gradient(135deg, #161D2D 0%, #1F2738 100%);">
+          <span>SPORTS BUSINESS JOURNAL</span>
+        </div>
+        <div class="article-body">
+          <div class="article-meta">Sports Business Journal<span class="meta-date">&middot; [Date TBD]</span></div>
+          <h3 class="article-title">[Article title. Replace with actual SBJ headline]</h3>
+          <p class="article-excerpt">[Short 2-3 line excerpt from the article describing the EDGE3 coverage. To be filled in with the SBJ piece details.]</p>
+          <a class="article-link" href="#" target="_blank" rel="noopener">Read on SBJ &rarr;</a>
+        </div>
+      </article>
+
+      <!-- ===== Placeholder cards (duplicate + fill in as more coverage comes in) ===== -->
+      <article class="article-card article-placeholder">
+        <div class="article-img" style="background: linear-gradient(135deg, #161D2D 0%, #1F2738 100%);">
+          <span>[Publication]</span>
+        </div>
+        <div class="article-body">
+          <div class="article-meta">[Publication]<span class="meta-date">&middot; [Date]</span></div>
+          <h3 class="article-title">[Article title]</h3>
+          <p class="article-excerpt">[Excerpt or summary of the coverage. Replace this card with a real article when ready.]</p>
+          <a class="article-link" href="#" target="_blank" rel="noopener">Read more &rarr;</a>
+        </div>
+      </article>
+
+      <article class="article-card article-placeholder">
+        <div class="article-img" style="background: linear-gradient(135deg, #161D2D 0%, #1F2738 100%);">
+          <span>[Publication]</span>
+        </div>
+        <div class="article-body">
+          <div class="article-meta">[Publication]<span class="meta-date">&middot; [Date]</span></div>
+          <h3 class="article-title">[Article title]</h3>
+          <p class="article-excerpt">[Excerpt or summary of the coverage. Replace this card with a real article when ready.]</p>
+          <a class="article-link" href="#" target="_blank" rel="noopener">Read more &rarr;</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ===== Media contact CTA ===== -->
+  <section data-aos="fade-up">
+    <div class="media-cta">
+      <h3>Media + press inquiries</h3>
+      <p>Working on a story about recruiting intelligence, AI in sports, or the EDGE3 platform? We&rsquo;re happy to talk.</p>
+      <a class="btn" href="mailto:kenyon@edge3.net?subject=EDGE3%20Press%20Inquiry">Contact for press &rarr;</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <span class="edge3-logo" style="font-size:16px;"><span class="e">EDGE</span><span class="three">3</span></span> &middot; Press
+      <div style="font-size:11px; color:var(--brand-muted); margin-top:4px;">Powered by Truth Intelligence Models.</div>
+    </div>
+    <div><a href="../">Home</a> &middot; <a href="../programs/">Programs</a> &middot; <a href="../athletes/">Athletes</a> &middot; <a href="../about/">About</a></div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  if (window.AOS) { AOS.init({ duration: 700, once: true, easing: 'ease-out', offset: 60 }); }
+</script>
+
+</body>
+</html>

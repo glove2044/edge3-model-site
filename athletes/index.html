@@ -347,6 +347,54 @@
   .footer-cta a { padding: 11px 20px; border-radius: 8px; font-weight: 700; font-size: 14px; }
   .footer-cta a.primary { background: var(--brand-green); color: var(--brand-white); text-decoration: none; }
   .footer-cta a.primary:hover { background: var(--brand-green-d); text-decoration: none; }
+
+  /* ===== Camp economy gap (family pain hook) ===== */
+  .camp-panel { background: linear-gradient(135deg, var(--brand-dark-2) 0%, var(--brand-dark-3) 100%); border: 1px solid var(--brand-line); border-radius: 16px; padding: 44px; position: relative; }
+  .camp-panel::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--yellow); border-radius: 16px 16px 0 0; }
+  .camp-panel .camp-eyebrow { font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--yellow); margin-bottom: 14px; font-weight: 700; }
+  .camp-panel h2 { font-size: clamp(26px, 4vw, 34px); line-height: 1.2; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 16px; color: var(--brand-white); }
+  .camp-panel p.camp-body { font-size: 16px; line-height: 1.6; color: #C8D0DE; margin: 0 0 14px; max-width: 800px; }
+  .camp-panel p.camp-body strong { color: var(--brand-white); font-weight: 700; }
+  .camp-tagline { font-size: 22px; font-weight: 800; color: var(--brand-white); margin: 24px 0 0; padding: 20px 0 0; border-top: 1px solid var(--brand-line); text-align: center; letter-spacing: -0.01em; line-height: 1.3; }
+  .camp-tagline em { color: var(--brand-green); font-style: normal; }
+  @media (max-width: 600px) { .camp-panel { padding: 32px 22px; } .camp-tagline { font-size: 18px; } }
+
+  /* ===== Right coach watching (anonymized coach quotes + trait card translation) ===== */
+  .eyes-panel { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 16px; padding: 44px; position: relative; }
+  .eyes-panel::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--brand-blue); border-radius: 16px 16px 0 0; }
+  .eyes-panel .eyes-eyebrow { font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--brand-blue); margin-bottom: 14px; font-weight: 700; }
+  .eyes-panel h2 { font-size: clamp(26px, 4vw, 34px); line-height: 1.2; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 14px; color: var(--brand-white); }
+  .eyes-panel p.eyes-sub { font-size: 16px; line-height: 1.6; color: var(--brand-muted); margin: 0 0 28px; max-width: 780px; }
+  .eyes-quotes { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 28px; }
+  @media (max-width: 760px) { .eyes-quotes { grid-template-columns: 1fr; } .eyes-panel { padding: 32px 22px; } }
+  .eyes-quote { background: var(--brand-dark); border: 1px solid var(--brand-line); border-left: 3px solid var(--brand-blue); border-radius: 0 12px 12px 0; padding: 22px 24px; }
+  .eyes-quote .eq-text { font-size: 15px; line-height: 1.55; color: var(--brand-white); font-style: italic; margin: 0 0 12px; font-weight: 500; }
+  .eyes-quote .eq-attrib { font-size: 12px; color: var(--brand-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+  .eyes-translate { background: rgba(59,130,246,0.06); border: 1px solid rgba(59,130,246,0.30); border-radius: 12px; padding: 22px 24px; }
+  .eyes-translate .et-eyebrow { font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--brand-blue); margin-bottom: 10px; font-weight: 700; }
+  .eyes-translate h3 { font-size: 18px; font-weight: 700; color: var(--brand-white); margin: 0 0 10px; letter-spacing: -0.01em; }
+  .eyes-translate p { font-size: 14.5px; line-height: 1.6; color: #C8D0DE; margin: 0 0 10px; }
+  .eyes-translate p:last-child { margin-bottom: 0; }
+  .eyes-translate strong { color: var(--brand-white); font-weight: 700; }
+
+  /* ===== Family Before/After ===== */
+  .baf-panel { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 16px; padding: 44px; }
+  .baf-panel .baf-eyebrow { font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--brand-green); margin-bottom: 14px; font-weight: 700; }
+  .baf-panel h2 { font-size: clamp(26px, 4vw, 34px); line-height: 1.2; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 24px; color: var(--brand-white); }
+  .baf-grid { display: grid; grid-template-columns: 1fr 32px 1fr; gap: 0; align-items: stretch; }
+  @media (max-width: 760px) { .baf-grid { grid-template-columns: 1fr; gap: 12px; } .baf-arrow { display: none !important; } .baf-panel { padding: 32px 22px; } }
+  .baf-card { background: var(--brand-dark); border: 1px solid var(--brand-line); border-radius: 12px; padding: 24px 26px; position: relative; }
+  .baf-card.before { border-top: 3px solid var(--red, #D33F49); }
+  .baf-card.after { border-top: 3px solid var(--brand-green); }
+  .baf-card .baf-tag { display: inline-block; font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; padding: 4px 10px; border-radius: 6px; margin-bottom: 12px; }
+  .baf-card.before .baf-tag { background: rgba(211,63,73,0.12); color: #FF8A92; border: 1px solid rgba(211,63,73,0.30); }
+  .baf-card.after .baf-tag { background: rgba(26,184,116,0.12); color: var(--brand-green); border: 1px solid rgba(26,184,116,0.30); }
+  .baf-card h3 { font-size: 18px; font-weight: 700; color: var(--brand-white); margin: 0 0 14px; letter-spacing: -0.01em; line-height: 1.3; }
+  .baf-card ul { list-style: none; padding: 0; margin: 0; }
+  .baf-card ul li { padding: 8px 0 8px 22px; position: relative; font-size: 14px; line-height: 1.55; color: #C8D0DE; }
+  .baf-card.before ul li::before { content: '\2715'; position: absolute; left: 0; top: 8px; color: #FF8A92; font-weight: 800; }
+  .baf-card.after ul li::before { content: '\2713'; position: absolute; left: 0; top: 8px; color: var(--brand-green); font-weight: 800; }
+  .baf-arrow { display: flex; align-items: center; justify-content: center; color: var(--brand-green); font-size: 26px; font-weight: 800; }
   .footer-cta a.ghost { background: transparent; border: 1px solid var(--brand-line); color: var(--brand-text); text-decoration: none; }
 
   footer { border-top: 1px solid var(--brand-line); padding: 28px 24px 36px; margin-top: 24px; }
@@ -364,6 +412,7 @@
       <a href="../programs/">Programs</a>
       <a href="../athletes/" class="active">Athletes</a>
       <a href="../about/">About</a>
+      <a href="../press/">Press</a>
     </div>
   </div>
 </div>
@@ -383,6 +432,19 @@
 </header>
 
 <main>
+
+  <!-- ===== Old world vs new world (ranking chase → ROI on the investment) ===== -->
+  <section data-aos="fade-up">
+    <div class="camp-panel">
+      <div class="camp-eyebrow">Old world vs. new world</div>
+      <h2>Stop paying for rankings. Start paying for return.</h2>
+      <p class="camp-body">For years families chased rankings. Paid for camp visibility. Padded social media for likes. The ranking became the goal. The assumption was simple. Get ranked, get offered.</p>
+      <p class="camp-body"><strong>That world is over.</strong></p>
+      <p class="camp-body">NIL put real money on the table. The family pays. The athlete invests. There has to be a return.</p>
+      <p class="camp-body">EDGE3 shows you what coaches actually evaluate. The gaps. The weaknesses. The development paths. Every dollar you spend should improve the thing the coach is going to grade. <strong>Not the ranking. The read.</strong></p>
+      <div class="camp-tagline">Every athlete is now a business. <em>EDGE3 is the operating system.</em></div>
+    </div>
+  </section>
 
   <!-- ===== Standing out is the hard part (Kenyon's voice) ===== -->
   <section>
@@ -441,6 +503,66 @@
       </div>
 
       <p style="font-size: 22px; font-weight: 700; color: var(--brand-white); margin: 28px 0 0; text-align: center; letter-spacing: -0.01em;">You are not just picking a school. You are choosing the best path for your future.</p>
+    </div>
+  </section>
+
+  <!-- ===== How we get the right coach's eyes on your kid ===== -->
+  <section data-aos="fade-up">
+    <div class="eyes-panel">
+      <div class="eyes-eyebrow">How we get the right coach&rsquo;s eyes on your kid</div>
+      <h2>The read you can&rsquo;t get from a camp invite.</h2>
+      <p class="eyes-sub">EDGE3 founders are inside the room every week. We get the right coach watching, we get the read back, and we translate what the coach actually said into language your family can use.</p>
+
+      <div class="eyes-quotes">
+        <div class="eyes-quote">
+          <p class="eq-text">&ldquo;He&rsquo;s a fit for what we do. Smart. Plays through contact. Position room is full this cycle. Revisit next class.&rdquo;</p>
+          <p class="eq-attrib">Head coach, Ivy League program</p>
+        </div>
+        <div class="eyes-quote">
+          <p class="eq-text">&ldquo;Top-half of the room on tape. Coverage feel is real. Need to see him in space against speed before we move.&rdquo;</p>
+          <p class="eq-attrib">Offensive coordinator, top-25 program</p>
+        </div>
+      </div>
+
+      <div class="eyes-translate">
+        <div class="et-eyebrow">From coach quote to family read</div>
+        <h3>We translate coach text into a portable scouting card.</h3>
+        <p>The same words turn into a structured read your family can carry into every conversation. <strong>What they see. What they want next. Where you fit. What the next 12 months should look like.</strong></p>
+        <p>Same vocabulary across coaches, programs, and conversations. <strong>So when the staff changes, your scouting document does not start over.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Before / After (family side) ===== -->
+  <section data-aos="fade-up">
+    <div class="baf-panel">
+      <div class="baf-eyebrow">Before EDGE3 / After EDGE3</div>
+      <h2>What changes for your family.</h2>
+      <div class="baf-grid">
+        <div class="baf-card before">
+          <span class="baf-tag">Before EDGE3</span>
+          <h3>Chasing rankings. Paying for likes. Hoping for the offer.</h3>
+          <ul>
+            <li>Money goes to ranking services, paid visibility, social padding</li>
+            <li>The ranking is the goal. The offer never comes</li>
+            <li>No idea what the coach actually evaluates</li>
+            <li>Highlight reel says one thing. Coach evaluation says another</li>
+            <li>NIL number lands. Nobody decodes it</li>
+          </ul>
+        </div>
+        <div class="baf-arrow" aria-hidden="true">&rarr;</div>
+        <div class="baf-card after">
+          <span class="baf-tag">After EDGE3</span>
+          <h3>Every dollar goes to the read. Every read drives the return.</h3>
+          <ul>
+            <li>See what coaches actually grade. Before you spend</li>
+            <li>Money goes to real weaknesses and gaps. Not rankings</li>
+            <li>The right coach is on the tape. The feedback comes back</li>
+            <li>NIL number decoded against real comparables</li>
+            <li>Family runs recruiting like a business. With ROI</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 

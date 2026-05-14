@@ -97,6 +97,47 @@
   /* Section separator */
   .section-separator { border: 0; height: 1px; max-width: 880px; margin: 56px auto 56px; background: linear-gradient(90deg, transparent, var(--brand-line), transparent); }
 
+  /* Macro vs Micro framework panel */
+  .mm-section { max-width: 1180px; margin: 0 auto; }
+  .mm-eyebrow { text-align: center; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; font-weight: 800; color: var(--brand-green); margin-bottom: 14px; }
+  .mm-title { text-align: center; font-size: clamp(26px, 4vw, 36px); font-weight: 800; letter-spacing: -0.025em; color: var(--brand-white); margin: 0 0 14px; line-height: 1.15; }
+  .mm-sub { text-align: center; font-size: 15px; color: #C7D3E6; max-width: 760px; margin: 0 auto 32px; line-height: 1.6; }
+  .mm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 22px; }
+  @media (max-width: 760px) { .mm-grid { grid-template-columns: 1fr; } }
+  .mm-card { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 14px; padding: 24px 26px; position: relative; }
+  .mm-card.macro { border-top: 3px solid var(--brand-muted); }
+  .mm-card.micro { border-top: 3px solid var(--brand-green); box-shadow: 0 10px 30px -16px rgba(26,184,116,0.30); }
+  .mm-card .mm-tag { display: inline-block; font-size: 10.5px; text-transform: uppercase; letter-spacing: 1.6px; font-weight: 800; padding: 4px 10px; border-radius: 12px; margin-bottom: 12px; }
+  .mm-card.macro .mm-tag { background: rgba(255,255,255,0.06); color: var(--brand-muted); }
+  .mm-card.micro .mm-tag { background: rgba(26,184,116,0.14); color: var(--brand-green); }
+  .mm-card h3 { margin: 0 0 10px; font-size: 19px; font-weight: 800; color: var(--brand-white); letter-spacing: -0.015em; }
+  .mm-card p { margin: 0 0 10px; font-size: 14px; color: #C7D3E6; line-height: 1.6; }
+  .mm-card p.mm-example { color: var(--brand-muted); font-style: italic; padding-top: 10px; border-top: 1px solid var(--brand-line); margin-top: 12px; margin-bottom: 0; font-size: 13px; }
+  .mm-anchor { background: linear-gradient(135deg, rgba(26,184,116,0.08), rgba(59,130,246,0.04)); border-left: 4px solid var(--brand-green); border-radius: 0 12px 12px 0; padding: 20px 26px; max-width: 820px; margin: 0 auto; }
+  .mm-anchor p { margin: 0; font-size: clamp(15px, 2vw, 17px); color: var(--brand-white); font-weight: 700; letter-spacing: -0.005em; line-height: 1.5; }
+  .mm-anchor p em { color: var(--brand-green); font-style: normal; }
+
+  /* Before / After panel */
+  .ba-section { max-width: 1180px; margin: 0 auto; }
+  .ba-eyebrow { text-align: center; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; font-weight: 800; color: var(--yellow); margin-bottom: 14px; }
+  .ba-title { text-align: center; font-size: clamp(26px, 4vw, 36px); font-weight: 800; letter-spacing: -0.025em; color: var(--brand-white); margin: 0 0 14px; line-height: 1.15; }
+  .ba-sub { text-align: center; font-size: 15px; color: #C7D3E6; max-width: 760px; margin: 0 auto 32px; line-height: 1.55; }
+  .ba-grid { display: grid; grid-template-columns: 1fr 56px 1fr; gap: 0; align-items: stretch; }
+  @media (max-width: 800px) { .ba-grid { grid-template-columns: 1fr; gap: 16px; } .ba-arrow { display: none; } }
+  .ba-card { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 14px; padding: 26px 28px; position: relative; }
+  .ba-card.before { border-top: 4px solid var(--red); }
+  .ba-card.after { border-top: 4px solid var(--brand-green); box-shadow: 0 12px 36px -18px rgba(26,184,116,0.30); }
+  .ba-card .ba-tag { display: inline-block; font-size: 10.5px; text-transform: uppercase; letter-spacing: 1.6px; font-weight: 800; padding: 4px 12px; border-radius: 12px; margin-bottom: 14px; }
+  .ba-card.before .ba-tag { background: rgba(211,63,73,0.12); color: #E59399; border: 1px solid rgba(211,63,73,0.30); }
+  .ba-card.after .ba-tag { background: rgba(26,184,116,0.14); color: var(--brand-green); border: 1px solid rgba(26,184,116,0.32); }
+  .ba-card h3 { margin: 0 0 14px; font-size: 19px; font-weight: 800; color: var(--brand-white); letter-spacing: -0.015em; line-height: 1.3; }
+  .ba-card ul { list-style: none; padding: 0; margin: 0; }
+  .ba-card ul li { padding: 9px 0 9px 24px; font-size: 13.5px; color: #C7D3E6; line-height: 1.5; position: relative; border-bottom: 1px solid var(--brand-line); }
+  .ba-card ul li:last-child { border-bottom: none; }
+  .ba-card.before ul li::before { content: '\2715'; position: absolute; left: 0; top: 9px; color: var(--red); font-weight: 800; font-size: 14px; }
+  .ba-card.after ul li::before { content: '\2713'; position: absolute; left: 0; top: 9px; color: var(--brand-green); font-weight: 800; font-size: 14px; }
+  .ba-arrow { display: flex; align-items: center; justify-content: center; color: var(--brand-green); font-size: 32px; font-weight: 800; }
+
   /* Agentic centerpiece — refined: bolder title, trimmed copy, highlighted callout */
   .agentic-section { margin: 0 auto 56px; max-width: 1180px; }
   .ag-eyebrow { text-align: center; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; font-weight: 800; color: var(--brand-green); margin-bottom: 16px; }
@@ -238,6 +279,7 @@
       <a href="../programs/" class="active">Programs</a>
       <a href="../athletes/">Athletes</a>
       <a href="../about/">About</a>
+      <a href="../press/">Press</a>
     </div>
   </div>
 </div>
@@ -258,7 +300,7 @@
   <section class="agentic-section" data-aos="fade-up">
     <div class="ag-eyebrow">How EDGE3 fits into your evaluation</div>
     <h2 class="ag-title">AI does the gathering.<br>Coaches make the call.</h2>
-    <p class="ag-sub">Coaches know what they want. EDGE3 gets you there faster &mdash; and with more confidence.</p>
+    <p class="ag-sub">Coaches know what they want. EDGE3 gets you there faster. With more confidence.</p>
 
     <div class="ag-callout">
       <p><em>EDGE3 surfaces what matters across all sources, then steps back.</em> The decision stays in the staff room.</p>
@@ -267,7 +309,7 @@
     <div class="ag-agents-centerpiece">
       <div class="ac-eyebrow">AI agents that work for the staff</div>
       <h3>Truth Intelligence Loop</h3>
-      <p class="ac-sub">Four agents. One job. The model learns the way players do &mdash; from every snap, every outcome, every mistake.</p>
+      <p class="ac-sub">Four agents. One job. The model learns the way players do. From every snap, every outcome, every mistake.</p>
       <div class="ac-agents">
         <div class="ac-agent"><div class="ag-num">01</div><div class="ag-name">Scout</div><div class="ag-desc">Gathers signals across every source</div></div>
         <div class="ac-agent"><div class="ag-num">02</div><div class="ag-name">Predict</div><div class="ag-desc">Surfaces fit, trajectory, retention</div></div>
@@ -275,6 +317,69 @@
         <div class="ac-agent"><div class="ag-num">04</div><div class="ag-name">Learn</div><div class="ag-desc">Sharpens every cycle</div></div>
       </div>
       <p class="ac-footnote">Agents act on what your staff tells them to look for. Your system, not ours.</p>
+    </div>
+  </section>
+
+  <hr class="section-separator">
+
+  <!-- ===== Macro vs Micro framework ===== -->
+  <section class="mm-section" data-aos="fade-up" style="margin-bottom: 56px;">
+    <div class="mm-eyebrow">How coaches actually recruit</div>
+    <h2 class="mm-title">Macro stars. Micro fit. EDGE3 sells the micro.</h2>
+    <p class="mm-sub">Most platforms sell macro evaluation. Stars. Generic projections. Big lists. Coaches recruit on micro: system fit, scheme alignment, position projection, room dynamics, institutional needs.</p>
+
+    <div class="mm-grid">
+      <div class="mm-card macro">
+        <span class="mm-tag">Macro evaluation</span>
+        <h3>Stars and rankings.</h3>
+        <p>What 247, On3, Rivals, and most recruiting databases sell. Public rating. National lens. Same number for every program looking.</p>
+        <p class="mm-example">A 5-star linebacker is a 5-star to every list. The list doesn&rsquo;t tell you if he&rsquo;s a 5-star <em>for you</em>.</p>
+      </div>
+      <div class="mm-card micro">
+        <span class="mm-tag">Micro fit evaluation</span>
+        <h3>Fit to your room.</h3>
+        <p>How EDGE3 reads every athlete. Your system. Your scheme. Your current depth chart. Your developmental history. Your conference.</p>
+        <p class="mm-example">A 5-star at Program A can be a 2-star at Program B. EDGE3 tells you which one he is <em>for you</em>.</p>
+      </div>
+    </div>
+
+    <div class="mm-anchor">
+      <p><em>Fit to Purpose AI.</em> Built for the call you actually have to make.</p>
+    </div>
+  </section>
+
+  <hr class="section-separator">
+
+  <!-- ===== Before / After (staff side) ===== -->
+  <section class="ba-section" data-aos="fade-up" style="margin-bottom: 56px;">
+    <div class="ba-eyebrow">Before EDGE3 / After EDGE3</div>
+    <h2 class="ba-title">What changes in your staff meeting.</h2>
+    <p class="ba-sub">The recruiting workload doesn&rsquo;t shrink. The decision time does.</p>
+
+    <div class="ba-grid">
+      <div class="ba-card before">
+        <span class="ba-tag">Before EDGE3</span>
+        <h3>Staff meeting opens. Where do we land?</h3>
+        <ul>
+          <li>Ten reads from ten sources, none of them aligned</li>
+          <li>Analyst sends a sheet. PC has film. HC has a relationship</li>
+          <li>Stars say one thing. The portal says another. The film says a third</li>
+          <li>Retention risk is a gut call</li>
+          <li>The recruit is discussed three more times before a decision</li>
+        </ul>
+      </div>
+      <div class="ba-arrow" aria-hidden="true">&rarr;</div>
+      <div class="ba-card after">
+        <span class="ba-tag">After EDGE3</span>
+        <h3>One read per recruit. Color-coded. Decision-ready.</h3>
+        <ul>
+          <li>Combined R/Y/G across fit, trajectory, retention, and risk</li>
+          <li>Same model. Three role views. Analyst, PC, HC</li>
+          <li>Every signal traceable. Every score overridable</li>
+          <li>Retention probability with the drivers behind it</li>
+          <li>The recruit gets the call. Not the deferral</li>
+        </ul>
+      </div>
     </div>
   </section>
 
