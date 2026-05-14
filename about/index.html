@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>About EDGE3 · Founders + Partners</title>
+<meta name="description" content="EDGE3 founders, partners, and the people in the room. Built by former pro athletes, scouts, and broadcasters who lived inside coaching staffs, draft rooms, and TV booths for decades.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+<style>
+  :root {
+    --brand-dark:    #0A0F1C;
+    --brand-dark-2:  #0E1320;
+    --brand-dark-3:  #161D2D;
+    --brand-white:   #FFFFFF;
+    --brand-green:   #1AB874;
+    --brand-blue:    #3B82F6;
+    --brand-text:    #E8EDF5;
+    --brand-muted:   #8896AB;
+    --brand-line:    #1F2738;
+    --yellow:        #E8B339;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--brand-dark); color: var(--brand-text); font: 15px/1.6 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: var(--brand-blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .brandbar { background: var(--brand-dark); border-bottom: 1px solid var(--brand-line); padding: 16px 0; }
+  .brandbar .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .edge3-logo { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.03em; line-height: 1; font-size: 22px; }
+  .edge3-logo .e { color: var(--brand-white); }
+  .edge3-logo .three { color: var(--brand-green); }
+  .brandbar .nav { font-size: 13px; color: var(--brand-muted); }
+  .brandbar .nav a { color: var(--brand-text); margin-left: 18px; }
+
+  header.hero { background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-dark-2) 100%); padding: 72px 0 56px; border-bottom: 1px solid var(--brand-line); position: relative; overflow: hidden; }
+  header.hero::before { content: ''; position: absolute; top: -40%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(26,184,116,0.10), transparent 60%); pointer-events: none; }
+  header.hero .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; position: relative; }
+  .eyebrow { display: inline-block; background: rgba(26,184,116,0.14); border: 1px solid rgba(26,184,116,0.32); padding: 6px 13px; border-radius: 18px; font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: #95E5BD; margin-bottom: 22px; }
+  header.hero h1 { margin: 0 0 14px; font-size: clamp(32px, 6vw, 52px); line-height: 1.08; font-weight: 800; letter-spacing: -0.025em; color: var(--brand-white); max-width: 880px; }
+  header.hero h1 .accent { color: var(--brand-green); }
+  header.hero p.lede { margin: 0; font-size: clamp(15px, 2vw, 18px); line-height: 1.55; color: #C7D3E6; max-width: 760px; }
+
+  main { max-width: 1180px; margin: 0 auto; padding: 64px 24px 32px; }
+  section { margin-bottom: 64px; }
+
+  .section-title { font-size: clamp(22px, 3vw, 30px); font-weight: 800; letter-spacing: -0.02em; color: var(--brand-white); margin: 0 0 10px; }
+  .section-eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 1.6px; font-weight: 700; color: var(--brand-green); margin-bottom: 10px; }
+  .section-sub { color: #C7D3E6; font-size: 15px; line-height: 1.6; max-width: 760px; margin: 0 0 28px; }
+
+  /* Founders */
+  .founders-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
+  @media (max-width: 800px) { .founders-grid { grid-template-columns: 1fr; } }
+  .founders-photo { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--brand-line); box-shadow: 0 18px 40px -16px rgba(0,0,0,0.55); }
+  .founders-list { display: flex; flex-direction: column; gap: 0; }
+  .fl-row { display: flex; align-items: baseline; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--brand-line); }
+  .fl-row:last-child { border-bottom: none; }
+  .fl-name { font-size: 16px; font-weight: 800; color: var(--brand-white); letter-spacing: -0.01em; min-width: 170px; }
+  .fl-cred { font-size: 13px; color: var(--brand-muted); }
+
+  /* Voices row — BJ on CBS + Colorado photo */
+  .voices-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  @media (max-width: 760px) { .voices-grid { grid-template-columns: 1fr; } }
+  .voice-tile { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 12px; overflow: hidden; }
+  .voice-tile img { display: block; width: 100%; height: 280px; object-fit: cover; object-position: center 28%; }
+  .voice-tile .vt-body { padding: 18px 22px 20px; }
+  .voice-tile .vt-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: var(--brand-green); margin-bottom: 6px; }
+  .voice-tile h3 { margin: 0 0 6px; font-size: 17px; font-weight: 800; color: var(--brand-white); letter-spacing: -0.01em; }
+  .voice-tile p { font-size: 13.5px; color: #C7D3E6; line-height: 1.55; margin: 0; }
+
+  /* IBM partnership panel */
+  .ibm-panel { background: linear-gradient(135deg, var(--brand-dark-2) 0%, var(--brand-dark-3) 100%); border: 1px solid var(--brand-line); border-radius: 14px; padding: 36px 38px 32px; position: relative; text-align: center; }
+  .ibm-panel::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--brand-blue); border-radius: 14px 14px 0 0; }
+  .ibm-panel .ip-eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: var(--brand-blue); margin-bottom: 10px; }
+  .ibm-panel h2 { margin: 0 0 20px; font-size: 24px; font-weight: 800; letter-spacing: -0.015em; color: var(--brand-white); }
+  .ibm-panel img { display: block; width: 100%; max-width: 720px; margin: 0 auto; border-radius: 10px; border: 1px solid var(--brand-line); }
+  .ibm-panel .ip-caption { font-size: 12px; color: var(--brand-muted); margin-top: 10px; font-style: italic; line-height: 1.4; }
+  @media (max-width: 600px) { .ibm-panel { padding: 26px 22px; } .ibm-panel h2 { font-size: 20px; } }
+
+  /* Partner strip */
+  .partners { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 12px; padding: 20px 28px; display: flex; align-items: center; justify-content: center; gap: 28px; flex-wrap: wrap; }
+  .partners .p-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: var(--brand-muted); margin-right: 8px; }
+  .partners .p-logo.ibm { font-family: 'Inter', sans-serif; font-weight: 800; font-size: 28px; letter-spacing: -0.06em; color: var(--brand-white); }
+
+  /* Closing CTA */
+  .closing-cta { text-align: center; padding: 36px 24px; background: linear-gradient(135deg, var(--brand-dark-2) 0%, var(--brand-dark-3) 100%); border: 1px solid var(--brand-line); border-radius: 14px; }
+  .closing-cta h3 { margin: 0 0 14px; font-size: 22px; font-weight: 800; letter-spacing: -0.01em; color: var(--brand-white); }
+  .closing-cta p { color: #C7D3E6; font-size: 15px; margin: 0 0 22px; max-width: 580px; margin-left: auto; margin-right: auto; }
+  .closing-cta .btn { display: inline-block; padding: 12px 24px; background: var(--brand-green); color: #fff; border-radius: 8px; font-weight: 700; font-size: 14px; text-decoration: none; margin: 0 6px; }
+  .closing-cta .btn:hover { background: #14965F; text-decoration: none; }
+  .closing-cta .btn.ghost { background: transparent; border: 1px solid var(--brand-line); color: var(--brand-text); }
+  .closing-cta .btn.ghost:hover { background: rgba(255,255,255,0.04); }
+
+  footer { border-top: 1px solid var(--brand-line); padding: 28px 24px 36px; margin-top: 24px; }
+  footer .wrap { max-width: 1180px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; font-size: 12.5px; color: var(--brand-muted); }
+  footer .wrap a { color: var(--brand-text); }
+</style>
+</head>
+<body>
+
+<div class="brandbar">
+  <div class="wrap">
+    <a href="../" style="text-decoration: none;"><span class="edge3-logo"><span class="e">EDGE</span><span class="three">3</span></span></a>
+    <div class="nav">
+      <a href="../">Home</a>
+      <a href="../programs/">For Programs</a>
+      <a href="../athletes/">Athletes &amp; Families</a>
+      <a href="./">About</a>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">About EDGE3</span>
+    <h1>Built by people who&rsquo;ve been in <span class="accent">the room.</span></h1>
+    <p class="lede">EDGE3 was built by former pro athletes, scouts, and broadcasters who lived inside coaching staffs, draft rooms, and TV booths for decades. We know how staffs evaluate. We know how families decide.</p>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===== Founders ===== -->
+  <section data-aos="fade-up">
+    <div class="section-eyebrow">EDGE3 Founders</div>
+    <h2 class="section-title">25 years in the room. Now in one platform.</h2>
+    <p class="section-sub">Six former pro athletes, a hall-of-fame broadcaster, and an operating leader. Built by people who have lived inside the rooms families need to reach.</p>
+
+    <div class="founders-grid">
+      <img class="founders-photo" src="../assets/photos/edge3-founders.jpg" alt="EDGE3 founders group photo featuring Kenyon Rasheed, Brian Jones, Gary Payton, Will Anderson Jr., Horace Grant, Warren Sapp, and Jonathan Hayes">
+
+      <div class="founders-list">
+        <div class="fl-row"><span class="fl-name">Kenyon Rasheed</span><span class="fl-cred">Founder &amp; CEO &middot; Former NFL</span></div>
+        <div class="fl-row"><span class="fl-name">Brian Jones</span><span class="fl-cred">CBS Inside College Football</span></div>
+        <div class="fl-row"><span class="fl-name">Gary Payton</span><span class="fl-cred">NBA Hall of Fame</span></div>
+        <div class="fl-row"><span class="fl-name">Will Anderson Jr.</span><span class="fl-cred">NFL</span></div>
+        <div class="fl-row"><span class="fl-name">Horace Grant</span><span class="fl-cred">NBA</span></div>
+        <div class="fl-row"><span class="fl-name">Warren Sapp</span><span class="fl-cred">NFL Hall of Fame</span></div>
+        <div class="fl-row"><span class="fl-name">Jonathan Hayes</span><span class="fl-cred">Former NFL</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Voices ===== -->
+  <section data-aos="fade-up">
+    <div class="section-eyebrow">Who is in the room</div>
+    <h2 class="section-title">The voices already in the rooms staffs and families care about.</h2>
+    <p class="section-sub">EDGE3 founders sit inside college football and the broader sports world every week. The same voices that families and staffs already trust are the voices shaping how EDGE3 evaluates fit, opportunity, and long-term value.</p>
+
+    <div class="voices-grid">
+      <div class="voice-tile">
+        <img src="../assets/photos/brian-jones-cbs.jpg" alt="Brian Jones on CBS Inside College Football">
+        <div class="vt-body">
+          <div class="vt-tag">CBS Inside College Football</div>
+          <h3>Brian Jones</h3>
+          <p>EDGE3 founder. On college football TV every Saturday. Decades inside locker rooms, meeting rooms, and the studio.</p>
+        </div>
+      </div>
+      <div class="voice-tile">
+        <img src="../assets/photos/edge3-colorado.jpg" alt="Kenyon Rasheed, Brian Jones, Warren Sapp, and Deion Sanders at Colorado">
+        <div class="vt-body">
+          <div class="vt-tag">On campus &middot; Colorado</div>
+          <h3>EDGE3 founders with Coach Prime</h3>
+          <p>Kenyon Rasheed, Brian Jones, and Warren Sapp on campus at Colorado with Deion Sanders. The network that makes EDGE3 different.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== IBM partnership ===== -->
+  <section data-aos="fade-up">
+    <div class="ibm-panel">
+      <div class="ip-eyebrow">Partnership</div>
+      <h2>EDGE3 on stage at IBM THINK.</h2>
+      <img src="../assets/photos/kenyon-ibm-think.jpg" alt="Kenyon Rasheed presenting EDGE3 on stage at IBM THINK">
+      <div class="ip-caption">EDGE3 Founder / CEO Kenyon Rasheed on stage at IBM THINK&rsquo;s AI Summit.</div>
+    </div>
+  </section>
+
+  <!-- ===== Partner strip ===== -->
+  <section data-aos="fade-up">
+    <div class="partners">
+      <span class="p-label">Trusted by</span>
+      <span class="p-logo ibm">IBM</span>
+    </div>
+  </section>
+
+  <!-- ===== Closing CTA ===== -->
+  <section data-aos="fade-up">
+    <div class="closing-cta">
+      <h3>Want to see EDGE3 in your program or family?</h3>
+      <p>Choose your path. We will walk it with you.</p>
+      <a class="btn" href="../programs/">For Programs &rarr;</a>
+      <a class="btn ghost" href="../athletes/">Athletes &amp; Families &rarr;</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <span class="edge3-logo" style="font-size:16px;"><span class="e">EDGE</span><span class="three">3</span></span> &middot; About
+      <div style="font-size:11px; color:var(--brand-muted); margin-top:4px;">Powered by Truth Intelligence Models.</div>
+    </div>
+    <div><a href="../">Home</a> &middot; <a href="../programs/">Programs</a> &middot; <a href="../athletes/">Athletes &amp; Families</a> &middot; <a href="https://github.com/glove2044/edge3-model">github.com/glove2044/edge3-model</a></div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  if (window.AOS) { AOS.init({ duration: 700, once: true, easing: 'ease-out', offset: 60 }); }
+</script>
+
+</body>
+</html>

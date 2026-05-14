@@ -316,6 +316,61 @@
   .founders .f-sticker { font-size: 14.5px; line-height: 1.5; color: #B5EBD0; font-style: italic; font-weight: 600; padding-top: 18px; border-top: 1px solid var(--brand-line); margin-top: 22px; }
   @media (max-width: 600px) { .founders { padding: 24px 20px; } .founders h2 { font-size: 22px; } }
 
+  /* Section separator — subtle divider after hero */
+  .section-separator { border: 0; height: 1px; max-width: 880px; margin: 56px auto 56px; background: linear-gradient(90deg, transparent, var(--brand-line), transparent); }
+
+  /* Stats row — bold numbers, modern */
+  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; max-width: 1080px; margin: 0 auto; padding: 0 8px; }
+  @media (max-width: 700px) { .stats-row { grid-template-columns: 1fr; gap: 28px; } }
+  .stat { text-align: center; padding: 24px 18px; position: relative; }
+  .stat + .stat { border-left: 1px solid var(--brand-line); }
+  @media (max-width: 700px) { .stat + .stat { border-left: 0; border-top: 1px solid var(--brand-line); } }
+  .stat .stat-num { font-family: 'Inter', sans-serif; font-size: clamp(40px, 6.5vw, 68px); font-weight: 800; letter-spacing: -0.035em; color: var(--brand-white); line-height: 1; font-feature-settings: "tnum" 1; }
+  .stat .stat-num .accent { color: var(--brand-green); }
+  .stat .stat-label { font-size: 12px; text-transform: uppercase; letter-spacing: 1.6px; font-weight: 700; color: var(--brand-muted); margin-top: 12px; line-height: 1.4; }
+
+  /* Capability grid — 3 cards converging to R/Y/G */
+  .capability-section { margin: 0 auto; max-width: 1180px; }
+  .capability-eyebrow { text-align: center; font-size: 11px; text-transform: uppercase; letter-spacing: 1.6px; font-weight: 700; color: var(--brand-green); margin-bottom: 14px; }
+  .capability-title { text-align: center; font-size: clamp(24px, 3.6vw, 32px); font-weight: 800; letter-spacing: -0.02em; color: var(--brand-white); margin: 0 0 12px; }
+  .capability-sub { text-align: center; font-size: 15px; color: #C7D3E6; max-width: 700px; margin: 0 auto 36px; line-height: 1.55; }
+  .capability-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 900px) { .capability-cards { grid-template-columns: 1fr; gap: 14px; } }
+  .cap-card { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 14px; padding: 26px 24px 22px; position: relative; transition: border-color 0.2s, transform 0.2s; }
+  .cap-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 14px 14px 0 0; }
+  .cap-card.t::before { background: var(--brand-green); }
+  .cap-card.r::before { background: var(--brand-blue); }
+  .cap-card.f::before { background: var(--yellow); }
+  .cap-card:hover { border-color: rgba(255,255,255,0.15); transform: translateY(-2px); }
+  .cap-num { font-size: 11px; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase; margin-bottom: 10px; }
+  .cap-card.t .cap-num { color: var(--brand-green); }
+  .cap-card.r .cap-num { color: var(--brand-blue); }
+  .cap-card.f .cap-num { color: var(--yellow); }
+  .cap-head { font-size: 19px; font-weight: 800; color: var(--brand-white); letter-spacing: -0.01em; margin: 0 0 8px; }
+  .cap-body { font-size: 14px; color: #C7D3E6; line-height: 1.55; margin: 0 0 14px; }
+  .cap-stat { font-size: 12px; color: var(--brand-muted); padding-top: 12px; border-top: 1px solid var(--brand-line); font-weight: 600; }
+  .cap-stat strong { color: var(--brand-white); font-weight: 800; font-size: 13px; }
+
+  /* Converging arrows + R/Y/G output */
+  .cap-converge { display: flex; justify-content: center; margin: 14px 0 14px; }
+  .cap-converge svg { width: 100%; max-width: 760px; height: 60px; }
+  .cap-converge .conv-line { stroke: rgba(26,184,116,0.45); stroke-width: 1.5; fill: none; stroke-dasharray: 4 6; animation: convFlow 2.4s linear infinite; }
+  @keyframes convFlow { to { stroke-dashoffset: -20; } }
+  .cap-output { background: linear-gradient(135deg, var(--brand-dark-2) 0%, var(--brand-dark-3) 100%); border: 1px solid rgba(26,184,116,0.30); border-radius: 14px; padding: 26px 30px; text-align: center; max-width: 720px; margin: 0 auto; position: relative; box-shadow: 0 8px 28px -12px rgba(26,184,116,0.20); }
+  .cap-output::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--brand-green), var(--yellow), var(--red)); border-radius: 14px 14px 0 0; }
+  .cap-output .co-eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 1.6px; font-weight: 700; color: var(--brand-green); margin-bottom: 8px; }
+  .cap-output .co-title { font-size: 22px; font-weight: 800; color: var(--brand-white); letter-spacing: -0.015em; margin-bottom: 18px; }
+  .cap-output .co-pills { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .co-pill { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 22px; font-size: 13px; font-weight: 700; }
+  .co-pill .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .co-pill.g { background: rgba(26,184,116,0.12); color: #B5EBD0; border: 1px solid rgba(26,184,116,0.35); }
+  .co-pill.g .dot { background: var(--brand-green); }
+  .co-pill.y { background: rgba(232,179,57,0.12); color: #F2D78D; border: 1px solid rgba(232,179,57,0.35); }
+  .co-pill.y .dot { background: var(--yellow); }
+  .co-pill.r { background: rgba(211,63,73,0.10); color: #F0A8AD; border: 1px solid rgba(211,63,73,0.35); }
+  .co-pill.r .dot { background: var(--red); }
+  @media (max-width: 600px) { .cap-output { padding: 22px 22px; } .cap-output .co-title { font-size: 18px; } }
+
   /* Partner strip */
   .partners { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 12px; padding: 20px 28px; display: flex; align-items: center; justify-content: center; gap: 28px; flex-wrap: wrap; }
   .partners .p-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: var(--brand-muted); margin-right: 8px; }
@@ -347,6 +402,7 @@
     <div class="nav">
       <a href="./programs/">For Programs</a>
       <a href="./athletes/">Athletes &amp; Families</a>
+      <a href="./about/">About</a>
     </div>
   </div>
 </div>
@@ -354,177 +410,94 @@
 <header class="hero">
   <div class="wrap">
     <span class="eyebrow">EDGE3 Recruiting Intelligence</span>
-    <h1>Intelligence is knowing<br><span class="accent">what matters before everyone else does.</span></h1>
-    <p class="hero-tag">AI that thinks like a coach.</p>
+    <h1>Real Intelligence is knowing<br><span class="accent">what matters before everyone else does.</span></h1>
+    <p class="hero-tag">Predict. Evaluate. Win.</p>
   </div>
 </header>
 
 <main>
 
+  <hr class="section-separator">
+
+  <!-- ===== Partner strip (moved up — credibility right after hero) ===== -->
   <section>
-    <h2>It&rsquo;s not the data. It&rsquo;s how we connect it.</h2>
-    <p class="section-lede">What makes EDGE3 different from a recruiting platform.</p>
-    <div class="pillars pillars-2">
-      <div class="pillar synthesis">
-        <div class="p-num">01 &middot; Intelligence</div>
-        <h3>More than data access.</h3>
-        <p class="p-body">EDGE3 transforms structured and unstructured data into actionable recruiting intelligence.</p>
-        <div class="p-sticker">The data is available. The intelligence is not.</div>
+    <div class="partners">
+      <span class="p-label">Trusted by</span>
+      <span class="p-logo ibm">IBM</span>
+    </div>
+  </section>
+
+  <hr class="section-separator">
+
+  <!-- ===== Stats row — bold numbers, modern ===== -->
+  <section data-aos="fade-up">
+    <div class="stats-row">
+      <div class="stat">
+        <div class="stat-num">15,000<span class="accent">+</span></div>
+        <div class="stat-label">Athletes scored<br>across FB + BB</div>
       </div>
-      <div class="pillar models">
-        <div class="p-num">02 &middot; Models</div>
-        <h3>Built to think like a staff.</h3>
-        <p class="p-body">Our models surface the signals behind player movement, development, fit, and retention.</p>
-        <div class="p-sticker">Not static reports. Continuous athlete intelligence.</div>
+      <div class="stat">
+        <div class="stat-num">499</div>
+        <div class="stat-label">FBS &amp; D1 BB programs<br>covered</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">77<span class="accent">%</span></div>
+        <div class="stat-label">Trajectory accuracy,<br>tested against real outcomes</div>
       </div>
     </div>
   </section>
 
+  <hr class="section-separator">
+
+  <!-- ===== Capability grid — 3 cards converging to R/Y/G ===== -->
   <section data-aos="fade-up">
-    <div class="loop-panel">
-      <div class="lp-eyebrow">Truth Intelligence Loop</div>
-      <h2>Smarter with every cycle.</h2>
+    <div class="capability-section">
+      <div class="capability-eyebrow">What EDGE3 surfaces</div>
+      <h2 class="capability-title">Three signals in. One color out.</h2>
+      <p class="capability-sub">EDGE3 blends three model families into a single coach-readable read for every athlete.</p>
 
-      <div class="loop-wheel-container">
+      <div class="capability-cards">
+        <div class="cap-card t">
+          <div class="cap-num">01 &middot; Trajectory</div>
+          <div class="cap-head">Where this athlete is heading next season.</div>
+          <p class="cap-body">Climbing, holding, or slipping. Built from prior-year grades, scheme context, and behavioral signals.</p>
+          <div class="cap-stat"><strong>77%</strong> accuracy, tested against real outcomes</div>
+        </div>
+        <div class="cap-card r">
+          <div class="cap-num">02 &middot; Retention</div>
+          <div class="cap-head">How likely they stay in your room.</div>
+          <p class="cap-body">Continuous Roster Retention Risk read, updated as new signals come in. Catches portal flags weeks early.</p>
+          <div class="cap-stat"><strong>72%</strong> accuracy on past portal cycles</div>
+        </div>
+        <div class="cap-card f">
+          <div class="cap-num">03 &middot; Fit + Behavioral</div>
+          <div class="cap-head">How cleanly they map to your system.</div>
+          <p class="cap-body">Scheme fit, behavioral profile, room dynamics, and social signals all factored into one fit read.</p>
+          <div class="cap-stat"><strong>Continuous</strong> refresh as signals update</div>
+        </div>
+      </div>
 
-        <svg class="wheel-svg" viewBox="-60 -10 720 500" aria-hidden="true">
-          <defs>
-            <marker id="loopArrow" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto">
-              <path d="M0,0 L0,9 L8,4.5 z" fill="#1AB874"/>
-            </marker>
-            <filter id="loopGlow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="3.5" result="b"/>
-              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-            <radialGradient id="hubGrad" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="rgba(26,184,116,0.22)"/>
-              <stop offset="60%" stop-color="rgba(26,184,116,0.06)"/>
-              <stop offset="100%" stop-color="rgba(10,15,28,1)"/>
-            </radialGradient>
-          </defs>
-
-          <!-- Outer rotating dashed ring (slow spin) -->
-          <circle class="ring-dashed" cx="300" cy="240" r="190"/>
-          <!-- Track ring (subtle) -->
-          <circle class="ring-track" cx="300" cy="240" r="160" stroke-width="44"/>
-          <circle cx="300" cy="240" r="160" fill="none" stroke="rgba(26,184,116,0.18)" stroke-width="1"/>
-
-          <!-- 4 clockwise arc segments with arrowheads -->
-          <path class="agent-arc" d="M 320 81 A 160 160 0 0 1 459 240" marker-end="url(#loopArrow)"/>
-          <path class="agent-arc" d="M 459 240 A 160 160 0 0 1 320 399" marker-end="url(#loopArrow)"/>
-          <path class="agent-arc" d="M 280 399 A 160 160 0 0 1 141 240" marker-end="url(#loopArrow)"/>
-          <path class="agent-arc" d="M 141 240 A 160 160 0 0 1 280 81" marker-end="url(#loopArrow)"/>
-
-          <!-- 4 Agent cards positioned at N / E / S / W -->
-          <!-- Top: Scout Agent (180px wide, 78px tall) -->
-          <g class="agent-card">
-            <rect class="agent-pill-bg" x="210" y="6" width="180" height="78" rx="14"/>
-            <rect class="agent-pill" x="210" y="6" width="180" height="78" rx="14"/>
-            <!-- Icon: target / radar -->
-            <g class="agent-icon" transform="translate(225, 27)">
-              <circle cx="13" cy="13" r="13"/>
-              <circle cx="13" cy="13" r="8"/>
-              <circle cx="13" cy="13" r="3" fill="#1AB874" stroke="none"/>
-            </g>
-            <text class="agent-num" x="263" y="28">AGENT 01</text>
-            <text class="agent-name" x="263" y="46">Scout</text>
-            <text class="agent-role" x="263" y="62">Gathers signals across</text>
-            <text class="agent-role" x="263" y="74">player, family, staff, social</text>
-          </g>
-
-          <!-- Right: Prediction Agent -->
-          <g class="agent-card">
-            <rect class="agent-pill-bg" x="465" y="195" width="170" height="78" rx="14"/>
-            <rect class="agent-pill" x="465" y="195" width="170" height="78" rx="14"/>
-            <!-- Icon: trending up chart -->
-            <g class="agent-icon" transform="translate(478, 217)">
-              <polyline points="0,18 6,12 12,16 22,4"/>
-              <polyline points="16,4 22,4 22,10"/>
-            </g>
-            <text class="agent-num" x="516" y="217">AGENT 02</text>
-            <text class="agent-name" x="516" y="235">Predict</text>
-            <text class="agent-role" x="516" y="251">Fit, trajectory, retention,</text>
-            <text class="agent-role" x="516" y="263">transfer risk</text>
-          </g>
-
-          <!-- Bottom: Verify Agent -->
-          <g class="agent-card">
-            <rect class="agent-pill-bg" x="210" y="396" width="180" height="78" rx="14"/>
-            <rect class="agent-pill" x="210" y="396" width="180" height="78" rx="14"/>
-            <!-- Icon: checkmark in circle -->
-            <g class="agent-icon" transform="translate(225, 417)">
-              <circle cx="13" cy="13" r="13"/>
-              <polyline points="7,13 11,17 19,9"/>
-            </g>
-            <text class="agent-num" x="263" y="418">AGENT 03</text>
-            <text class="agent-name" x="263" y="436">Verify</text>
-            <text class="agent-role" x="263" y="452">Portal, snaps, game data,</text>
-            <text class="agent-role" x="263" y="464">decisions</text>
-          </g>
-
-          <!-- Left: Learn Agent -->
-          <g class="agent-card">
-            <rect class="agent-pill-bg" x="-35" y="195" width="170" height="78" rx="14"/>
-            <rect class="agent-pill" x="-35" y="195" width="170" height="78" rx="14"/>
-            <!-- Icon: circular refresh -->
-            <g class="agent-icon" transform="translate(-22, 217)">
-              <path d="M 1,10 A 11,11 0 1 1 1,10.1" />
-              <polyline points="1,4 1,10 7,10"/>
-            </g>
-            <text class="agent-num" x="16" y="217">AGENT 04</text>
-            <text class="agent-name" x="16" y="235">Learn</text>
-            <text class="agent-role" x="16" y="251">Weights adjust,</text>
-            <text class="agent-role" x="16" y="263">signals sharpen</text>
-          </g>
-
-          <!-- Center brain hub -->
-          <circle cx="300" cy="240" r="78" fill="url(#hubGrad)"/>
-          <circle class="hub-bg" cx="300" cy="240" r="68"/>
-          <circle class="hub-inner" cx="300" cy="240" r="55"/>
-          <text class="hub-label" x="300" y="225" text-anchor="middle">EDGE3</text>
-          <text class="hub-sub" x="300" y="241" text-anchor="middle">TRUTH INTELLIGENCE</text>
-          <text class="hub-sub" x="300" y="253" text-anchor="middle">LOOP</text>
-          <!-- Live R/Y/G output dots animating in sequence -->
-          <g transform="translate(300, 275)">
-            <circle class="ryg-g ryg-pulse-g" cx="-16" cy="0" r="5"/>
-            <circle class="ryg-y ryg-pulse-y" cx="0" cy="0" r="5"/>
-            <circle class="ryg-r ryg-pulse-r" cx="16" cy="0" r="5"/>
-          </g>
-
-          <!-- Two orbiting pulses (different speeds for "multiple agents working" feel) -->
-          <circle r="6" fill="#1AB874" filter="url(#loopGlow)" opacity="0.95">
-            <animateMotion dur="9s" repeatCount="indefinite" rotate="auto">
-              <mpath href="#loop-orbit"/>
-            </animateMotion>
-          </circle>
-          <circle r="4" fill="#3B82F6" filter="url(#loopGlow)" opacity="0.85">
-            <animateMotion dur="13s" repeatCount="indefinite" rotate="auto" begin="-4s">
-              <mpath href="#loop-orbit"/>
-            </animateMotion>
-          </circle>
-          <path id="loop-orbit" d="M 300 80 A 160 160 0 1 1 299 80 Z" fill="none" stroke="none"/>
+      <div class="cap-converge" aria-hidden="true">
+        <svg viewBox="0 0 760 60" preserveAspectRatio="none">
+          <path class="conv-line" d="M 127 0 L 380 60"/>
+          <path class="conv-line" d="M 380 0 L 380 60"/>
+          <path class="conv-line" d="M 633 0 L 380 60"/>
         </svg>
-
       </div>
 
-      <div class="lp-sticker">Every cycle, the read gets sharper. Per player. Per position. Per program.</div>
+      <div class="cap-output">
+        <div class="co-eyebrow">Combined EDGE3 read</div>
+        <div class="co-title">One signal. Three colors. Decision-ready.</div>
+        <div class="co-pills">
+          <span class="co-pill g"><span class="dot"></span>Green &mdash; On track</span>
+          <span class="co-pill y"><span class="dot"></span>Yellow &mdash; Mixed signals</span>
+          <span class="co-pill r"><span class="dot"></span>Red &mdash; Flag now</span>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ===== Founders strip ===== -->
-  <section data-aos="fade-up">
-    <div class="founders">
-      <div class="f-eyebrow">EDGE3 Founders</div>
-      <h2>Built by people who have been in the room.</h2>
-      <p class="f-body">EDGE3 understands how staffs recruit and how athletes make decisions.</p>
-
-      <div class="founders-photo-wrap">
-        <img class="founders-photo" src="./assets/photos/edge3-founders.jpg" alt="EDGE3 founders group photo featuring Kenyon Rasheed, Brian Jones, Gary Payton, Will Anderson Jr., Horace Grant, Warren Sapp, and Jonathan Hayes" loading="lazy">
-      </div>
-
-      <div class="f-sticker">25 years in the room. Now in one intelligence platform.</div>
-    </div>
-  </section>
+  <hr class="section-separator">
 
   <section>
     <h2>Two engagement channels. One intelligence layer.</h2>
@@ -558,14 +531,6 @@
         </div>
       </div>
 
-    </div>
-  </section>
-
-  <!-- ===== Partner strip ===== -->
-  <section data-aos="fade-up">
-    <div class="partners">
-      <span class="p-label">Trusted by</span>
-      <span class="p-logo ibm">IBM</span>
     </div>
   </section>
 
