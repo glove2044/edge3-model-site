@@ -334,6 +334,31 @@
   .stat .stat-num .accent { color: var(--brand-green); }
   .stat .stat-label { font-size: 12px; text-transform: uppercase; letter-spacing: 1.6px; font-weight: 700; color: var(--brand-muted); margin-top: 12px; line-height: 1.4; }
 
+  /* Positioning anchor — single line between stats and capability */
+  .position-anchor { max-width: 880px; margin: 0 auto; padding: 24px 30px; text-align: center; background: linear-gradient(135deg, rgba(26,184,116,0.04) 0%, rgba(59,130,246,0.04) 100%); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; position: relative; }
+  .position-anchor::before { content: ''; position: absolute; top: -1px; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: var(--brand-green); border-radius: 0 0 4px 4px; }
+  .position-anchor p { margin: 0; font-size: clamp(15px, 2vw, 17.5px); color: var(--brand-text); line-height: 1.6; font-weight: 500; }
+  .position-anchor p strong { color: var(--brand-white); font-weight: 800; }
+
+  /* Trust principles panel */
+  .trust-section { max-width: 1180px; margin: 0 auto; }
+  .trust-eyebrow { text-align: center; font-size: 11px; text-transform: uppercase; letter-spacing: 1.6px; font-weight: 700; color: var(--brand-green); margin-bottom: 14px; }
+  .trust-title { text-align: center; font-size: clamp(24px, 3.6vw, 32px); font-weight: 800; letter-spacing: -0.02em; color: var(--brand-white); margin: 0 0 14px; }
+  .trust-sub { text-align: center; font-size: 15px; color: #C7D3E6; max-width: 760px; margin: 0 auto 36px; line-height: 1.6; }
+  .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  @media (max-width: 900px) { .trust-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 540px) { .trust-grid { grid-template-columns: 1fr; } }
+  .trust-card { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 14px; padding: 22px 22px 20px; position: relative; transition: border-color 0.2s, transform 0.2s; }
+  .trust-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 14px 14px 0 0; }
+  .trust-card.t1::before { background: var(--brand-green); }
+  .trust-card.t2::before { background: var(--brand-blue); }
+  .trust-card.t3::before { background: var(--yellow); }
+  .trust-card.t4::before { background: var(--brand-green); }
+  .trust-card:hover { border-color: rgba(255,255,255,0.15); transform: translateY(-2px); }
+  .trust-num { font-size: 10.5px; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase; color: var(--brand-muted); margin-bottom: 10px; }
+  .trust-head { font-size: 16px; font-weight: 800; color: var(--brand-white); letter-spacing: -0.01em; margin: 0 0 8px; line-height: 1.3; }
+  .trust-body { font-size: 13.5px; color: #C7D3E6; line-height: 1.55; margin: 0; }
+
   /* Capability grid — 3 cards converging to R/Y/G */
   .capability-section { margin: 0 auto; max-width: 1180px; }
   .capability-eyebrow { text-align: center; font-size: 11px; text-transform: uppercase; letter-spacing: 1.6px; font-weight: 700; color: var(--brand-green); margin-bottom: 14px; }
@@ -443,6 +468,13 @@
     </div>
   </section>
 
+  <!-- ===== Positioning anchor — coach-trust line ===== -->
+  <section data-aos="fade-up" style="margin-top: 56px;">
+    <div class="position-anchor">
+      <p>EDGE3 isn&rsquo;t a dashboard. It&rsquo;s the agentic layer between the data flood and the staff meeting &mdash; built to <strong>support how coaches actually decide</strong>, not to replace them.</p>
+    </div>
+  </section>
+
   <hr class="section-separator">
 
   <!-- ===== Capability grid — 3 cards converging to R/Y/G ===== -->
@@ -488,6 +520,40 @@
           <span class="co-pill g"><span class="dot"></span>Green &mdash; On track</span>
           <span class="co-pill y"><span class="dot"></span>Yellow &mdash; Mixed signals</span>
           <span class="co-pill r"><span class="dot"></span>Red &mdash; Flag now</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-separator">
+
+  <!-- ===== Trust principles ===== -->
+  <section data-aos="fade-up">
+    <div class="trust-section">
+      <div class="trust-eyebrow">Built for trust</div>
+      <h2 class="trust-title">Coaches know what they want. EDGE3 gets you there faster.</h2>
+      <p class="trust-sub">Most AI in sports right now is technology looking for a problem. EDGE3 was built the other way &mdash; by people who have lived inside the rooms staffs and families care about. Four principles that show up in every read.</p>
+
+      <div class="trust-grid">
+        <div class="trust-card t1">
+          <div class="trust-num">01</div>
+          <h3 class="trust-head">Tested against real outcomes.</h3>
+          <p class="trust-body">Not promised on a slide. Every accuracy number on this site was graded against what actually happened on the field or the court.</p>
+        </div>
+        <div class="trust-card t2">
+          <div class="trust-num">02</div>
+          <h3 class="trust-head">Coach over algorithm.</h3>
+          <p class="trust-body">Every score is overridable. Every signal is shown. The model surfaces. The staff decides.</p>
+        </div>
+        <div class="trust-card t3">
+          <div class="trust-num">03</div>
+          <h3 class="trust-head">Voices that have been in the room.</h3>
+          <p class="trust-body">EDGE3 is trained alongside former pros, scouts, and broadcasters. Not in an AI lab. In the rooms staffs and families already trust.</p>
+        </div>
+        <div class="trust-card t4">
+          <div class="trust-num">04</div>
+          <h3 class="trust-head">Learns the way players do.</h3>
+          <p class="trust-body">From every snap, every outcome, every mistake. The model gets sharper every cycle &mdash; the same way you teach your players to learn from theirs.</p>
         </div>
       </div>
     </div>
