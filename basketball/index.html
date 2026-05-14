@@ -306,6 +306,33 @@
   .q-card .q-answer strong { color: var(--navy); }
 
   /* Validation case study panel - Chol */
+  /* Data sources by category */
+  .data-sources { background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-dark-2) 100%); color: var(--brand-text); border-radius: 16px; padding: 36px 38px 32px; margin: 0 0 36px; position: relative; }
+  .data-sources::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--brand-blue), var(--brand-green), var(--bb-maroon, #7B1F2E)); border-radius: 16px 16px 0 0; }
+  .ds-eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; font-weight: 800; color: var(--brand-blue); margin-bottom: 10px; }
+  .ds-title { font-size: clamp(22px, 3.2vw, 28px); font-weight: 800; letter-spacing: -0.02em; color: var(--brand-white); margin: 0 0 10px; line-height: 1.2; }
+  .ds-sub { font-size: 14.5px; color: #C7D3E6; margin: 0 0 28px; max-width: 820px; line-height: 1.55; }
+  .ds-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 900px) { .ds-grid { grid-template-columns: 1fr; } }
+  .ds-card { background: var(--brand-dark-3); border: 1px solid var(--brand-line); border-radius: 12px; padding: 20px 22px; position: relative; }
+  .ds-card::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 3px; border-radius: 12px 0 0 12px; }
+  .ds-card.base::before { background: var(--brand-blue); }
+  .ds-card.rt::before { background: var(--brand-green); }
+  .ds-card.edge::before { background: #E8B339; }
+  .ds-card .ds-card-eyebrow { font-size: 10.5px; text-transform: uppercase; letter-spacing: 1.6px; font-weight: 800; margin-bottom: 8px; }
+  .ds-card.base .ds-card-eyebrow { color: var(--brand-blue); }
+  .ds-card.rt .ds-card-eyebrow { color: var(--brand-green); }
+  .ds-card.edge .ds-card-eyebrow { color: #E8B339; }
+  .ds-card h3 { margin: 0 0 12px; font-size: 15px; font-weight: 800; color: var(--brand-white); letter-spacing: -0.01em; line-height: 1.35; }
+  .ds-card ul { margin: 0 0 12px; padding-left: 0; list-style: none; }
+  .ds-card ul li { font-size: 12.5px; color: #C7D3E6; line-height: 1.55; padding: 5px 0 5px 16px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .ds-card ul li::before { content: '·'; position: absolute; left: 4px; top: 4px; color: var(--brand-green); font-weight: 800; }
+  .ds-card ul li:last-child { border-bottom: 0; }
+  .ds-card ul li strong { color: var(--brand-white); font-weight: 700; }
+  .ds-card .ds-note { font-size: 11.5px; color: var(--brand-muted); line-height: 1.55; margin: 12px 0 0; padding-top: 10px; border-top: 1px solid var(--brand-line); font-style: italic; }
+  .ds-card .ds-note strong { color: var(--brand-white); font-weight: 700; font-style: normal; }
+  @media (max-width: 600px) { .data-sources { padding: 26px 22px; } }
+
   /* Refined Positioning panel (top of page, modern card) */
   .rp-panel { background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-dark-2) 100%); color: var(--brand-text); border-radius: 14px; padding: 32px 34px; margin: 8px 0 36px; position: relative; overflow: hidden; box-shadow: 0 12px 36px -16px rgba(10,15,28,0.45); }
   .rp-panel::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--brand-green); border-radius: 14px 14px 0 0; }
@@ -486,6 +513,53 @@
         <li>Compare recruits against your roster, board, and historical player archetypes</li>
         <li>Monitor retention risk, trajectory shifts, and warning signs before the portal opens</li>
       </ul>
+    </div>
+
+    <!-- ===== Data sources by category — BB ===== -->
+    <div class="data-sources" data-aos="fade-up">
+      <div class="ds-eyebrow">Basketball data the model sees</div>
+      <h2 class="ds-title">EDGE3 evaluates players. Players are the program&rsquo;s primary asset.</h2>
+      <p class="ds-sub">Three categories of basketball data feed the EDGE3 base. Your staff adds the edge layer on top.</p>
+
+      <div class="ds-grid">
+        <div class="ds-card base">
+          <div class="ds-card-eyebrow">01 &middot; EDGE3 base (evaluation)</div>
+          <h3>What the shared model is built on.</h3>
+          <ul>
+            <li><strong>HS recruiting + film</strong> &middot; Hudl, MaxPreps, 247Sports, On3, Rivals</li>
+            <li><strong>College production</strong> &middot; Sports Reference advanced rates, KenPom, BartTorvik</li>
+            <li><strong>Possession + scheme data</strong> &middot; Synergy, NCAA box scores</li>
+            <li><strong>International production</strong> &middot; FIBA, EuroLeague, top domestic leagues</li>
+            <li><strong>Transfer portal</strong> &middot; live + historical movement</li>
+            <li><strong>Performance tracking</strong> &middot; Catapult, GPS wearables (where licensed)</li>
+            <li><strong>Surveys</strong> &middot; player, family, staff inputs</li>
+          </ul>
+        </div>
+        <div class="ds-card rt">
+          <div class="ds-card-eyebrow">02 &middot; Real-time indicators</div>
+          <h3>What sharpens the read in-season.</h3>
+          <ul>
+            <li><strong>Game-level production</strong> &middot; rolling 7-day update</li>
+            <li><strong>Minutes + role shifts</strong> &middot; rotation moves, injury status</li>
+            <li><strong>Social pattern analysis</strong> &middot; engagement, language, activity trajectory</li>
+            <li><strong>Reported buzz</strong> &middot; coach + family conversations, visit reports</li>
+          </ul>
+          <p class="ds-note"><strong>A note on social.</strong> Following kids on social media is one thing. Analyzing patterns is another. We do the second. Pattern signal, not surveillance.</p>
+        </div>
+        <div class="ds-card edge">
+          <div class="ds-card-eyebrow">03 &middot; Your edge layer</div>
+          <h3>What only your staff adds.</h3>
+          <ul>
+            <li>Position-coach grades and film notes</li>
+            <li>In-house scouting reports</li>
+            <li>AAU and travel evaluations</li>
+            <li>Recruiting visit + family relationship intel</li>
+            <li>Practice and weight-room evaluations</li>
+            <li>Any structured + unstructured data your room collects</li>
+          </ul>
+          <p class="ds-note"><strong>Your data stays your data.</strong> EDGE3 never sees your edge layer across other programs. The base is ours. The edge is yours.</p>
+        </div>
+      </div>
     </div>
 
     <h2 class="section-heading">How we evaluate every recruit.</h2>

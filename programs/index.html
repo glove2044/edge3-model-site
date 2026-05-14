@@ -97,11 +97,53 @@
   /* Section separator */
   .section-separator { border: 0; height: 1px; max-width: 880px; margin: 56px auto 56px; background: linear-gradient(90deg, transparent, var(--brand-line), transparent); }
 
-  /* Agentic loop visualization — data flood → EDGE3 → decisions */
+  /* Agentic centerpiece — refined: bolder title, trimmed copy, highlighted callout */
   .agentic-section { margin: 0 auto 56px; max-width: 1180px; }
-  .ag-eyebrow { text-align: center; font-size: 11px; text-transform: uppercase; letter-spacing: 1.6px; font-weight: 700; color: var(--brand-green); margin-bottom: 14px; }
-  .ag-title { text-align: center; font-size: clamp(24px, 3.6vw, 32px); font-weight: 800; letter-spacing: -0.02em; color: var(--brand-white); margin: 0 0 14px; }
-  .ag-sub { text-align: center; font-size: 15px; color: #C7D3E6; max-width: 760px; margin: 0 auto 40px; line-height: 1.6; }
+  .ag-eyebrow { text-align: center; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; font-weight: 800; color: var(--brand-green); margin-bottom: 16px; }
+  .ag-title { text-align: center; font-size: clamp(28px, 4.5vw, 42px); font-weight: 800; letter-spacing: -0.03em; color: var(--brand-white); margin: 0 0 18px; line-height: 1.1; }
+  .ag-sub { text-align: center; font-size: 16px; color: #C7D3E6; max-width: 720px; margin: 0 auto 24px; line-height: 1.55; }
+  .ag-callout { max-width: 820px; margin: 0 auto 40px; padding: 22px 28px; background: linear-gradient(135deg, rgba(26,184,116,0.08) 0%, rgba(59,130,246,0.04) 100%); border-left: 4px solid var(--brand-green); border-radius: 0 12px 12px 0; }
+  .ag-callout p { margin: 0; font-size: clamp(16px, 2.2vw, 19px); font-weight: 700; color: var(--brand-white); letter-spacing: -0.01em; line-height: 1.45; font-family: 'Inter', sans-serif; }
+  .ag-callout p em { color: var(--brand-green); font-style: normal; font-weight: 800; }
+  .ag-agents-centerpiece { max-width: 760px; margin: 0 auto; background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-dark-2) 100%); border: 1px solid rgba(26,184,116,0.30); border-radius: 16px; padding: 32px 36px 30px; position: relative; box-shadow: 0 16px 44px -20px rgba(26,184,116,0.20); }
+  .ag-agents-centerpiece::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--brand-green), var(--brand-blue)); border-radius: 16px 16px 0 0; }
+  .ag-agents-centerpiece .ac-eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 1.8px; font-weight: 800; color: var(--brand-green); margin-bottom: 10px; }
+  .ag-agents-centerpiece h3 { margin: 0 0 8px; font-size: 22px; font-weight: 800; color: var(--brand-white); letter-spacing: -0.015em; }
+  .ag-agents-centerpiece .ac-sub { font-size: 14px; color: #C7D3E6; margin: 0 0 22px; line-height: 1.55; }
+  .ac-agents { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  @media (max-width: 760px) { .ac-agents { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px) { .ac-agents { grid-template-columns: 1fr; } }
+  .ac-agent { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10); border-radius: 10px; padding: 14px 14px; transition: border-color 0.18s, transform 0.18s; }
+  .ac-agent:hover { border-color: rgba(26,184,116,0.45); transform: translateY(-2px); }
+  .ac-agent .ag-num { font-size: 10.5px; font-weight: 800; color: var(--brand-green); letter-spacing: 1.8px; text-transform: uppercase; margin-bottom: 6px; }
+  .ac-agent .ag-name { font-size: 16px; font-weight: 800; color: var(--brand-white); letter-spacing: -0.01em; margin-bottom: 4px; }
+  .ac-agent .ag-desc { font-size: 11.5px; color: #C7D3E6; line-height: 1.4; }
+  .ag-agents-centerpiece .ac-footnote { font-size: 12.5px; color: var(--brand-muted); line-height: 1.55; margin: 22px 0 0; padding-top: 18px; border-top: 1px solid var(--brand-line); }
+
+  /* Base + Edge section */
+  .base-edge { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 16px; padding: 36px 38px 32px; position: relative; }
+  .base-edge::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--yellow); border-radius: 16px 16px 0 0; }
+  .be-eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; font-weight: 800; color: var(--yellow); margin-bottom: 12px; text-align: center; }
+  .be-title { font-size: clamp(26px, 4vw, 36px); font-weight: 800; letter-spacing: -0.025em; color: var(--brand-white); margin: 0 0 12px; text-align: center; line-height: 1.15; }
+  .be-title em { color: var(--yellow); font-style: normal; }
+  .be-sub { font-size: 15px; color: #C7D3E6; max-width: 760px; margin: 0 auto 32px; line-height: 1.6; text-align: center; }
+  .be-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 22px; }
+  @media (max-width: 760px) { .be-grid { grid-template-columns: 1fr; } }
+  .be-card { background: var(--brand-dark); border: 1px solid var(--brand-line); border-radius: 12px; padding: 22px 24px; position: relative; }
+  .be-card::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 3px; border-radius: 12px 0 0 12px; }
+  .be-card.base::before { background: var(--brand-blue); }
+  .be-card.edge::before { background: var(--brand-green); }
+  .be-card .be-card-eyebrow { font-size: 10.5px; text-transform: uppercase; letter-spacing: 1.6px; font-weight: 800; margin-bottom: 8px; }
+  .be-card.base .be-card-eyebrow { color: var(--brand-blue); }
+  .be-card.edge .be-card-eyebrow { color: var(--brand-green); }
+  .be-card h4 { margin: 0 0 8px; font-size: 19px; font-weight: 800; color: var(--brand-white); letter-spacing: -0.015em; }
+  .be-card p { margin: 0 0 12px; font-size: 13.5px; color: #C7D3E6; line-height: 1.55; }
+  .be-card ul { margin: 0; padding-left: 18px; }
+  .be-card ul li { font-size: 12.5px; color: #C7D3E6; line-height: 1.55; margin-bottom: 4px; }
+  .be-tagline { margin-top: 8px; padding-top: 22px; border-top: 1px solid var(--brand-line); }
+  .be-tagline p { margin: 0 0 8px; font-size: 14.5px; color: #C7D3E6; line-height: 1.6; max-width: 820px; }
+  .be-tagline p.be-close { color: var(--brand-white); font-weight: 800; font-size: 17px; letter-spacing: -0.01em; }
+  @media (max-width: 600px) { .base-edge { padding: 26px 22px; } }
   .ag-flow {
     display: grid;
     grid-template-columns: 1fr 28px 1.3fr 28px 1fr;
@@ -193,8 +235,8 @@
     <a href="../" style="text-decoration: none;"><span class="edge3-logo"><span class="e">EDGE</span><span class="three">3</span></span></a>
     <div class="nav">
       <a href="../">Home</a>
-      <a href="../programs/" class="active">For Programs</a>
-      <a href="../athletes/">Athletes &amp; Families</a>
+      <a href="../programs/" class="active">Programs</a>
+      <a href="../athletes/">Athletes</a>
       <a href="../about/">About</a>
     </div>
   </div>
@@ -212,75 +254,71 @@
 
   <hr class="section-separator">
 
-  <!-- ===== Agentic intelligence loop visualization ===== -->
+  <!-- ===== Agentic centerpiece (refined) ===== -->
   <section class="agentic-section" data-aos="fade-up">
     <div class="ag-eyebrow">How EDGE3 fits into your evaluation</div>
-    <h2 class="ag-title">AI does the gathering. Coaches make the call.</h2>
-    <p class="ag-sub">Coaches know what they want. EDGE3 gets you there faster and with more confidence. Every quarter brings new performance trackers, new film platforms, new recruiting databases. None of them tell the staff who to take. EDGE3 surfaces what matters across all sources, then steps back. The decision stays in the staff room.</p>
+    <h2 class="ag-title">AI does the gathering.<br>Coaches make the call.</h2>
+    <p class="ag-sub">Coaches know what they want. EDGE3 gets you there faster &mdash; and with more confidence.</p>
 
-    <div class="ag-flow">
+    <div class="ag-callout">
+      <p><em>EDGE3 surfaces what matters across all sources, then steps back.</em> The decision stays in the staff room.</p>
+    </div>
 
-      <!-- LEFT: Data sources -->
-      <div class="ag-column inputs">
-        <div class="col-label">01 &middot; Data sources</div>
-        <div class="col-title">The flood every staff sees.</div>
-        <div class="ag-source"><span class="src-dot"></span><span><span class="src-name">Performance tracking</span> <span class="src-cat">&middot; Catapult, Zebra, GPS wearables</span></span></div>
-        <div class="ag-source"><span class="src-dot"></span><span><span class="src-name">Film &amp; scouting</span> <span class="src-cat">&middot; Hudl, Thunder, PFF</span></span></div>
-        <div class="ag-source"><span class="src-dot"></span><span><span class="src-name">Recruiting databases</span> <span class="src-cat">&middot; 247, On3, Rivals</span></span></div>
-        <div class="ag-source"><span class="src-dot"></span><span><span class="src-name">Transfer portal feeds</span> <span class="src-cat">&middot; live + historical</span></span></div>
-        <div class="ag-source"><span class="src-dot"></span><span><span class="src-name">Social signals</span> <span class="src-cat">&middot; mentions, follower graph</span></span></div>
-        <div class="ag-source"><span class="src-dot"></span><span><span class="src-name">Family + staff surveys</span> <span class="src-cat">&middot; EDGE3 native</span></span></div>
-        <div class="ag-source"><span class="src-dot"></span><span><span class="src-name">Game data + grades</span> <span class="src-cat">&middot; snap-level outcomes</span></span></div>
+    <div class="ag-agents-centerpiece">
+      <div class="ac-eyebrow">AI agents that work for the staff</div>
+      <h3>Truth Intelligence Loop</h3>
+      <p class="ac-sub">Four agents. One job. The model learns the way players do &mdash; from every snap, every outcome, every mistake.</p>
+      <div class="ac-agents">
+        <div class="ac-agent"><div class="ag-num">01</div><div class="ag-name">Scout</div><div class="ag-desc">Gathers signals across every source</div></div>
+        <div class="ac-agent"><div class="ag-num">02</div><div class="ag-name">Predict</div><div class="ag-desc">Surfaces fit, trajectory, retention</div></div>
+        <div class="ac-agent"><div class="ag-num">03</div><div class="ag-name">Verify</div><div class="ag-desc">Grades the read against outcomes</div></div>
+        <div class="ac-agent"><div class="ag-num">04</div><div class="ag-name">Learn</div><div class="ag-desc">Sharpens every cycle</div></div>
       </div>
-
-      <div class="ag-arrow" aria-hidden="true">&rarr;</div>
-
-      <!-- MIDDLE: EDGE3 engine -->
-      <div class="ag-column engine">
-        <div class="col-label">02 &middot; AI agents that work for the staff</div>
-        <div class="ag-engine-core">
-          <div class="ec-title">Truth Intelligence Loop</div>
-          <div class="ec-sub">Continuous. Cross-source. Coach-readable. The model learns the way players do &mdash; from every snap, every outcome, every mistake.</div>
-        </div>
-        <div class="ag-agents">
-          <div class="ag-agent"><div class="a-num">Agent 01</div><div class="a-name">Scout</div></div>
-          <div class="ag-agent"><div class="a-num">Agent 02</div><div class="a-name">Predict</div></div>
-          <div class="ag-agent"><div class="a-num">Agent 03</div><div class="a-name">Verify</div></div>
-          <div class="ag-agent"><div class="a-num">Agent 04</div><div class="a-name">Learn</div></div>
-        </div>
-        <p style="font-size: 11.5px; color: var(--brand-muted); margin: 14px 0 0; line-height: 1.5;">Agents work across every source, weigh signals against your roster and staff history, and grade themselves against what actually happened.</p>
-      </div>
-
-      <div class="ag-arrow" aria-hidden="true">&rarr;</div>
-
-      <!-- RIGHT: Coaching decisions -->
-      <div class="ag-column outputs">
-        <div class="col-label">03 &middot; Coaching decision</div>
-        <div class="col-title">One read per recruit.</div>
-        <div class="ag-decision g">
-          <span class="d-dot"></span>
-          <div><div class="d-label">Green &middot; Recruit / Retain</div><div class="d-sub">On track for your room. Move forward.</div></div>
-        </div>
-        <div class="ag-decision y">
-          <span class="d-dot"></span>
-          <div><div class="d-label">Yellow &middot; Have the conversation</div><div class="d-sub">Mixed signals. Worth a deeper look.</div></div>
-        </div>
-        <div class="ag-decision r">
-          <span class="d-dot"></span>
-          <div><div class="d-label">Red &middot; Flag / Evaluate now</div><div class="d-sub">Portal flag or development gap. Decide.</div></div>
-        </div>
-      </div>
-
+      <p class="ac-footnote">Agents act on what your staff tells them to look for. EDGE3 evaluates players &mdash; the primary asset of the program. Opponent scouting is a separate workflow we don&rsquo;t replace.</p>
     </div>
   </section>
 
-  <div class="ag-positioning" data-aos="fade-up" style="margin-bottom: 36px;">
-    <div class="ap-eyebrow">Why this matters now</div>
-    <h3>Coaches know what they want. EDGE3 gets you there faster.</h3>
-    <p>Every new platform claims to use AI. Most stop at dashboards. Coaches still walk into the staff meeting carrying ten reads from ten sources and synthesizing in their head.</p>
-    <p>EDGE3 doesn&rsquo;t replace your evaluation. It accelerates it. The model surfaces what matters across every source, grades itself against what actually happened, and gets sharper every cycle &mdash; the same way you teach your players to learn from every mistake.</p>
-    <p class="ap-close">Old school evaluation. New school speed. The call still belongs to the staff.</p>
-  </div>
+  <hr class="section-separator">
+
+  <!-- ===== Your base. Your edge. ===== -->
+  <section data-aos="fade-up" style="margin-bottom: 56px;">
+    <div class="base-edge">
+      <div class="be-eyebrow">Your data stays your data</div>
+      <h2 class="be-title">Your base. <em>Your edge.</em></h2>
+      <p class="be-sub">EDGE3 gives you the base model &mdash; trained across thousands of athletes and verified against real outcomes. Your staff brings the edge layer &mdash; structured and unstructured scouting only your room sees. The base is ours. The edge is yours.</p>
+
+      <div class="be-grid">
+        <div class="be-card base">
+          <div class="be-card-eyebrow">01 &middot; Base layer</div>
+          <h4>EDGE3 Truth Intelligence Models</h4>
+          <p>The shared foundation, trained across thousands of athletes, graded against real outcomes every cycle. The same base every program sees.</p>
+          <ul>
+            <li>Performance trajectory</li>
+            <li>Roster retention risk</li>
+            <li>Scheme + behavioral fit</li>
+            <li>Combined R/Y/G read</li>
+          </ul>
+        </div>
+        <div class="be-card edge">
+          <div class="be-card-eyebrow">02 &middot; Your edge layer</div>
+          <h4>Structured + unstructured scouting only your room sees</h4>
+          <p>Your staff adds the proprietary layer EDGE3 will never see across other programs. The model gets sharper for your room the more you put in.</p>
+          <ul>
+            <li>Position-coach grades and film notes</li>
+            <li>In-house scouting reports</li>
+            <li>Recruiting visit + family relationship intel</li>
+            <li>Practice and weight-room evaluations</li>
+            <li>Sport-specific feeds (HS, college, transfer)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="be-tagline">
+        <p>Every staff has its own evaluation history. EDGE3 is built so that history becomes a moat &mdash; not a spreadsheet locked in someone&rsquo;s laptop.</p>
+        <p class="be-close">Old school evaluation. New school speed. The call still belongs to the staff.</p>
+      </div>
+    </div>
+  </section>
 
   <section>
     <h2>Choose your sport to enter the EDGE3 Team Room.</h2>
