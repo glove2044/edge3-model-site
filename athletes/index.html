@@ -35,6 +35,12 @@
   .edge3-logo { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.03em; line-height: 1; font-size: 22px; }
   .edge3-logo .e { color: var(--brand-white); }
   .edge3-logo .three { color: var(--brand-green); }
+  .brandbar { padding: 18px 0; }
+  .brandbar .nav { display: flex; gap: 4px; }
+  .brandbar .nav a { color: var(--brand-text); font-size: 14px; font-weight: 700; letter-spacing: -0.005em; padding: 8px 14px; border-radius: 8px; transition: background 0.15s, color 0.15s; text-decoration: none; }
+  .brandbar .nav a:hover { background: rgba(59,130,246,0.10); color: var(--brand-white); text-decoration: none; }
+  .brandbar .nav a.active { background: rgba(26,184,116,0.12); color: var(--brand-green); }
+  @media (max-width: 540px) { .brandbar .nav a { font-size: 13px; padding: 7px 11px; } }
   .brandbar .crumb { font-size: 13px; color: var(--brand-muted); }
   .brandbar .crumb a { color: var(--brand-text); }
   .brandbar .crumb .sep { margin: 0 8px; opacity: 0.5; }
@@ -353,7 +359,12 @@
 <div class="brandbar">
   <div class="wrap">
     <a href="../" style="text-decoration: none;"><span class="edge3-logo"><span class="e">EDGE</span><span class="three">3</span></span></a>
-    <div class="crumb"><a href="../">EDGE3</a><span class="sep">/</span>Athlete &amp; Family Recruiting OS <span class="sep">&middot;</span> <a href="../about/">About</a></div>
+    <div class="nav">
+      <a href="../">Home</a>
+      <a href="../programs/">For Programs</a>
+      <a href="../athletes/" class="active">Athletes &amp; Families</a>
+      <a href="../about/">About</a>
+    </div>
   </div>
 </div>
 

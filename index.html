@@ -36,8 +36,12 @@
   .edge3-logo { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.03em; line-height: 1; font-size: 22px; }
   .edge3-logo .e { color: var(--brand-white); }
   .edge3-logo .three { color: var(--brand-green); }
-  .brandbar .nav { font-size: 13px; color: var(--brand-muted); }
-  .brandbar .nav a { color: var(--brand-text); margin-left: 18px; }
+  .brandbar { padding: 18px 0; }
+  .brandbar .nav { display: flex; gap: 4px; }
+  .brandbar .nav a { color: var(--brand-text); font-size: 14px; font-weight: 700; letter-spacing: -0.005em; padding: 8px 14px; border-radius: 8px; transition: background 0.15s, color 0.15s; text-decoration: none; }
+  .brandbar .nav a:hover { background: rgba(59,130,246,0.10); color: var(--brand-white); text-decoration: none; }
+  .brandbar .nav a.active { background: rgba(26,184,116,0.12); color: var(--brand-green); }
+  @media (max-width: 540px) { .brandbar .nav a { font-size: 13px; padding: 7px 11px; } }
 
   /* Hero: stadium photo with brand-color overlay for readability */
   header.hero {
@@ -75,7 +79,8 @@
   .eyebrow { display: inline-block; background: rgba(59,130,246,0.18); border: 1px solid rgba(59,130,246,0.35); padding: 5px 12px; border-radius: 18px; font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: #C7D9FF; margin-bottom: 22px; }
   header.hero h1 { margin: 0 0 14px; font-size: clamp(30px, 6vw, 48px); line-height: 1.1; font-weight: 800; letter-spacing: -0.025em; color: var(--brand-white); max-width: 880px; }
   header.hero h1 .accent { color: var(--brand-green); }
-  header.hero p.hero-tag { margin: 0 0 16px; font-size: clamp(13px, 1.6vw, 15.5px); font-style: italic; color: var(--brand-green); font-weight: 500; letter-spacing: 0.2px; }
+  header.hero p.hero-tag { margin: 4px 0 16px; font-size: clamp(18px, 2.4vw, 26px); color: var(--brand-blue); font-weight: 800; letter-spacing: -0.012em; text-transform: none; text-shadow: 0 2px 14px rgba(59,130,246,0.30); }
+  header.hero p.hero-tag span { color: rgba(255,255,255,0.40); margin: 0 8px; font-weight: 400; }
   header.hero p.lede { margin: 0 0 28px; font-size: clamp(15px, 2vw, 18px); line-height: 1.55; color: #C7D3E6; max-width: 740px; }
 
   .hero-metrics { margin-top: 28px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; max-width: 880px; }
@@ -400,6 +405,7 @@
   <div class="wrap">
     <a href="./" style="text-decoration: none;"><span class="edge3-logo"><span class="e">EDGE</span><span class="three">3</span></span></a>
     <div class="nav">
+      <a href="./" class="active">Home</a>
       <a href="./programs/">For Programs</a>
       <a href="./athletes/">Athletes &amp; Families</a>
       <a href="./about/">About</a>
@@ -411,21 +417,11 @@
   <div class="wrap">
     <span class="eyebrow">EDGE3 Recruiting Intelligence</span>
     <h1>Real Intelligence is knowing<br><span class="accent">what matters before everyone else does.</span></h1>
-    <p class="hero-tag">Predict. Evaluate. Win.</p>
+    <p class="hero-tag">Predict<span>&middot;</span>Evaluate<span>&middot;</span>Win</p>
   </div>
 </header>
 
 <main>
-
-  <hr class="section-separator">
-
-  <!-- ===== Partner strip (moved up — credibility right after hero) ===== -->
-  <section>
-    <div class="partners">
-      <span class="p-label">Trusted by</span>
-      <span class="p-logo ibm">IBM</span>
-    </div>
-  </section>
 
   <hr class="section-separator">
 

@@ -33,8 +33,12 @@
   .edge3-logo { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.03em; line-height: 1; font-size: 22px; }
   .edge3-logo .e { color: var(--brand-white); }
   .edge3-logo .three { color: var(--brand-green); }
-  .brandbar .nav { font-size: 13px; color: var(--brand-muted); }
-  .brandbar .nav a { color: var(--brand-text); margin-left: 18px; }
+  .brandbar { padding: 18px 0; }
+  .brandbar .nav { display: flex; gap: 4px; }
+  .brandbar .nav a { color: var(--brand-text); font-size: 14px; font-weight: 700; letter-spacing: -0.005em; padding: 8px 14px; border-radius: 8px; transition: background 0.15s, color 0.15s; text-decoration: none; }
+  .brandbar .nav a:hover { background: rgba(59,130,246,0.10); color: var(--brand-white); text-decoration: none; }
+  .brandbar .nav a.active { background: rgba(26,184,116,0.12); color: var(--brand-green); }
+  @media (max-width: 540px) { .brandbar .nav a { font-size: 13px; padding: 7px 11px; } }
 
   header.hero { background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-dark-2) 100%); padding: 72px 0 56px; border-bottom: 1px solid var(--brand-line); position: relative; overflow: hidden; }
   header.hero::before { content: ''; position: absolute; top: -40%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(26,184,116,0.10), transparent 60%); pointer-events: none; }
@@ -108,7 +112,7 @@
       <a href="../">Home</a>
       <a href="../programs/">For Programs</a>
       <a href="../athletes/">Athletes &amp; Families</a>
-      <a href="./">About</a>
+      <a href="./" class="active">About</a>
     </div>
   </div>
 </div>
