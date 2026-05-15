@@ -53,10 +53,27 @@
   header.hero h1 { margin: 0 0 16px; font-size: clamp(28px, 5.5vw, 44px); line-height: 1.12; font-weight: 800; letter-spacing: -0.02em; color: var(--brand-white); max-width: 820px; }
   header.hero h1 .accent { color: var(--brand-green); }
   header.hero p.lede { margin: 0 0 22px; font-size: clamp(14.5px, 2vw, 17.5px); line-height: 1.55; color: #C7D3E6; max-width: 740px; }
-  header.hero .process-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
-  header.hero .process-chips .chip { background: rgba(26,184,116,0.10); border: 1px solid rgba(26,184,116,0.30); color: var(--brand-green); font-size: 11.5px; font-weight: 700; padding: 6px 12px; border-radius: 14px; text-transform: uppercase; letter-spacing: 1px; }
-  header.hero .process-chips .chip-arrow { color: var(--brand-green); font-size: 14px; align-self: center; opacity: 0.6; }
-  header.hero .process-chips .chip.optional { background: transparent; color: #95E5BD; border-style: dashed; }
+  /* Journey steps - bolder visual treatment */
+  header.hero .journey-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 32px; max-width: 880px; }
+  @media (max-width: 760px) { header.hero .journey-steps { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 420px) { header.hero .journey-steps { grid-template-columns: 1fr; } }
+  header.hero .js-step { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 16px 18px; position: relative; transition: border-color 0.2s, background 0.2s; }
+  header.hero .js-step::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 12px 12px 0 0; }
+  header.hero .js-step.js-1::before { background: var(--brand-blue); }
+  header.hero .js-step.js-2::before { background: var(--brand-green); }
+  header.hero .js-step.js-3::before { background: var(--yellow); }
+  header.hero .js-step.js-4::before { background: var(--brand-green); opacity: 0.5; }
+  header.hero .js-step.optional { border-style: dashed; opacity: 0.85; }
+  header.hero .js-step .js-num { font-family: 'JetBrains Mono', 'Inter', monospace; font-size: 11px; font-weight: 800; letter-spacing: 1.6px; color: var(--brand-muted); margin-bottom: 8px; }
+  header.hero .js-step .js-label { font-size: 17px; font-weight: 800; color: var(--brand-white); letter-spacing: -0.01em; margin-bottom: 4px; }
+  header.hero .js-step .js-blurb { font-size: 12px; line-height: 1.45; color: #C7D3E6; }
+  header.hero .js-step.optional .js-label { color: #95E5BD; }
+  @media (max-width: 600px) {
+    header.hero .journey-steps { gap: 8px; margin-top: 20px; }
+    header.hero .js-step { padding: 12px 14px; }
+    header.hero .js-step .js-label { font-size: 15px; }
+    header.hero .js-step .js-blurb { font-size: 11.5px; }
+  }
 
   /* Journey flow visual at end of Agent Intelligence */
   .journey-flow { display: grid; grid-template-columns: repeat(5, 1fr) ; gap: 8px; margin: 32px 0 0; padding-top: 24px; border-top: 1px solid var(--brand-line); }
@@ -420,35 +437,51 @@
 <header class="hero">
   <div class="wrap">
     <span class="eyebrow">EDGE3 &middot; Athletes &amp; Families</span>
-    <h1>The athlete and family <span class="accent">recruiting OS.</span></h1>
-    <p class="lede">Evaluation logic coaches trust. Agent-level intelligence the family owns. One platform, powering both sides of the recruiting table.</p>
-    <div class="process-chips" aria-label="The journey">
-      <span class="chip">Identify</span><span class="chip-arrow">&rarr;</span>
-      <span class="chip">Position</span><span class="chip-arrow">&rarr;</span>
-      <span class="chip">Compare</span><span class="chip-arrow">&rarr;</span>
-      <span class="chip optional">Visit (if applicable)</span>
+    <h1>The athlete <span class="accent">recruiting OS.</span></h1>
+    <p class="lede" style="font-size: clamp(16px, 2.2vw, 19px); color: var(--brand-white); font-weight: 600; max-width: 720px;">Coach-level evaluation. Family-owned intelligence.</p>
+    <div class="journey-steps" aria-label="The athlete journey">
+      <div class="js-step js-1">
+        <div class="js-num">01</div>
+        <div class="js-label">Identify</div>
+        <div class="js-blurb">Find the schools where you actually fit</div>
+      </div>
+      <div class="js-step js-2">
+        <div class="js-num">02</div>
+        <div class="js-label">Position</div>
+        <div class="js-blurb">Get the right coach watching</div>
+      </div>
+      <div class="js-step js-3">
+        <div class="js-num">03</div>
+        <div class="js-label">Compare</div>
+        <div class="js-blurb">Every option, side by side</div>
+      </div>
+      <div class="js-step js-4 optional">
+        <div class="js-num">04</div>
+        <div class="js-label">Visit</div>
+        <div class="js-blurb">If and when it&rsquo;s the right move</div>
+      </div>
     </div>
   </div>
 </header>
 
 <main>
 
-  <!-- ===== Old world vs new world (trimmed - Kenyon's edit) ===== -->
+  <!-- ===== Old world vs new world (Kenyon's leverage rewrite) ===== -->
   <section data-aos="fade-up">
     <div class="camp-panel">
       <div class="camp-eyebrow">Old world vs. new world</div>
-      <h2>Stop paying for rankings. Start paying for return.</h2>
-      <p class="camp-body">EDGE3 shows you what coaches actually grade. Spend on the gaps. Spend on the weaknesses. Spend on what moves the read.</p>
+      <h2>Stop chasing rankings. Start building leverage.</h2>
+      <p class="camp-body">EDGE3 shows what coaches actually evaluate. So families invest where it changes outcomes.</p>
       <div class="camp-tagline">Every athlete is now a business. <em>EDGE3 is the operating system.</em></div>
     </div>
   </section>
 
-  <!-- ===== How we get the right coach's eyes on your kid (photos merged in) ===== -->
+  <!-- ===== Inside the recruiting room ===== -->
   <section data-aos="fade-up">
     <div class="eyes-panel">
-      <div class="eyes-eyebrow">How we get the right coach&rsquo;s eyes on your kid</div>
-      <h2>The read you can&rsquo;t get from a camp invite.</h2>
-      <p class="eyes-sub" style="margin-bottom: 28px;">EDGE3 founders are inside the room every week. We get the right coach watching, we get the read back, and we translate what the coach actually said into language your family can use.</p>
+      <div class="eyes-eyebrow">EDGE3 lives inside the recruiting room. Not outside guessing.</div>
+      <h2>We help families understand what coaches actually see, value, and say behind closed doors.</h2>
+      <p class="eyes-sub" style="margin-bottom: 28px;">EDGE3 founders are inside the room every week. We get the right coach watching, we get the read back, and we hand it to your family in plain language.</p>
 
       <!-- Visual proof: BJ on CBS + EDGE3 founders at Colorado -->
       <div class="voices-grid" style="margin-bottom: 32px;">
@@ -456,16 +489,12 @@
           <img src="../assets/photos/brian-jones-cbs.jpg" alt="Brian Jones on CBS Inside College Football">
           <div class="vt-body">
             <div class="vt-tag">CBS Inside College Football</div>
-            <h3>Brian Jones</h3>
-            <p>EDGE3 founder. On college football TV every Saturday. Decades inside locker rooms, meeting rooms, and the studio.</p>
           </div>
         </div>
         <div class="voice-tile">
           <img src="../assets/photos/edge3-colorado.jpg" alt="Kenyon Rasheed, Brian Jones, Warren Sapp, and Deion Sanders at Colorado">
           <div class="vt-body">
             <div class="vt-tag">On campus &middot; Colorado</div>
-            <h3>EDGE3 founders with Coach Prime</h3>
-            <p>Kenyon Rasheed, Brian Jones, and Warren Sapp on campus at Colorado. The network that makes EDGE3 different.</p>
           </div>
         </div>
       </div>
@@ -481,13 +510,6 @@
           <p class="eq-text">&ldquo;Top-half of the room on tape. Coverage feel is real. Need to see him in space against speed before we move.&rdquo;</p>
           <p class="eq-attrib">Offensive coordinator, top-25 program</p>
         </div>
-      </div>
-
-      <div class="eyes-translate">
-        <div class="et-eyebrow">From coach quote to family read</div>
-        <h3>We translate coach text into a portable scouting card.</h3>
-        <p>The same words turn into a structured read your family can carry into every conversation. <strong>What they see. What they want next. Where you fit. What the next 12 months should look like.</strong></p>
-        <p>Same vocabulary across coaches, programs, and conversations. <strong>So when the staff changes, your scouting document does not start over.</strong></p>
       </div>
     </div>
   </section>
@@ -559,7 +581,6 @@
 
   <div class="footer-cta" style="margin-top: 28px;">
     <a class="ghost" href="../">Back to EDGE3 home &rarr;</a>
-    <a class="ghost" href="../INTELLIGENCE_LOOP.html">How the loop works</a>
   </div>
 
 </main>
