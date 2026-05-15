@@ -50,8 +50,9 @@
   header.hero::before { content: ''; position: absolute; top: -50%; right: -10%; width: 700px; height: 700px; background: radial-gradient(circle, rgba(59,130,246,0.10), transparent 60%); pointer-events: none; }
   header.hero .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; position: relative; }
   header.hero h1 { margin: 0 0 14px; font-size: clamp(28px, 5.5vw, 46px); line-height: 1.12; font-weight: 800; letter-spacing: -0.025em; color: var(--brand-white); max-width: 880px; }
-  header.hero p.hero-tag { margin: 4px 0 16px; font-size: clamp(18px, 2.4vw, 26px); color: var(--brand-blue); font-weight: 800; letter-spacing: -0.012em; text-shadow: 0 2px 14px rgba(59,130,246,0.30); }
+  header.hero p.hero-tag { margin: 8px 0 16px; font-size: clamp(20px, 2.6vw, 28px); color: var(--brand-white); font-weight: 800; letter-spacing: -0.015em; line-height: 1.2; }
   header.hero p.hero-tag span { color: rgba(255,255,255,0.40); margin: 0 8px; font-weight: 400; }
+  header.hero p.hero-tag br { display: block; }
   header.hero p.lede { margin: 0; font-size: clamp(15px, 2vw, 17.5px); line-height: 1.55; color: #C7D3E6; max-width: 740px; }
 
   main { max-width: 1180px; margin: 0 auto; padding: 56px 24px 48px; }
@@ -96,6 +97,28 @@
 
   /* Section separator */
   .section-separator { border: 0; height: 1px; max-width: 880px; margin: 56px auto 56px; background: linear-gradient(90deg, transparent, var(--brand-line), transparent); }
+  @media (max-width: 600px) { .section-separator { margin: 24px auto 24px; } header.hero { padding: 32px 0 24px; } header.hero h1 { margin-bottom: 10px; } header.hero p.hero-tag { margin: 4px 0 12px; } main { padding-top: 24px; } }
+
+  /* R/Y/G explainer */
+  .ryg-section { text-align: center; }
+  .ryg-eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; font-weight: 800; color: var(--brand-muted); margin-bottom: 12px; }
+  .ryg-title { font-size: clamp(24px, 3.5vw, 32px); font-weight: 800; letter-spacing: -0.02em; color: var(--brand-white); margin: 0 0 12px; line-height: 1.2; }
+  .ryg-sub { font-size: 15px; color: #C7D3E6; max-width: 720px; margin: 0 auto 26px; line-height: 1.6; }
+  .ryg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 980px; margin: 0 auto; text-align: left; }
+  @media (max-width: 760px) { .ryg-grid { grid-template-columns: 1fr; } }
+  .ryg-card { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 12px; padding: 22px 24px; position: relative; }
+  .ryg-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; border-radius: 12px 12px 0 0; }
+  .ryg-card.red::before { background: #D33F49; }
+  .ryg-card.yellow::before { background: var(--yellow); }
+  .ryg-card.green::before { background: var(--brand-green); }
+  .ryg-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.6px; font-weight: 800; margin-bottom: 8px; }
+  .ryg-card.red .ryg-label { color: #FF8A92; }
+  .ryg-card.yellow .ryg-label { color: var(--yellow); }
+  .ryg-card.green .ryg-label { color: var(--brand-green); }
+  .ryg-head { font-size: 17px; font-weight: 800; color: var(--brand-white); margin: 0 0 8px; letter-spacing: -0.01em; }
+  .ryg-body { font-size: 14px; line-height: 1.55; color: #C7D3E6; margin: 0; }
+  .ryg-anchor { margin: 26px auto 0; max-width: 760px; padding: 16px 22px; background: rgba(26,184,116,0.06); border-left: 3px solid var(--brand-green); border-radius: 0 10px 10px 0; font-size: 15px; line-height: 1.55; color: var(--brand-white); font-weight: 600; text-align: left; }
+  .ryg-anchor em { color: var(--brand-green); font-style: normal; }
 
   /* Macro vs Micro framework panel */
   .mm-section { max-width: 1180px; margin: 0 auto; }
@@ -287,8 +310,8 @@
 <header class="hero">
   <div class="wrap">
     <h1>You already have the film, the rankings, and the portal lists.</h1>
-    <p class="hero-tag">Signal<span>&middot;</span>Over<span>&middot;</span>Noise</p>
-    <p class="lede" style="color: var(--brand-white); font-weight: 600;">Less noise. Faster alignment. One recruiting read per athlete.</p>
+    <p class="hero-tag">EDGE3 does the gathering.<br>Coaches make the call.</p>
+    <p class="lede" style="color: var(--brand-white); font-weight: 600;">Less time gathering. More time evaluating.</p>
   </div>
 </header>
 
@@ -298,12 +321,12 @@
 
   <!-- ===== Agentic centerpiece (refined) ===== -->
   <section class="agentic-section" data-aos="fade-up">
-    <div class="ag-eyebrow">How EDGE3 fits into your evaluation</div>
-    <h2 class="ag-title">AI does the gathering.<br>Coaches make the call.</h2>
-    <p class="ag-sub">Coaches know what they want. EDGE3 gets you there faster. With more confidence.</p>
+    <div class="ag-eyebrow">Built around how your staff already evaluates</div>
+    <h2 class="ag-title">EDGE3 Truth Intelligence Models<br>work the way you recruit.</h2>
+    <p class="ag-sub">Coaches know what they want. EDGE3 gets you there faster, with more confidence, and without changing how your room works.</p>
 
     <div class="ag-callout">
-      <p><em>EDGE3 surfaces what matters across all sources, then steps back.</em> The decision stays in the staff room.</p>
+      <p><em>EDGE3 surfaces what matters across every source, then steps back.</em> The decision stays in the staff room.</p>
     </div>
 
     <div class="ag-agents-centerpiece">
@@ -322,29 +345,29 @@
 
   <hr class="section-separator">
 
-  <!-- ===== Macro vs Micro framework ===== -->
+  <!-- ===== Fit in the Room (replaces Macro vs Micro) ===== -->
   <section class="mm-section" data-aos="fade-up" style="margin-bottom: 56px;">
-    <div class="mm-eyebrow">How coaches actually recruit</div>
-    <h2 class="mm-title">Macro stars. Micro fit. EDGE3 sells the micro.</h2>
-    <p class="mm-sub">Most platforms sell macro evaluation. Stars. Generic projections. Big lists. Coaches recruit on micro: system fit, scheme alignment, position projection, room dynamics, institutional needs.</p>
+    <div class="mm-eyebrow">Fit in the room</div>
+    <h2 class="mm-title">Fit to Purpose AI.</h2>
+    <p class="mm-sub">Same recruit. Different room. Different read. EDGE3 grades against your scheme, your depth chart, your developmental history. Not against a public list.</p>
 
     <div class="mm-grid">
       <div class="mm-card macro">
-        <span class="mm-tag">Macro evaluation</span>
-        <h3>Stars and rankings.</h3>
-        <p>What 247, On3, Rivals, and most recruiting databases sell. Public rating. National lens. Same number for every program looking.</p>
-        <p class="mm-example">A 5-star linebacker is a 5-star to every list. The list doesn&rsquo;t tell you if he&rsquo;s a 5-star <em>for you</em>.</p>
+        <span class="mm-tag">Program A &middot; The same recruit</span>
+        <h3>Spread tempo. Open quarter window. Young room.</h3>
+        <p>Scheme rewards quick reads and athletic windows. Position room thins after this cycle. Coach history shows steady development of this profile.</p>
+        <p class="mm-example"><strong>Fit:</strong> Strong &middot; <strong>Trajectory:</strong> Climbing &middot; <strong>Read:</strong> <span style="color: var(--brand-green); font-weight: 800;">GREEN</span></p>
       </div>
       <div class="mm-card micro">
-        <span class="mm-tag">Micro fit evaluation</span>
-        <h3>Fit to your room.</h3>
-        <p>How EDGE3 reads every athlete. Your system. Your scheme. Your current depth chart. Your developmental history. Your conference.</p>
-        <p class="mm-example">A 5-star at Program A can be a 2-star at Program B. EDGE3 tells you which one he is <em>for you</em>.</p>
+        <span class="mm-tag">Program B &middot; The same recruit</span>
+        <h3>Pro-style. Veteran in front. Deep room.</h3>
+        <p>Scheme rewards experience and timing. Veteran starter is locked in for two more seasons. Limited developmental snaps available in the projection window.</p>
+        <p class="mm-example"><strong>Fit:</strong> Marginal today &middot; <strong>Trajectory:</strong> Holding &middot; <strong>Read:</strong> <span style="color: var(--yellow); font-weight: 800;">YELLOW</span></p>
       </div>
     </div>
 
     <div class="mm-anchor">
-      <p><em>Fit to Purpose AI.</em> Built for the call you actually have to make.</p>
+      <p><em>The same recruit doesn&rsquo;t have the same read.</em> Your room is the call.</p>
     </div>
   </section>
 
@@ -353,19 +376,19 @@
   <!-- ===== Before / After (staff side) ===== -->
   <section class="ba-section" data-aos="fade-up" style="margin-bottom: 56px;">
     <div class="ba-eyebrow">Before EDGE3 / After EDGE3</div>
-    <h2 class="ba-title">What changes in your staff meeting.</h2>
+    <h2 class="ba-title">How EDGE3 fits into your staff.</h2>
     <p class="ba-sub">The recruiting workload doesn&rsquo;t shrink. The decision time does.</p>
 
     <div class="ba-grid">
       <div class="ba-card before">
         <span class="ba-tag">Before EDGE3</span>
-        <h3>Staff meeting opens. Where do we land?</h3>
+        <h3>The staff is moving fast. The data is not.</h3>
         <ul>
-          <li>Ten reads from ten sources, none of them aligned</li>
-          <li>Analyst sends a sheet. PC has film. HC has a relationship</li>
-          <li>Stars say one thing. The portal says another. The film says a third</li>
-          <li>Retention risk is a gut call</li>
-          <li>The recruit is discussed three more times before a decision</li>
+          <li>You don&rsquo;t see a transfer coming until he hits the portal</li>
+          <li>Ten data sources on one recruit. Each one says something different. None of them line up</li>
+          <li>Roster decisions on a clock. Fragmented intel. The promise that AI will sort it out</li>
+          <li>Red flags surface after the offer, not before</li>
+          <li>The recruit gets debated three more times before a decision</li>
         </ul>
       </div>
       <div class="ba-arrow" aria-hidden="true">&rarr;</div>
@@ -373,13 +396,44 @@
         <span class="ba-tag">After EDGE3</span>
         <h3>One read per recruit. Color-coded. Decision-ready.</h3>
         <ul>
-          <li>Combined R/Y/G across fit, trajectory, retention, and risk</li>
-          <li>Same model. Three role views. Analyst, PC, HC</li>
-          <li>Every signal traceable. Every score overridable</li>
-          <li>Retention probability with the drivers behind it</li>
+          <li>Transfer risk surfaces before the portal opens. You move first</li>
+          <li>One unified read per recruit. Every signal traceable. Every score overridable</li>
+          <li>Same model. Three role views. Analyst, PC, HC. Decision-ready in one pass</li>
+          <li>Red shows up early. You address it while there&rsquo;s still time</li>
           <li>The recruit gets the call. Not the deferral</li>
         </ul>
       </div>
+    </div>
+  </section>
+
+  <hr class="section-separator">
+
+  <!-- ===== R/Y/G explainer ===== -->
+  <section class="ryg-section" data-aos="fade-up" style="margin-bottom: 56px;">
+    <div class="ryg-eyebrow">What red, yellow, green actually mean</div>
+    <h2 class="ryg-title">Coaches always want to address red earlier.</h2>
+    <p class="ryg-sub">Every EDGE3 read collapses fit, trajectory, retention, and risk into one color. So your staff knows where to spend the next conversation.</p>
+
+    <div class="ryg-grid">
+      <div class="ryg-card red">
+        <div class="ryg-label">Red &middot; Act now</div>
+        <h3 class="ryg-head">The friction is real.</h3>
+        <p class="ryg-body">Get ahead of it before the portal, before the offer, before the call. The earlier red surfaces, the more time you have to move.</p>
+      </div>
+      <div class="ryg-card yellow">
+        <div class="ryg-label">Yellow &middot; Watch</div>
+        <h3 class="ryg-head">Signal is mixed.</h3>
+        <p class="ryg-body">Worth a second look. Verify with film, conversation, and what your room is already seeing. Don&rsquo;t leave it on the board.</p>
+      </div>
+      <div class="ryg-card green">
+        <div class="ryg-label">Green &middot; Solid</div>
+        <h3 class="ryg-head">Fit aligns with how you win.</h3>
+        <p class="ryg-body">Scheme, room, trajectory, retention all reading clean. Move the conversation forward with confidence.</p>
+      </div>
+    </div>
+
+    <div class="ryg-anchor">
+      <p><em>EDGE3 surfaces red early.</em> So your staff acts, not reacts.</p>
     </div>
   </section>
 
@@ -413,12 +467,15 @@
             <li>In-house scouting reports</li>
             <li>Visit + family relationship intel</li>
             <li>Practice + weight-room evaluations</li>
-            <li>Sport-specific feeds</li>
+            <li>Medical + training-room reports</li>
+            <li>Strength + conditioning data</li>
+            <li>Anything else your staff already runs on</li>
           </ul>
         </div>
       </div>
 
       <div class="be-tagline">
+        <p class="be-close" style="margin: 0 0 14px;">EDGE3 is agnostic. Sign in. Bring whatever your staff already runs on. EDGE3 builds the decision system around you.</p>
         <p class="be-close">Old school evaluation. New school speed. The call still belongs to the staff.</p>
       </div>
     </div>
