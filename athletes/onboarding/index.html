@@ -35,13 +35,49 @@
   .crumb a { color: var(--brand-text); text-decoration: none; }
   .crumb .sep { margin: 0 8px; color: var(--brand-muted); }
 
-  main { max-width: 720px; margin: 0 auto; padding: 56px 24px 64px; }
+  main { max-width: 1100px; margin: 0 auto; padding: 56px 24px 64px; }
+  .form-wrap { max-width: 720px; margin: 0 auto; }
 
   .eyebrow { display: inline-block; background: rgba(26,184,116,0.18); border: 1px solid rgba(26,184,116,0.40); padding: 5px 12px; border-radius: 18px; font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; color: var(--brand-green); margin-bottom: 18px; }
   h1 { margin: 0 0 14px; font-size: clamp(28px, 5vw, 38px); line-height: 1.15; font-weight: 800; letter-spacing: -0.02em; color: var(--brand-white); }
   p.lede { margin: 0 0 28px; font-size: clamp(15px, 2vw, 17px); line-height: 1.55; color: #C7D3E6; }
 
   .card { background: linear-gradient(135deg, var(--brand-dark-2), var(--brand-dark-3)); border: 1px solid var(--brand-line); border-radius: 14px; padding: 28px 28px 26px; }
+
+  /* Wallet preview tiles */
+  .wallet-previews { margin: 0 0 44px; }
+  .wp-eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 1.6px; font-weight: 800; color: var(--yellow); margin-bottom: 10px; }
+  .wp-title { font-size: clamp(22px, 3.5vw, 28px); font-weight: 800; letter-spacing: -0.015em; color: var(--brand-white); margin: 0 0 8px; line-height: 1.2; }
+  .wp-sub { font-size: 15px; line-height: 1.55; color: #C7D3E6; margin: 0 0 26px; max-width: 720px; }
+  .wp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 900px) { .wp-grid { grid-template-columns: 1fr; } }
+  .wp-card { background: var(--brand-dark-2); border: 1px solid var(--brand-line); border-radius: 14px; padding: 20px 22px 18px; display: flex; flex-direction: column; text-decoration: none; color: var(--brand-text); transition: transform 0.15s, border-color 0.15s; }
+  .wp-card:hover { transform: translateY(-2px); text-decoration: none; }
+  .wp-card.hs { border-top: 3px solid var(--brand-blue); }
+  .wp-card.transfer { border-top: 3px solid var(--brand-green); }
+  .wp-card.nil { border-top: 3px solid var(--yellow); }
+  .wp-card.hs:hover { border-color: var(--brand-blue); }
+  .wp-card.transfer:hover { border-color: var(--brand-green); }
+  .wp-card.nil:hover { border-color: var(--yellow); }
+  .wp-tag { display: inline-block; align-self: flex-start; font-size: 10.5px; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 700; padding: 4px 10px; border-radius: 6px; margin-bottom: 12px; }
+  .wp-card.hs .wp-tag { background: rgba(59,130,246,0.16); color: var(--brand-blue); border: 1px solid rgba(59,130,246,0.30); }
+  .wp-card.transfer .wp-tag { background: rgba(26,184,116,0.16); color: var(--brand-green); border: 1px solid rgba(26,184,116,0.30); }
+  .wp-card.nil .wp-tag { background: rgba(232,179,57,0.14); color: var(--yellow); border: 1px solid rgba(232,179,57,0.30); }
+  .wp-name { font-size: 18px; font-weight: 800; color: var(--brand-white); letter-spacing: -0.01em; margin-bottom: 4px; }
+  .wp-meta { font-size: 12.5px; color: var(--brand-muted); margin-bottom: 14px; }
+  .wp-sections { padding: 12px 0; border-top: 1px dashed var(--brand-line); border-bottom: 1px dashed var(--brand-line); margin-bottom: 14px; }
+  .wp-sections-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--brand-muted); font-weight: 700; margin-bottom: 8px; }
+  .wp-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+  .wp-chip { font-size: 11.5px; font-weight: 600; padding: 4px 10px; border-radius: 12px; background: rgba(255,255,255,0.04); border: 1px solid var(--brand-line); color: var(--brand-text); }
+  .wp-card.hs .wp-chip.key { background: rgba(59,130,246,0.10); border-color: rgba(59,130,246,0.30); color: #B7CDFF; }
+  .wp-card.transfer .wp-chip.key { background: rgba(26,184,116,0.10); border-color: rgba(26,184,116,0.30); color: #95E5BD; }
+  .wp-card.nil .wp-chip.key { background: rgba(232,179,57,0.10); border-color: rgba(232,179,57,0.30); color: #F2D78D; }
+  .wp-desc { font-size: 13.5px; line-height: 1.55; color: #C7D3E6; flex: 1; margin: 0 0 12px; }
+  .wp-cta { font-size: 12.5px; font-weight: 800; letter-spacing: 0.02em; padding-top: 10px; border-top: 1px solid var(--brand-line); }
+  .wp-card.hs .wp-cta { color: var(--brand-blue); }
+  .wp-card.transfer .wp-cta { color: var(--brand-green); }
+  .wp-card.nil .wp-cta { color: var(--yellow); }
+  .wp-divider { margin: 48px 0 40px; height: 1px; background: linear-gradient(90deg, transparent, var(--brand-line), transparent); border: 0; }
 
   form { display: flex; flex-direction: column; gap: 16px; }
   .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
@@ -99,6 +135,72 @@
 
 <main>
 
+  <!-- Wallet preview tiles - what's inside before they fill out the form -->
+  <div class="wallet-previews">
+    <div class="wp-eyebrow">What&rsquo;s inside an EDGE3 Wallet</div>
+    <h1 class="wp-title">See what coaches, families, and brands actually see.</h1>
+    <p class="wp-sub">Three live wallets. Same engine. Different focus. Click in to see the read your wallet will carry into every conversation.</p>
+
+    <div class="wp-grid">
+      <a class="wp-card hs" href="../wallets/chase-ames/">
+        <span class="wp-tag">HS Recruit</span>
+        <div class="wp-name">Chase Ames</div>
+        <div class="wp-meta">QB &middot; Class of 2027</div>
+        <div class="wp-sections">
+          <div class="wp-sections-label">Key sections</div>
+          <div class="wp-chips">
+            <span class="wp-chip key">Fit Score</span>
+            <span class="wp-chip">QB traits</span>
+            <span class="wp-chip key">Coach reads</span>
+            <span class="wp-chip">Film</span>
+            <span class="wp-chip">Program fit</span>
+          </div>
+        </div>
+        <p class="wp-desc">The wallet that speaks to coaches. Profile, film, traits, real coach reviews, and program fit in one place.</p>
+        <div class="wp-cta">View live wallet &rarr;</div>
+      </a>
+
+      <a class="wp-card transfer" href="../wallets/jael-martin/">
+        <span class="wp-tag">Transfer Portal</span>
+        <div class="wp-name">Jael Martin</div>
+        <div class="wp-meta">Basketball &middot; LMU to CSUN</div>
+        <div class="wp-sections">
+          <div class="wp-sections-label">Key sections</div>
+          <div class="wp-chips">
+            <span class="wp-chip key">Pre-portal fit list</span>
+            <span class="wp-chip">Assessment</span>
+            <span class="wp-chip key">Trajectory</span>
+            <span class="wp-chip">Coach reads</span>
+            <span class="wp-chip">Risk Index</span>
+          </div>
+        </div>
+        <p class="wp-desc">Don&rsquo;t enter the portal without a plan. The wallet built before he ever entered.</p>
+        <div class="wp-cta">View live wallet &rarr;</div>
+      </a>
+
+      <a class="wp-card nil" href="../wallets/takari-hickle/">
+        <span class="wp-tag">NIL</span>
+        <div class="wp-name">Takari Hickle</div>
+        <div class="wp-meta">Oregon State &middot; DL/Edge</div>
+        <div class="wp-sections">
+          <div class="wp-sections-label">Key sections</div>
+          <div class="wp-chips">
+            <span class="wp-chip key">NIL Lens</span>
+            <span class="wp-chip">Brand wishlist</span>
+            <span class="wp-chip key">Deal templates</span>
+            <span class="wp-chip">Content-ready</span>
+            <span class="wp-chip">Adobe Express</span>
+          </div>
+        </div>
+        <p class="wp-desc">Live NIL wallet. Brand wishlist, deal templates, content-ready creator tools.</p>
+        <div class="wp-cta">View live wallet &rarr;</div>
+      </a>
+    </div>
+  </div>
+
+  <hr class="wp-divider">
+
+  <div class="form-wrap">
   <span class="eyebrow">Wallet Onboarding</span>
   <h1>Build your EDGE3 wallet today.</h1>
   <p class="lede">Tell us where you are in your recruiting or NIL journey. We&rsquo;ll match you to the right onboarding survey and start building the wallet that speaks for you when you&rsquo;re not in the room.</p>
@@ -174,6 +276,7 @@
       <li>Your wallet updates continuously as new context comes in. You own it.</li>
     </ol>
   </div>
+  </div><!-- /.form-wrap -->
 
 </main>
 
